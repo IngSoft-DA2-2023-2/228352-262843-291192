@@ -30,5 +30,13 @@ namespace BuildingManagerDomainTest
             Admin admin = new Admin { Lastname = lastname };
             Assert.AreEqual(lastname, admin.Lastname);
         }
+
+        [TestMethod]
+        public void AdminEmailTest()
+        {
+            string email = "abc@example.com";
+            Admin admin = new Admin { Email = email };
+            Assert.AreEqual(email, admin.Email);
+        }
     }
 }
