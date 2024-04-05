@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerApi", "BuildingManagerApi\BuildingManagerApi.csproj", "{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerApi", "BuildingManagerApi\BuildingManagerApi.csproj", "{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerApiTest", "BuildingManagerApiTest\BuildingManagerApiTest.csproj", "{09471835-DA6A-4119-974B-CC1C2EE6A505}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerILogic", "BuildingManagerILogic\BuildingManagerILogic.csproj", "{6BB93EB8-4315-4575-BBA0-069B6C6531D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerDomain", "BuildingManagerDomain\BuildingManagerDomain.csproj", "{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerModels", "BuildingManagerModels\BuildingManagerModels.csproj", "{3654A562-BE01-4AB7-BC5E-A669DD1518AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerDomainTest", "BuildingManagerDomainTest\BuildingManagerDomainTest.csproj", "{593A3950-F867-4146-96F1-F36D100077EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +25,31 @@ Global
 		{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09471835-DA6A-4119-974B-CC1C2EE6A505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09471835-DA6A-4119-974B-CC1C2EE6A505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09471835-DA6A-4119-974B-CC1C2EE6A505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09471835-DA6A-4119-974B-CC1C2EE6A505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BB93EB8-4315-4575-BBA0-069B6C6531D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BB93EB8-4315-4575-BBA0-069B6C6531D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BB93EB8-4315-4575-BBA0-069B6C6531D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BB93EB8-4315-4575-BBA0-069B6C6531D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3654A562-BE01-4AB7-BC5E-A669DD1518AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3654A562-BE01-4AB7-BC5E-A669DD1518AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3654A562-BE01-4AB7-BC5E-A669DD1518AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3654A562-BE01-4AB7-BC5E-A669DD1518AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{593A3950-F867-4146-96F1-F36D100077EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{593A3950-F867-4146-96F1-F36D100077EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{593A3950-F867-4146-96F1-F36D100077EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{593A3950-F867-4146-96F1-F36D100077EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6911D4BD-9943-4489-959E-3399A2566046}
 	EndGlobalSection
 EndGlobal
