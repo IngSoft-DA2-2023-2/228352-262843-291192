@@ -22,5 +22,13 @@ namespace BuildingManagerDomainTest
             Admin admin = new Admin { Name = name };
             Assert.AreEqual(name, admin.Name);
         }
+
+        [TestMethod]
+        public void AdminLastnameTest()
+        {
+            string lastname = "Doe";
+            Admin admin = new Admin { Lastname = lastname };
+            Assert.AreEqual(lastname, admin.Lastname);
+        }
     }
 }
