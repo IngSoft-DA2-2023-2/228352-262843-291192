@@ -2,6 +2,7 @@
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -19,8 +20,15 @@ namespace BuildingManagerApi.Controllers
         [HttpPost]
         public IActionResult CreateAdmin([FromBody] CreateAdminRequest adminRequest)
         {
-            CreateAdminResponse createAdminResponse = new CreateAdminResponse(_adminLogic.CreateAdmin(adminRequest.ToEntity()));
-            return CreatedAtAction(nameof(CreateAdmin), createAdminResponse);
+            try
+            {
+                CreateAdminResponse createAdminResponse = new CreateAdminResponse(_adminLogic.CreateAdmin(adminRequest.ToEntity()));
+                return CreatedAtAction(nameof(CreateAdmin), createAdminResponse);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest();
+            }
         }
     }
 }

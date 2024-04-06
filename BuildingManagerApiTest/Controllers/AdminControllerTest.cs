@@ -38,7 +38,7 @@ namespace BuildingManagerApiTest.Controllers
 
         }
         [TestMethod]
-        public void TestCreateAdmin_Ok()
+        public void CreateAdmin_Ok()
         {
             var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
             mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Returns(_admin);
@@ -52,6 +52,16 @@ namespace BuildingManagerApiTest.Controllers
             Assert.AreEqual(_createAdminResponse, content);
         }
 
-
+        [TestMethod]
+        public void CreateAdminWithMissingField()
+        {
+            var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
+            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new ArgumentException());
+            var adminController = new AdminController(mockAdminLogic.Object);
+            var result = adminController.CreateAdmin(_createAdminRequest);
+     
+            mockAdminLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
     }
 }
