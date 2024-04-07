@@ -16,6 +16,14 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void BuildingManagerIdTest()
+        {
+            Guid managerId = Guid.NewGuid();
+            Building building = new Building { ManagerId = managerId };
+            Assert.AreEqual(managerId, building.ManagerId);
+        }
+
+        [TestMethod]
         public void BuildingNameTest()
         {
             string name = "Building 1";
