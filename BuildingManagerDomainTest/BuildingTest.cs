@@ -26,7 +26,7 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void BuildingAddressTest()
         {
-            string address = "Adress 1";
+            string address = "Address 1";
             Building building = new Building { Address = address };
             Assert.AreEqual(address, building.Address);
         }
