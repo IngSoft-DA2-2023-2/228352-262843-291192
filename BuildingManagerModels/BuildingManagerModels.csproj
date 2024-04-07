@@ -44,7 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Inner\CreateAdminRequest.cs" />
+    <Compile Include="Inner\CreateBuildingRequest.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
+    <Compile Include="Outer\CreateBuildingResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

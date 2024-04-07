@@ -1,0 +1,63 @@
+﻿using BuildingManagerApi.Controllers;
+using BuildingManagerDomain.Entities;
+using BuildingManagerILogic;
+using BuildingManagerModels.Inner;
+using BuildingManagerModels.Outer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BuildingManagerApiTest.Controllers
+{
+    [TestClass]
+    public class BuildingControllerTest
+    {
+        private Building _building;
+        private CreateBuildingRequest _createBuildingRequest;
+        private CreateBuildingResponse _createBuildingResponse;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _building = new Building
+            {
+                Id = new Guid(),
+                ManagerId = new Guid(),
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000
+            };
+            _createBuildingRequest = new CreateBuildingRequest
+            {
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000
+            };
+            _createBuildingResponse = new CreateBuildingResponse(_building);
+        }
+
+        [TestMethod]
+        public void CreateBuilding_Ok()
+        {
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+
+            var result = buildingController.CreateBuilding(_createBuildingRequest);
+            var createdAtActionResult = result as CreatedAtActionResult;
+            var content = createdAtActionResult.Value as CreateBuildingResponse;
+
+            mockBuildingLogic.VerifyAll();
+            Assert.AreEqual(_createBuildingResponse, content);
+        }
+    }
+}
