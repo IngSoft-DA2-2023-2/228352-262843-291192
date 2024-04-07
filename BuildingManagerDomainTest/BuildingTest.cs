@@ -38,5 +38,13 @@ namespace BuildingManagerDomainTest
             Building building = new Building { Location = location };
             Assert.AreEqual(location, building.Location);
         }
+
+        [TestMethod]
+        public void BuildingConstructionCompanyTest()
+        {
+            string constructionCompany = "Company 1";
+            Building building = new Building { ConstructionCompany = constructionCompany };
+            Assert.AreEqual(constructionCompany, building.ConstructionCompany);
+        }
     }
 }
