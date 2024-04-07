@@ -14,5 +14,13 @@ namespace BuildingManagerDomainTest
             Building building = new Building { Id = buildingId };
             Assert.AreEqual(buildingId, building.Id);
         }
+
+        [TestMethod]
+        public void BuildingNameTest()
+        {
+            string name = "Building 1";
+            Building building = new Building { Name = name };
+            Assert.AreEqual(name, building.Name);
+        }
     }
 }
