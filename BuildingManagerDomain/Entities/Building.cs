@@ -9,5 +9,6 @@ namespace BuildingManagerDomain.Entities
         public string Address { get; set; }
         public string Location { get; set; }
         public string ConstructionCompany { get; set; }
+        public decimal CommonExpenses { get; set; }
     }
 }

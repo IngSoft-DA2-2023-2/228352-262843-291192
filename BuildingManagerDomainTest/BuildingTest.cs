@@ -46,5 +46,13 @@ namespace BuildingManagerDomainTest
             Building building = new Building { ConstructionCompany = constructionCompany };
             Assert.AreEqual(constructionCompany, building.ConstructionCompany);
         }
+
+        [TestMethod]
+        public void BuildingCommonExpensesTest()
+        {
+            decimal commonExpenses = 1000;
+            Building building = new Building { CommonExpenses = commonExpenses };
+            Assert.AreEqual(commonExpenses, building.CommonExpenses);
+        }
     }
 }
