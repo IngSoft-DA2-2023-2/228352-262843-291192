@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Admin.cs" />
+    <Compile Include="Entities\Apartment.cs" />
     <Compile Include="Entities\Building.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

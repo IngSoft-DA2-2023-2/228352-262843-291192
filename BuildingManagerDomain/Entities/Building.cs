@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BuildingManagerDomain.Entities
 {
@@ -10,5 +11,6 @@ namespace BuildingManagerDomain.Entities
         public string Location { get; set; }
         public string ConstructionCompany { get; set; }
         public decimal CommonExpenses { get; set; }
+        public List<Apartment> Apartments { get; set; } = new List<Apartment>();
     }
 }

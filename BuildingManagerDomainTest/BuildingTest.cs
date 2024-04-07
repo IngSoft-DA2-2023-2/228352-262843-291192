@@ -54,5 +54,16 @@ namespace BuildingManagerDomainTest
             Building building = new Building { CommonExpenses = commonExpenses };
             Assert.AreEqual(commonExpenses, building.CommonExpenses);
         }
+
+        [TestMethod]
+        public void BuildingApartmentsTest()
+        {
+            Building building = new Building();
+
+            Apartment apartment = new Apartment();
+            building.Apartments.Add(apartment);
+
+            Assert.AreEqual(1, building.Apartments.Count);
+        }
     }
 }
