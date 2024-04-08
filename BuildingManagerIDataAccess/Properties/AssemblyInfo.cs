@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("BuildingManagerLogic")]
+[assembly: AssemblyTitle("BuildingManagerIDataAccess")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP")]
-[assembly: AssemblyProduct("BuildingManagerLogic")]
+[assembly: AssemblyProduct("BuildingManagerIDataAccess")]
 [assembly: AssemblyCopyright("Copyright © HP 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
-[assembly: Guid("ea8dffc8-28ce-44c1-9360-3946ec8f0530")]
+[assembly: Guid("8e60e332-954e-4573-9df9-c169ce3c3d5e")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //
