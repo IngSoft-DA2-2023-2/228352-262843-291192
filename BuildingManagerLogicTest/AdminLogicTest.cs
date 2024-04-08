@@ -4,6 +4,8 @@ using Moq;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerLogic;
+using BuildingManagerIDataAccess.Exceptions;
+using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogicTest
 {
@@ -36,6 +38,28 @@ namespace BuildingManagerLogicTest
 
             adminRespositoryMock.VerifyAll();
             Assert.AreEqual(_admin, result);
+
+        }
+
+
+        [TestMethod]
+        public void CreateAdminWithAlreadyInUseEmail()
+        {
+            var adminRespositoryMock = new Mock<IAdminRepository>(MockBehavior.Strict);
+            adminRespositoryMock.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new EmailDuplicatedException());
+            var adminLogic = new AdminLogic(adminRespositoryMock.Object);
+            Exception exception = null;
+            try
+            {
+                adminLogic.CreateAdmin(_admin);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            adminRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(EmailAlreadyInUseException));
 
         }
     }

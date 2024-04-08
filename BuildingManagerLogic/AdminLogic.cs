@@ -1,7 +1,8 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
-using System;
+using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogic
 {
@@ -14,7 +15,14 @@ namespace BuildingManagerLogic
         }
         public Admin CreateAdmin(Admin admin)
         {
-           return _adminRepository.CreateAdmin(admin);
+            try
+            {
+                return _adminRepository.CreateAdmin(admin);
+            }
+            catch(EmailDuplicatedException e)
+            {
+                throw new EmailAlreadyInUseException(e);
+            }
         }
     }
 }
