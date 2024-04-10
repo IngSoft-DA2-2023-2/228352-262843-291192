@@ -1,4 +1,4 @@
-using BuildingManagerDomain.Entities;
+﻿using BuildingManagerDomain.Entities;
 using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerModels.Inner
@@ -8,7 +8,8 @@ namespace BuildingManagerModels.Inner
         private string _name;
         private string _lastname;
         private string _email;
-        public string Password { get; set; }
+        private string _password;
+
         public string Name
         {
             get { return _name; }
@@ -43,6 +44,18 @@ namespace BuildingManagerModels.Inner
                     throw new InvalidArgumentException("email");
                 }
                 _email = value;
+            }
+        }
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new InvalidArgumentException("password");
+                }
+                _password = value;
             }
         }
 

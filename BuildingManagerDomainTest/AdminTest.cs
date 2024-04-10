@@ -109,5 +109,26 @@ namespace BuildingManagerDomainTest
             }
             Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
+
+        [TestMethod]
+        public void CreateAdminWithoutPassword()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateAdminRequest()
+                {
+                    Name = "John",
+                    Lastname = "Doe",
+                    Email = "abc@email.com",
+                    Password = null
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
     }
 }
