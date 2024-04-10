@@ -22,5 +22,13 @@ namespace BuildingManagerDomainTest
             Invitation invitation = new() { Email = email };
             Assert.AreEqual(email, invitation.Email);
         }
+
+        [TestMethod]
+        public void InvitationNameTest()
+        {
+            string name = "John";
+            Invitation invitation = new() { Name = name };
+            Assert.AreEqual(name, invitation.Name);
+        }
     }
 }
