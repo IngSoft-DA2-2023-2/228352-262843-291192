@@ -1,13 +1,26 @@
-﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Entities;
+using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerModels.Inner
 {
     public class CreateAdminRequest
     {
-        public string Name { get; set; }
+        private string _name;
         public string Lastname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new InvalidArgumentException("name");
+                }
+                _name = value;
+            }
+        }
 
         public Admin ToEntity()
         {

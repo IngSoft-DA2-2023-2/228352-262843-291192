@@ -46,5 +46,26 @@ namespace BuildingManagerDomainTest
             Admin admin = new Admin { Password = password };
             Assert.AreEqual(password, admin.Password);
         }
+
+        [TestMethod]
+        public void CreateAdminWithoutName()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateAdminRequest()
+                {
+                    Name = null,
+                    Lastname = "Doe",
+                    Email = "abc@email.com",
+                    Password = "password"
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
     }
 }
