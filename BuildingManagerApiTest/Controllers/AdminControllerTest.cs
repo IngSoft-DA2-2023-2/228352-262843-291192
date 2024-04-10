@@ -2,6 +2,7 @@
 using BuildingManagerDomain.Entities;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,18 @@ namespace BuildingManagerApiTest.Controllers
             var adminController = new AdminController(mockAdminLogic.Object);
             var result = adminController.CreateAdmin(_createAdminRequest);
      
+            mockAdminLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void CreateAdminWithNullAttribute()
+        {
+            var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
+            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new InvalidArgumentException("name"));
+            var adminController = new AdminController(mockAdminLogic.Object);
+            var result = adminController.CreateAdmin(_createAdminRequest);
+
             mockAdminLogic.VerifyAll();
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }
