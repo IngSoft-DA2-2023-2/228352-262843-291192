@@ -30,5 +30,13 @@ namespace BuildingManagerDomainTest
             Invitation invitation = new() { Name = name };
             Assert.AreEqual(name, invitation.Name);
         }
+
+        [TestMethod]
+        public void InvitationDeadlineTest()
+        {
+            Int64 deadline = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            Invitation invitation = new() { Deadline = deadline };
+            Assert.AreEqual(deadline, invitation.Deadline);
+        }
     }
 }
