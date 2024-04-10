@@ -63,7 +63,7 @@ namespace BuildingManagerApiTest.Controllers
             var result = adminController.CreateAdmin(_createAdminRequest);
      
             mockAdminLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace BuildingManagerApiTest.Controllers
             var result = adminController.CreateAdmin(_createAdminRequest);
 
             mockAdminLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
     }
 }

@@ -26,13 +26,9 @@ namespace BuildingManagerApi.Controllers
                 CreateAdminResponse createAdminResponse = new CreateAdminResponse(_adminLogic.CreateAdmin(adminRequest.ToEntity()));
                 return CreatedAtAction(nameof(CreateAdmin), createAdminResponse);
             }
-            catch (EmailAlreadyInUseException ex)
+            catch (Exception ex) when (ex is EmailAlreadyInUseException || ex is InvalidArgumentException)
             {
-                return BadRequest();
-            }
-            catch(InvalidArgumentException ex)
-            {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
         }
     }

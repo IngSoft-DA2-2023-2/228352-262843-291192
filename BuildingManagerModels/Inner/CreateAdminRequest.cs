@@ -15,7 +15,7 @@ namespace BuildingManagerModels.Inner
             get { return _name; }
             set
             {
-                if (value == null)
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new InvalidArgumentException("name");
                 }
@@ -27,7 +27,7 @@ namespace BuildingManagerModels.Inner
             get { return _lastname; }
             set
             {
-                if (value == null)
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new InvalidArgumentException("lastname");
                 }
@@ -39,7 +39,7 @@ namespace BuildingManagerModels.Inner
             get { return _email; }
             set
             {
-                if (value == null)
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new InvalidArgumentException("email");
                 }
@@ -51,7 +51,7 @@ namespace BuildingManagerModels.Inner
             get { return _password; }
             set
             {
-                if (value == null)
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new InvalidArgumentException("password");
                 }
