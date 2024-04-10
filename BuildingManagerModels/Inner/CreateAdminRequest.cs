@@ -7,7 +7,7 @@ namespace BuildingManagerModels.Inner
     {
         private string _name;
         private string _lastname;
-        public string Email { get; set; }
+        private string _email;
         public string Password { get; set; }
         public string Name
         {
@@ -31,6 +31,18 @@ namespace BuildingManagerModels.Inner
                     throw new InvalidArgumentException("lastname");
                 }
                 _lastname = value;
+            }
+        }
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new InvalidArgumentException("email");
+                }
+                _email = value;
             }
         }
 

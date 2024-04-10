@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using BuildingManagerDomain.Entities;
+using BuildingManagerModels.CustomExceptions;
+using BuildingManagerModels.Inner;
 
 namespace BuildingManagerDomainTest
 {
@@ -78,6 +79,27 @@ namespace BuildingManagerDomainTest
                     Name = "John",
                     Lastname = null,
                     Email = "abc@email.com",
+                    Password = "password"
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateAdminWithoutEmail()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateAdminRequest()
+                {
+                    Name = "John",
+                    Lastname = "Doe",
+                    Email = null,
                     Password = "password"
                 };
             }
