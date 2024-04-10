@@ -6,7 +6,7 @@ namespace BuildingManagerModels.Inner
     public class CreateAdminRequest
     {
         private string _name;
-        public string Lastname { get; set; }
+        private string _lastname;
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name
@@ -19,6 +19,18 @@ namespace BuildingManagerModels.Inner
                     throw new InvalidArgumentException("name");
                 }
                 _name = value;
+            }
+        }
+        public string Lastname
+        {
+            get { return _lastname; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new InvalidArgumentException("lastname");
+                }
+                _lastname = value;
             }
         }
 
