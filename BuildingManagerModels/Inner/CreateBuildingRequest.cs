@@ -66,7 +66,7 @@ namespace BuildingManagerModels.Inner
             get { return _commonExpenses; }
             set
             {
-                if (value == 0)
+                if (value <= 0)
                 {
                     throw new InvalidArgumentException("commonExpenses");
                 }
