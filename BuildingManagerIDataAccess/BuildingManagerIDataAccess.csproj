@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\EmailDuplicatedException.cs" />
     <Compile Include="IAdminRepository.cs" />
+    <Compile Include="IBuildingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
