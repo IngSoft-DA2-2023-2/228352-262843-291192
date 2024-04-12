@@ -98,5 +98,28 @@ namespace BuildingManagerDomainTest
 
             Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
+
+        [TestMethod]
+        public void CreateBuildingWithoutAddress()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutAddress = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = null,
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 1000
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
     }
 }

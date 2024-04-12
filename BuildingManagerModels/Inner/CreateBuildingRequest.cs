@@ -26,7 +26,7 @@ namespace BuildingManagerModels.Inner
         {
             get { return _address; }
             set
-            {
+            { 
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new InvalidArgumentException("address");
