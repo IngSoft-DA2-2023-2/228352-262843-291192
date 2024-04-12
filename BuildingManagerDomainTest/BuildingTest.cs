@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using BuildingManagerDomain.Entities;
+using BuildingManagerModels.Inner;
+using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerDomainTest
 {
@@ -72,6 +74,29 @@ namespace BuildingManagerDomainTest
             building.Apartments.Add(apartment);
 
             Assert.AreEqual(1, building.Apartments.Count);
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithoutName()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateBuildingRequest()
+                {
+                    Name = null,
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 1000
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
     }
 }

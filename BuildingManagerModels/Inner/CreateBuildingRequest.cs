@@ -1,4 +1,5 @@
 ﻿using BuildingManagerDomain.Entities;
+using BuildingManagerModels.CustomExceptions;
 using System;
 using System.Collections.Generic;
 
@@ -6,8 +7,33 @@ namespace BuildingManagerModels.Inner
 {
     public class CreateBuildingRequest
     {
-        public string Name { get; set; }
-        public string Address { get; set; }
+        private string _name;
+        private string _address;
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new InvalidArgumentException("name");
+                }
+                _name = value;
+            }
+        }
+        public string Address
+        {
+            get { return _address; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new InvalidArgumentException("address");
+                }
+                _address = value;
+            }
+        }
         public string Location { get; set; }
         public string ConstructionCompany { get; set; }
         public decimal CommonExpenses { get; set; }
