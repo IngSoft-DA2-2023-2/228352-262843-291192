@@ -11,6 +11,7 @@ namespace BuildingManagerModels.Inner
         private string _address;
         private string _location;
         private string _constructionCompany;
+        private decimal _commonExpenses;
 
         public string Name
         {
@@ -60,7 +61,18 @@ namespace BuildingManagerModels.Inner
                 _constructionCompany = value;
             }
         }
-        public decimal CommonExpenses { get; set; }
+        public decimal CommonExpenses
+        {
+            get { return _commonExpenses; }
+            set
+            {
+                if (value == 0)
+                {
+                    throw new InvalidArgumentException("commonExpenses");
+                }
+                _commonExpenses = value;
+            }
+        }
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
 
         public Building ToEntity()
