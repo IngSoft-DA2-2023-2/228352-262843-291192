@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using BuildingManagerDomain.Entities;
+using BuildingManagerModels.CustomExceptions;
+using BuildingManagerModels.Inner;
 
 namespace BuildingManagerDomainTest
 {
@@ -45,6 +46,89 @@ namespace BuildingManagerDomainTest
             string password = "pass123";
             Admin admin = new Admin { Password = password };
             Assert.AreEqual(password, admin.Password);
+        }
+
+        [TestMethod]
+        public void CreateAdminWithoutName()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateAdminRequest()
+                {
+                    Name = null,
+                    Lastname = "Doe",
+                    Email = "abc@email.com",
+                    Password = "password"
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+        [TestMethod]
+        public void CreateAdminWithoutLastname()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateAdminRequest()
+                {
+                    Name = "John",
+                    Lastname = null,
+                    Email = "abc@email.com",
+                    Password = "password"
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateAdminWithoutEmail()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateAdminRequest()
+                {
+                    Name = "John",
+                    Lastname = "Doe",
+                    Email = null,
+                    Password = "password"
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateAdminWithoutPassword()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateAdminRequest()
+                {
+                    Name = "John",
+                    Lastname = "Doe",
+                    Email = "abc@email.com",
+                    Password = null
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
     }
 }

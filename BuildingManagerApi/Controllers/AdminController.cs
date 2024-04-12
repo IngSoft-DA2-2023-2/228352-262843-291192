@@ -1,8 +1,9 @@
 ﻿using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -25,9 +26,13 @@ namespace BuildingManagerApi.Controllers
                 CreateAdminResponse createAdminResponse = new CreateAdminResponse(_adminLogic.CreateAdmin(adminRequest.ToEntity()));
                 return CreatedAtAction(nameof(CreateAdmin), createAdminResponse);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex) when (ex is EmailAlreadyInUseException || ex is InvalidArgumentException)
             {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500);
             }
         }
     }

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomExceptions\InvalidArgumentException.cs" />
     <Compile Include="Inner\CreateAdminRequest.cs" />
     <Compile Include="Inner\CreateBuildingRequest.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />

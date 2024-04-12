@@ -1,6 +1,8 @@
 ﻿using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
@@ -53,15 +55,41 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
-        public void CreateAdminWithMissingField()
+        public void CreateAdminWithEmailInUse()
         {
             var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
-            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new ArgumentException());
+            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new EmailAlreadyInUseException(new Exception()));
             var adminController = new AdminController(mockAdminLogic.Object);
             var result = adminController.CreateAdmin(_createAdminRequest);
      
             mockAdminLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
+
+        [TestMethod]
+        public void CreateAdminWithNullAttribute()
+        {
+            var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
+            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new InvalidArgumentException("name"));
+            var adminController = new AdminController(mockAdminLogic.Object);
+            var result = adminController.CreateAdmin(_createAdminRequest);
+
+            mockAdminLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public void CreateAdminServerError()
+        {
+            var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
+            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new Exception());
+            var adminController = new AdminController(mockAdminLogic.Object);
+            var result = adminController.CreateAdmin(_createAdminRequest);
+
+            mockAdminLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(StatusCodeResult));
+            Assert.AreEqual((result as StatusCodeResult).StatusCode, 500);
+        }
+
     }
 }
