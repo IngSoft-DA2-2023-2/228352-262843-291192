@@ -10,6 +10,7 @@ namespace BuildingManagerModels.Inner
         private string _name;
         private string _address;
         private string _location;
+        private string _constructionCompany;
 
         public string Name
         {
@@ -47,7 +48,18 @@ namespace BuildingManagerModels.Inner
                 _location = value;
             }
         }
-        public string ConstructionCompany { get; set; }
+        public string ConstructionCompany
+        {
+            get { return _constructionCompany; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new InvalidArgumentException("constructionCompany");
+                }
+                _constructionCompany = value;
+            }
+        }
         public decimal CommonExpenses { get; set; }
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
 
