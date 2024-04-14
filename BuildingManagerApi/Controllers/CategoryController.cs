@@ -23,9 +23,13 @@ namespace BuildingManagerApi.Controllers
                 CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse(_categoryLogic.CreateCategory(categoryName));
                 return CreatedAtAction(nameof(CreateCategory), createCategoryResponse);
             }
-            catch (DuplicatedValueException ex) when (ex is DuplicatedValueException || ex is InvalidArgumentException)
+            catch (Exception ex) when (ex is DuplicatedValueException || ex is InvalidArgumentException)
             {
                 return BadRequest(new { message = ex.Message });
+            }
+            catch
+            {
+                return StatusCode(500);
             }
             
         }

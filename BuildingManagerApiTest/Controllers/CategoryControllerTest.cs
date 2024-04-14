@@ -1,4 +1,4 @@
-using BuildingManagerApi.Controllers;
+﻿using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
@@ -57,5 +57,20 @@ namespace BuildingManagerApiTest.Controllers
             mockCategoryLogic.VerifyAll();
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
+
+        [TestMethod]
+        public void CreateCategoryServerError()
+        {
+            var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<string>())).Throws(new Exception());
+            var categoryController = new CategoryController(mockCategoryLogic.Object);
+
+            var result = categoryController.CreateCategory("");
+
+            mockCategoryLogic.VerifyAll();
+            Assert.AreEqual(500, (result as StatusCodeResult).StatusCode);
+
+        }
+
     }
 }
