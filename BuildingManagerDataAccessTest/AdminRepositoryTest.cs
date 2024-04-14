@@ -1,8 +1,8 @@
 using BuildingManagerDataAccess;
 using BuildingManagerDataAccess.Context;
 using BuildingManagerDomain.Entities;
+using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace BuildingManagerDataAccessTest
 {
@@ -29,6 +29,34 @@ namespace BuildingManagerDataAccessTest
 
             Assert.AreEqual(admin, result);
 
+        }
+
+        [TestMethod]
+        public void CreateAdminWithDuplicatedEmailTest()
+        {
+            var context = CreateDbContext("CreateAdminWithDuplicatedEmailTest");
+            var repository = new AdminRepository(context);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456"
+            };
+            repository.CreateAdmin(admin);
+
+            Exception exception = null;
+            try
+            {
+                repository.CreateAdmin(admin);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(EmailDuplicatedException));
         }
 
         private DbContext CreateDbContext(string name)
