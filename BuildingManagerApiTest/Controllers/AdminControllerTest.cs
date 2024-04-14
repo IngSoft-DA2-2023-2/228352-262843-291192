@@ -58,7 +58,7 @@ namespace BuildingManagerApiTest.Controllers
         public void CreateAdminWithEmailInUse()
         {
             var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
-            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new EmailAlreadyInUseException(new Exception()));
+            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new DuplicatedValueException(new Exception(),""));
             var adminController = new AdminController(mockAdminLogic.Object);
             var result = adminController.CreateAdmin(_createAdminRequest);
      
