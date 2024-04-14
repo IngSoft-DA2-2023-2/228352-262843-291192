@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BuildingManagerILogic\BuildingManagerILogic.csproj" />
     <ProjectReference Include="..\BuildingManagerModels\BuildingManagerModels.csproj" />
+    <ProjectReference Include="..\BuildingManagerServiceFactory\BuildingManagerServiceFactory.csproj" />
   </ItemGroup>
 
 </Project>

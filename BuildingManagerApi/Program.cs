@@ -1,3 +1,4 @@
+using BuildingManagerServiceFactory;
 
 namespace BuildingManagerApi
 {
@@ -13,6 +14,8 @@ namespace BuildingManagerApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddServices(builder.Configuration.GetConnectionString("BuildingManagerDB"));
 
             var app = builder.Build();
 
