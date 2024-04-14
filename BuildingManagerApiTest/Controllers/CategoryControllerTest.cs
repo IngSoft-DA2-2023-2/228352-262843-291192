@@ -1,9 +1,8 @@
-﻿using BuildingManagerApi.Controllers;
+using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.CustomExceptions;
-using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -31,6 +30,19 @@ namespace BuildingManagerApiTest.Controllers
 
             mockCategoryLogic.VerifyAll();
             Assert.AreEqual(new CreateCategoryResponse(category), content);
+        }
+
+        [TestMethod]
+        public void CreateCategoryWithDuplicatedName()
+        {
+            var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<string>())).Throws(new DuplicatedValueException(new Exception(),""));
+            var categoryController = new CategoryController(mockCategoryLogic.Object);
+
+            var result = categoryController.CreateCategory("Test");
+
+            mockCategoryLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
     }
 }

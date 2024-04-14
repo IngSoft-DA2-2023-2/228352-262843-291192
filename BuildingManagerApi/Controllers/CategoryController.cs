@@ -1,6 +1,8 @@
 ﻿using BuildingManagerILogic;
 using Microsoft.AspNetCore.Mvc;
 using BuildingManagerModels.Outer;
+using BuildingManagerModels.CustomExceptions;
+using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -16,8 +18,16 @@ namespace BuildingManagerApi.Controllers
         [HttpPost]
         public IActionResult CreateCategory([FromBody] string categoryName)
         {
-            CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse(_categoryLogic.CreateCategory(categoryName));
-            return CreatedAtAction(nameof(CreateCategory), createCategoryResponse);
+            try
+            {
+                CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse(_categoryLogic.CreateCategory(categoryName));
+                return CreatedAtAction(nameof(CreateCategory), createCategoryResponse);
+            }
+            catch (DuplicatedValueException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            
         }
     }
 }
