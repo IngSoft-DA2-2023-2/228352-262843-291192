@@ -61,6 +61,7 @@ namespace BuildingManagerDomainTest
                     Email = "abc@email.com",
                     Password = "password"
                 };
+                requestWithoutName.Validate();
             }
             catch (Exception ex)
             {
@@ -81,6 +82,7 @@ namespace BuildingManagerDomainTest
                     Email = "abc@email.com",
                     Password = "password"
                 };
+                requestWithoutName.Validate();
             }
             catch (Exception ex)
             {
@@ -102,6 +104,7 @@ namespace BuildingManagerDomainTest
                     Email = null,
                     Password = "password"
                 };
+                requestWithoutName.Validate();
             }
             catch (Exception ex)
             {
@@ -123,6 +126,7 @@ namespace BuildingManagerDomainTest
                     Email = "abc@email.com",
                     Password = null
                 };
+                requestWithoutName.Validate();
             }
             catch (Exception ex)
             {

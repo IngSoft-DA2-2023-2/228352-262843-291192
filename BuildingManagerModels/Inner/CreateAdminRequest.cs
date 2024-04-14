@@ -5,62 +5,14 @@ namespace BuildingManagerModels.Inner
 {
     public class CreateAdminRequest
     {
-        private string _name;
-        private string _lastname;
-        private string _email;
-        private string _password;
-
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new InvalidArgumentException("name");
-                }
-                _name = value;
-            }
-        }
-        public string Lastname
-        {
-            get { return _lastname; }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new InvalidArgumentException("lastname");
-                }
-                _lastname = value;
-            }
-        }
-        public string Email
-        {
-            get { return _email; }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new InvalidArgumentException("email");
-                }
-                _email = value;
-            }
-        }
-        public string Password
-        {
-            get { return _password; }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new InvalidArgumentException("password");
-                }
-                _password = value;
-            }
-        }
+        public string Name { get; set; }
+        public string Lastname { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set;}
 
         public Admin ToEntity()
         {
+            Validate();
             return new Admin()
             {
                 Name = this.Name,
@@ -69,7 +21,27 @@ namespace BuildingManagerModels.Inner
                 Password = this.Password
             };
         }
-        
+
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new InvalidArgumentException("name");
+            }
+            if (string.IsNullOrEmpty(Lastname))
+            {
+                throw new InvalidArgumentException("lastname");
+            }
+            if (string.IsNullOrEmpty(Email))
+            {
+                throw new InvalidArgumentException("email");
+            }
+            if (string.IsNullOrEmpty(Password))
+            {
+                throw new InvalidArgumentException("password");
+            }
+        }
+
 
     }
 }
