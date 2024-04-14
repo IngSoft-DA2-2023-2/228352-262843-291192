@@ -44,5 +44,18 @@ namespace BuildingManagerApiTest.Controllers
             mockCategoryLogic.VerifyAll();
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
+
+        [TestMethod]
+        public void CreateCategoryWithNullAttribute()
+        {
+            var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<string>())).Throws(new InvalidArgumentException("name"));
+            var categoryController = new CategoryController(mockCategoryLogic.Object);
+
+            var result = categoryController.CreateCategory("");
+
+            mockCategoryLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
     }
 }
