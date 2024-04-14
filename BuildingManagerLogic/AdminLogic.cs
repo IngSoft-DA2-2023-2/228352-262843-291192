@@ -21,7 +21,7 @@ namespace BuildingManagerLogic
             }
             catch(EmailDuplicatedException e)
             {
-                throw new EmailAlreadyInUseException(e);
+                throw new DuplicatedValueException(e, "");
             }
         }
     }

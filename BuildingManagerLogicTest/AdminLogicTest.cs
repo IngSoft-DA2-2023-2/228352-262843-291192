@@ -59,7 +59,7 @@ namespace BuildingManagerLogicTest
             }
 
             adminRespositoryMock.VerifyAll();
-            Assert.IsInstanceOfType(exception, typeof(EmailAlreadyInUseException));
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
 
         }
     }

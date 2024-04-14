@@ -43,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\EmailAlreadyInUseException.cs" />
+    <Compile Include="Exceptions\DuplicatedValueException.cs" />
     <Compile Include="IAdminLogic.cs" />
+    <Compile Include="ICategoryLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
