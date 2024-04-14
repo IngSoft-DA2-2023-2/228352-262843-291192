@@ -19,7 +19,7 @@ namespace BuildingManagerLogic
             {
                 return _adminRepository.CreateAdmin(admin);
             }
-            catch(EmailDuplicatedException e)
+            catch(ValueDuplicatedException e)
             {
                 throw new DuplicatedValueException(e, "");
             }

@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\EmailDuplicatedException.cs" />
+    <Compile Include="Exceptions\ValueDuplicatedException.cs" />
     <Compile Include="IAdminRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
