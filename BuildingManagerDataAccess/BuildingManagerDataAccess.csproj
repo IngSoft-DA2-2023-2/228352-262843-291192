@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BuildingManagerDomain\BuildingManagerDomain.csproj" />
     <ProjectReference Include="..\BuildingManagerIDataAccess\BuildingManagerIDataAccess.csproj" />
   </ItemGroup>

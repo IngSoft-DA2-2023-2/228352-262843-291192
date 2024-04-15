@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+
 namespace BuildingManagerDataAccess.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class createadmintable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

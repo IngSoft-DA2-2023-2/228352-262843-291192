@@ -3,7 +3,7 @@ using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace BuildingManagerDataAccess
+namespace BuildingManagerDataAccess.Repositories
 {
     public class AdminRepository : IAdminRepository
     {
@@ -14,7 +14,7 @@ namespace BuildingManagerDataAccess
         }
         public Admin CreateAdmin(Admin admin)
         {
-            if(_context.Set<Admin>().Any(a => a.Email == admin.Email))
+            if (_context.Set<Admin>().Any(a => a.Email == admin.Email))
             {
                 throw new ValueDuplicatedException("");
             }
