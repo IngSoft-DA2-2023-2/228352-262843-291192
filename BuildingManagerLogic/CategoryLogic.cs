@@ -6,23 +6,24 @@ using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogic
 {
-    public class AdminLogic : IAdminLogic
+    public class CategoryLogic : ICategoryLogic
     {
-        private readonly IAdminRepository _adminRepository;
-        public AdminLogic(IAdminRepository adminRepository)
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryLogic(ICategoryRepository categoryRepository)
         {
-            _adminRepository = adminRepository;
+            _categoryRepository = categoryRepository;
         }
-        public Admin CreateAdmin(Admin admin)
+        public Category CreateCategory(Category category)
         {
             try
             {
-                return _adminRepository.CreateAdmin(admin);
+                return _categoryRepository.CreateCategory(category);
             }
             catch(ValueDuplicatedException e)
             {
                 throw new DuplicatedValueException(e, "");
             }
+            
         }
     }
 }

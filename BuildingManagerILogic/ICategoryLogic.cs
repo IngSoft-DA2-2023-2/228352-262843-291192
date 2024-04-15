@@ -4,6 +4,6 @@ namespace BuildingManagerILogic
 {
     public interface ICategoryLogic
     {
-        public Category CreateCategory(string name);
+        public Category CreateCategory(Category category);
     }
 }

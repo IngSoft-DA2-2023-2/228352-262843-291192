@@ -46,7 +46,7 @@ namespace BuildingManagerLogicTest
         public void CreateAdminWithAlreadyInUseEmail()
         {
             var adminRespositoryMock = new Mock<IAdminRepository>(MockBehavior.Strict);
-            adminRespositoryMock.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new EmailDuplicatedException());
+            adminRespositoryMock.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new ValueDuplicatedException(""));
             var adminLogic = new AdminLogic(adminRespositoryMock.Object);
             Exception exception = null;
             try

@@ -56,7 +56,7 @@ namespace BuildingManagerDataAccessTest
                 exception = ex;
             }
 
-            Assert.IsInstanceOfType(exception, typeof(EmailDuplicatedException));
+            Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
 
         private DbContext CreateDbContext(string name)
