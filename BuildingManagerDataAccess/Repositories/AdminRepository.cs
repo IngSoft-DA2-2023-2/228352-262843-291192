@@ -16,7 +16,7 @@ namespace BuildingManagerDataAccess.Repositories
         {
             if (_context.Set<Admin>().Any(a => a.Email == admin.Email))
             {
-                throw new ValueDuplicatedException("");
+                throw new ValueDuplicatedException("Email");
             }
             _context.Set<Admin>().Add(admin);
             _context.SaveChanges();

@@ -1,5 +1,6 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingManagerDataAccess.Repositories
@@ -13,6 +14,10 @@ namespace BuildingManagerDataAccess.Repositories
         }
         public Category CreateCategory(Category category)
         {
+            if (_context.Set<Category>().Any(a => a.Name == category.Name))
+            {
+                throw new ValueDuplicatedException("Name");
+            }
             _context.Set<Category>().Add(category);
             _context.SaveChanges();
             return category;
