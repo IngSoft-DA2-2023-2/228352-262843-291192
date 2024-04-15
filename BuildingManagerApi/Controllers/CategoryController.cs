@@ -7,6 +7,8 @@ using BuildingManagerModels.Inner;
 
 namespace BuildingManagerApi.Controllers
 {
+    [ApiController]
+    [Route("api/categories")]
     public class CategoryController: ControllerBase
     {
         private readonly ICategoryLogic _categoryLogic;

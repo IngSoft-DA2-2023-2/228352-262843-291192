@@ -25,7 +25,7 @@ namespace BuildingManagerApiTest.Controllers
             mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<Category>())).Returns(category);
             var controller = new CategoryController(mockCategoryLogic.Object);
 
-            var result = controller.CreateCategory(new CreateCategoryRequest());
+            var result = controller.CreateCategory(new CreateCategoryRequest { Name = "Debt"});
             var createdAtActionResult = result as CreatedAtActionResult;
             var content = createdAtActionResult.Value as CreateCategoryResponse;
 
@@ -40,7 +40,7 @@ namespace BuildingManagerApiTest.Controllers
             mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<Category>())).Throws(new DuplicatedValueException(new Exception(),""));
             var categoryController = new CategoryController(mockCategoryLogic.Object);
 
-            var result = categoryController.CreateCategory(new CreateCategoryRequest());
+            var result = categoryController.CreateCategory(new CreateCategoryRequest { Name = "Debt" });
 
             mockCategoryLogic.VerifyAll();
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
@@ -53,7 +53,7 @@ namespace BuildingManagerApiTest.Controllers
             mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<Category>())).Throws(new InvalidArgumentException("name"));
             var categoryController = new CategoryController(mockCategoryLogic.Object);
 
-            var result = categoryController.CreateCategory(new CreateCategoryRequest());
+            var result = categoryController.CreateCategory(new CreateCategoryRequest{ Name = "Debt" });
 
             mockCategoryLogic.VerifyAll();
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
@@ -66,7 +66,7 @@ namespace BuildingManagerApiTest.Controllers
             mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<Category>())).Throws(new Exception());
             var categoryController = new CategoryController(mockCategoryLogic.Object);
 
-            var result = categoryController.CreateCategory(new CreateCategoryRequest());
+            var result = categoryController.CreateCategory(new CreateCategoryRequest{ Name = "Debt" });
 
             mockCategoryLogic.VerifyAll();
             Assert.AreEqual(500, (result as StatusCodeResult).StatusCode);
