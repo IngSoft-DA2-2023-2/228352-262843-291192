@@ -1,6 +1,8 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogic
 {
@@ -13,7 +15,15 @@ namespace BuildingManagerLogic
         }
         public Category CreateCategory(Category category)
         {
-            return _categoryRepository.CreateCategory(category);
+            try
+            {
+                return _categoryRepository.CreateCategory(category);
+            }
+            catch(ValueDuplicatedException e)
+            {
+                throw new DuplicatedValueException(e, "");
+            }
+            
         }
     }
 }
