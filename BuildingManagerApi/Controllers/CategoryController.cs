@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BuildingManagerModels.Outer;
 using BuildingManagerModels.CustomExceptions;
 using BuildingManagerILogic.Exceptions;
+using BuildingManagerModels.Inner;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -16,11 +17,11 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCategory([FromBody] string categoryName)
+        public IActionResult CreateCategory([FromBody] CreateCategoryRequest categoryRequest)
         {
             try
             {
-                CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse(_categoryLogic.CreateCategory(categoryName));
+                CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse(_categoryLogic.CreateCategory(categoryRequest.ToEntity()));
                 return CreatedAtAction(nameof(CreateCategory), createCategoryResponse);
             }
             catch (Exception ex) when (ex is DuplicatedValueException || ex is InvalidArgumentException)

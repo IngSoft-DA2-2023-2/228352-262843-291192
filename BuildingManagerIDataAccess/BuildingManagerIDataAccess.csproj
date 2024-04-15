@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\ValueDuplicatedException.cs" />
     <Compile Include="IAdminRepository.cs" />
+    <Compile Include="ICategoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
