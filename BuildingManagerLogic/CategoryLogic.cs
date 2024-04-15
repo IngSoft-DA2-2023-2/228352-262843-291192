@@ -21,7 +21,7 @@ namespace BuildingManagerLogic
             }
             catch(ValueDuplicatedException e)
             {
-                throw new DuplicatedValueException(e, "");
+                throw new DuplicatedValueException(e, e.Message);
             }
             
         }

@@ -1,7 +1,9 @@
 using BuildingManagerServiceFactory;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerApi
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         public static void Main(string[] args)
