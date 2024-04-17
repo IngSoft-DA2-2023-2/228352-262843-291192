@@ -1,5 +1,6 @@
 ﻿using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,11 @@ namespace BuildingManagerApi.Controllers
                 CreateMaintenanceStaffResponse createMaintenanceStaffResponse = new CreateMaintenanceStaffResponse(_maintenanceLogic.CreateMaintenanceStaff(maintenanceStaffRequest.ToEntity()));
                 return CreatedAtAction(nameof(CreateMaintenanceStaff), createMaintenanceStaffResponse);
             }
-            catch(DuplicatedValueException ex)
+            catch (Exception ex) when (ex is DuplicatedValueException || ex is InvalidArgumentException)
             {
                 return BadRequest(new { message = ex.Message });
             }
-           
+
         }
     }
 }

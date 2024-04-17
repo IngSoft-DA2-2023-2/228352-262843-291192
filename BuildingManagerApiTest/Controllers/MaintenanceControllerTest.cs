@@ -65,5 +65,17 @@ namespace BuildingManagerApiTest.Controllers
             mockMaintenanceLogic.VerifyAll();
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
+
+        [TestMethod]
+        public void CreateMaintenanceStaffWithNullAttribute()
+        {
+            var mockMaintenanceLogic = new Mock<IMaintenanceLogic>(MockBehavior.Strict);
+            mockMaintenanceLogic.Setup(x => x.CreateMaintenanceStaff(It.IsAny<MaintenanceStaff>())).Throws(new InvalidArgumentException("name"));
+            var maintenanceController = new MaintenanceController(mockMaintenanceLogic.Object);
+            var result = maintenanceController.CreateMaintenanceStaff(_createMaintenanceStaffRequest);
+
+            mockMaintenanceLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
     }
 }
