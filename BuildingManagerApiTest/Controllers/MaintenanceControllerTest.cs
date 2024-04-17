@@ -53,5 +53,17 @@ namespace BuildingManagerApiTest.Controllers
             mockMaintenanceLogic.VerifyAll();
             Assert.AreEqual(_createMaintenanceStaffResponse, content);
         }
+
+        [TestMethod]
+        public void CreateMaintenanceStaffWithEmailInUse()
+        {
+            var mockMaintenanceLogic = new Mock<IMaintenanceLogic>(MockBehavior.Strict);
+            mockMaintenanceLogic.Setup(x => x.CreateMaintenanceStaff(It.IsAny<MaintenanceStaff>())).Throws(new DuplicatedValueException(new Exception(),""));
+            var maintenanceController = new MaintenanceController(mockMaintenanceLogic.Object);
+            var result = maintenanceController.CreateMaintenanceStaff(_createMaintenanceStaffRequest);
+     
+            mockMaintenanceLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
     }
 }
