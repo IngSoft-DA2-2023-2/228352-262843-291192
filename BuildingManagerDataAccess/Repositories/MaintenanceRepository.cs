@@ -14,6 +14,10 @@ namespace BuildingManagerDataAccess.Repositories
         }
         public MaintenanceStaff CreateMaintenanceStaff(MaintenanceStaff maintenanceStaff)
         {
+            if (_context.Set<MaintenanceStaff>().Any(a => a.Email == maintenanceStaff.Email))
+            {
+                throw new ValueDuplicatedException("Email");
+            }
             _context.Set<MaintenanceStaff>().Add(maintenanceStaff);
             _context.SaveChanges();
 

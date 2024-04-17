@@ -30,6 +30,34 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(maintenanceStaff, result);
         }
 
+        [TestMethod]
+        public void CreateMaintenanceStaffWithDuplicatedEmailTest()
+        {
+            var context = CreateDbContext("CreateMaintenanceStaffWithDuplicatedEmailTest");
+            var repository = new MaintenanceRepository(context);
+            var maintenanceStaff = new MaintenanceStaff
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456"
+            };
+            repository.CreateMaintenanceStaff(maintenanceStaff);
+
+            Exception exception = null;
+            try
+            {
+                repository.CreateMaintenanceStaff(maintenanceStaff);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
