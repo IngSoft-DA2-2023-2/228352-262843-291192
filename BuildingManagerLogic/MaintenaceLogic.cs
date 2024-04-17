@@ -1,6 +1,8 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogic
 {
@@ -13,8 +15,14 @@ namespace BuildingManagerLogic
         }
         public MaintenanceStaff CreateMaintenanceStaff(MaintenanceStaff maintenanceStaff)
         {
-
-            return _maintenanceRepository.CreateMaintenanceStaff(maintenanceStaff);
+            try
+            {
+                return _maintenanceRepository.CreateMaintenanceStaff(maintenanceStaff);
+            }
+            catch (ValueDuplicatedException e)
+            {
+                throw new DuplicatedValueException(e, e.Message);
+            }
         }
     }
 }

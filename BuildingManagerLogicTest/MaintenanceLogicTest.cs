@@ -28,7 +28,7 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
-        public void CreateAdminSuccessfully()
+        public void CreateStaffSuccessfully()
         {
             var maintenanceStaffRepositoryMock = new Mock<IMaintenanceRepository>(MockBehavior.Strict);
             maintenanceStaffRepositoryMock.Setup(x => x.CreateMaintenanceStaff(It.IsAny<MaintenanceStaff>())).Returns(_maintenanceStaff);
@@ -38,6 +38,27 @@ namespace BuildingManagerLogicTest
 
             maintenanceStaffRepositoryMock.VerifyAll();
             Assert.AreEqual(_maintenanceStaff, result);
+        }
+
+        [TestMethod]
+        public void CreateStaffWithAlreadyInUseEmail()
+        {
+            var maintenanceStaffRepositoryMock = new Mock<IMaintenanceRepository>(MockBehavior.Strict);
+            maintenanceStaffRepositoryMock.Setup(x => x.CreateMaintenanceStaff(It.IsAny<MaintenanceStaff>())).Throws(new ValueDuplicatedException(""));
+            var maintenanceLogic = new MaintenaceLogic(maintenanceStaffRepositoryMock.Object);
+            Exception exception = null;
+            try
+            {
+                maintenanceLogic.CreateMaintenanceStaff(_maintenanceStaff);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            maintenanceStaffRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+
         }
     }
 }
