@@ -223,5 +223,18 @@ namespace BuildingManagerDomainTest
             Assert.IsNotNull(building.Apartments.Find(a => a.Floor == floor));
         }
 
+        [TestMethod]
+        public void CreateBuildingWithApartmentNumberTest()
+        {
+            int number = 3;
+            Apartment apartment = new Apartment { Number = number };
+            Assert.AreEqual(number, apartment.Number);
+
+            Building building = new Building();
+            building.Apartments.Add(apartment);
+
+            Assert.IsNotNull(building.Apartments.Find(a => a.Number == number));
+        }
+
     }
 }

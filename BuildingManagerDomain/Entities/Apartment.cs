@@ -3,5 +3,6 @@
     public class Apartment
     {
         public int Floor { get; set; }
+        public int Number { get; set; }
     }
 }
