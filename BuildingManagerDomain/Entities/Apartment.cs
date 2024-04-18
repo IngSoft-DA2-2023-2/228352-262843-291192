@@ -2,6 +2,6 @@
 {
     public class Apartment
     {
-
+        public int Floor { get; set; }
     }
 }

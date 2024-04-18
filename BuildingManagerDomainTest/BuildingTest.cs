@@ -209,5 +209,19 @@ namespace BuildingManagerDomainTest
 
             Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
+
+        [TestMethod]
+        public void CreateBuildingWithApartmentFloorTest()
+        {
+            int floor = 3;
+            Apartment apartment = new Apartment { Floor = floor };
+            Assert.AreEqual(floor, apartment.Floor);
+
+            Building building = new Building();
+            building.Apartments.Add(apartment);
+
+            Assert.IsNotNull(building.Apartments.Find(a => a.Floor == floor));
+        }
+
     }
 }
