@@ -6,5 +6,6 @@
         public int Number { get; set; }
         public int Rooms { get; set; }
         public int Bathrooms { get; set; }
+        public bool HasTerrace { get; set; }
     }
 }
