@@ -44,9 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomExceptions\InvalidArgumentException.cs" />
+    <Compile Include="Inner\CreateUserRequest.cs" />
     <Compile Include="Inner\CreateMaintenanceStaffRequest.cs" />
     <Compile Include="Inner\CreateAdminRequest.cs" />
     <Compile Include="Inner\CreateCategoryRequest.cs" />
+    <Compile Include="Outer\CreateUserResponse.cs" />
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
     <Compile Include="Outer\CreateCategoryResponse.cs" />

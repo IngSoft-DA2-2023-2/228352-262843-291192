@@ -3,45 +3,24 @@ using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerModels.Inner
 {
-    public class CreateAdminRequest
+    public class CreateAdminRequest : CreateUserRequest<Admin>
     {
-        public string Name { get; set; }
         public string Lastname { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set;}
 
-        public Admin ToEntity()
+        public override Admin ToEntity()
         {
-            Validate();
-            return new Admin()
-            {
-                Name = this.Name,
-                Lastname = this.Lastname,
-                Email = this.Email,
-                Password = this.Password
-            };
+            var entity = base.ToEntity();
+            entity.Lastname = this.Lastname;
+            return entity;
         }
 
-        public void Validate()
+        public override void Validate()
         {
-            if (string.IsNullOrEmpty(Name))
-            {
-                throw new InvalidArgumentException("name");
-            }
+            base.Validate();
             if (string.IsNullOrEmpty(Lastname))
             {
                 throw new InvalidArgumentException("lastname");
             }
-            if (string.IsNullOrEmpty(Email))
-            {
-                throw new InvalidArgumentException("email");
-            }
-            if (string.IsNullOrEmpty(Password))
-            {
-                throw new InvalidArgumentException("password");
-            }
         }
-
-
     }
 }
