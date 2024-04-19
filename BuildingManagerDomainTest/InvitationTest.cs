@@ -34,7 +34,7 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void InvitationDeadlineTest()
         {
-            Int64 deadline = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            long deadline = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             Invitation invitation = new() { Deadline = deadline };
             Assert.AreEqual(deadline, invitation.Deadline);
         }
