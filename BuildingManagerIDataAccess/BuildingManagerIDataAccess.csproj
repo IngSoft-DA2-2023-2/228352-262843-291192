@@ -45,6 +45,7 @@
     <Compile Include="IMaintenanceRepository.cs" />
     <Compile Include="IAdminRepository.cs" />
     <Compile Include="ICategoryRepository.cs" />
+    <Compile Include="IBuildingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

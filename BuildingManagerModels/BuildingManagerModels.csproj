@@ -52,6 +52,9 @@
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
     <Compile Include="Outer\CreateCategoryResponse.cs" />
+    <Compile Include="Inner\CreateBuildingRequest.cs" />
+    <Compile Include="Outer\CreateAdminResponse.cs" />
+    <Compile Include="Outer\CreateBuildingResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

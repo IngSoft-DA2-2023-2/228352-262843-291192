@@ -47,6 +47,7 @@
     <Compile Include="IMaintenanceLogic.cs" />
     <Compile Include="IAdminLogic.cs" />
     <Compile Include="ICategoryLogic.cs" />
+    <Compile Include="IBuildingLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
