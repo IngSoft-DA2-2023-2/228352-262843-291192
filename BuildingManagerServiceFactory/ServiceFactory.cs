@@ -18,6 +18,8 @@ namespace BuildingManagerServiceFactory
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IMaintenanceLogic, MaintenaceLogic>();
             services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
+            services.AddScoped<IBuildingLogic, BuildingLogic>();
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddDbContext<DbContext, BuildingManagerContext>(o => o.UseSqlServer(connectionString));
             return services;
         }
