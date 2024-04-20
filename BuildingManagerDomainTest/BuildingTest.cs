@@ -303,5 +303,21 @@ namespace BuildingManagerDomainTest
 
             Assert.IsNotNull(building.Apartments.Find(a => a.Owner.Name == name));
         }
+
+        [TestMethod]
+        public void CreateBuildingWithOwnerApartmentLastNameTest()
+        {
+            string lastName = "Owner 1";
+            Owner owner = new Owner { LastName = lastName };
+            Assert.AreEqual(lastName, owner.LastName);
+
+            Apartment apartment = new Apartment { Owner = owner };
+            Assert.AreEqual(owner, apartment.Owner);
+
+            Building building = new Building();
+            building.Apartments.Add(apartment);
+
+            Assert.IsNotNull(building.Apartments.Find(a => a.Owner.LastName == lastName));
+        }
     }
 }
