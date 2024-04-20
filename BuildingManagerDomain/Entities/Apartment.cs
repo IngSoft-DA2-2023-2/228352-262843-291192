@@ -1,4 +1,6 @@
-﻿namespace BuildingManagerDomain.Entities
+﻿using System;
+
+namespace BuildingManagerDomain.Entities
 {
     public class Apartment
     {
@@ -8,5 +10,6 @@
         public int Bathrooms { get; set; }
         public bool HasTerrace { get; set; }
         public Owner Owner { get; set; }
+        public Guid BuildingId { get; set; }
     }
 }
