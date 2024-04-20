@@ -276,7 +276,7 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void CreateBuildingWithOwnerApartmentTest()
+        public void CreateBuildingWithApartmentOwnerTest()
         {
             Owner owner = new Owner();
             Apartment apartment = new Apartment { Owner = owner };
@@ -289,7 +289,7 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void CreateBuildingWithOwnerApartmentNameTest()
+        public void CreateBuildingWithApartmentOwnerNameTest()
         {
             string name = "Owner 1";
             Owner owner = new Owner { Name = name };
@@ -305,7 +305,7 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void CreateBuildingWithOwnerApartmentLastNameTest()
+        public void CreateBuildingWithApartmentOwnerLastNameTest()
         {
             string lastName = "Owner 1";
             Owner owner = new Owner { LastName = lastName };
@@ -321,7 +321,7 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void CreateBuildingWithOwnerApartementEmailTest()
+        public void CreateBuildingWithApartementOwnerEmailTest()
         {
             string email = "ownerEmail@gmail.com";
             Owner owner = new Owner { Email = email };
