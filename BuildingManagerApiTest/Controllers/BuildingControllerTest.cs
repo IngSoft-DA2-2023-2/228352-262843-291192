@@ -107,5 +107,59 @@ namespace BuildingManagerApiTest.Controllers
             mockBuildingLogic.VerifyAll();
             Assert.AreEqual(createBuildingWithApartmentResponse, content);
         }
+
+        [TestMethod]
+        public void CreateBuildingWithOwnerApartment_Ok()
+        {
+            Apartment apartment = new Apartment
+            {
+                Floor = 1,
+                Number = 1,
+                Rooms = 3,
+                Bathrooms = 2,
+                HasTerrace = true,
+                Owner = new Owner
+                {
+                    Name = "John",
+                    LastName = "Doe",
+                    Email = "jhonDoe@yahoo.com"
+                }
+            };
+
+            Building buildingWithOwnerApartment = new Building
+            {
+                Id = new Guid(),
+                ManagerId = new Guid(),
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment> { apartment }
+            };
+
+            CreateBuildingRequest createBuildingWithOwnerApartmentRequest = new CreateBuildingRequest
+            {
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment> { apartment }
+            };
+
+            CreateBuildingResponse createBuildingWithOwnerApartmentResponse = new CreateBuildingResponse(buildingWithOwnerApartment);
+
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithOwnerApartment);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+
+            var result = buildingController.CreateBuilding(createBuildingWithOwnerApartmentRequest);
+            var createdAtActionResult = result as CreatedAtActionResult;
+            var content = createdAtActionResult.Value as CreateBuildingResponse;
+            
+            Assert.AreEqual(createBuildingWithOwnerApartmentResponse, content);
+            mockBuildingLogic.VerifyAll();
+        }
     }
 }
