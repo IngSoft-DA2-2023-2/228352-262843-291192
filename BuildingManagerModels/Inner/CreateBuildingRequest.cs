@@ -2,6 +2,7 @@
 using BuildingManagerModels.CustomExceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BuildingManagerModels.Inner
 {
