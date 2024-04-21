@@ -19,8 +19,16 @@ namespace BuildingManagerApi.Controllers
         [HttpPost]
         public IActionResult CreateInvitation([FromBody] CreateInvitationRequest invitationRequest)
         {
-            CreateInvitationResponse createInvitationResponse = new(_invitationLogic.CreateInvitation(invitationRequest.ToEntity()));
-            return CreatedAtAction(nameof(CreateInvitation), createInvitationResponse);
+            try
+            {
+                CreateInvitationResponse createInvitationResponse = new(_invitationLogic.CreateInvitation(invitationRequest.ToEntity()));
+                return CreatedAtAction(nameof(CreateInvitation), createInvitationResponse);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest();
+            }
+
         }
     }
 }

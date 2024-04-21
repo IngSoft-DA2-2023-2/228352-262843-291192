@@ -36,7 +36,7 @@ namespace BuildingManagerApiTest.Controllers
 
         }
         [TestMethod]
-        public void TestCreateInvitation_Ok()
+        public void CreateInvitation_Ok()
         {
             var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
             mockInvitationLogic.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Returns(_invitation);
@@ -48,6 +48,18 @@ namespace BuildingManagerApiTest.Controllers
 
             mockInvitationLogic.VerifyAll();
             Assert.AreEqual(_createInvitationResponse, content);
+        }
+
+        [TestMethod]
+        public void CreateInvitationWithMissingField()
+        {
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Throws(new ArgumentException());
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+            var result = invitationController.CreateInvitation(_createInvitationRequest);
+
+            mockInvitationLogic.VerifyAll();
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }
 
 
