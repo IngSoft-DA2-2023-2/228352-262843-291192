@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Inner\CreateAdminRequest.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
+    <Compile Include="Inner\CreateInvitationRequest.cs" />
+    <Compile Include="Outer\CreateInvitationResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
