@@ -3,10 +3,12 @@ using BuildingManagerDataAccess.Repositories;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerDataAccessTest
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class CategoryRepositoryTest
     {
         [TestMethod]

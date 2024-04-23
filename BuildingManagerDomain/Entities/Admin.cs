@@ -1,9 +1,12 @@
-﻿using System;
+using System;
 
 namespace BuildingManagerDomain.Entities
 {
     public class Admin: User
     {
-        public string Lastname { get; set; }
+        public Admin()
+        {
+            Role = Enums.RoleType.ADMIN;
+        }
     }
 }

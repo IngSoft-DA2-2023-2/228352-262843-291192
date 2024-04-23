@@ -2,10 +2,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BuildingManagerDomain.Entities;
 using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerDomainTest
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class AdminTest
     {
         [TestMethod]

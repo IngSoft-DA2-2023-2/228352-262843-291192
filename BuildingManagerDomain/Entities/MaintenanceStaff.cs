@@ -1,9 +1,12 @@
-﻿using System;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerDomain.Entities
 {
     public class MaintenanceStaff: User
     {
-        public string Lastname { get; set; }
+        public MaintenanceStaff()
+        {
+            Role = RoleType.MAINTENANCE;
+        }
     }
 }

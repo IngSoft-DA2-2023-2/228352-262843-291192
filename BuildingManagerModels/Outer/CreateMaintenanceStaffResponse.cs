@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BuildingManagerDomain.Entities;
 
 namespace BuildingManagerModels.Outer
@@ -7,18 +7,23 @@ namespace BuildingManagerModels.Outer
     {
         public string Lastname { get; set; }
 
-        public CreateMaintenanceStaffResponse(MaintenanceStaff maintenanceStaff) : base(maintenanceStaff)
+        public CreateMaintenanceStaffResponse(User maintenanceStaff)
         {
             Lastname = maintenanceStaff.Lastname;
         }
 
         public override bool Equals(object obj)
         {
-            if (!base.Equals(obj))
+            if (obj == null || GetType() != obj.GetType())
+            {
                 return false;
+            }
 
             var other = (CreateMaintenanceStaffResponse)obj;
-            return Lastname == other.Lastname;
+            return Id.Equals(other.Id)
+                && Name.Equals(other.Name)
+                && Lastname.Equals(other.Lastname)
+                && Email.Equals(other.Email);
         }
     }
 }

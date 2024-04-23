@@ -2,8 +2,8 @@
 
 namespace BuildingManagerILogic
 {
-    public interface IAdminLogic
+    public interface IUserLogic
     {
-        public Admin CreateAdmin(Admin admin);
+        public User CreateUser(User user);
     }
 }

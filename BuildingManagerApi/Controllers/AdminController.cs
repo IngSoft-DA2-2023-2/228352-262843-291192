@@ -11,11 +11,11 @@ namespace BuildingManagerApi.Controllers
     [Route("api/admins")]
     public class AdminController : ControllerBase
     {
-        private readonly IAdminLogic _adminLogic;
+        private readonly IUserLogic _userLogic;
 
-        public AdminController(IAdminLogic adminLogic)
+        public AdminController(IUserLogic userLogic)
         {
-            _adminLogic = adminLogic;
+            _userLogic = userLogic;
         }
 
         [HttpPost]
@@ -23,7 +23,7 @@ namespace BuildingManagerApi.Controllers
         {
             try
             {
-                CreateAdminResponse createAdminResponse = new CreateAdminResponse(_adminLogic.CreateAdmin(adminRequest.ToEntity()));
+                CreateAdminResponse createAdminResponse = new CreateAdminResponse(_userLogic.CreateUser(adminRequest.ToEntity()));
                 return CreatedAtAction(nameof(CreateAdmin), createAdminResponse);
             }
             catch (Exception ex) when (ex is DuplicatedValueException || ex is InvalidArgumentException)

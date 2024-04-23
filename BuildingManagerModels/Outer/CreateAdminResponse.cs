@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BuildingManagerDomain.Entities;
 
 namespace BuildingManagerModels.Outer
@@ -7,7 +7,7 @@ namespace BuildingManagerModels.Outer
     {
         public string Lastname { get; set; }
 
-        public CreateAdminResponse(Admin admin) : base(admin)
+        public CreateAdminResponse(User admin)
         {
             Lastname = admin.Lastname;
         }

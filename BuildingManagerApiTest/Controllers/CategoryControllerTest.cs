@@ -8,10 +8,12 @@ using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerApiTest.Controllers
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class CategoryControllerTest
     {
         [TestMethod]
@@ -31,6 +33,29 @@ namespace BuildingManagerApiTest.Controllers
 
             mockCategoryLogic.VerifyAll();
             Assert.AreEqual(new CreateCategoryResponse(category), content);
+        }
+
+        [TestMethod]
+        public void Equals_NullObject_ReturnsFalse()
+        {
+            var response = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test"});
+            Assert.IsFalse(response.Equals(null));
+        }
+
+        [TestMethod]
+        public void Equals_ObjectOfDifferentType_ReturnsFalse()
+        {
+            var response = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test" });
+            var differentTypeObject = new object();
+            Assert.IsFalse(response.Equals(differentTypeObject));
+        }
+
+        [TestMethod]
+        public void Equals_ObjectWithDifferentAttributes_ReturnsFalse()
+        {
+            var response1 = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test" });
+            var response2 = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test2" });
+            Assert.IsFalse(response1.Equals(response2));
         }
 
         [TestMethod]
@@ -71,6 +96,13 @@ namespace BuildingManagerApiTest.Controllers
             mockCategoryLogic.VerifyAll();
             Assert.AreEqual(500, (result as StatusCodeResult).StatusCode);
 
+        }
+
+        [TestMethod]
+        public void Validate_EmptyName_ReturnsInvalidArgumentException()
+        {
+            var request = new CreateCategoryRequest { Name = "" };
+            Assert.ThrowsException<InvalidArgumentException>(() => request.Validate());
         }
 
     }
