@@ -39,7 +39,7 @@ namespace ECommerceApi.Filters
                 SetUnauthorizedResult(context, "Invalid Token");
                 return;
             }
-            if (_requiredRole.Equals(userLogic.Role(token)))
+            if (!_requiredRole.Equals(userLogic.Role(token)))
             {
                 context.Result = new ObjectResult(new { ErrorMessage = "You don't have enough permissions to proceed further" })
                 {

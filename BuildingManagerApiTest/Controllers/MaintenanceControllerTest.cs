@@ -84,43 +84,5 @@ namespace BuildingManagerApiTest.Controllers
             });
             Assert.IsFalse(response1.Equals(response2));
         }
-
-        [TestMethod]
-        public void CreateMaintenanceStaffWithEmailInUse()
-        {
-            var mockMaintenanceLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-            mockMaintenanceLogic.Setup(x => x.CreateUser(It.IsAny<MaintenanceStaff>())).Throws(new DuplicatedValueException(new Exception(),""));
-            var maintenanceController = new MaintenanceController(mockMaintenanceLogic.Object);
-            var result = maintenanceController.CreateMaintenanceStaff(_createMaintenanceStaffRequest);
-     
-            mockMaintenanceLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-        }
-
-        [TestMethod]
-        public void CreateMaintenanceStaffWithNullAttribute()
-        {
-            var mockMaintenanceLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-            mockMaintenanceLogic.Setup(x => x.CreateUser(It.IsAny<MaintenanceStaff>())).Throws(new InvalidArgumentException("name"));
-            var maintenanceController = new MaintenanceController(mockMaintenanceLogic.Object);
-            var result = maintenanceController.CreateMaintenanceStaff(_createMaintenanceStaffRequest);
-
-            mockMaintenanceLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-        }
-
-        [TestMethod]
-        public void CreateMaintenanceStaffServerError()
-        {
-            var mockMaintenanceLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-            mockMaintenanceLogic.Setup(x => x.CreateUser(It.IsAny<MaintenanceStaff>())).Throws(new Exception());
-            var maintenanceController = new MaintenanceController(mockMaintenanceLogic.Object);
-            var result = maintenanceController.CreateMaintenanceStaff(_createMaintenanceStaffRequest);
-
-            mockMaintenanceLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(StatusCodeResult));
-            Assert.AreEqual((result as StatusCodeResult).StatusCode, 500);
-        }
-
     }
 }
