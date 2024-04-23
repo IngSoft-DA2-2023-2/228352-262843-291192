@@ -61,6 +61,70 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
+        public void Equals_NullObject_ReturnsFalse()
+        {
+            CreateBuildingResponse response = new CreateBuildingResponse(new Building());
+
+            bool result = response.Equals(null);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Equals_DifferentTypeObject_ReturnsFalse()
+        {
+            CreateBuildingResponse response = new CreateBuildingResponse(new Building());
+            object other = new object();
+
+            bool result = response.Equals(other);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Equals_SameObject_ReturnsTrue()
+        {
+            CreateBuildingResponse response = new CreateBuildingResponse(new Building());
+
+            bool result = response.Equals(response);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
+        {
+            Building building1 = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                ManagerId = new Guid("22222222-2222-2222-2222-222222222222"),
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000
+            };
+
+            Building building2 = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                ManagerId = new Guid("33333333-3333-3333-3333-333333333333"),
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000
+            };
+
+            CreateBuildingResponse response1 = new CreateBuildingResponse(building1);
+            CreateBuildingResponse response2 = new CreateBuildingResponse(building2);
+
+            bool result = response1.Equals(response2);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
         public void CreateBuildingWithApartment_Ok()
         {
             Apartment apartment = new Apartment

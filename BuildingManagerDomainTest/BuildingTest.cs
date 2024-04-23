@@ -3,10 +3,12 @@ using System;
 using BuildingManagerDomain.Entities;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.CustomExceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerDomainTest
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class BuildingTest
     {
         [TestMethod]

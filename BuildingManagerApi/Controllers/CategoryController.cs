@@ -4,6 +4,8 @@ using BuildingManagerModels.Outer;
 using BuildingManagerModels.CustomExceptions;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.Inner;
+using BuildingManagerDomain.Enums;
+using ECommerceApi.Filters;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -19,22 +21,11 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
+        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult CreateCategory([FromBody] CreateCategoryRequest categoryRequest)
         {
-            try
-            {
-                CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse(_categoryLogic.CreateCategory(categoryRequest.ToEntity()));
-                return CreatedAtAction(nameof(CreateCategory), createCategoryResponse);
-            }
-            catch (Exception ex) when (ex is DuplicatedValueException || ex is InvalidArgumentException)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-            
+            CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse(_categoryLogic.CreateCategory(categoryRequest.ToEntity()));
+            return CreatedAtAction(nameof(CreateCategory), createCategoryResponse);
         }
     }
 }

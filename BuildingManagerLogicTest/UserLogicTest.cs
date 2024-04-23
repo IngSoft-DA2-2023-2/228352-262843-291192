@@ -86,7 +86,30 @@ namespace BuildingManagerLogicTest
 
             userRespositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
 
+        [TestMethod]
+        public void FindUserByIdTest()
+        {
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.Exists(It.IsAny<Guid>())).Returns(true);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.Exists(new Guid());
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GetUserRoleTest()
+        {
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.Role(It.IsAny<Guid>())).Returns(RoleType.ADMIN);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.Role(new Guid());
+
+            Assert.AreEqual(RoleType.ADMIN, result);
         }
     }
 }

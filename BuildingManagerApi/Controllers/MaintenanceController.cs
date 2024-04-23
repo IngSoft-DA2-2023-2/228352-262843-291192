@@ -1,8 +1,10 @@
-﻿using BuildingManagerILogic;
+﻿using BuildingManagerDomain.Enums;
+using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
+using ECommerceApi.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildingManagerApi.Controllers
@@ -19,22 +21,11 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
+        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult CreateMaintenanceStaff([FromBody] CreateMaintenanceStaffRequest maintenanceStaffRequest)
         {
-            try
-            {
-                CreateMaintenanceStaffResponse createMaintenanceStaffResponse = new CreateMaintenanceStaffResponse(_userLogic.CreateUser(maintenanceStaffRequest.ToEntity()));
-                return CreatedAtAction(nameof(CreateMaintenanceStaff), createMaintenanceStaffResponse);
-            }
-            catch (Exception ex) when (ex is DuplicatedValueException || ex is InvalidArgumentException)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500);
-            }
-
+            CreateMaintenanceStaffResponse createMaintenanceStaffResponse = new CreateMaintenanceStaffResponse(_userLogic.CreateUser(maintenanceStaffRequest.ToEntity()));
+            return CreatedAtAction(nameof(CreateMaintenanceStaff), createMaintenanceStaffResponse);
         }
     }
 }

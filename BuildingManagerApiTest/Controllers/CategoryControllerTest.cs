@@ -59,46 +59,6 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
-        public void CreateCategoryWithDuplicatedName()
-        {
-            var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<Category>())).Throws(new DuplicatedValueException(new Exception(),""));
-            var categoryController = new CategoryController(mockCategoryLogic.Object);
-
-            var result = categoryController.CreateCategory(new CreateCategoryRequest { Name = "Debt" });
-
-            mockCategoryLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-        }
-
-        [TestMethod]
-        public void CreateCategoryWithNullAttribute()
-        {
-            var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<Category>())).Throws(new InvalidArgumentException("name"));
-            var categoryController = new CategoryController(mockCategoryLogic.Object);
-
-            var result = categoryController.CreateCategory(new CreateCategoryRequest{ Name = "Debt" });
-
-            mockCategoryLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-        }
-
-        [TestMethod]
-        public void CreateCategoryServerError()
-        {
-            var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<Category>())).Throws(new Exception());
-            var categoryController = new CategoryController(mockCategoryLogic.Object);
-
-            var result = categoryController.CreateCategory(new CreateCategoryRequest{ Name = "Debt" });
-
-            mockCategoryLogic.VerifyAll();
-            Assert.AreEqual(500, (result as StatusCodeResult).StatusCode);
-
-        }
-
-        [TestMethod]
         public void Validate_EmptyName_ReturnsInvalidArgumentException()
         {
             var request = new CreateCategoryRequest { Name = "" };

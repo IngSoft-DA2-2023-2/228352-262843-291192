@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace BuildingManagerDataAccess.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class createdusertable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +32,10 @@ namespace BuildingManagerDataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
+            migrationBuilder.InsertData(
+                               table: "Users",
+                               columns: new[] { "Id", "Email", "Name", "Lastname", "Password", "Role" },
+                               values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), "admin@admin.com", "Homero", "Simpson", "admin", 0 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
