@@ -1,8 +1,10 @@
 ﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
+using System;
 
 namespace BuildingManagerLogic
 {
@@ -23,6 +25,16 @@ namespace BuildingManagerLogic
             {
                 throw new DuplicatedValueException(e, e.Message);
             }
+        }
+
+        public bool Exists(Guid userId)
+        {
+            return _userRepository.Exists(userId);
+        }
+
+        public RoleType Role(Guid userId)
+        {
+            return _userRepository.Role(userId);
         }
     }
 }

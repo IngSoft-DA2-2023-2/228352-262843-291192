@@ -81,6 +81,46 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
 
+        [TestMethod]
+        public void CheckIfUserExistsTest()
+        {
+            var context = CreateDbContext("CheckIfUSerExistsTest");
+            var repository = new UserRepository(context);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456",
+            };
+            repository.CreateUser(admin);
+
+            var result = repository.Exists(admin.Id);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GetUserRoleTest()
+        {
+            var context = CreateDbContext("GetUserRoleTest");
+            var repository = new UserRepository(context);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456",
+            };
+            repository.CreateUser(admin);
+
+            var result = repository.Role(admin.Id);
+
+            Assert.AreEqual(RoleType.ADMIN, result);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

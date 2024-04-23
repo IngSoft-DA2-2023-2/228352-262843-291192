@@ -3,15 +3,13 @@ using BuildingManagerIDataAccess;
 using BuildingManagerLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerLogicTest
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
+
     public class BuildingLogicTest
     {
         private Building _building;

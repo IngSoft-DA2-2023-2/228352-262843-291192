@@ -1,4 +1,5 @@
 ﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,16 @@ namespace BuildingManagerDataAccess.Repositories
             _context.SaveChanges();
 
             return user;
+        }
+
+        public bool Exists(Guid userId)
+        {
+            return _context.Set<User>().Any(a => a.Id == userId);
+        }
+
+        public RoleType Role(Guid userId)
+        {
+            return _context.Set<User>().FirstOrDefault(a => a.Id == userId).Role;
         }
     }
 }
