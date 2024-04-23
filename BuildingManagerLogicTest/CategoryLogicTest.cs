@@ -5,10 +5,12 @@ using BuildingManagerILogic.Exceptions;
 using BuildingManagerLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerLogicTest
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class CategoryLogicTest
     {
         [TestMethod]

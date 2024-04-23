@@ -12,12 +12,10 @@ namespace BuildingManagerServiceFactory
     {
         public static IServiceCollection AddServices(this IServiceCollection services, string connectionString)
         {
-            services.AddScoped<IAdminLogic, AdminLogic>();
-            services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<ICategoryLogic, CategoryLogic>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IMaintenanceLogic, MaintenaceLogic>();
-            services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
+            services.AddScoped<IUserLogic, UserLogic>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddDbContext<DbContext, BuildingManagerContext>(o => o.UseSqlServer(connectionString));
             return services;
         }

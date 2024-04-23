@@ -6,18 +6,18 @@ using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogic
 {
-    public class AdminLogic : IAdminLogic
+    public class UserLogic : IUserLogic
     {
-        private readonly IAdminRepository _adminRepository;
-        public AdminLogic(IAdminRepository adminRepository)
+        private readonly IUserRepository _userRepository;
+        public UserLogic(IUserRepository userRepository)
         {
-            _adminRepository = adminRepository;
+            _userRepository = userRepository;
         }
-        public Admin CreateAdmin(Admin admin)
+        public User CreateUser(User user)
         {
             try
             {
-                return _adminRepository.CreateAdmin(admin);
+                return _userRepository.CreateUser(user);
             }
             catch(ValueDuplicatedException e)
             {

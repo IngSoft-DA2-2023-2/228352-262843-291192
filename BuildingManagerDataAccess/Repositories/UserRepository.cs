@@ -5,23 +5,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BuildingManagerDataAccess.Repositories
 {
-    public class AdminRepository : IAdminRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DbContext _context;
-        public AdminRepository(DbContext context)
+        public UserRepository(DbContext context)
         {
             _context = context;
         }
-        public Admin CreateAdmin(Admin admin)
+        public User CreateUser(User user)
         {
-            if (_context.Set<Admin>().Any(a => a.Email == admin.Email))
+            if (_context.Set<User>().Any(a => a.Email == user.Email))
             {
                 throw new ValueDuplicatedException("Email");
             }
-            _context.Set<Admin>().Add(admin);
+            _context.Set<User>().Add(user);
             _context.SaveChanges();
 
-            return admin;
+            return user;
         }
     }
 }

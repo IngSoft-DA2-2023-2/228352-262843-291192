@@ -41,8 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MaintenaceLogic.cs" />
-    <Compile Include="AdminLogic.cs" />
+    <Compile Include="UserLogic.cs" />
     <Compile Include="CategoryLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -10,7 +10,7 @@ namespace BuildingManagerModels.Outer
         public string Lastname { get; set; }
         public string Email { get; set; }
 
-        public CreateMaintenanceStaffResponse(MaintenanceStaff maintenanceStaff)
+        public CreateMaintenanceStaffResponse(User maintenanceStaff)
         {
             Id = maintenanceStaff.Id;
             Name = maintenanceStaff.Name;
@@ -21,10 +21,15 @@ namespace BuildingManagerModels.Outer
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
+            {
                 return false;
+            }
 
             var other = (CreateMaintenanceStaffResponse)obj;
-            return Id == other.Id && Name == other.Name && Lastname == other.Lastname && Email == other.Email;
+            return Id.Equals(other.Id)
+                && Name.Equals(other.Name)
+                && Lastname.Equals(other.Lastname)
+                && Email.Equals(other.Email);
         }
 
     }

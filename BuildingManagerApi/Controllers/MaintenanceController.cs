@@ -11,11 +11,11 @@ namespace BuildingManagerApi.Controllers
     [Route("api/maintenances")]
     public class MaintenanceController : ControllerBase
     {
-        private readonly IMaintenanceLogic _maintenanceLogic;
+        private readonly IUserLogic _userLogic;
 
-        public MaintenanceController(IMaintenanceLogic maintenanceLogic)
+        public MaintenanceController(IUserLogic userLogic)
         {
-            _maintenanceLogic = maintenanceLogic;
+            _userLogic = userLogic;
         }
 
         [HttpPost]
@@ -23,7 +23,7 @@ namespace BuildingManagerApi.Controllers
         {
             try
             {
-                CreateMaintenanceStaffResponse createMaintenanceStaffResponse = new CreateMaintenanceStaffResponse(_maintenanceLogic.CreateMaintenanceStaff(maintenanceStaffRequest.ToEntity()));
+                CreateMaintenanceStaffResponse createMaintenanceStaffResponse = new CreateMaintenanceStaffResponse(_userLogic.CreateUser(maintenanceStaffRequest.ToEntity()));
                 return CreatedAtAction(nameof(CreateMaintenanceStaff), createMaintenanceStaffResponse);
             }
             catch (Exception ex) when (ex is DuplicatedValueException || ex is InvalidArgumentException)

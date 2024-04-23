@@ -1,55 +1,77 @@
 using BuildingManagerDataAccess.Context;
 using BuildingManagerDataAccess.Repositories;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerDataAccessTest
 {
     [TestClass]
-    public class AdminRepositoryTest
+    [ExcludeFromCodeCoverage]
+    public class UserRepositoryTest
     {
 
         [TestMethod]
         public void CreateAdminTest()
         {
             var context = CreateDbContext("CreateAdminTest");
-            var repository = new AdminRepository(context);
+            var repository = new UserRepository(context);
             var admin = new Admin
             {
                 Id = Guid.NewGuid(),
                 Name = "John",
                 Lastname = "Doe",
                 Email = "abc@exmaple.com",
-                Password = "123456"
+                Password = "123456",
             };
 
-            repository.CreateAdmin(admin);
-            var result = context.Set<Admin>().Find(admin.Id);
+            repository.CreateUser(admin);
+            var result = context.Set<User>().Find(admin.Id);
 
-            Assert.AreEqual(admin, result);
-
+            Assert.AreEqual(RoleType.ADMIN, result.Role);
         }
 
         [TestMethod]
-        public void CreateAdminWithDuplicatedEmailTest()
+        public void CreateMaintenanceStaffTest()
+        {
+            var context = CreateDbContext("CreateMaintenanceStaffTest");
+            var repository = new UserRepository(context);
+            var maintenanceSatff = new MaintenanceStaff
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@exmaple.com",
+                Password = "123456",
+            };
+
+            repository.CreateUser(maintenanceSatff);
+            var result = context.Set<User>().Find(maintenanceSatff.Id);
+
+            Assert.AreEqual(RoleType.MAINTENANCE, result.Role);
+        }
+
+        [TestMethod]
+        public void CreateUserWithDuplicatedEmailTest()
         {
             var context = CreateDbContext("CreateAdminWithDuplicatedEmailTest");
-            var repository = new AdminRepository(context);
+            var repository = new UserRepository(context);
             var admin = new Admin
             {
                 Id = Guid.NewGuid(),
                 Name = "John",
                 Lastname = "Doe",
                 Email = "abc@example.com",
-                Password = "123456"
+                Password = "123456",
             };
-            repository.CreateAdmin(admin);
+            repository.CreateUser(admin);
 
             Exception exception = null;
             try
             {
-                repository.CreateAdmin(admin);
+                repository.CreateUser(admin);
             }
             catch (Exception ex)
             {
