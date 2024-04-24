@@ -4,6 +4,7 @@ using BuildingManagerDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagerDataAccess.Migrations
 {
     [DbContext(typeof(BuildingManagerContext))]
-    partial class BuildingManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240420190509_create-building-table")]
+    partial class createbuildingtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace BuildingManagerDataAccess.Migrations
 
                     b.HasIndex("OwnerEmail");
 
-                    b.ToTable("Apartments", (string)null);
+                    b.ToTable("Apartment");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Building", b =>
@@ -154,7 +156,7 @@ namespace BuildingManagerDataAccess.Migrations
 
                     b.HasKey("Email");
 
-                    b.ToTable("Owners", (string)null);
+                    b.ToTable("Owner");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Apartment", b =>

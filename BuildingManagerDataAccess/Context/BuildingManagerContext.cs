@@ -16,8 +16,8 @@ namespace BuildingManagerDataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Apartment>().HasKey(a => new { a.Floor, a.Number });
-            modelBuilder.Entity<Owner>().HasKey(o => o.Email);
+            modelBuilder.Entity<Apartment>().ToTable("Apartments").HasKey(a => new { a.BuildingId, a.Floor, a.Number });
+            modelBuilder.Entity<Owner>().ToTable("Owners").HasKey(o => o.Email);
         }
     }
 }
