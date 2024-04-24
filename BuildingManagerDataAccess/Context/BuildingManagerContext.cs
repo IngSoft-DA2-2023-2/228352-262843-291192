@@ -5,12 +5,13 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerDataAccess.Context
 {
     [ExcludeFromCodeCoverage]
-    public class BuildingManagerContext: DbContext
+    public class BuildingManagerContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<MaintenanceStaff> MaintenanceStaff { get; set; }
         public DbSet<Building> Buildings { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
         public BuildingManagerContext(DbContextOptions<BuildingManagerContext> options) : base(options)
         {
