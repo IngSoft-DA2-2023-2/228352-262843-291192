@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuildingManagerLogic
+namespace BuildingManagerDomain.Enums
 {
-    public class Class1
+    public enum RoleType
     {
+        ADMIN,
+        MAINTENANCE
     }
 }

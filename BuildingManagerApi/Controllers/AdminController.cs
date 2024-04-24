@@ -1,8 +1,11 @@
-﻿using BuildingManagerILogic;
+﻿using BuildingManagerDomain.Enums;
+using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
+using ECommerceApi.Filters;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -10,25 +13,20 @@ namespace BuildingManagerApi.Controllers
     [Route("api/admins")]
     public class AdminController : ControllerBase
     {
-        private readonly IAdminLogic _adminLogic;
+        private readonly IUserLogic _userLogic;
 
-        public AdminController(IAdminLogic adminLogic)
+        public AdminController(IUserLogic userLogic)
         {
-            _adminLogic = adminLogic;
+            _userLogic = userLogic;
         }
 
         [HttpPost]
+        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult CreateAdmin([FromBody] CreateAdminRequest adminRequest)
         {
-            try
-            {
-                CreateAdminResponse createAdminResponse = new CreateAdminResponse(_adminLogic.CreateAdmin(adminRequest.ToEntity()));
-                return CreatedAtAction(nameof(CreateAdmin), createAdminResponse);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest();
-            }
+
+            CreateAdminResponse createAdminResponse = new CreateAdminResponse(_userLogic.CreateUser(adminRequest.ToEntity()));
+            return CreatedAtAction(nameof(CreateAdmin), createAdminResponse);
         }
     }
 }

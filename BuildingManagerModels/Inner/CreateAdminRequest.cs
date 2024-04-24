@@ -1,4 +1,5 @@
 ﻿using BuildingManagerDomain.Entities;
+using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerModels.Inner
 {
@@ -11,6 +12,7 @@ namespace BuildingManagerModels.Inner
 
         public Admin ToEntity()
         {
+            Validate();
             return new Admin()
             {
                 Name = this.Name,
@@ -19,7 +21,27 @@ namespace BuildingManagerModels.Inner
                 Password = this.Password
             };
         }
-        
+
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new InvalidArgumentException("name");
+            }
+            if (string.IsNullOrEmpty(Lastname))
+            {
+                throw new InvalidArgumentException("lastname");
+            }
+            if (string.IsNullOrEmpty(Email))
+            {
+                throw new InvalidArgumentException("email");
+            }
+            if (string.IsNullOrEmpty(Password))
+            {
+                throw new InvalidArgumentException("password");
+            }
+        }
+
 
     }
 }

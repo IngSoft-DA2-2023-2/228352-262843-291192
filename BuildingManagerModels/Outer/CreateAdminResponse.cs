@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BuildingManagerDomain.Entities;
 
 namespace BuildingManagerModels.Outer
@@ -10,7 +10,7 @@ namespace BuildingManagerModels.Outer
         public string Lastname { get; set; }
         public string Email { get; set; }
 
-        public CreateAdminResponse(Admin admin)
+        public CreateAdminResponse(User admin)
         {
             Id = admin.Id;
             Name = admin.Name;

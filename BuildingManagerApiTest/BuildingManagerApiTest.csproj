@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BuildingManagerApi\BuildingManagerApi.csproj" />
+    <ProjectReference Include="..\BuildingManagerModels\BuildingManagerModels.csproj" />
   </ItemGroup>
 
 </Project>

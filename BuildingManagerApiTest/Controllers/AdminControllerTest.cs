@@ -1,15 +1,19 @@
 ﻿using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerApiTest.Controllers
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class AdminControllerTest
     {
         private Admin _admin;
@@ -40,8 +44,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void CreateAdmin_Ok()
         {
-            var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
-            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Returns(_admin);
+            var mockAdminLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            mockAdminLogic.Setup(x => x.CreateUser(It.IsAny<Admin>())).Returns(_admin);
             var adminController = new AdminController(mockAdminLogic.Object);
 
             var result = adminController.CreateAdmin(_createAdminRequest);
@@ -53,15 +57,33 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
-        public void CreateAdminWithMissingField()
+        public void Equals_NullObject_ReturnsFalse()
         {
-            var mockAdminLogic = new Mock<IAdminLogic>(MockBehavior.Strict);
-            mockAdminLogic.Setup(x => x.CreateAdmin(It.IsAny<Admin>())).Throws(new ArgumentException());
-            var adminController = new AdminController(mockAdminLogic.Object);
-            var result = adminController.CreateAdmin(_createAdminRequest);
-     
-            mockAdminLogic.VerifyAll();
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            var response = new CreateAdminResponse(_admin);
+            Assert.IsFalse(response.Equals(null));
+        }
+
+        [TestMethod]
+        public void Equals_ObjectOfDifferentType_ReturnsFalse()
+        {
+            var response = new CreateAdminResponse(_admin);
+            var differentTypeObject = new object();
+            Assert.IsFalse(response.Equals(differentTypeObject));
+        }
+
+        [TestMethod]
+        public void Equals_ObjectWithDifferentAttributes_ReturnsFalse()
+        {
+            var response1 = new CreateAdminResponse(_admin);
+            var response2 = new CreateAdminResponse(new Admin
+            {
+                Id = new Guid(),
+                Name = "Jane",
+                Lastname = "Doe",
+                Email = "jane@abc.com",
+                Password = "pass456"
+            });
+            Assert.IsFalse(response1.Equals(response2));
         }
     }
 }
