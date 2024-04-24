@@ -1,7 +1,8 @@
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
-using System;
+using BuildingManagerILogic.Exceptions;
+using BuildingManagerIDataAccess.Exceptions;
 
 namespace BuildingManagerLogic
 {
@@ -14,7 +15,14 @@ namespace BuildingManagerLogic
         }
         public Invitation CreateInvitation(Invitation invitation)
         {
-           return _invitationRepository.CreateInvitation(invitation);
+            try
+            {
+                return _invitationRepository.CreateInvitation(invitation);
+            }
+            catch (ValueDuplicatedException e)
+            {
+                throw new DuplicatedValueException(e, e.Message);
+            }
         }
     }
 }
