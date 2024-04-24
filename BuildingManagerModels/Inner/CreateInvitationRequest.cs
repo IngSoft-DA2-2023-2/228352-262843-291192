@@ -8,8 +8,20 @@ namespace BuildingManagerModels.Inner
     {
         private long _deadline;
         private string _name;
+        private string _email;
 
-        public string Email { get; set; }
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new InvalidArgumentException("email");
+                }
+                _email = value;
+            }
+        }
         public string Name
         {
             get { return _name; }
@@ -45,7 +57,5 @@ namespace BuildingManagerModels.Inner
                 Deadline = this.Deadline,
             };
         }
-
-
     }
 }

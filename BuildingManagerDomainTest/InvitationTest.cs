@@ -82,5 +82,26 @@ namespace BuildingManagerDomainTest
 
             Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
+
+        [TestMethod]
+        public void InvitationWithoutEmail()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutEmail = new CreateInvitationRequest()
+                {
+                    Name = "John",
+                    Email = null,
+                    Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds()
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
     }
 }
