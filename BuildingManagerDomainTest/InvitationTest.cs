@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using BuildingManagerDomain.Entities;
+using BuildingManagerModels.Inner;
+using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerDomainTest
 {
@@ -37,6 +39,27 @@ namespace BuildingManagerDomainTest
             long deadline = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             Invitation invitation = new() { Deadline = deadline };
             Assert.AreEqual(deadline, invitation.Deadline);
+        }
+
+        [TestMethod]
+        public void InvitationWithPastDeadline()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithPastDeadline = new CreateInvitationRequest()
+                {
+                    Name = "John",
+                    Email = "test@test.com",
+                    Deadline = DateTimeOffset.UtcNow.AddYears(-3).ToUnixTimeSeconds()
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
     }
 }
