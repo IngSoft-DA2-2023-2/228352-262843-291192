@@ -21,6 +21,7 @@ namespace BuildingManagerServiceFactory
             services.AddScoped<IBuildingLogic, BuildingLogic>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IInvitationLogic, InvitationLogic>();
+            services.AddScoped<IInvitationRepository, InvitationRepository>();
             services.AddDbContext<DbContext, BuildingManagerContext>(o => o.UseSqlServer(connectionString));
             return services;
         }
