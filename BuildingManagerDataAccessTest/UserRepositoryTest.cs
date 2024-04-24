@@ -102,6 +102,26 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void CheckIfEmailExistsTest()
+        {
+            var context = CreateDbContext("CheckIfEmailExistsTest");
+            var repository = new UserRepository(context);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456",
+            };
+            repository.CreateUser(admin);
+
+            var result = repository.EmailExists(admin.Email);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
         public void GetUserRoleTest()
         {
             var context = CreateDbContext("GetUserRoleTest");

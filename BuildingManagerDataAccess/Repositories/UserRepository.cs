@@ -29,6 +29,10 @@ namespace BuildingManagerDataAccess.Repositories
         {
             return _context.Set<User>().Any(a => a.Id == userId);
         }
+        public bool EmailExists(string email)
+        {
+            return _context.Set<User>().Any(a => a.Email == email);
+        }
 
         public RoleType Role(Guid userId)
         {

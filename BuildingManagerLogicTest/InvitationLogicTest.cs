@@ -29,8 +29,12 @@ namespace BuildingManagerLogicTest
         public void CreateInvitationSuccessfully()
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Returns(_invitation);
-            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object);
+
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
 
             var result = invitationLogic.CreateInvitation(_invitation);
 
@@ -42,8 +46,11 @@ namespace BuildingManagerLogicTest
         public void CreateInvitationWithAlreadyInUseEmail()
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Throws(new ValueDuplicatedException(""));
-            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object);
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
             try
             {
@@ -56,7 +63,29 @@ namespace BuildingManagerLogicTest
 
             invitationRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
 
+        [TestMethod]
+        public void CreateInvitationWithUserAlreadyUsingEmail()
+        {
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Throws(new ValueDuplicatedException(""));
+
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+            Exception exception = null;
+            try
+            {
+                invitationLogic.CreateInvitation(_invitation);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
     }
 }

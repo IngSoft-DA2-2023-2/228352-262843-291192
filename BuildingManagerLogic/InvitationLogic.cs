@@ -3,20 +3,28 @@ using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
+using System.Runtime.Serialization.Formatters;
 
 namespace BuildingManagerLogic
 {
     public class InvitationLogic : IInvitationLogic
     {
         private readonly IInvitationRepository _invitationRepository;
-        public InvitationLogic(IInvitationRepository invitationRepository)
+        private readonly IUserRepository _userRepository;
+        public InvitationLogic(IInvitationRepository invitationRepository, IUserRepository userRepository)
         {
             _invitationRepository = invitationRepository;
+            _userRepository = userRepository;
         }
         public Invitation CreateInvitation(Invitation invitation)
         {
             try
             {
+                if (_userRepository.EmailExists(invitation.Email))
+                {
+                    ValueDuplicatedException e = new ValueDuplicatedException("Email");
+                    throw new DuplicatedValueException( e, e.Message);
+                }
                 return _invitationRepository.CreateInvitation(invitation);
             }
             catch (ValueDuplicatedException e)

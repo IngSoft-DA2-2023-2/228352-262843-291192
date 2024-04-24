@@ -8,6 +8,7 @@ namespace BuildingManagerIDataAccess
     {
         User CreateUser(User user);
         bool Exists(Guid userId);
+        bool EmailExists(string email);
         RoleType Role(Guid userId);
     }
 }
