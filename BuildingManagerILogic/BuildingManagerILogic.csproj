@@ -47,7 +47,6 @@
     <Compile Include="IUserLogic.cs" />
     <Compile Include="ICategoryLogic.cs" />
     <Compile Include="IBuildingLogic.cs" />
-    <Compile Include="IAdminLogic.cs" />
     <Compile Include="IInvitationLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
