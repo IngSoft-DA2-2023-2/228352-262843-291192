@@ -7,9 +7,21 @@ namespace BuildingManagerModels.Inner
     public class CreateInvitationRequest
     {
         private long _deadline;
+        private string _name;
 
         public string Email { get; set; }
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new InvalidArgumentException("name");
+                }
+                _name = value;
+            }
+        }
         public long Deadline
         {
             get { return _deadline; }
