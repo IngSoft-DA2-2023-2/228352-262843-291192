@@ -71,7 +71,7 @@ namespace BuildingManagerLogicTest
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
 
-            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Throws(new ValueDuplicatedException(""));
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(true);
 
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
