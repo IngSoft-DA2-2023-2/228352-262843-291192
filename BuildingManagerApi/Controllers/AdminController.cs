@@ -24,7 +24,6 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult CreateAdmin([FromBody] CreateAdminRequest adminRequest)
         {
-
             CreateAdminResponse createAdminResponse = new CreateAdminResponse(_userLogic.CreateUser(adminRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateAdmin), createAdminResponse);
         }

@@ -3,7 +3,6 @@ using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
-using System.Runtime.Serialization.Formatters;
 
 namespace BuildingManagerLogic
 {

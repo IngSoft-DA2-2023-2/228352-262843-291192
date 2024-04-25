@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using BuildingManagerILogic;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
+using BuildingManagerDomain.Enums;
+using ECommerceApi.Filters;
+using BuildingManagerLogic;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -17,18 +20,11 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
+        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult CreateInvitation([FromBody] CreateInvitationRequest invitationRequest)
         {
-            try
-            {
-                CreateInvitationResponse createInvitationResponse = new(_invitationLogic.CreateInvitation(invitationRequest.ToEntity()));
-                return CreatedAtAction(nameof(CreateInvitation), createInvitationResponse);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest();
-            }
-
+            CreateInvitationResponse createInvitationResponse = new (_invitationLogic.CreateInvitation(invitationRequest.ToEntity()));
+            return CreatedAtAction(nameof(CreateInvitation), createInvitationResponse);
         }
     }
 }
