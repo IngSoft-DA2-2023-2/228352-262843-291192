@@ -1,3 +1,4 @@
+using System;
 using BuildingManagerDomain.Entities;
 
 namespace BuildingManagerIDataAccess
@@ -5,5 +6,6 @@ namespace BuildingManagerIDataAccess
     public interface IInvitationRepository
     {
         Invitation CreateInvitation(Invitation invitation);
+        Invitation DeleteInvitation(Guid id);
     }
 }

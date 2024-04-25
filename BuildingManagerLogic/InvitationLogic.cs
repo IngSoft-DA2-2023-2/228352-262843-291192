@@ -35,7 +35,7 @@ namespace BuildingManagerLogic
 
         public Invitation DeleteInvitation(Guid id)
         {
-            throw new NotImplementedException();
+            return _invitationRepository.DeleteInvitation(id);
         }
     }
 }
