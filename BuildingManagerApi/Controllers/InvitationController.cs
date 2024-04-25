@@ -27,6 +27,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult DeleteInvitation([FromRoute] Guid id)
         {
             CreateInvitationResponse deleteInvitationResponse = new(_invitationLogic.DeleteInvitation(id));
