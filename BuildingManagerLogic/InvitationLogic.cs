@@ -3,6 +3,7 @@ using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
+using System;
 
 namespace BuildingManagerLogic
 {
@@ -30,6 +31,11 @@ namespace BuildingManagerLogic
             {
                 throw new DuplicatedValueException(e, e.Message);
             }
+        }
+
+        public Invitation DeleteInvitation(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

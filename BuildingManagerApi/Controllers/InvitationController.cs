@@ -4,7 +4,6 @@ using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using BuildingManagerDomain.Enums;
 using ECommerceApi.Filters;
-using BuildingManagerLogic;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -23,8 +22,15 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult CreateInvitation([FromBody] CreateInvitationRequest invitationRequest)
         {
-            CreateInvitationResponse createInvitationResponse = new (_invitationLogic.CreateInvitation(invitationRequest.ToEntity()));
+            CreateInvitationResponse createInvitationResponse = new(_invitationLogic.CreateInvitation(invitationRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateInvitation), createInvitationResponse);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteInvitation([FromRoute] Guid id)
+        {
+            CreateInvitationResponse deleteInvitationResponse = new(_invitationLogic.DeleteInvitation(id));
+            return Ok(deleteInvitationResponse);
         }
     }
 }

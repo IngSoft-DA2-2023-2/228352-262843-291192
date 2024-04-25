@@ -51,6 +51,23 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
+        public void DeleteInvitation_Ok()
+        {
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.DeleteInvitation(It.IsAny<Guid>())).Returns(_invitation);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+            OkObjectResult expected = new OkObjectResult(new CreateInvitationResponse(_invitation));
+            CreateInvitationResponse expectedObject = expected.Value as CreateInvitationResponse;
+
+            OkObjectResult result = invitationController.DeleteInvitation(_invitation.Id) as OkObjectResult;
+            CreateInvitationResponse resultObject = result.Value as CreateInvitationResponse;
+
+            mockInvitationLogic.VerifyAll();
+            Assert.AreEqual(result.StatusCode, expected.StatusCode);
+            Assert.AreEqual(expectedObject.Id, resultObject.Id);
+        }
+
+        [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
             CreateInvitationResponse response = new CreateInvitationResponse(new Invitation());
