@@ -20,6 +20,7 @@ namespace BuildingManagerDomain.Entities
                 floor = value;
             }
         }
+
         public int Number
         {
             get { return number; }
@@ -32,6 +33,7 @@ namespace BuildingManagerDomain.Entities
                 number = value;
             }
         }
+
         public int Rooms
         {
             get { return rooms; }
@@ -44,6 +46,7 @@ namespace BuildingManagerDomain.Entities
                 rooms = value;
             }
         }
+
         public int Bathrooms { get; set; }
         public bool HasTerrace { get; set; }
         public Owner Owner { get; set; }
