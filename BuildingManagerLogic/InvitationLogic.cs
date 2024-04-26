@@ -23,7 +23,7 @@ namespace BuildingManagerLogic
                 if (_userRepository.EmailExists(invitation.Email))
                 {
                     ValueDuplicatedException e = new ValueDuplicatedException("Email");
-                    throw new DuplicatedValueException( e, e.Message);
+                    throw new DuplicatedValueException(e, e.Message);
                 }
                 return _invitationRepository.CreateInvitation(invitation);
             }
@@ -35,7 +35,14 @@ namespace BuildingManagerLogic
 
         public Invitation DeleteInvitation(Guid id)
         {
-            return _invitationRepository.DeleteInvitation(id);
+            try
+            {
+                return _invitationRepository.DeleteInvitation(id);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }
