@@ -6,6 +6,7 @@ namespace BuildingManagerDomain.Entities
     {
         private string name;
         private string lastName;
+        private string email;
 
         public string Name
         {
@@ -33,6 +34,17 @@ namespace BuildingManagerDomain.Entities
             }
         }
 
-        public string Email { get; set; }
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Owner email must not be empty");
+                }
+                email = value;
+            }
+        }
     }
 }
