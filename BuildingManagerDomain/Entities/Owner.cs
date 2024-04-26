@@ -43,6 +43,11 @@ namespace BuildingManagerDomain.Entities
                 {
                     throw new ArgumentException("Owner email must not be empty");
                 }
+
+                if (!value.Contains("@"))
+                {
+                    throw new ArgumentException("Owner email must have @");
+                }
                 email = value;
             }
         }
