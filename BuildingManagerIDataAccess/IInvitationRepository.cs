@@ -7,5 +7,6 @@ namespace BuildingManagerIDataAccess
     {
         Invitation CreateInvitation(Invitation invitation);
         Invitation DeleteInvitation(Guid id);
+        bool IsAccepted(Guid userId);
     }
 }

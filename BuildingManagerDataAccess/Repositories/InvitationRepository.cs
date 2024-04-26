@@ -23,5 +23,10 @@ namespace BuildingManagerDataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public bool IsAccepted(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

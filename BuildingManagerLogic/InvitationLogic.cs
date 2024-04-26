@@ -37,6 +37,10 @@ namespace BuildingManagerLogic
         {
             try
             {
+                if (_invitationRepository.IsAccepted(id))
+                {
+                    throw new InvalidOperationException("Invitation is not declined.");
+                }
                 return _invitationRepository.DeleteInvitation(id);
             }
             catch (ValueNotFoundException e)
