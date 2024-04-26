@@ -27,7 +27,15 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Invitation DeleteInvitation(Guid id)
         {
-            Invitation invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            Invitation invitation;
+            try
+            {
+                invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Invitation not found.");
+            }
             if (invitation.Status == InvitationStatus.ACCEPTED)
             {
                 throw new InvalidOperationException("Invitation is not declined.");
@@ -36,6 +44,7 @@ namespace BuildingManagerDataAccess.Repositories
             _context.SaveChanges();
 
             return invitation;
+
         }
 
         public bool IsAccepted(Guid userId)

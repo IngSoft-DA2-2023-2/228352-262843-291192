@@ -99,6 +99,25 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void DeleteInvitationWithInvalidIdTest()
+        {
+            var context = CreateDbContext("DeleteInvitationWithInvalidIdTest");
+            var repository = new InvitationRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.DeleteInvitation(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
+        [TestMethod]
         public void DeleteAcceptedInvitationTest()
         {
             var context = CreateDbContext("DeleteAcceptedInvitationTest");
