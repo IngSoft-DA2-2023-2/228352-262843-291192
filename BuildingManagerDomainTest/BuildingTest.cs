@@ -434,6 +434,33 @@ namespace BuildingManagerDomainTest
             Assert.IsInstanceOfType(exception, typeof(ArgumentException));
         }
 
+        [TestMethod]
+        public void CreateBuildingWithNegativeApartmentBathroomsTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNegativeApartmentBathrooms = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Bathrooms = -1 }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
         #endregion
     }
 }
