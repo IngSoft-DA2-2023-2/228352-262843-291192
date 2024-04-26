@@ -350,6 +350,9 @@ namespace BuildingManagerDomainTest
             Assert.AreEqual(buildingId, building.Id);
         }
 
+
+        #region Apartment Tests
+
         [TestMethod]
         public void CreateBuildingWithNegativeApartmentFloorTest()
         {
@@ -376,5 +379,7 @@ namespace BuildingManagerDomainTest
 
             Assert.IsInstanceOfType(exception, typeof(ArgumentException));
         }
+
+        #endregion
     }
 }
