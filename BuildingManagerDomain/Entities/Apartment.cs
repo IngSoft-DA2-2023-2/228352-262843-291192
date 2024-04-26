@@ -8,6 +8,7 @@ namespace BuildingManagerDomain.Entities
         private int number;
         private int rooms;
         private int bathrooms;
+        private Owner owner;
 
         public int Floor
         {
@@ -62,7 +63,20 @@ namespace BuildingManagerDomain.Entities
         }
 
         public bool HasTerrace { get; set; }
-        public Owner Owner { get; set; }
+        
+        public Owner Owner
+        {
+            get { return owner; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Owner must not be null");
+                }
+                owner = value;
+            }
+        }
+
         public Guid BuildingId { get; set; }
     }
 }
