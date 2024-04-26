@@ -1,4 +1,5 @@
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +27,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public bool IsAccepted(Guid userId)
         {
-            throw new NotImplementedException();
+            return _context.Set<Invitation>().First(i => i.Id == userId).Status == InvitationStatus.ACCEPTED;
         }
     }
 }
