@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace BuildingManagerDomain.Entities
 {
@@ -44,10 +45,14 @@ namespace BuildingManagerDomain.Entities
                     throw new ArgumentException("Owner email must not be empty");
                 }
 
-                if (!value.Contains("@"))
+                string emailRegexPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                Regex regex = new Regex(emailRegexPattern);
+
+                if (!regex.IsMatch(value))
                 {
-                    throw new ArgumentException("Owner email must have @");
+                    throw new ArgumentException("Invalid email format");
                 }
+
                 email = value;
             }
         }
