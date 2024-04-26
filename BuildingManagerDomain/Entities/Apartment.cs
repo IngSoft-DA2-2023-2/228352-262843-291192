@@ -5,6 +5,7 @@ namespace BuildingManagerDomain.Entities
     public class Apartment
     {
         private int floor;
+        private int number;
 
         public int Floor
         {
@@ -18,7 +19,18 @@ namespace BuildingManagerDomain.Entities
                 floor = value;
             }
         }
-        public int Number { get; set; }
+        public int Number
+        {
+            get { return number; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Number must be greater than 0");
+                }
+                number = value;
+            }
+        }
         public int Rooms { get; set; }
         public int Bathrooms { get; set; }
         public bool HasTerrace { get; set; }
