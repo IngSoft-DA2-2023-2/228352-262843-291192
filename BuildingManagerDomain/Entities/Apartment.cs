@@ -9,6 +9,7 @@ namespace BuildingManagerDomain.Entities
         private int rooms;
         private int bathrooms;
         private Owner owner;
+        private Guid buildingId;
 
         public int Floor
         {
@@ -77,6 +78,17 @@ namespace BuildingManagerDomain.Entities
             }
         }
 
-        public Guid BuildingId { get; set; }
+        public Guid BuildingId
+        {
+            get { return buildingId; }
+            set
+            {
+                if (value == Guid.Empty)
+                {
+                    throw new ArgumentException("BuildingId must not be empty");
+                }
+                buildingId = value;
+            }
+        }
     }
 }

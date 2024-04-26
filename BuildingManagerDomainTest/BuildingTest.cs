@@ -488,6 +488,33 @@ namespace BuildingManagerDomainTest
             Assert.IsInstanceOfType(exception, typeof(ArgumentNullException));
         }
 
+        [TestMethod]
+        public void CreateBuildingWithInvalidApartmentBuildingIdTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNullApartmentBuildingId = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { BuildingId = Guid.Empty }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
         #endregion
     }
 }
