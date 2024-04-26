@@ -11,6 +11,8 @@ namespace BuildingManagerDomainTest
     [ExcludeFromCodeCoverage]
     public class BuildingTest
     {
+        #region Building Tests
+
         [TestMethod]
         public void BuildingIdTest()
         {
@@ -350,6 +352,7 @@ namespace BuildingManagerDomainTest
             Assert.AreEqual(buildingId, building.Id);
         }
 
+        #endregion
 
         #region Apartment Tests
 
