@@ -56,7 +56,7 @@ namespace BuildingManagerModels.Inner
                 Email = this.Email,
                 Name = this.Name,
                 Deadline = this.Deadline,
-                Status = InvitationStatus.ACCEPTED,
+                Status = InvitationStatus.PENDING,
             };
         }
     }

@@ -25,7 +25,8 @@ namespace BuildingManagerApiTest.Controllers
                 Id = new Guid(),
                 Email = "john@abc.com",
                 Name = "John",
-                Deadline = 1745039332
+                Deadline = 1745039332,
+                Status = InvitationStatus.PENDING,
             };
             _createInvitationRequest = new CreateInvitationRequest
             {
@@ -49,7 +50,7 @@ namespace BuildingManagerApiTest.Controllers
 
             mockInvitationLogic.VerifyAll();
             Assert.AreEqual(_createInvitationResponse, content);
-            Assert.AreEqual(content.Status, InvitationStatus.ACCEPTED);;
+            Assert.AreEqual(content.Status, InvitationStatus.PENDING);
         }
 
         [TestMethod]
