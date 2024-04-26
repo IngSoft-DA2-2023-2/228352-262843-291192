@@ -39,7 +39,7 @@ namespace BuildingManagerDomain.Entities
             get { return email; }
             set
             {
-                if (value == null)
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Owner email must not be empty");
                 }
