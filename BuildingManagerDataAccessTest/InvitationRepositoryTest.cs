@@ -98,6 +98,34 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
 
+        [TestMethod]
+        public void DeleteAcceptedInvitationTest()
+        {
+            var context = CreateDbContext("DeleteAcceptedInvitationTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED
+            };
+            repository.CreateInvitation(invitation);
+
+            Exception exception = null;
+            try
+            {
+                repository.DeleteInvitation(invitation.Id);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

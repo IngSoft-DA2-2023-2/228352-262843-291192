@@ -28,6 +28,10 @@ namespace BuildingManagerDataAccess.Repositories
         public Invitation DeleteInvitation(Guid id)
         {
             Invitation invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            if (invitation.Status == InvitationStatus.ACCEPTED)
+            {
+                throw new InvalidOperationException("Invitation is not declined.");
+            }
             _context.Set<Invitation>().Remove(invitation);
             _context.SaveChanges();
 
