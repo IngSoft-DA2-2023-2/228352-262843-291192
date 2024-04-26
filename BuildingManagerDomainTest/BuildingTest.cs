@@ -349,5 +349,32 @@ namespace BuildingManagerDomainTest
 
             Assert.AreEqual(buildingId, building.Id);
         }
+
+        [TestMethod]
+        public void CreateBuildingWithNegativeApartmentFloorTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNegativeApartmentFloors = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Floor = -1 }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
     }
 }
