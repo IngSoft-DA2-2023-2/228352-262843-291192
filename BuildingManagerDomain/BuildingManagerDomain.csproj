@@ -53,6 +53,7 @@
     <Compile Include="Entities\Building.cs" />
     <Compile Include="Entities\Owner.cs" />
     <Compile Include="Enums\RoleType.cs" />
+    <Compile Include="Enums\InvitationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,6 @@
 using System;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerModels.Inner
@@ -55,6 +56,7 @@ namespace BuildingManagerModels.Inner
                 Email = this.Email,
                 Name = this.Name,
                 Deadline = this.Deadline,
+                Status = InvitationStatus.ACCEPTED,
             };
         }
     }

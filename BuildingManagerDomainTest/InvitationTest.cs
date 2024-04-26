@@ -3,6 +3,7 @@ using System;
 using BuildingManagerDomain.Entities;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.CustomExceptions;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerDomainTest
 {
@@ -39,6 +40,14 @@ namespace BuildingManagerDomainTest
             long deadline = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             Invitation invitation = new() { Deadline = deadline };
             Assert.AreEqual(deadline, invitation.Deadline);
+        }
+
+        [TestMethod]
+        public void InvitationStatusTest()
+        {
+            InvitationStatus status = InvitationStatus.PENDING;
+            Invitation invitation = new() { Status = status };
+            Assert.AreEqual(status, invitation.Status);
         }
 
         [TestMethod]

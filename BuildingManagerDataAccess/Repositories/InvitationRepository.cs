@@ -18,5 +18,15 @@ namespace BuildingManagerDataAccess.Repositories
 
             return invitation;
         }
+
+        public Invitation DeleteInvitation(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsAccepted(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

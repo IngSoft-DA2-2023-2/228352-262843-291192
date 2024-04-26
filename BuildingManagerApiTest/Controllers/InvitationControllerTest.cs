@@ -1,5 +1,6 @@
 using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
@@ -48,6 +49,7 @@ namespace BuildingManagerApiTest.Controllers
 
             mockInvitationLogic.VerifyAll();
             Assert.AreEqual(_createInvitationResponse, content);
+            Assert.AreEqual(content.Status, InvitationStatus.ACCEPTED);;
         }
 
         [TestMethod]

@@ -87,5 +87,69 @@ namespace BuildingManagerLogicTest
             invitationRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
+
+        [TestMethod]
+        public void DeleteInvitationSuccessfully()
+        {
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.DeleteInvitation(It.IsAny<Guid>())).Returns(_invitation);
+
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+
+            var result = invitationLogic.DeleteInvitation(_invitation.Id);
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.AreEqual(_invitation, result);
+        }
+
+        [TestMethod]
+        public void DeleteInvitationWithInvalidId()
+        {
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.DeleteInvitation(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+            Exception exception = null;
+            try
+            {
+                invitationLogic.DeleteInvitation(_invitation.Id);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void DeleteAcceptedInvitation()
+        {
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(true);
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                invitationLogic.DeleteInvitation(_invitation.Id);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
     }
 }

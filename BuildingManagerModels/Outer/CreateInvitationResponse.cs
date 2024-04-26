@@ -1,5 +1,6 @@
 using System;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerModels.Outer
 {
@@ -9,6 +10,7 @@ namespace BuildingManagerModels.Outer
         public string Email { get; set; }
         public string Name { get; set; }
         public long Deadline { get; set; }
+        public InvitationStatus Status { get; set; }
 
         public CreateInvitationResponse(Invitation invitation)
         {
@@ -16,6 +18,7 @@ namespace BuildingManagerModels.Outer
             Email = invitation.Email;
             Name = invitation.Name;
             Deadline = invitation.Deadline;
+            Status = invitation.Status;
         }
 
         public override bool Equals(object obj)
@@ -24,7 +27,7 @@ namespace BuildingManagerModels.Outer
                 return false;
 
             var other = (CreateInvitationResponse)obj;
-            return Id == other.Id && Email == other.Email && Name == other.Name && Deadline == other.Deadline;
+            return Id == other.Id && Email == other.Email && Name == other.Name && Deadline == other.Deadline && Status == other.Status;
         }
 
     }

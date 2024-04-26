@@ -1,4 +1,5 @@
 using System;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerDomain.Entities
 {
@@ -8,5 +9,6 @@ namespace BuildingManagerDomain.Entities
         public string Email { get; set; }
         public string Name { get; set; }
         public long Deadline { get; set; }
+        public InvitationStatus Status { get; set; }
     }
 }

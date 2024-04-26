@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\DuplicatedValueException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="IUserLogic.cs" />
     <Compile Include="ICategoryLogic.cs" />
     <Compile Include="IBuildingLogic.cs" />
