@@ -5,6 +5,7 @@ namespace BuildingManagerDomain.Entities
     public class Owner
     {
         private string name;
+        private string lastName;
 
         public string Name
         {
@@ -19,7 +20,19 @@ namespace BuildingManagerDomain.Entities
             }
         }
 
-        public string LastName { get; set; }
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Owner last name must not be empty");
+                }
+                lastName = value;
+            }
+        }
+
         public string Email { get; set; }
     }
 }
