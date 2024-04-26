@@ -349,5 +349,172 @@ namespace BuildingManagerDomainTest
 
             Assert.AreEqual(buildingId, building.Id);
         }
+
+
+        #region Apartment Tests
+
+        [TestMethod]
+        public void CreateBuildingWithNegativeApartmentFloorTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNegativeApartmentFloors = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Floor = -1 }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithNegativeApartmentNumberTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNegativeApartmentNumber = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Number = -1 }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithNegativeApartmentRoomsTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNegativeApartmentRooms = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Rooms = -1 }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithNegativeApartmentBathroomsTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNegativeApartmentBathrooms = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Bathrooms = -1 }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithNullApartmentOwnerTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNullApartmentOwner = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Owner = null }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentNullException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithInvalidApartmentBuildingIdTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithNullApartmentBuildingId = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { BuildingId = Guid.Empty }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
+        #endregion
     }
 }
