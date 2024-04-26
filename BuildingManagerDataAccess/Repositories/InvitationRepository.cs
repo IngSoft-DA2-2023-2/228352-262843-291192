@@ -22,7 +22,11 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Invitation DeleteInvitation(Guid id)
         {
-            throw new NotImplementedException();
+            Invitation invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            _context.Set<Invitation>().Remove(invitation);
+            _context.SaveChanges();
+
+            return invitation;
         }
 
         public bool IsAccepted(Guid userId)

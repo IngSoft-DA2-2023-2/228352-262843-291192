@@ -49,6 +49,26 @@ namespace BuildingManagerDataAccessTest
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void DeleteInvitationTest()
+        {
+            var context = CreateDbContext("DeleteInvitationTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING
+            };
+            repository.CreateInvitation(invitation);
+
+            var result = repository.DeleteInvitation(invitation.Id);
+
+            Assert.AreEqual(invitation, result);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
