@@ -36,7 +36,7 @@ namespace BuildingManagerDataAccessTest
                         {
                             Name = "John",
                             LastName = "Doe",
-                            Email = ""
+                            Email = "validmail@outlook.com"
                         }
                     }
                 }
