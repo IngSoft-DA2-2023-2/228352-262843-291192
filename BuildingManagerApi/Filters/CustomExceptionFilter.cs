@@ -1,4 +1,4 @@
-﻿using BuildingManagerIDataAccess.Exceptions;
+﻿using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -18,11 +18,18 @@ namespace ECommerceApi.Filters
                     StatusCode = 400
                 };
             }
-            else if (context.Exception is ValueDuplicatedException)
+            else if (context.Exception is DuplicatedValueException)
             {
                 context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
                 {
                     StatusCode = 400
+                };
+            }
+            else if (context.Exception is NotFoundException)
+            {
+                context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
+                {
+                    StatusCode = 404
                 };
             }
             else if (context.Exception is Exception)
