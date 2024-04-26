@@ -2,6 +2,7 @@ using BuildingManagerDataAccess.Context;
 using BuildingManagerDataAccess.Repositories;
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
+using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingManagerDataAccessTest
@@ -67,6 +68,34 @@ namespace BuildingManagerDataAccessTest
             var result = repository.DeleteInvitation(invitation.Id);
 
             Assert.AreEqual(invitation, result);
+        }
+
+        [TestMethod]
+        public void CreateInvitationWithDuplicatedEmailTest()
+        {
+            var context = CreateDbContext("CreateInvitationWithDuplicatedEmailTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING
+            };
+            repository.CreateInvitation(invitation);
+
+            Exception exception = null;
+            try
+            {
+                repository.CreateInvitation(invitation);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
 
         private DbContext CreateDbContext(string name)

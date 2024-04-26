@@ -1,6 +1,7 @@
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingManagerDataAccess.Repositories
@@ -14,6 +15,10 @@ namespace BuildingManagerDataAccess.Repositories
         }
         public Invitation CreateInvitation(Invitation invitation)
         {
+            if (_context.Set<Invitation>().Any(i => i.Email == invitation.Email))
+            {
+                throw new ValueDuplicatedException("Email");
+            }
             _context.Set<Invitation>().Add(invitation);
             _context.SaveChanges();
 
