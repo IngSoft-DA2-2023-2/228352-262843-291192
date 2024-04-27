@@ -1,5 +1,7 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
+using BuildingManagerILogic.Exceptions;
 using BuildingManagerLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -41,6 +43,25 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(_building, result);
 
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithAlreadyInUseName()
+        {
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Throws(new ValueDuplicatedException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+            Exception exception = null;
+            try
+            {
+                buildingLogic.CreateBuilding(_building);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsNotNull(exception);
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
     }
 }

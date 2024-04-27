@@ -1,6 +1,8 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,13 @@ namespace BuildingManagerLogic
 
         public Building CreateBuilding(Building building)
         {
-            return _buildingRepository.CreateBuilding(building);
+            try
+            {
+                return _buildingRepository.CreateBuilding(building);
+            }catch(ValueDuplicatedException e)
+            {
+                throw new DuplicatedValueException(e, e.Message);
+            }
         }
     }
 }

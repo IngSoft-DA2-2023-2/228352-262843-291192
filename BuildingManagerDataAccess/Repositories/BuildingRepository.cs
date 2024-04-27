@@ -1,5 +1,6 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,12 @@ namespace BuildingManagerDataAccess.Repositories
         }
         public Building CreateBuilding(Building building)
         {
+            if(_context.Set<Building>().Any(b => b.Name == building.Name))
+            {
+                throw new ValueDuplicatedException("Name");
+            }
             _context.Set<Building>().Add(building);
             _context.SaveChanges();
-
             return building;
         }
     }
