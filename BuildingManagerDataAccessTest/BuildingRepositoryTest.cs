@@ -78,7 +78,6 @@ namespace BuildingManagerDataAccessTest
             Assert.ThrowsException<ValueDuplicatedException>(() => repository.CreateBuilding(building));
         }
 
-        //Los apartamentos no pueden coincidir. Dos apartamentos no pueden estar en el mismo piso y tener el mismo número.
         [TestMethod]
         public void CreateBuildingWithApartmentWithSameFloorAndNumberTest()
         {
