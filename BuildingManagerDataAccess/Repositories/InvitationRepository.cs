@@ -36,28 +36,12 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
-            if (invitation.Status == InvitationStatus.ACCEPTED)
-            {
-                throw new InvalidOperationException("Invitation is not declined.");
-            }
+            ThrowExceptionIfIsAccepted(invitation);
             _context.Set<Invitation>().Remove(invitation);
             _context.SaveChanges();
 
             return invitation;
 
-        }
-
-        public bool IsAccepted(Guid invitationId)
-        {
-            try
-            {
-                var invitation = _context.Set<Invitation>().First(i => i.Id == invitationId);
-                return invitation.Status == InvitationStatus.ACCEPTED;
-            }
-            catch (InvalidOperationException)
-            {
-                throw new ValueNotFoundException("Invitation not found.");
-            }
         }
 
         public Invitation ModifyInvitation(Guid id, long newDeadline)
@@ -71,48 +55,37 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
-            if (invitation.Status == InvitationStatus.ACCEPTED)
-            {
-                throw new InvalidOperationException("Invitation was accepted.");
-            }
-            if (invitation.Deadline > DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds())
-            {
-                throw new InvalidOperationException("Invitation will expire in more than one day.");
-            }
-            if (invitation.Deadline >= newDeadline)
-            {
-                throw new InvalidOperationException("New deadline must be greater than the current deadline.");
-            }
+
+            ThrowExceptionIfIsAccepted(invitation);
+            ThrowExceptionIfExpiresInMoreThanOneDay(invitation);
+            ThrowExceptionIfDeadlineExtensionIsInvalid(invitation, newDeadline);
 
             invitation.Deadline = newDeadline;
             _context.SaveChanges();
 
             return invitation;
         }
-
-        public bool ExpiresInMoreThanOneDay(Guid id)
+        private static void ThrowExceptionIfIsAccepted(Invitation invitation)
         {
-            try
+            if (invitation.Status == InvitationStatus.ACCEPTED)
             {
-                var invitation = _context.Set<Invitation>().First(i => i.Id == id);
-                return invitation.Deadline > DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds();
-            }
-            catch (InvalidOperationException)
-            {
-                throw new ValueNotFoundException("Invitation not found.");
+                throw new InvalidOperationException("Invitation was accepted.");
             }
         }
 
-        public bool IsDeadlineExtensionValid(Guid id, long newDeadline)
+        private static void ThrowExceptionIfExpiresInMoreThanOneDay(Invitation invitation)
         {
-            try
+            if (invitation.Deadline > DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds())
             {
-                var invitation = _context.Set<Invitation>().First(i => i.Id == id);
-                return invitation.Deadline < newDeadline;
+                throw new InvalidOperationException("Invitation will expire in more than one day.");
             }
-            catch (InvalidOperationException)
+        }
+
+        private static void ThrowExceptionIfDeadlineExtensionIsInvalid(Invitation invitation, long newDeadline)
+        {
+            if (newDeadline < invitation.Deadline)
             {
-                throw new ValueNotFoundException("Invitation not found.");
+                throw new InvalidOperationException("New deadline must be greater than the current deadline.");
             }
         }
     }

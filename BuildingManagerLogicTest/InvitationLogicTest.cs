@@ -94,7 +94,6 @@ namespace BuildingManagerLogicTest
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
 
-            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.DeleteInvitation(It.IsAny<Guid>())).Returns(_invitation);
 
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
@@ -111,7 +110,6 @@ namespace BuildingManagerLogicTest
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
 
-            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.DeleteInvitation(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
@@ -133,7 +131,7 @@ namespace BuildingManagerLogicTest
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(true);
+            invitationRepositoryMock.Setup(x => x.DeleteInvitation(It.IsAny<Guid>())).Throws(new InvalidOperationException(""));
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
 
@@ -163,9 +161,6 @@ namespace BuildingManagerLogicTest
                 Email = _invitation.Email,
                 Deadline = newDeadline
             };
-            invitationRepositoryMock.Setup(x => x.ExpiresInMoreThanOneDay(It.IsAny<Guid>())).Returns(false);
-            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
-            invitationRepositoryMock.Setup(x => x.IsDeadlineExtensionValid(It.IsAny<Guid>(), It.IsAny<long>())).Returns(true);
             invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Returns(modifiedInvitation);
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
 
@@ -180,9 +175,6 @@ namespace BuildingManagerLogicTest
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.ExpiresInMoreThanOneDay(It.IsAny<Guid>())).Returns(false);
-            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
-            invitationRepositoryMock.Setup(x => x.IsDeadlineExtensionValid(It.IsAny<Guid>(), It.IsAny<long>())).Returns(true);
             invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Throws(new ValueNotFoundException(""));
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
@@ -205,7 +197,7 @@ namespace BuildingManagerLogicTest
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(true);
+            invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Throws(new InvalidOperationException(""));
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
 
@@ -227,8 +219,7 @@ namespace BuildingManagerLogicTest
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
-            invitationRepositoryMock.Setup(x => x.ExpiresInMoreThanOneDay(It.IsAny<Guid>())).Returns(true);
+            invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Throws(new InvalidOperationException(""));
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
 
@@ -250,9 +241,7 @@ namespace BuildingManagerLogicTest
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
-            invitationRepositoryMock.Setup(x => x.ExpiresInMoreThanOneDay(It.IsAny<Guid>())).Returns(false);
-            invitationRepositoryMock.Setup(x => x.IsDeadlineExtensionValid(It.IsAny<Guid>(), It.IsAny<long>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Throws(new InvalidOperationException(""));
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
 
