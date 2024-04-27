@@ -123,5 +123,66 @@ namespace BuildingManagerLogicTest
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
 
+        [TestMethod]
+        public void CreateBuildingWithApartmentWithSameOwnerEmailTest()
+        {
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+            Exception exception = null;
+
+            Building buildingWithSameOwnerEmail = new Building()
+            {
+                Id = new Guid(),
+                ManagerId = new Guid(),
+                Name = "Building 2",
+                Address = "Address",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 3,
+                        Rooms = 1,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Eod",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+
+            try
+            {
+                buildingLogic.CreateBuilding(buildingWithSameOwnerEmail);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsNotNull(exception);
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
     }
 }

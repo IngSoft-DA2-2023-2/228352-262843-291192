@@ -29,6 +29,11 @@ namespace BuildingManagerLogic
                     throw new ValueDuplicatedException("Apartment floor and number");
                 }
 
+                if (HasDistinctOwnersWithSameEmail(building.Apartments))
+                {
+                    throw new ValueDuplicatedException("Owner email");
+                }
+
                 return _buildingRepository.CreateBuilding(building);
             }catch(ValueDuplicatedException e)
             {
@@ -43,6 +48,21 @@ namespace BuildingManagerLogic
                 for (int j = i + 1; j < apartments.Count; j++)
                 {
                     if (apartments[i].Floor == apartments[j].Floor && apartments[i].Number == apartments[j].Number)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool HasDistinctOwnersWithSameEmail(List<Apartment> apartments)
+        {
+            for (int i = 0; i < apartments.Count; i++)
+            {
+                for (int j = i + 1; j < apartments.Count; j++)
+                {
+                    if (apartments[i].Owner.Email == apartments[j].Owner.Email)
                     {
                         return true;
                     }
