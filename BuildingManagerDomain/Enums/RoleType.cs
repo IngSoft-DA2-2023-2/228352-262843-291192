@@ -9,6 +9,7 @@ namespace BuildingManagerDomain.Enums
     public enum RoleType
     {
         ADMIN,
-        MAINTENANCE
+        MAINTENANCE,
+        MANAGER,
     }
 }

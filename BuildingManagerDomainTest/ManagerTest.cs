@@ -40,5 +40,13 @@ namespace BuildingManagerDomainTest
             Manager manager = new() { Password = password };
             Assert.AreEqual(password, manager.Password);
         }
+
+        [TestMethod]
+        public void ManagerRoleTest()
+        {
+            RoleType role = RoleType.MANAGER;
+            Manager manager = new() { };
+            Assert.AreEqual(role, manager.Role);
+        }
     }
 }
