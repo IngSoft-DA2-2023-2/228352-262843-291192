@@ -24,9 +24,26 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueDuplicatedException("Name");
             }
 
+            if(HasDuplicatedOwnerEmail(building.Apartments))
+            {
+                throw new ValueDuplicatedException("Owner email");
+            }
+
             _context.Set<Building>().Add(building);
             _context.SaveChanges();
             return building;
+        }
+
+        private bool HasDuplicatedOwnerEmail(List<Apartment> apartments)
+        {
+            foreach (var apartment in apartments)
+            {
+                if (_context.Set<Apartment>().Any(a => a.Owner.Email == apartment.Owner.Email && (a.Owner.Name != apartment.Owner.Name || a.Owner.LastName != apartment.Owner.LastName)))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
