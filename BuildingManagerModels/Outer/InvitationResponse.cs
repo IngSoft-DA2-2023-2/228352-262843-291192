@@ -4,7 +4,7 @@ using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerModels.Outer
 {
-    public class CreateInvitationResponse
+    public class InvitationResponse
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
@@ -12,7 +12,7 @@ namespace BuildingManagerModels.Outer
         public long Deadline { get; set; }
         public InvitationStatus Status { get; set; }
 
-        public CreateInvitationResponse(Invitation invitation)
+        public InvitationResponse(Invitation invitation)
         {
             Id = invitation.Id;
             Email = invitation.Email;
@@ -26,7 +26,7 @@ namespace BuildingManagerModels.Outer
             if (obj == null || GetType() != obj.GetType())
                 return false;
 
-            var other = (CreateInvitationResponse)obj;
+            var other = (InvitationResponse)obj;
             return Id == other.Id && Email == other.Email && Name == other.Name && Deadline == other.Deadline && Status == other.Status;
         }
 
