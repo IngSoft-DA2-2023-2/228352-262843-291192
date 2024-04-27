@@ -35,7 +35,7 @@ namespace BuildingManagerDataAccessTest
         {
             var context = CreateDbContext("CheckIfInvitationWasAcceptedTest");
             var repository = new InvitationRepository(context);
-             var invitation = new Invitation
+            var invitation = new Invitation
             {
                 Id = Guid.NewGuid(),
                 Name = "John",
@@ -48,6 +48,33 @@ namespace BuildingManagerDataAccessTest
             var result = repository.IsAccepted(invitation.Id);
 
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void CheckIfInvitationWasAcceptedWithInvalidIdTest()
+        {
+            var context = CreateDbContext("CheckIfInvitationWasAcceptedWithInvalidIdTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED
+            };
+            Exception exception = null;
+
+            try
+            {
+                var result = repository.IsAccepted(invitation.Id);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
         [TestMethod]

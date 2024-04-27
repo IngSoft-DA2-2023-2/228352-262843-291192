@@ -47,9 +47,17 @@ namespace BuildingManagerDataAccess.Repositories
 
         }
 
-        public bool IsAccepted(Guid userId)
+        public bool IsAccepted(Guid invitationId)
         {
-            return _context.Set<Invitation>().First(i => i.Id == userId).Status == InvitationStatus.ACCEPTED;
+            try
+            {
+                var invitation = _context.Set<Invitation>().First(i => i.Id == invitationId);
+                return invitation.Status == InvitationStatus.ACCEPTED;
+            }
+            catch(InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Invitation not found.");
+            }
         }
     }
 }
