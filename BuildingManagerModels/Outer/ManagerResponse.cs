@@ -1,6 +1,5 @@
 using System;
 using BuildingManagerDomain.Entities;
-using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerModels.Outer
 {
@@ -15,6 +14,15 @@ namespace BuildingManagerModels.Outer
             Id = manager.Id;
             Email = manager.Email;
             Name = manager.Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            var other = (ManagerResponse)obj;
+            return Id == other.Id && Email == other.Email && Name == other.Name;
         }
     }
 }

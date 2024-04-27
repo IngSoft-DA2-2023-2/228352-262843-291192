@@ -45,6 +45,34 @@ namespace BuildingManagerApiTest.Controllers
             Assert.AreEqual(expectedObject.Id, resultObject.Id);
         }
 
-        
+
+        [TestMethod]
+        public void Equals_NullObject_ReturnsFalse()
+        {
+            var response = new ManagerResponse(_manager);
+            Assert.IsFalse(response.Equals(null));
+        }
+
+        [TestMethod]
+        public void Equals_ObjectOfDifferentType_ReturnsFalse()
+        {
+            var response = new ManagerResponse(_manager);
+            var differentTypeObject = new object();
+            Assert.IsFalse(response.Equals(differentTypeObject));
+        }
+
+        [TestMethod]
+        public void Equals_ObjectWithDifferentAttributes_ReturnsFalse()
+        {
+            var response1 = new ManagerResponse(_manager);
+            var response2 = new ManagerResponse(new Manager
+            {
+                Id = new Guid(),
+                Name = "Jane",
+                Email = "jane@abc.com",
+                Password = "pass456"
+            });
+            Assert.IsFalse(response1.Equals(response2));
+        }
     }
 }
