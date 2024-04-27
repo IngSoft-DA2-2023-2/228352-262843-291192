@@ -7,50 +7,12 @@ namespace BuildingManagerModels.Inner
 {
     public class CreateInvitationRequest
     {
-        private long _deadline;
-        private string _name;
-        private string _email;
-
-        public string Email
-        {
-            get { return _email; }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new InvalidArgumentException("email");
-                }
-                _email = value;
-            }
-        }
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new InvalidArgumentException("name");
-                }
-                _name = value;
-            }
-        }
-        public long Deadline
-        {
-            get { return _deadline; }
-            set
-            {
-                long today = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-
-                if (today >= value)
-                {
-                    throw new InvalidArgumentException("deadline");
-                }
-                _deadline = value;
-            }
-        }
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public long Deadline { get; set; }
         public Invitation ToEntity()
         {
+            Validate();
             return new Invitation()
             {
                 Email = this.Email,
@@ -58,6 +20,27 @@ namespace BuildingManagerModels.Inner
                 Deadline = this.Deadline,
                 Status = InvitationStatus.PENDING,
             };
+        }
+
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(Email))
+            {
+                throw new InvalidArgumentException("email");
+            }
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new InvalidArgumentException("name");
+            }
+            if (string.IsNullOrEmpty(Deadline.ToString()))
+            {
+                throw new InvalidArgumentException("deadline");
+            }
+            long today = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            if (today >= Deadline)
+            {
+                throw new InvalidArgumentException("deadline");
+            }
         }
     }
 }

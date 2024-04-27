@@ -62,6 +62,7 @@ namespace BuildingManagerDomainTest
                     Email = "test@test.com",
                     Deadline = DateTimeOffset.UtcNow.AddYears(-3).ToUnixTimeSeconds()
                 };
+                requestWithPastDeadline.Validate();
             }
             catch (Exception ex)
             {
@@ -83,6 +84,7 @@ namespace BuildingManagerDomainTest
                     Email = "test@test.com",
                     Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds()
                 };
+                requestWithoutName.Validate();
             }
             catch (Exception ex)
             {
@@ -104,6 +106,7 @@ namespace BuildingManagerDomainTest
                     Email = null,
                     Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds()
                 };
+                requestWithoutEmail.Validate();
             }
             catch (Exception ex)
             {
