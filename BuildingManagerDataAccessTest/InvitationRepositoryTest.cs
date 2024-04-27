@@ -165,6 +165,25 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void ModifyInvitationWithInvalidIdTest()
+        {
+            var context = CreateDbContext("ModifyInvitationWithInvalidIdTest");
+            var repository = new InvitationRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.ModifyInvitation(new Guid(), DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
+        [TestMethod]
         public void DeleteAcceptedInvitationTest()
         {
             var context = CreateDbContext("DeleteAcceptedInvitationTest");

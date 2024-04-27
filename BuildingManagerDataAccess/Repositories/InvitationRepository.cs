@@ -62,7 +62,15 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Invitation ModifyInvitation(Guid id, long newDeadline)
         {
-            Invitation invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            Invitation invitation;
+            try
+            {
+                invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Invitation not found.");
+            }
             invitation.Deadline = newDeadline;
             _context.SaveChanges();
 
