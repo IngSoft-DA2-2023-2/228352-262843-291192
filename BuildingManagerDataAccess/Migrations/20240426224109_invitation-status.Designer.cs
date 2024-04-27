@@ -4,6 +4,7 @@ using BuildingManagerDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagerDataAccess.Migrations
 {
     [DbContext(typeof(BuildingManagerContext))]
-    partial class BuildingManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240426224109_invitation-status")]
+    partial class invitationstatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,6 +142,10 @@ namespace BuildingManagerDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -155,29 +161,18 @@ namespace BuildingManagerDataAccess.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<string>("user_type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Users");
 
-                    b.HasDiscriminator<string>("user_type").HasValue("User");
-                });
-
-            modelBuilder.Entity("BuildingManagerDomain.Entities.Admin", b =>
-                {
-                    b.HasBaseType("BuildingManagerDomain.Entities.User");
-
-                    b.HasDiscriminator().HasValue("admin_user");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.MaintenanceStaff", b =>
                 {
                     b.HasBaseType("BuildingManagerDomain.Entities.User");
 
-                    b.HasDiscriminator().HasValue("maintenance_user");
+                    b.HasDiscriminator().HasValue("MaintenanceStaff");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Apartment", b =>
