@@ -77,5 +77,44 @@ namespace BuildingManagerDataAccessTest
 
             Assert.ThrowsException<ValueDuplicatedException>(() => repository.CreateBuilding(building));
         }
+
+        //Los apartamentos no pueden coincidir. Dos apartamentos no pueden estar en el mismo piso y tener el mismo número.
+        [TestMethod]
+        public void CreateBuildingWithApartmentWithSameFloorAndNumberTest()
+        {
+            var context = CreateDbContext("CreateBuildingWithApartmentWithSameFloorAndNumberTest");
+            var repository = new BuildingRepository(context);
+            var building = new Building
+            {
+                Id = Guid.NewGuid(),
+                ManagerId = Guid.NewGuid(),
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompany = "Company 1",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    },
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true
+                    }
+                }
+            };
+
+            Assert.ThrowsException<ValueDuplicatedException>(() => repository.CreateBuilding(building));
+        }
     }
 }

@@ -63,5 +63,23 @@ namespace BuildingManagerLogicTest
             Assert.IsNotNull(exception);
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
+
+        [TestMethod]
+        public void CreateBuildingWithApartmentWithSameFloorAndNumberTest() {             
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Throws(new ValueDuplicatedException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+            Exception exception = null;
+            try
+            {
+                buildingLogic.CreateBuilding(_building);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsNotNull(exception);
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
     }
 }
