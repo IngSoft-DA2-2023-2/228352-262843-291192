@@ -61,6 +61,9 @@ namespace BuildingManagerLogic
                 {
                     throw new InvalidOperationException("Invitation will expire in more than one day.");
                 }
+                if (!_invitationRepository.IsDeadlineExtensionValid(id, newDeadline)){
+                    throw new InvalidOperationException("New deadline must be greater than the current deadline.");
+                }
                 return _invitationRepository.ModifyInvitation(id, newDeadline);
             } 
             catch(ValueNotFoundException e)

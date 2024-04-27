@@ -69,5 +69,10 @@ namespace BuildingManagerDataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public bool IsDeadlineExtensionValid(Guid id, long newDeadline)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
