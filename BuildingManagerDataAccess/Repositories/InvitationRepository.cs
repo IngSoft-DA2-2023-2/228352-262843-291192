@@ -75,6 +75,10 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new InvalidOperationException("Invitation was accepted.");
             }
+            if (invitation.Deadline > DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds())
+            {
+                throw new InvalidOperationException("Invitation will expire in more than one day.");
+            }
 
             invitation.Deadline = newDeadline;
             _context.SaveChanges();

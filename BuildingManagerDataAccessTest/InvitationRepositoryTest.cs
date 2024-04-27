@@ -107,7 +107,7 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Name = "John",
                 Email = "test@test.com",
-                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Deadline = DateTimeOffset.UtcNow.AddHours(3).ToUnixTimeSeconds(),
                 Status = InvitationStatus.PENDING
             };
             repository.CreateInvitation(invitation);
@@ -193,7 +193,7 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Name = "John",
                 Email = "test@test.com",
-                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Deadline = DateTimeOffset.UtcNow.AddHours(3).ToUnixTimeSeconds(),
                 Status = InvitationStatus.ACCEPTED
             };
             repository.CreateInvitation(invitation);
@@ -221,8 +221,36 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Name = "John",
                 Email = "test@test.com",
-                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Deadline = DateTimeOffset.UtcNow.AddHours(3).ToUnixTimeSeconds(),
                 Status = InvitationStatus.ACCEPTED
+            };
+            repository.CreateInvitation(invitation);
+
+            Exception exception = null;
+            try
+            {
+                repository.ModifyInvitation(invitation.Id, DateTimeOffset.UtcNow.AddYears(4).ToUnixTimeSeconds());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
+        public void ModifyInvitationThatExpiresInMoreThanOneDayTest()
+        {
+            var context = CreateDbContext("ModifyInvitationThatExpiresInMoreThanOneDayTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING
             };
             repository.CreateInvitation(invitation);
 
