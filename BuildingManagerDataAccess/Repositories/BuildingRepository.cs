@@ -29,6 +29,11 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueDuplicatedException("Owner email");
             }
 
+            if(HasSameLocationAndAddress(building))
+            {
+                throw new ValueDuplicatedException("Location and Address");
+            }
+
             _context.Set<Building>().Add(building);
             _context.SaveChanges();
             return building;
@@ -44,6 +49,11 @@ namespace BuildingManagerDataAccess.Repositories
                 }
             }
             return false;
+        }
+    
+        private bool HasSameLocationAndAddress(Building building)
+        {
+            return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address);
         }
     }
 }
