@@ -131,5 +131,26 @@ namespace BuildingManagerLogicTest
             userRespositoryMock.VerifyAll();
             Assert.AreEqual(manager, result);
         }
+
+        [TestMethod]
+        public void DeleteUserWithInvalidId()
+        {
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRepositoryMock.Setup(x => x.DeleteUser(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var userLogic = new UserLogic(userRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                userLogic.DeleteUser(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            userRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }

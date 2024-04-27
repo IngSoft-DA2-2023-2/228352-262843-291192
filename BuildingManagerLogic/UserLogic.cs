@@ -21,7 +21,7 @@ namespace BuildingManagerLogic
             {
                 return _userRepository.CreateUser(user);
             }
-            catch(ValueDuplicatedException e)
+            catch (ValueDuplicatedException e)
             {
                 throw new DuplicatedValueException(e, e.Message);
             }
@@ -29,7 +29,14 @@ namespace BuildingManagerLogic
 
         public User DeleteUser(Guid userId)
         {
-            return _userRepository.DeleteUser(userId);
+            try
+            {
+                return _userRepository.DeleteUser(userId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public bool Exists(Guid userId)
