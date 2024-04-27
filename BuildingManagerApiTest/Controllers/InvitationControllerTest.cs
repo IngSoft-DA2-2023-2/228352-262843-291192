@@ -74,7 +74,9 @@ namespace BuildingManagerApiTest.Controllers
         public void ModifyInvitation_Ok()
         {
             long newDeadline = 17450393329;
-            Invitation modifiedInvitation = new Invitation {
+            ModifyInvitationRequest modifyInvitationRequest = new ModifyInvitationRequest(newDeadline);
+            Invitation modifiedInvitation = new Invitation
+            {
                 Id = _invitation.Id,
                 Email = _invitation.Email,
                 Name = _invitation.Name,
@@ -86,7 +88,7 @@ namespace BuildingManagerApiTest.Controllers
             OkObjectResult expected = new OkObjectResult(new CreateInvitationResponse(_invitation));
             CreateInvitationResponse expectedObject = expected.Value as CreateInvitationResponse;
 
-            OkObjectResult result = invitationController.ModifyInvitation(_invitation.Id, newDeadline) as OkObjectResult;
+            OkObjectResult result = invitationController.ModifyInvitation(_invitation.Id, modifyInvitationRequest) as OkObjectResult;
             CreateInvitationResponse resultObject = result.Value as CreateInvitationResponse;
 
             mockInvitationLogic.VerifyAll();

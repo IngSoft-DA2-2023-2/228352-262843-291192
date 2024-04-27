@@ -47,6 +47,7 @@
     <Compile Include="Inner\CreateMaintenanceStaffRequest.cs" />
     <Compile Include="Inner\CreateAdminRequest.cs" />
     <Compile Include="Inner\CreateCategoryRequest.cs" />
+    <Compile Include="Inner\ModifyInvitationRequest.cs" />
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
     <Compile Include="Outer\CreateCategoryResponse.cs" />
