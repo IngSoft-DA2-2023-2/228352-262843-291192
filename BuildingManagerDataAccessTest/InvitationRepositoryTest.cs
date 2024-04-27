@@ -212,6 +212,34 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void ModifyAcceptedInvitationTest()
+        {
+            var context = CreateDbContext("ModifyAcceptedInvitationTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED
+            };
+            repository.CreateInvitation(invitation);
+
+            Exception exception = null;
+            try
+            {
+                repository.ModifyInvitation(invitation.Id, DateTimeOffset.UtcNow.AddYears(4).ToUnixTimeSeconds());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
         public void CheckIfInvitationExpiresInMoreThanOneDayTest()
         {
             var context = CreateDbContext("CheckIfInvitationExpiresInMoreThanOneDayTest");

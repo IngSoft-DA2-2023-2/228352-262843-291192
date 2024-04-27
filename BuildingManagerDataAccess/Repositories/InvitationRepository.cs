@@ -71,6 +71,11 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
+            if (invitation.Status == InvitationStatus.ACCEPTED)
+            {
+                throw new InvalidOperationException("Invitation was accepted.");
+            }
+
             invitation.Deadline = newDeadline;
             _context.SaveChanges();
 
