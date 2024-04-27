@@ -62,7 +62,11 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Invitation ModifyInvitation(Guid id, long newDeadline)
         {
-            throw new NotImplementedException();
+            Invitation invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            invitation.Deadline = newDeadline;
+            _context.SaveChanges();
+
+            return invitation;
         }
 
         public bool ExpiresInMoreThanOneDay(Guid id)

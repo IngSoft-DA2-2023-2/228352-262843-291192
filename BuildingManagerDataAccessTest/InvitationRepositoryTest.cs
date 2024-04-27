@@ -98,6 +98,26 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void ModifyInvitationTest()
+        {
+            var context = CreateDbContext("ModifyInvitationTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING
+            };
+            repository.CreateInvitation(invitation);
+
+            var result = repository.ModifyInvitation(invitation.Id, DateTimeOffset.UtcNow.AddYears(4).ToUnixTimeSeconds());
+
+            Assert.AreEqual(invitation, result);
+        }
+
+        [TestMethod]
         public void CreateInvitationWithDuplicatedEmailTest()
         {
             var context = CreateDbContext("CreateInvitationWithDuplicatedEmailTest");
