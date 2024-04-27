@@ -57,6 +57,10 @@ namespace BuildingManagerLogic
                 {
                     throw new InvalidOperationException("Invitation was accepted.");
                 }
+                if (!_invitationRepository.HasExpired(id))
+                {
+                    throw new InvalidOperationException("Invitation has not expired.");
+                }
                 return _invitationRepository.ModifyInvitation(id, newDeadline);
             } 
             catch(ValueNotFoundException e)

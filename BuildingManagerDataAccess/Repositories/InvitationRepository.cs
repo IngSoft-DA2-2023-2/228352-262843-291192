@@ -47,6 +47,11 @@ namespace BuildingManagerDataAccess.Repositories
 
         }
 
+        public bool HasExpired(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsAccepted(Guid invitationId)
         {
             try
