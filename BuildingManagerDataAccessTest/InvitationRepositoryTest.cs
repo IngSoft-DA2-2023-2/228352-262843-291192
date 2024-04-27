@@ -268,6 +268,34 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void ModifyInvitationWithInvalidNewDeadlineTest()
+        {
+            var context = CreateDbContext("ModifyInvitationWithInvalidNewDeadlineTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddHours(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING
+            };
+            repository.CreateInvitation(invitation);
+
+            Exception exception = null;
+            try
+            {
+                repository.ModifyInvitation(invitation.Id, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
         public void CheckIfInvitationExpiresInMoreThanOneDayTest()
         {
             var context = CreateDbContext("CheckIfInvitationExpiresInMoreThanOneDayTest");
@@ -278,7 +306,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.ACCEPTED
+                Status = InvitationStatus.PENDING
             };
             repository.CreateInvitation(invitation);
 

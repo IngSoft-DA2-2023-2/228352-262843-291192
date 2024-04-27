@@ -79,6 +79,10 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new InvalidOperationException("Invitation will expire in more than one day.");
             }
+            if (invitation.Deadline >= newDeadline)
+            {
+                throw new InvalidOperationException("New deadline must be greater than the current deadline.");
+            }
 
             invitation.Deadline = newDeadline;
             _context.SaveChanges();
