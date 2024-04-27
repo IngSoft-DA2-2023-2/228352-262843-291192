@@ -192,6 +192,26 @@ namespace BuildingManagerDataAccessTest
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void CheckIfNewDeadlineIsValidTest()
+        {
+            var context = CreateDbContext("CheckIfNewDeadlineIsValidTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED
+            };
+            repository.CreateInvitation(invitation);
+
+            var result = repository.IsDeadlineExtensionValid(invitation.Id, DateTimeOffset.UtcNow.AddDays(2).ToUnixTimeSeconds());
+
+            Assert.IsTrue(result);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

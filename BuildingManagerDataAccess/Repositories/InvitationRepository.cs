@@ -73,7 +73,8 @@ namespace BuildingManagerDataAccess.Repositories
 
         public bool IsDeadlineExtensionValid(Guid id, long newDeadline)
         {
-            throw new NotImplementedException();
+            var invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            return invitation.Deadline < newDeadline;
         }
     }
 }
