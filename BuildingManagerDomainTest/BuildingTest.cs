@@ -349,7 +349,7 @@ namespace BuildingManagerDomainTest
 
             building.Apartments.Add(apartment);
 
-            Assert.AreEqual(buildingId, building.Id);
+            Assert.AreEqual(buildingId, apartment.BuildingId);
         }
 
         #endregion

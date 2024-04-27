@@ -1,5 +1,6 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,41 @@ namespace BuildingManagerDataAccess.Repositories
         }
         public Building CreateBuilding(Building building)
         {
+            if (_context.Set<Building>().Any(b => b.Name == building.Name))
+            {
+                throw new ValueDuplicatedException("Name");
+            }
+
+            if(HasDuplicatedOwnerEmail(building.Apartments))
+            {
+                throw new ValueDuplicatedException("Owner email");
+            }
+
+            if(HasSameLocationAndAddress(building))
+            {
+                throw new ValueDuplicatedException("Location and Address");
+            }
+
             _context.Set<Building>().Add(building);
             _context.SaveChanges();
-
             return building;
+        }
+
+        private bool HasDuplicatedOwnerEmail(List<Apartment> apartments)
+        {
+            foreach (var apartment in apartments)
+            {
+                if (_context.Set<Apartment>().Any(a => a.Owner.Email == apartment.Owner.Email && (a.Owner.Name != apartment.Owner.Name || a.Owner.LastName != apartment.Owner.LastName)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    
+        private bool HasSameLocationAndAddress(Building building)
+        {
+            return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address);
         }
     }
 }
