@@ -27,6 +27,11 @@ namespace BuildingManagerLogic
             }
         }
 
+        public User DeleteUser(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Exists(Guid userId)
         {
             return _userRepository.Exists(userId);
