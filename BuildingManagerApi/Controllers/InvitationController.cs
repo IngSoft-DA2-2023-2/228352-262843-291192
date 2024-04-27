@@ -35,6 +35,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult ModifyInvitation([FromRoute] Guid id, [FromBody] long newDeadline)
         {
             CreateInvitationResponse modifyInvitationResponse = new(_invitationLogic.ModifyInvitation(id, newDeadline));
