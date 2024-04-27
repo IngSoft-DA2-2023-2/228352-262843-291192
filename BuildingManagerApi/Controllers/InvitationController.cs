@@ -33,5 +33,12 @@ namespace BuildingManagerApi.Controllers
             CreateInvitationResponse deleteInvitationResponse = new(_invitationLogic.DeleteInvitation(id));
             return Ok(deleteInvitationResponse);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult ModifyInvitation([FromRoute] Guid id, [FromBody] long newDeadline)
+        {
+            CreateInvitationResponse modifyInvitationResponse = new(_invitationLogic.ModifyInvitation(id, newDeadline));
+            return Ok(modifyInvitationResponse);
+        }
     }
 }

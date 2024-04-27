@@ -71,6 +71,30 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
+        public void ModifyInvitation_Ok()
+        {
+            long newDeadline = 17450393329;
+            Invitation modifiedInvitation = new Invitation {
+                Id = _invitation.Id,
+                Email = _invitation.Email,
+                Name = _invitation.Name,
+                Deadline = newDeadline,
+            };
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Returns(modifiedInvitation);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+            OkObjectResult expected = new OkObjectResult(new CreateInvitationResponse(_invitation));
+            CreateInvitationResponse expectedObject = expected.Value as CreateInvitationResponse;
+
+            OkObjectResult result = invitationController.ModifyInvitation(_invitation.Id, newDeadline) as OkObjectResult;
+            CreateInvitationResponse resultObject = result.Value as CreateInvitationResponse;
+
+            mockInvitationLogic.VerifyAll();
+            Assert.AreEqual(result.StatusCode, expected.StatusCode);
+            Assert.AreEqual(expectedObject.Id, resultObject.Id);
+        }
+
+        [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
             CreateInvitationResponse response = new CreateInvitationResponse(new Invitation());

@@ -48,5 +48,10 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
+
+        public Invitation ModifyInvitation(Guid id, long newDeadline)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
