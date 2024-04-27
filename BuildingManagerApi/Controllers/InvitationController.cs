@@ -22,7 +22,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult CreateInvitation([FromBody] CreateInvitationRequest invitationRequest)
         {
-            CreateInvitationResponse createInvitationResponse = new(_invitationLogic.CreateInvitation(invitationRequest.ToEntity()));
+            InvitationResponse createInvitationResponse = new(_invitationLogic.CreateInvitation(invitationRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateInvitation), createInvitationResponse);
         }
 
@@ -30,15 +30,15 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult DeleteInvitation([FromRoute] Guid id)
         {
-            CreateInvitationResponse deleteInvitationResponse = new(_invitationLogic.DeleteInvitation(id));
+            InvitationResponse deleteInvitationResponse = new(_invitationLogic.DeleteInvitation(id));
             return Ok(deleteInvitationResponse);
         }
 
         [HttpPut("{id}")]
         [AuthenticationFilter(RoleType.ADMIN)]
-        public IActionResult ModifyInvitation([FromRoute] Guid id, [FromBody] long newDeadline)
+        public IActionResult ModifyInvitation([FromRoute] Guid id, [FromBody] ModifyInvitationRequest invitationRequest)
         {
-            CreateInvitationResponse modifyInvitationResponse = new(_invitationLogic.ModifyInvitation(id, newDeadline));
+            InvitationResponse modifyInvitationResponse = new(_invitationLogic.ModifyInvitation(id, invitationRequest.NewDeadline));
             return Ok(modifyInvitationResponse);
         }
     }

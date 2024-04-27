@@ -32,6 +32,13 @@ namespace ECommerceApi.Filters
                     StatusCode = 404
                 };
             }
+            else if (context.Exception is InvalidOperationException)
+            {
+                context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
+                {
+                    StatusCode = 400
+                };
+            }
             else if (context.Exception is Exception)
             {
                 context.Result = new ObjectResult(new { ErrorMessage = $"Something went wrong. See: {context.Exception.Message}" })

@@ -37,15 +37,15 @@ namespace BuildingManagerLogic
         {
             try
             {
-                if (_invitationRepository.IsAccepted(id))
-                {
-                    throw new InvalidOperationException("Invitation is not declined.");
-                }
                 return _invitationRepository.DeleteInvitation(id);
             }
             catch (ValueNotFoundException e)
             {
                 throw new NotFoundException(e, e.Message);
+            }
+            catch (InvalidOperationException e)
+            {
+                throw e;
             }
         }
 
@@ -53,22 +53,15 @@ namespace BuildingManagerLogic
         {
             try
             {
-                if (_invitationRepository.IsAccepted(id))
-                {
-                    throw new InvalidOperationException("Invitation was accepted.");
-                }
-                if (_invitationRepository.ExpiresInMoreThanOneDay(id))
-                {
-                    throw new InvalidOperationException("Invitation will expire in more than one day.");
-                }
-                if (!_invitationRepository.IsDeadlineExtensionValid(id, newDeadline)){
-                    throw new InvalidOperationException("New deadline must be greater than the current deadline.");
-                }
                 return _invitationRepository.ModifyInvitation(id, newDeadline);
-            } 
-            catch(ValueNotFoundException e)
+            }
+            catch (ValueNotFoundException e)
             {
                 throw new NotFoundException(e, e.Message);
+            }
+            catch(InvalidOperationException e)
+            {
+                throw e;
             }
         }
     }

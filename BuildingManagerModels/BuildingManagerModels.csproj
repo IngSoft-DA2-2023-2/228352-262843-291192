@@ -47,13 +47,14 @@
     <Compile Include="Inner\CreateMaintenanceStaffRequest.cs" />
     <Compile Include="Inner\CreateAdminRequest.cs" />
     <Compile Include="Inner\CreateCategoryRequest.cs" />
+    <Compile Include="Inner\ModifyInvitationRequest.cs" />
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
     <Compile Include="Outer\CreateCategoryResponse.cs" />
     <Compile Include="Inner\CreateBuildingRequest.cs" />
     <Compile Include="Outer\CreateBuildingResponse.cs" />
     <Compile Include="Inner\CreateInvitationRequest.cs" />
-    <Compile Include="Outer\CreateInvitationResponse.cs" />
+    <Compile Include="Outer\InvitationResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

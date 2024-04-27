@@ -36,10 +36,7 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
-            if (invitation.Status == InvitationStatus.ACCEPTED)
-            {
-                throw new InvalidOperationException("Invitation is not declined.");
-            }
+            ThrowExceptionIfIsAccepted(invitation);
             _context.Set<Invitation>().Remove(invitation);
             _context.SaveChanges();
 
@@ -47,32 +44,49 @@ namespace BuildingManagerDataAccess.Repositories
 
         }
 
-        public bool IsAccepted(Guid invitationId)
+        public Invitation ModifyInvitation(Guid id, long newDeadline)
         {
+            Invitation invitation;
             try
             {
-                var invitation = _context.Set<Invitation>().First(i => i.Id == invitationId);
-                return invitation.Status == InvitationStatus.ACCEPTED;
+                invitation = _context.Set<Invitation>().First(i => i.Id == id);
             }
-            catch(InvalidOperationException)
+            catch (InvalidOperationException)
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
+
+            ThrowExceptionIfIsAccepted(invitation);
+            ThrowExceptionIfExpiresInMoreThanOneDay(invitation);
+            ThrowExceptionIfDeadlineExtensionIsInvalid(invitation, newDeadline);
+
+            invitation.Deadline = newDeadline;
+            _context.SaveChanges();
+
+            return invitation;
+        }
+        private static void ThrowExceptionIfIsAccepted(Invitation invitation)
+        {
+            if (invitation.Status == InvitationStatus.ACCEPTED)
+            {
+                throw new InvalidOperationException("Invitation was accepted.");
+            }
         }
 
-        public Invitation ModifyInvitation(Guid id, long newDeadline)
+        private static void ThrowExceptionIfExpiresInMoreThanOneDay(Invitation invitation)
         {
-            throw new NotImplementedException();
+            if (invitation.Deadline > DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds())
+            {
+                throw new InvalidOperationException("Invitation will expire in more than one day.");
+            }
         }
 
-        public bool ExpiresInMoreThanOneDay(Guid id)
+        private static void ThrowExceptionIfDeadlineExtensionIsInvalid(Invitation invitation, long newDeadline)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool IsDeadlineExtensionValid(Guid id, long newDeadline)
-        {
-            throw new NotImplementedException();
+            if (newDeadline < invitation.Deadline)
+            {
+                throw new InvalidOperationException("New deadline must be greater than the current deadline.");
+            }
         }
     }
 }
