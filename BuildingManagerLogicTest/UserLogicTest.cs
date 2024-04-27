@@ -111,5 +111,25 @@ namespace BuildingManagerLogicTest
 
             Assert.AreEqual(RoleType.ADMIN, result);
         }
+
+        [TestMethod]
+        public void DeleteUserSuccessfully()
+        {
+            var manager = new Manager()
+            {
+                Id = new Guid(),
+                Name = "John",
+                Email = "abc@example.com",
+                Password = "pass123"
+            };
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.DeleteUser(It.IsAny<Guid>())).Returns(manager);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.DeleteUser(manager.Id);
+
+            userRespositoryMock.VerifyAll();
+            Assert.AreEqual(manager, result);
+        }
     }
 }
