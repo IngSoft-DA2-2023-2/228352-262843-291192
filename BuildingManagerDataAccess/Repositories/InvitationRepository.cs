@@ -67,8 +67,15 @@ namespace BuildingManagerDataAccess.Repositories
 
         public bool ExpiresInMoreThanOneDay(Guid id)
         {
-            var invitation = _context.Set<Invitation>().First(i => i.Id == id);
-            return invitation.Deadline > DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds();
+            try
+            {
+                var invitation = _context.Set<Invitation>().First(i => i.Id == id);
+                return invitation.Deadline > DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Invitation not found.");
+            }
         }
 
         public bool IsDeadlineExtensionValid(Guid id, long newDeadline)

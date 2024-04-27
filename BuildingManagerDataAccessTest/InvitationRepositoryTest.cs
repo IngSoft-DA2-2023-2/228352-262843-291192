@@ -212,6 +212,33 @@ namespace BuildingManagerDataAccessTest
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void CheckIfInvitationExpiresInMoreThanOneDayWithInvalidIdTest()
+        {
+            var context = CreateDbContext("CheckIfInvitationExpiresInMoreThanOneDayWithInvalidIdTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED
+            };
+            Exception exception = null;
+
+            try
+            {
+                var result = repository.ExpiresInMoreThanOneDay(invitation.Id);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
