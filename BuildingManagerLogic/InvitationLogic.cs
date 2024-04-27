@@ -53,6 +53,10 @@ namespace BuildingManagerLogic
         {
             try
             {
+                if (_invitationRepository.IsAccepted(id))
+                {
+                    throw new InvalidOperationException("Invitation was accepted.");
+                }
                 return _invitationRepository.ModifyInvitation(id, newDeadline);
             } 
             catch(ValueNotFoundException e)
