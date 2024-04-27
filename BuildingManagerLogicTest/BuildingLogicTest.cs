@@ -66,13 +66,54 @@ namespace BuildingManagerLogicTest
 
         [TestMethod]
         public void CreateBuildingWithApartmentWithSameFloorAndNumberTest() {             
+            Building buildingWithApartmentWithSameFloorAndNumber = new Building()
+            {
+                Id = new Guid(),
+                ManagerId = new Guid(),
+                Name = "Building 1",
+                Address = "Address",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 1,
+                        Rooms = 1,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Eod",
+                            Email = "jhoneod@gmail.com"
+                        }
+                    }
+                }
+            };
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Throws(new ValueDuplicatedException(""));
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
             Exception exception = null;
+
             try
             {
-                buildingLogic.CreateBuilding(_building);
+                buildingLogic.CreateBuilding(buildingWithApartmentWithSameFloorAndNumber);
             }
             catch (Exception ex)
             {
@@ -81,5 +122,6 @@ namespace BuildingManagerLogicTest
             Assert.IsNotNull(exception);
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
+
     }
 }
