@@ -94,7 +94,6 @@ namespace BuildingManagerLogicTest
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
 
-            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.DeleteInvitation(It.IsAny<Guid>())).Returns(_invitation);
 
@@ -112,7 +111,6 @@ namespace BuildingManagerLogicTest
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
 
-            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.DeleteInvitation(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
