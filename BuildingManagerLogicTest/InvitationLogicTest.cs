@@ -163,7 +163,7 @@ namespace BuildingManagerLogicTest
                 Email = _invitation.Email,
                 Deadline = newDeadline
             };
-            invitationRepositoryMock.Setup(x => x.HasExpired(It.IsAny<Guid>())).Returns(true);
+            invitationRepositoryMock.Setup(x => x.ExpiresInMoreThanOneDay(It.IsAny<Guid>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Returns(modifiedInvitation);
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
@@ -179,7 +179,7 @@ namespace BuildingManagerLogicTest
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.HasExpired(It.IsAny<Guid>())).Returns(true);
+            invitationRepositoryMock.Setup(x => x.ExpiresInMoreThanOneDay(It.IsAny<Guid>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
             invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Throws(new ValueNotFoundException(""));
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
@@ -221,12 +221,12 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
-        public void ModifyNotExpiredInvitation()
+        public void ModifyInvitationThatExpiresInMoreThanOneDay()
         {
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
             invitationRepositoryMock.Setup(x => x.IsAccepted(It.IsAny<Guid>())).Returns(false);
-            invitationRepositoryMock.Setup(x => x.HasExpired(It.IsAny<Guid>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.ExpiresInMoreThanOneDay(It.IsAny<Guid>())).Returns(true);
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
             Exception exception = null;
 

@@ -51,6 +51,27 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void InvitationWithoutDeadline()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutDeadline = new CreateInvitationRequest()
+                {
+                    Name = "John",
+                    Email = "test@test.com",
+                };
+                requestWithoutDeadline.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
         public void InvitationWithPastDeadline()
         {
             Exception exception = null;

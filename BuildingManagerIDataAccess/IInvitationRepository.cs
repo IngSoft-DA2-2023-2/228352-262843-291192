@@ -9,6 +9,6 @@ namespace BuildingManagerIDataAccess
         Invitation DeleteInvitation(Guid id);
         bool IsAccepted(Guid userId);
         Invitation ModifyInvitation(Guid id, long newDeadline);
-        bool HasExpired(Guid id);
+        bool ExpiresInMoreThanOneDay(Guid id);
     }
 }

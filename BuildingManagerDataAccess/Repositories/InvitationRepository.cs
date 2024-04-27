@@ -47,11 +47,6 @@ namespace BuildingManagerDataAccess.Repositories
 
         }
 
-        public bool HasExpired(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool IsAccepted(Guid invitationId)
         {
             try
@@ -66,6 +61,11 @@ namespace BuildingManagerDataAccess.Repositories
         }
 
         public Invitation ModifyInvitation(Guid id, long newDeadline)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ExpiresInMoreThanOneDay(Guid id)
         {
             throw new NotImplementedException();
         }
