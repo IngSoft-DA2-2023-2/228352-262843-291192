@@ -239,6 +239,33 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
+        [TestMethod]
+        public void CheckIfNewDeadlineIsValidWithInvalidIdTest()
+        {
+            var context = CreateDbContext("CheckIfNewDeadlineIsValidWithInvalidIdTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED
+            };
+            Exception exception = null;
+
+            try
+            {
+                var result = repository.IsDeadlineExtensionValid(invitation.Id, DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

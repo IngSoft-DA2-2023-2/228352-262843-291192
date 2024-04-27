@@ -80,8 +80,15 @@ namespace BuildingManagerDataAccess.Repositories
 
         public bool IsDeadlineExtensionValid(Guid id, long newDeadline)
         {
-            var invitation = _context.Set<Invitation>().First(i => i.Id == id);
-            return invitation.Deadline < newDeadline;
+            try
+            {
+                var invitation = _context.Set<Invitation>().First(i => i.Id == id);
+                return invitation.Deadline < newDeadline;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Invitation not found.");
+            }
         }
     }
 }
