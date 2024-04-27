@@ -172,6 +172,26 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
         }
 
+        [TestMethod]
+        public void CheckIfInvitationExpiresInMoreThanOneDayTest()
+        {
+            var context = CreateDbContext("CheckIfInvitationExpiresInMoreThanOneDayTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED
+            };
+            repository.CreateInvitation(invitation);
+
+            var result = repository.ExpiresInMoreThanOneDay(invitation.Id);
+
+            Assert.IsTrue(result);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

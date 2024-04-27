@@ -54,7 +54,7 @@ namespace BuildingManagerDataAccess.Repositories
                 var invitation = _context.Set<Invitation>().First(i => i.Id == invitationId);
                 return invitation.Status == InvitationStatus.ACCEPTED;
             }
-            catch(InvalidOperationException)
+            catch (InvalidOperationException)
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
@@ -67,7 +67,8 @@ namespace BuildingManagerDataAccess.Repositories
 
         public bool ExpiresInMoreThanOneDay(Guid id)
         {
-            throw new NotImplementedException();
+            var invitation = _context.Set<Invitation>().First(i => i.Id == id);
+            return invitation.Deadline > DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds();
         }
 
         public bool IsDeadlineExtensionValid(Guid id, long newDeadline)
