@@ -15,5 +15,13 @@ namespace BuildingManagerDomainTest
             Manager manager = new Manager { Id = managerId };
             Assert.AreEqual(managerId, manager.Id);
         }
+
+        [TestMethod]
+        public void ManagerNameTest()
+        {
+            string name = "John";
+            Manager manager = new Manager { Name = name };
+            Assert.AreEqual(name, manager.Name);
+        }
     }
 }
