@@ -4,6 +4,6 @@ namespace BuildingManagerIDataAccess.Exceptions
 {
     public class ValueNotFoundException: Exception
     {
-        public ValueNotFoundException(string msg) : base(msg + " not found") { }
+        public ValueNotFoundException(string msg) : base(msg) { }
     }
 }
