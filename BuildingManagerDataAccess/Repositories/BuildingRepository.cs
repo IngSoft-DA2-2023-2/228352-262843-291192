@@ -23,22 +23,30 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueDuplicatedException("Name");
             }
-            
-            var apartments = building.Apartments;
+
+            if (HasDuplicatedApartment(building.Apartments))
+            {
+                throw new ValueDuplicatedException("Apartment floor and number");
+            }
+
+            _context.Set<Building>().Add(building);
+            _context.SaveChanges();
+            return building;
+        }
+
+        private bool HasDuplicatedApartment(List<Apartment> apartments)
+        {
             for (int i = 0; i < apartments.Count; i++)
             {
                 for (int j = i + 1; j < apartments.Count; j++)
                 {
                     if (apartments[i].Floor == apartments[j].Floor && apartments[i].Number == apartments[j].Number)
                     {
-                        throw new ValueDuplicatedException("Apartment floor and number");
+                        return true;
                     }
                 }
             }
-
-            _context.Set<Building>().Add(building);
-            _context.SaveChanges();
-            return building;
+            return false;
         }
     }
 }
