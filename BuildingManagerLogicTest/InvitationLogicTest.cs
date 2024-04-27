@@ -151,5 +151,27 @@ namespace BuildingManagerLogicTest
             invitationRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
         }
+
+        [TestMethod]
+        public void ModifyInvitationSuccessfully()
+        {
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            long newDeadline = 17450393329;
+            Invitation modifiedInvitation = new()
+            {
+                Id = _invitation.Id,
+                Name = _invitation.Name,
+                Email = _invitation.Email,
+                Deadline = newDeadline
+            };
+            invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Returns(modifiedInvitation);
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+
+            var result = invitationLogic.ModifyInvitation(_invitation.Id, newDeadline);
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.AreEqual(modifiedInvitation, result);
+        }
     }
 }

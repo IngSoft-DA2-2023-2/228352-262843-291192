@@ -59,5 +59,10 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueNotFoundException("Invitation not found.");
             }
         }
+
+        public Invitation ModifyInvitation(Guid id, long newDeadline)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
