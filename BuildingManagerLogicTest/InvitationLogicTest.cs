@@ -173,5 +173,27 @@ namespace BuildingManagerLogicTest
             invitationRepositoryMock.VerifyAll();
             Assert.AreEqual(modifiedInvitation, result);
         }
+
+        [TestMethod]
+        public void ModifyInvitationWithInvalidId()
+        {
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            invitationRepositoryMock.Setup(x => x.ModifyInvitation(It.IsAny<Guid>(), It.IsAny<long>())).Throws(new ValueNotFoundException(""));
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                invitationLogic.ModifyInvitation(_invitation.Id, 17450393324);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }

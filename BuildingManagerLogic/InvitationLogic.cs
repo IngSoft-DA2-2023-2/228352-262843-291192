@@ -51,7 +51,14 @@ namespace BuildingManagerLogic
 
         public Invitation ModifyInvitation(Guid id, long newDeadline)
         {
-            return _invitationRepository.ModifyInvitation(id, newDeadline);
+            try
+            {
+                return _invitationRepository.ModifyInvitation(id, newDeadline);
+            } 
+            catch(ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }
