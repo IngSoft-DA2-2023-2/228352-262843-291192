@@ -46,7 +46,14 @@ namespace BuildingManagerLogic
 
         public Guid Login(string email, string password)
         {
-            return _userRepository.Login(email, password);
+            try
+            {
+                return _userRepository.Login(email, password);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public RoleType Role(Guid userId)

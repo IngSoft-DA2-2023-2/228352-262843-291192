@@ -169,5 +169,26 @@ namespace BuildingManagerLogicTest
             userRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void LoginUserWithInvalidEmailAndPassword()
+        {
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRepositoryMock.Setup(x => x.Login(It.IsAny<string>(), It.IsAny<string>())).Throws(new ValueNotFoundException(""));
+            var userLogic = new UserLogic(userRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                userLogic.Login("some email", "some password");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            userRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }
