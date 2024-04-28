@@ -44,19 +44,35 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void RequestApartmentIdTest()
-        {
-            Guid apartmentId = new();
-            Request request = new() { ApartmentId = apartmentId };
-            Assert.AreEqual(apartmentId, request.ApartmentId);
-        }
-
-        [TestMethod]
         public void RequestMaintainerIdTest()
         {
             Guid maintainerId = new();
             Request request = new() { MaintainerId = maintainerId };
             Assert.AreEqual(maintainerId, request.MaintainerId);
+        }
+
+        [TestMethod]
+        public void RequestBuildingIdTest()
+        {
+            Guid buildingId = new();
+            Request request = new() { BuildingId = buildingId };
+            Assert.AreEqual(buildingId, request.BuildingId);
+        }
+
+        [TestMethod]
+        public void RequestApartmentFloorTest()
+        {
+            int apartmentFloor = new();
+            Request request = new() { ApartmentFloor = apartmentFloor };
+            Assert.AreEqual(apartmentFloor, request.ApartmentFloor);
+        }
+
+        [TestMethod]
+        public void RequestApartmentNumberTest()
+        {
+            int apartmentNumber = new();
+            Request request = new() { ApartmentNumber = apartmentNumber };
+            Assert.AreEqual(apartmentNumber, request.ApartmentNumber);
         }
 
         [TestMethod]
@@ -67,31 +83,12 @@ namespace BuildingManagerDomainTest
             {
                 var requestWithoutDescription = new CreateRequestRequest()
                 {
-                    ApartmentId = new Guid(),
-                    CategoryId = new Guid(),
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
+                    ApartmentNumber = 1,
                 };
                 requestWithoutDescription.Validate();
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-
-            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
-        }
-
-        [TestMethod]
-        public void RequestWithoutApartmentIdTest()
-        {
-            Exception exception = null;
-            try
-            {
-                var requestWithoutApartmentId = new CreateRequestRequest()
-                {
-                    Description = "some description",
-                    CategoryId = new Guid(),
-                };
-                requestWithoutApartmentId.Validate();
             }
             catch (Exception ex)
             {
@@ -110,9 +107,80 @@ namespace BuildingManagerDomainTest
                 var requestWithoutCategoryId = new CreateRequestRequest()
                 {
                     Description = "some description",
-                    ApartmentId = new Guid(),
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
+                    ApartmentNumber = 1,
                 };
                 requestWithoutCategoryId.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void RequestWithoutBuildingIdTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutBuildingId = new CreateRequestRequest()
+                {
+                    Description = "some description",
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
+                    ApartmentNumber = 1,
+                };
+                requestWithoutBuildingId.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void RequestWithoutApartmentFloorTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutApartmentFloor = new CreateRequestRequest()
+                {
+                    Description = "some description",
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentNumber = 1,
+                };
+                requestWithoutApartmentFloor.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void RequestWithoutApartmentNumberTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutApartmentNumber = new CreateRequestRequest()
+                {
+                    Description = "some description",
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
+                };
+                requestWithoutApartmentNumber.Validate();
             }
             catch (Exception ex)
             {

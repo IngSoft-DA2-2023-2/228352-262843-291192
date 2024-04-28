@@ -1,6 +1,8 @@
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogic
 {
@@ -13,7 +15,15 @@ namespace BuildingManagerLogic
         }
         public Request CreateRequest(Request request)
         {
-            return _requestRepository.CreateRequest(request);
+            try
+            {
+                return _requestRepository.CreateRequest(request);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+
         }
     }
 }

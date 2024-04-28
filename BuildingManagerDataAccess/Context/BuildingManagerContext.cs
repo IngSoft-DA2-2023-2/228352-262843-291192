@@ -13,6 +13,7 @@ namespace BuildingManagerDataAccess.Context
         public DbSet<MaintenanceStaff> MaintenanceStaff { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<Request> Requests { get; set; }
 
         public BuildingManagerContext(DbContextOptions<BuildingManagerContext> options) : base(options)
         {
@@ -28,6 +29,20 @@ namespace BuildingManagerDataAccess.Context
 
             modelBuilder.Entity<Apartment>().ToTable("Apartments").HasKey(a => new { a.BuildingId, a.Floor, a.Number });
             modelBuilder.Entity<Owner>().ToTable("Owners").HasKey(o => o.Email);
+
+            modelBuilder.Entity<Request>()
+                .HasOne<Apartment>()
+                .WithMany()
+                .HasForeignKey(r => new { r.BuildingId, r.ApartmentFloor, r.ApartmentNumber });
+            modelBuilder.Entity<Request>()
+                        .HasOne<Category>()
+                        .WithMany()
+                        .HasForeignKey(r => r.CategoryId);
+            modelBuilder.Entity<Request>()
+                        .HasOne<MaintenanceStaff>()
+                        .WithMany()
+                        .HasForeignKey(r => r.MaintainerId)
+                        .IsRequired(false);
         }
     }
 }

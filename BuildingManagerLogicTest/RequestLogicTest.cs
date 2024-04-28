@@ -3,7 +3,8 @@ using Moq;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerLogic;
-using BuildingManagerDomain.Enums;
+using BuildingManagerILogic.Exceptions;
+using BuildingManagerIDataAccess.Exceptions;
 
 namespace BuildingManagerLogicTest
 {
@@ -17,11 +18,12 @@ namespace BuildingManagerLogicTest
         {
             _request = new Request()
             {
-                Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                Description = "Test",
-                State = RequestState.OPEN,
-                ApartmentId = new Guid("11111111-1111-1111-1111-111111111111"),
+                Id = new Guid(),
+                Description = "description",
                 CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
             };
         }
 
@@ -36,6 +38,27 @@ namespace BuildingManagerLogicTest
 
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(_request, result);
+        }
+
+        [TestMethod]
+        public void CreateRequestWithInvalidCategoryIdOrApartmentIdTest()
+        {
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.CreateRequest(It.IsAny<Request>())).Throws(new ValueNotFoundException(""));
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                requestLogic.CreateRequest(_request);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            requestRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
     }
 }
