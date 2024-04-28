@@ -15,5 +15,13 @@ namespace BuildingManagerDomainTest
             Request request = new() { Id = requestId };
             Assert.AreEqual(requestId, request.Id);
         }
+
+        [TestMethod]
+        public void RequestDescriptionTest()
+        {
+            string description = "some description";
+            Request request = new() { Description = description };
+            Assert.AreEqual(description, request.Description);
+        }
     }
 }
