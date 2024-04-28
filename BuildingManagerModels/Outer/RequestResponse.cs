@@ -12,6 +12,7 @@ namespace BuildingManagerModels.Outer
         public RequestState State { get; set; }
         public Guid BuildingId { get; set; }
         public int ApartmentFloor { get; set; }
+        public int ApartmentNumber { get; set; }
 
         public RequestResponse(Request request)
         {
@@ -20,6 +21,7 @@ namespace BuildingManagerModels.Outer
             CategoryId = request.CategoryId;
             BuildingId = request.BuildingId;
             ApartmentFloor = request.ApartmentFloor;
+            ApartmentNumber = request.ApartmentNumber;
             State = request.State;
         }
 
@@ -29,7 +31,13 @@ namespace BuildingManagerModels.Outer
                 return false;
 
             var other = (RequestResponse)obj;
-            return Id == other.Id && Description == other.Description && BuildingId == other.BuildingId && CategoryId == other.CategoryId && State == other.State && ApartmentFloor == other.ApartmentFloor;
+            return Id == other.Id &&
+            Description == other.Description &&
+            BuildingId == other.BuildingId &&
+            CategoryId == other.CategoryId &&
+            State == other.State &&
+            ApartmentFloor == other.ApartmentFloor &&
+            ApartmentNumber == other.ApartmentNumber;
         }
     }
 }

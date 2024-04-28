@@ -11,6 +11,7 @@ namespace BuildingManagerModels.Inner
         public Guid CategoryId { get; set; }
         public Guid BuildingId { get; set; }
         public int ApartmentFloor { get; set; }
+        public int ApartmentNumber { get; set; }
 
         public Request ToEntity()
         {
@@ -21,6 +22,7 @@ namespace BuildingManagerModels.Inner
                 CategoryId = CategoryId,
                 BuildingId = BuildingId,
                 ApartmentFloor = ApartmentFloor,
+                ApartmentNumber = ApartmentNumber,
                 State = RequestState.OPEN,
             };
         }
