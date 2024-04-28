@@ -41,7 +41,11 @@ namespace BuildingManagerDataAccess.Repositories
 
         public User DeleteUser(Guid userId)
         {
-            throw new NotImplementedException();
+            User user = _context.Set<User>().First(i => i.Id == userId);
+            _context.Set<User>().Remove(user);
+            _context.SaveChanges();
+
+            return user;
         }
     }
 }

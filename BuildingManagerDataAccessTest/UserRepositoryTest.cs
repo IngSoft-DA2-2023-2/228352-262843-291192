@@ -141,6 +141,27 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(RoleType.ADMIN, result);
         }
 
+        [TestMethod]
+        public void DeleteUserTest()
+        {
+            var context = CreateDbContext("DeleteUserTest");
+            var repository = new UserRepository(context);
+            var manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "",
+                Email = "test@test.com",
+                Password = "Somepass",
+                Role = RoleType.MANAGER,
+            };
+            repository.CreateUser(manager);
+
+            var result = repository.DeleteUser(manager.Id);
+
+            Assert.AreEqual(manager, result);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
