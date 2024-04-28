@@ -52,6 +52,14 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void RequestBuildingIdTest()
+        {
+            Guid buildingId = new();
+            Request request = new() { BuildingId = buildingId };
+            Assert.AreEqual(buildingId, request.BuildingId);
+        }
+
+        [TestMethod]
         public void RequestWithoutDescription()
         {
             Exception exception = null;
