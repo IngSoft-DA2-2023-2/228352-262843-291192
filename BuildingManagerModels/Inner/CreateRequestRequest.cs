@@ -19,6 +19,10 @@ namespace BuildingManagerModels.Inner
             {
                 throw new InvalidArgumentException("apartmentId");
             }
+            if (Guid.Empty.Equals(CategoryId))
+            {
+                throw new InvalidArgumentException("categoryId");
+            }
         }
     }
 }
