@@ -59,5 +59,10 @@ namespace BuildingManagerDataAccess.Repositories
 
             return user;
         }
+
+        public Guid Login(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

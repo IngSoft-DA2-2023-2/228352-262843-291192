@@ -46,7 +46,7 @@ namespace BuildingManagerLogic
 
         public Guid Login(string email, string password)
         {
-            throw new NotImplementedException();
+            return _userRepository.Login(email, password);
         }
 
         public RoleType Role(Guid userId)

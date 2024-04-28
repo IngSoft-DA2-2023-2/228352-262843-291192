@@ -11,5 +11,6 @@ namespace BuildingManagerIDataAccess
         bool EmailExists(string email);
         RoleType Role(Guid userId);
         User DeleteUser(Guid userId, RoleType role);
+        Guid Login(string email, string password);
     }
 }

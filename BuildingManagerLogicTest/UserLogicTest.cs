@@ -89,6 +89,22 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
+        public void LoginSuccessfully()
+        {
+            string email = "test@test.com";
+            string password = "somepassword";
+            Guid token = new("12345678-1234-1234-1234-123456789012");
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.Login(It.IsAny<string>(), It.IsAny<string>())).Returns(token);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.Login(email, password);
+
+            userRespositoryMock.VerifyAll();
+            Assert.AreEqual(token, result);
+        }
+
+        [TestMethod]
         public void FindUserByIdTest()
         {
             var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
