@@ -56,7 +56,9 @@
     <Compile Include="Outer\CreateBuildingResponse.cs" />
     <Compile Include="Inner\CreateInvitationRequest.cs" />
     <Compile Include="Inner\CreateRequestRequest.cs" />
+    <Compile Include="Inner\LoginRequest.cs" />
     <Compile Include="Outer\InvitationResponse.cs" />
+    <Compile Include="Outer\LoginResponse.cs" />
     <Compile Include="Outer\RequestResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

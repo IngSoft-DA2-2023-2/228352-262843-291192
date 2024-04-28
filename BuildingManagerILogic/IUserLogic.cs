@@ -10,5 +10,6 @@ namespace BuildingManagerILogic
         public bool Exists(Guid userId);
         public RoleType Role(Guid userId);
         public User DeleteUser(Guid userId, RoleType role);
+        public Guid Login(string email, string password);
     }
 }

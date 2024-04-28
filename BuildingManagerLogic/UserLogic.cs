@@ -44,6 +44,11 @@ namespace BuildingManagerLogic
             return _userRepository.Exists(userId);
         }
 
+        public Guid Login(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
+
         public RoleType Role(Guid userId)
         {
             return _userRepository.Role(userId);
