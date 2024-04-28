@@ -32,5 +32,13 @@ namespace BuildingManagerDomainTest
             Request request = new() { State = state };
             Assert.AreEqual(state, request.State);
         }
+
+        [TestMethod]
+        public void RequestCategoryTest()
+        {
+            Guid categoryId = new();
+            Request request = new() { CategoryId = categoryId };
+            Assert.AreEqual(categoryId, request.CategoryId);
+        }
     }
 }
