@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using BuildingManagerModels.Outer;
 using BuildingManagerILogic;
 using BuildingManagerModels.Inner;
+using ECommerceApi.Filters;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -17,6 +19,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
+        [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult CreateRequest([FromBody] CreateRequestRequest requestRequest)
         {
             RequestResponse createRequestResponse = new(_requestLogic.CreateRequest(requestRequest.ToEntity()));
