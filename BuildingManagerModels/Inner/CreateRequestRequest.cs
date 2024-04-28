@@ -11,7 +11,7 @@ namespace BuildingManagerModels.Inner
         public Guid CategoryId { get; set; }
         public Guid BuildingId { get; set; }
         public int? ApartmentFloor { get; set; }
-        public int ApartmentNumber { get; set; }
+        public int? ApartmentNumber { get; set; }
 
         public Request ToEntity()
         {
@@ -22,7 +22,7 @@ namespace BuildingManagerModels.Inner
                 CategoryId = CategoryId,
                 BuildingId = BuildingId,
                 ApartmentFloor = ApartmentFloor.Value,
-                ApartmentNumber = ApartmentNumber,
+                ApartmentNumber = ApartmentNumber.Value,
                 State = RequestState.OPEN,
             };
         }
@@ -44,6 +44,10 @@ namespace BuildingManagerModels.Inner
             if (string.IsNullOrEmpty(ApartmentFloor.ToString()))
             {
                 throw new InvalidArgumentException("apartmentFloor");
+            }
+            if (string.IsNullOrEmpty(ApartmentNumber.ToString()))
+            {
+                throw new InvalidArgumentException("apartmentNumber");
             }
         }
     }

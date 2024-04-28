@@ -86,6 +86,7 @@ namespace BuildingManagerDomainTest
                     CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
                     BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
                     ApartmentFloor = 1,
+                    ApartmentNumber = 1,
                 };
                 requestWithoutDescription.Validate();
             }
@@ -108,6 +109,7 @@ namespace BuildingManagerDomainTest
                     Description = "some description",
                     BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
                     ApartmentFloor = 1,
+                    ApartmentNumber = 1,
                 };
                 requestWithoutCategoryId.Validate();
             }
@@ -130,6 +132,7 @@ namespace BuildingManagerDomainTest
                     Description = "some description",
                     CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
                     ApartmentFloor = 1,
+                    ApartmentNumber = 1,
                 };
                 requestWithoutBuildingId.Validate();
             }
@@ -152,8 +155,32 @@ namespace BuildingManagerDomainTest
                     Description = "some description",
                     CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
                     BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentNumber = 1,
                 };
                 requestWithoutApartmentFloor.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void RequestWithoutApartmentNumberTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutApartmentNumber = new CreateRequestRequest()
+                {
+                    Description = "some description",
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
+                };
+                requestWithoutApartmentNumber.Validate();
             }
             catch (Exception ex)
             {
