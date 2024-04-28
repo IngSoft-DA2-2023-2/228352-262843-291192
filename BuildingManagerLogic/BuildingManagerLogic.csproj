@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="UserLogic.cs" />
     <Compile Include="CategoryLogic.cs" />
+    <Compile Include="RequestLogic.cs" />
     <Compile Include="BuildingLogic.cs" />
     <Compile Include="InvitationLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

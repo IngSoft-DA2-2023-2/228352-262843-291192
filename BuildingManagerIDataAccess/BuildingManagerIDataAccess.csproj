@@ -46,6 +46,7 @@
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IMaintenanceRepository.cs" />
     <Compile Include="IAdminRepository.cs" />
+    <Compile Include="IRequestRepository.cs" />
     <Compile Include="ICategoryRepository.cs" />
     <Compile Include="IBuildingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
