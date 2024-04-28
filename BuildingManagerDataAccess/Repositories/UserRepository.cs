@@ -41,7 +41,15 @@ namespace BuildingManagerDataAccess.Repositories
 
         public User DeleteUser(Guid userId)
         {
-            User user = _context.Set<User>().First(i => i.Id == userId);
+            User user;
+            try
+            {
+                user = _context.Set<User>().First(i => i.Id == userId);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("User not found.");
+            }
             _context.Set<User>().Remove(user);
             _context.SaveChanges();
 
