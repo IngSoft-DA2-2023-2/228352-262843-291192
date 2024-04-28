@@ -60,6 +60,15 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void RequestApartmentFloorTest()
+        {
+            int apartmentFloor = new();
+            Request request = new() { ApartmentFloor = apartmentFloor };
+            Assert.AreEqual(apartmentFloor, request.ApartmentFloor);
+        }
+        
+
+        [TestMethod]
         public void RequestWithoutDescription()
         {
             Exception exception = null;
