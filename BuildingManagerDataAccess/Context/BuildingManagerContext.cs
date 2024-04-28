@@ -23,6 +23,7 @@ namespace BuildingManagerDataAccess.Context
             modelBuilder.Entity<User>()
                     .HasDiscriminator<string>("user_type")
                     .HasValue<Admin>("admin_user")
+                    .HasValue<Manager>("manager_user")
                     .HasValue<MaintenanceStaff>("maintenance_user");
 
             modelBuilder.Entity<Apartment>().ToTable("Apartments").HasKey(a => new { a.BuildingId, a.Floor, a.Number });
