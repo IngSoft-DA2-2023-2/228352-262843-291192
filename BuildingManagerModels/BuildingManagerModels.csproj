@@ -55,6 +55,7 @@
     <Compile Include="Inner\CreateBuildingRequest.cs" />
     <Compile Include="Outer\CreateBuildingResponse.cs" />
     <Compile Include="Inner\CreateInvitationRequest.cs" />
+    <Compile Include="Inner\CreateRequestRequest.cs" />
     <Compile Include="Outer\InvitationResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

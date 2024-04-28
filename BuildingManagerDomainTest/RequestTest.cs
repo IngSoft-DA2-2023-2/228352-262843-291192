@@ -2,6 +2,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BuildingManagerDomain.Entities;
 using System.Diagnostics.CodeAnalysis;
 using BuildingManagerDomain.Enums;
+using BuildingManagerModels.Inner;
+using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerDomainTest
 {
@@ -55,6 +57,27 @@ namespace BuildingManagerDomainTest
             Guid maintainerId = new();
             Request request = new() { MaintainerId = maintainerId };
             Assert.AreEqual(maintainerId, request.MaintainerId);
+        }
+
+        [TestMethod]
+        public void RequestWithoutDescription()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutDescription = new CreateRequestRequest()
+                {
+                    ApartmentId = new Guid(),
+                    CategoryId = new Guid(),
+                };
+                requestWithoutDescription.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
     }
 }
