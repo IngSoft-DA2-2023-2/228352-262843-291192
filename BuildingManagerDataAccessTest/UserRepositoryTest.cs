@@ -157,7 +157,7 @@ namespace BuildingManagerDataAccessTest
             };
             repository.CreateUser(manager);
 
-            var result = repository.DeleteUser(manager.Id);
+            var result = repository.DeleteUser(manager.Id, manager.Role);
 
             Assert.AreEqual(manager, result);
         }
@@ -171,7 +171,7 @@ namespace BuildingManagerDataAccessTest
             Exception exception = null;
             try
             {
-                repository.DeleteUser(new Guid());
+                repository.DeleteUser(new Guid(), RoleType.MANAGER);
             }
             catch (Exception ex)
             {

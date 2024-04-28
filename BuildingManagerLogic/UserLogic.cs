@@ -27,11 +27,11 @@ namespace BuildingManagerLogic
             }
         }
 
-        public User DeleteUser(Guid userId)
+        public User DeleteUser(Guid userId, RoleType role)
         {
             try
             {
-                return _userRepository.DeleteUser(userId);
+                return _userRepository.DeleteUser(userId, role);
             }
             catch (ValueNotFoundException e)
             {

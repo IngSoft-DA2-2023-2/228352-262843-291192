@@ -21,7 +21,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult DeleteManager([FromRoute] Guid id)
         {
-            ManagerResponse deleteManagerResponse = new(_userLogic.DeleteUser(id));
+            ManagerResponse deleteManagerResponse = new(_userLogic.DeleteUser(id, RoleType.MANAGER));
             return Ok(deleteManagerResponse);
         }
     }

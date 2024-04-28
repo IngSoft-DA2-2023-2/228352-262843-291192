@@ -120,13 +120,14 @@ namespace BuildingManagerLogicTest
                 Id = new Guid(),
                 Name = "John",
                 Email = "abc@example.com",
-                Password = "pass123"
+                Password = "pass123",
+                Role = RoleType.MANAGER
             };
             var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            userRespositoryMock.Setup(x => x.DeleteUser(It.IsAny<Guid>())).Returns(manager);
+            userRespositoryMock.Setup(x => x.DeleteUser(It.IsAny<Guid>(), It.IsAny<RoleType>())).Returns(manager);
             var userLogic = new UserLogic(userRespositoryMock.Object);
 
-            var result = userLogic.DeleteUser(manager.Id);
+            var result = userLogic.DeleteUser(manager.Id, manager.Role);
 
             userRespositoryMock.VerifyAll();
             Assert.AreEqual(manager, result);
@@ -136,13 +137,13 @@ namespace BuildingManagerLogicTest
         public void DeleteUserWithInvalidId()
         {
             var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            userRepositoryMock.Setup(x => x.DeleteUser(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            userRepositoryMock.Setup(x => x.DeleteUser(It.IsAny<Guid>(), It.IsAny<RoleType>())).Throws(new ValueNotFoundException(""));
             var userLogic = new UserLogic(userRepositoryMock.Object);
             Exception exception = null;
 
             try
             {
-                userLogic.DeleteUser(new Guid());
+                userLogic.DeleteUser(new Guid(), RoleType.MANAGER);
             }
             catch (Exception ex)
             {

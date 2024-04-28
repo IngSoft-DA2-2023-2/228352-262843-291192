@@ -39,7 +39,7 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<User>().FirstOrDefault(a => a.Id == userId).Role;
         }
 
-        public User DeleteUser(Guid userId)
+        public User DeleteUser(Guid userId, RoleType role)
         {
             User user;
             try

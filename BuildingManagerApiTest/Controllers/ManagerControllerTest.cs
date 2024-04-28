@@ -1,5 +1,6 @@
 using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
@@ -32,7 +33,7 @@ namespace BuildingManagerApiTest.Controllers
         public void DeleteManager_OK()
         {
             var mockManagerLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-            mockManagerLogic.Setup(x => x.DeleteUser(It.IsAny<Guid>())).Returns(_manager);
+            mockManagerLogic.Setup(x => x.DeleteUser(It.IsAny<Guid>(), It.IsAny<RoleType>())).Returns(_manager);
             var managerController = new ManagerController(mockManagerLogic.Object);
             OkObjectResult expected = new OkObjectResult(new ManagerResponse(_manager));
             ManagerResponse expectedObject = expected.Value as ManagerResponse;
