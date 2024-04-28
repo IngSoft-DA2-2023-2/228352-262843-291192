@@ -23,6 +23,10 @@ namespace BuildingManagerModels.Inner
             {
                 throw new InvalidArgumentException("email");
             }
+            if (string.IsNullOrEmpty(Password))
+            {
+                throw new InvalidArgumentException("password");
+            }
         }
     }
 }

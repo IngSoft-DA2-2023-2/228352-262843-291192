@@ -45,7 +45,7 @@ namespace BuildingManagerApiTest.Controllers
             try
             {
                 var requestWithoutEmail = new LoginRequest(null, "somepassword");
-                
+
                 requestWithoutEmail.Validate();
             }
             catch (Exception ex)
@@ -56,7 +56,23 @@ namespace BuildingManagerApiTest.Controllers
             Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
 
+        [TestMethod]
+        public void LoginRequestWithoutPasswordTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutPassword = new LoginRequest("test@test.com", null);
 
+                requestWithoutPassword.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
 
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
