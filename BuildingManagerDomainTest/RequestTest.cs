@@ -40,12 +40,21 @@ namespace BuildingManagerDomainTest
             Request request = new() { CategoryId = categoryId };
             Assert.AreEqual(categoryId, request.CategoryId);
         }
+
         [TestMethod]
         public void RequestApartmentIdTest()
         {
             Guid apartmentId = new();
             Request request = new() { ApartmentId = apartmentId };
             Assert.AreEqual(apartmentId, request.ApartmentId);
+        }
+
+        [TestMethod]
+        public void RequestMaintainerIdTest()
+        {
+            Guid maintainerId = new();
+            Request request = new() { MaintainerId = maintainerId };
+            Assert.AreEqual(maintainerId, request.MaintainerId);
         }
     }
 }

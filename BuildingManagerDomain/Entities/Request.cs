@@ -10,5 +10,6 @@ namespace BuildingManagerDomain.Entities
         public RequestState State { get; set; }
         public Guid CategoryId { get; set; }
         public Guid ApartmentId { get; set; }
+        public Guid? MaintainerId { get; set; }
     }
 }
