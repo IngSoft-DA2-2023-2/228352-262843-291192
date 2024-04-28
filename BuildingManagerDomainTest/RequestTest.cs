@@ -83,7 +83,8 @@ namespace BuildingManagerDomainTest
             {
                 var requestWithoutDescription = new CreateRequestRequest()
                 {
-                    CategoryId = new Guid(),
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
                 };
                 requestWithoutDescription.Validate();
             }
@@ -104,8 +105,30 @@ namespace BuildingManagerDomainTest
                 var requestWithoutCategoryId = new CreateRequestRequest()
                 {
                     Description = "some description",
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
                 };
                 requestWithoutCategoryId.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void RequestWithoutBuildingIdTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutBuildingId = new CreateRequestRequest()
+                {
+                    Description = "some description",
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                };
+                requestWithoutBuildingId.Validate();
             }
             catch (Exception ex)
             {

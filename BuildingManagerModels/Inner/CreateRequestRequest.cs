@@ -37,6 +37,10 @@ namespace BuildingManagerModels.Inner
             {
                 throw new InvalidArgumentException("categoryId");
             }
+            if (Guid.Empty.Equals(BuildingId))
+            {
+                throw new InvalidArgumentException("buildingId");
+            }
         }
     }
 }
