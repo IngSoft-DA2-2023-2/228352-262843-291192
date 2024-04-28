@@ -49,6 +49,7 @@
     <Compile Include="Entities\MaintenanceStaff.cs" />
     <Compile Include="Entities\Admin.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Request.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Apartment.cs" />
     <Compile Include="Entities\Building.cs" />
