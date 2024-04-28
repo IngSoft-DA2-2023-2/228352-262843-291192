@@ -1,4 +1,5 @@
 using System;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerDomain.Entities
 {
@@ -6,5 +7,6 @@ namespace BuildingManagerDomain.Entities
     {
         public Guid Id { get; set; }
         public string Description { get; set; }
+        public RequestState State { get; set; }
     }
 }
