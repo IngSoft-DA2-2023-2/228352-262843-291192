@@ -1,5 +1,6 @@
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingManagerDataAccess.Repositories
@@ -13,9 +14,16 @@ namespace BuildingManagerDataAccess.Repositories
         }
         public Request CreateRequest(Request request)
         {
-            _context.Set<Request>().Add(request);
-            _context.SaveChanges();
-
+            try
+            {
+                _context.Set<Request>().Add(request);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new ValueNotFoundException("CategoryId or ApartmentNumber with ApartmentFloor in BuildingId not found.");
+            }
+            
             return request;
         }
     }

@@ -29,6 +29,20 @@ namespace BuildingManagerDataAccess.Context
 
             modelBuilder.Entity<Apartment>().ToTable("Apartments").HasKey(a => new { a.BuildingId, a.Floor, a.Number });
             modelBuilder.Entity<Owner>().ToTable("Owners").HasKey(o => o.Email);
+
+            modelBuilder.Entity<Request>()
+                .HasOne<Apartment>()
+                .WithMany()
+                .HasForeignKey(r => new { r.BuildingId, r.ApartmentFloor, r.ApartmentNumber });
+            modelBuilder.Entity<Request>()
+                        .HasOne<Category>()
+                        .WithMany()
+                        .HasForeignKey(r => r.CategoryId);
+            modelBuilder.Entity<Request>()
+                        .HasOne<MaintenanceStaff>()
+                        .WithMany()
+                        .HasForeignKey(r => r.MaintainerId)
+                        .IsRequired(false);
         }
     }
 }
