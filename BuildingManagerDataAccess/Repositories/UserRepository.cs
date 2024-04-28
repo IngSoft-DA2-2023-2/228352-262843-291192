@@ -50,6 +50,10 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("User not found.");
             }
+            if (user.Role != role)
+            {
+                throw new InvalidOperationException(role.ToString() + "not found.");
+            }
             _context.Set<User>().Remove(user);
             _context.SaveChanges();
 

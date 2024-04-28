@@ -181,6 +181,35 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
+        [TestMethod]
+        public void DeleteUserWithIncorrectRoleTest()
+        {
+            var context = CreateDbContext("DeleteUserWithIncorrectRoleTest");
+            var repository = new UserRepository(context);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "test@test.com",
+                Password = "Somepass",
+                Role = RoleType.ADMIN,
+            };
+            repository.CreateUser(admin);
+
+            Exception exception = null;
+            try
+            {
+                repository.DeleteUser(admin.Id, RoleType.MANAGER);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
