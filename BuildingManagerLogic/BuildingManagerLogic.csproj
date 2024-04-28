@@ -45,6 +45,7 @@
     <Compile Include="CategoryLogic.cs" />
     <Compile Include="BuildingLogic.cs" />
     <Compile Include="InvitationLogic.cs" />
+    <Compile Include="RequestLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
