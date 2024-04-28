@@ -85,6 +85,7 @@ namespace BuildingManagerDomainTest
                 {
                     CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
                     BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
                 };
                 requestWithoutDescription.Validate();
             }
@@ -106,6 +107,7 @@ namespace BuildingManagerDomainTest
                 {
                     Description = "some description",
                     BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
                 };
                 requestWithoutCategoryId.Validate();
             }
@@ -127,8 +129,31 @@ namespace BuildingManagerDomainTest
                 {
                     Description = "some description",
                     CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
                 };
                 requestWithoutBuildingId.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void RequestWithoutApartmentFloorTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutApartmentFloor = new CreateRequestRequest()
+                {
+                    Description = "some description",
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                };
+                requestWithoutApartmentFloor.Validate();
             }
             catch (Exception ex)
             {
