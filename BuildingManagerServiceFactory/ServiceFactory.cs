@@ -20,6 +20,8 @@ namespace BuildingManagerServiceFactory
             //services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
             services.AddScoped<IBuildingLogic, BuildingLogic>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
+            services.AddScoped<IRequestLogic, RequestLogic>();
+            services.AddScoped<IRequestRepository, RequestRepository>();
             services.AddScoped<IInvitationLogic, InvitationLogic>();
             services.AddScoped<IInvitationRepository, InvitationRepository>();
             services.AddDbContext<DbContext, BuildingManagerContext>(o => o.UseSqlServer(connectionString));

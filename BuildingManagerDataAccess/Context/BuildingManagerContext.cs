@@ -13,6 +13,7 @@ namespace BuildingManagerDataAccess.Context
         public DbSet<MaintenanceStaff> MaintenanceStaff { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<Request> Requests { get; set; }
 
         public BuildingManagerContext(DbContextOptions<BuildingManagerContext> options) : base(options)
         {
