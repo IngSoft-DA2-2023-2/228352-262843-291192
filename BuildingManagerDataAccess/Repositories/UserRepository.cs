@@ -52,7 +52,7 @@ namespace BuildingManagerDataAccess.Repositories
             }
             if (user.Role != role)
             {
-                throw new InvalidOperationException(role.ToString() + "not found.");
+                throw new InvalidOperationException(role.ToString().ToLower() + " not found.");
             }
             _context.Set<User>().Remove(user);
             _context.SaveChanges();
