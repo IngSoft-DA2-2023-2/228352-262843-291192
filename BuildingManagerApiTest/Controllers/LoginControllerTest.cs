@@ -1,5 +1,6 @@
 using BuildingManagerApi.Controllers;
 using BuildingManagerILogic;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,24 @@ namespace BuildingManagerApiTest.Controllers
 
             mockUserLogic.VerifyAll();
             Assert.AreEqual(_loginResponse, content);
+        }
+
+        [TestMethod]
+        public void LoginRequestWithoutEmailTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutEmail = new LoginRequest(null, "somepassword");
+                
+                requestWithoutEmail.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
 
 
