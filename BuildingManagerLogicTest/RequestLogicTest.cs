@@ -3,6 +3,8 @@ using Moq;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerLogic;
+using BuildingManagerILogic.Exceptions;
+using BuildingManagerIDataAccess.Exceptions;
 
 namespace BuildingManagerLogicTest
 {
@@ -36,6 +38,27 @@ namespace BuildingManagerLogicTest
 
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(_request, result);
+        }
+
+        [TestMethod]
+        public void CreateRequestWithInvalidCategoryIdOrApartmentIdTest()
+        {
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.CreateRequest(It.IsAny<Request>())).Throws(new ValueNotFoundException(""));
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                requestLogic.CreateRequest(_request);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            requestRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
     }
 }
