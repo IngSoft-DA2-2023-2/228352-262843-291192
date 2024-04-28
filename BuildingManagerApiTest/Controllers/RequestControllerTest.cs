@@ -26,12 +26,14 @@ namespace BuildingManagerApiTest.Controllers
                 Description = "description",
                 CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
                 BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
             };
             _createRequestRequest = new CreateRequestRequest
             {
                 Description = _request.Description,
                 CategoryId = _request.CategoryId,
                 BuildingId = _request.BuildingId,
+                ApartmentFloor = _request.ApartmentFloor,
             };
             _requestResponse = new RequestResponse(_request);
 
@@ -92,6 +94,7 @@ namespace BuildingManagerApiTest.Controllers
                 Description = "description",
                 CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
                 BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
                 State = RequestState.OPEN
             };
 
@@ -101,6 +104,7 @@ namespace BuildingManagerApiTest.Controllers
                 Description = "different description",
                 CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
                 BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
                 State = RequestState.OPEN
             };
 
