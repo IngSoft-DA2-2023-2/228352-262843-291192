@@ -44,14 +44,6 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void RequestApartmentIdTest()
-        {
-            Guid apartmentId = new();
-            Request request = new() { ApartmentId = apartmentId };
-            Assert.AreEqual(apartmentId, request.ApartmentId);
-        }
-
-        [TestMethod]
         public void RequestMaintainerIdTest()
         {
             Guid maintainerId = new();
@@ -67,31 +59,9 @@ namespace BuildingManagerDomainTest
             {
                 var requestWithoutDescription = new CreateRequestRequest()
                 {
-                    ApartmentId = new Guid(),
                     CategoryId = new Guid(),
                 };
                 requestWithoutDescription.Validate();
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-
-            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
-        }
-
-        [TestMethod]
-        public void RequestWithoutApartmentIdTest()
-        {
-            Exception exception = null;
-            try
-            {
-                var requestWithoutApartmentId = new CreateRequestRequest()
-                {
-                    Description = "some description",
-                    CategoryId = new Guid(),
-                };
-                requestWithoutApartmentId.Validate();
             }
             catch (Exception ex)
             {
@@ -110,7 +80,6 @@ namespace BuildingManagerDomainTest
                 var requestWithoutCategoryId = new CreateRequestRequest()
                 {
                     Description = "some description",
-                    ApartmentId = new Guid(),
                 };
                 requestWithoutCategoryId.Validate();
             }

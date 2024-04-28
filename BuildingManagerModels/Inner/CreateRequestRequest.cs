@@ -8,7 +8,6 @@ namespace BuildingManagerModels.Inner
     public class CreateRequestRequest
     {
         public string Description { get; set; }
-        public Guid ApartmentId { get; set; }
         public Guid CategoryId { get; set; }
 
         public Request ToEntity()
@@ -17,7 +16,6 @@ namespace BuildingManagerModels.Inner
             return new Request()
             {
                 Description = Description,
-                ApartmentId = ApartmentId,
                 CategoryId = CategoryId,
                 State = RequestState.OPEN,
             };
@@ -28,10 +26,6 @@ namespace BuildingManagerModels.Inner
             if (string.IsNullOrEmpty(Description))
             {
                 throw new InvalidArgumentException("description");
-            }
-            if (Guid.Empty.Equals(ApartmentId))
-            {
-                throw new InvalidArgumentException("apartmentId");
             }
             if (Guid.Empty.Equals(CategoryId))
             {
