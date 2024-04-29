@@ -60,6 +60,7 @@
     <Compile Include="Outer\InvitationResponse.cs" />
     <Compile Include="Outer\LoginResponse.cs" />
     <Compile Include="Outer\RequestResponse.cs" />
+    <Compile Include="Outer\MaintenanceReportResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
