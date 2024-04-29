@@ -52,6 +52,7 @@
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
     <Compile Include="Outer\DeleteBuildingResponse.cs" />
+    <Compile Include="Outer\LogoutResponse.cs" />
     <Compile Include="Outer\ManagerResponse.cs" />
     <Compile Include="Outer\CreateCategoryResponse.cs" />
     <Compile Include="Inner\CreateBuildingRequest.cs" />

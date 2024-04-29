@@ -11,5 +11,6 @@ namespace BuildingManagerILogic
         public RoleType Role(Guid userId);
         public User DeleteUser(Guid userId, RoleType role);
         public Guid Login(string email, string password);
+        public Guid Logout(Guid sessionToken);
     }
 }
