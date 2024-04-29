@@ -272,6 +272,30 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
+        [TestMethod]
+        public void LogoutSuccessfullyTest()
+        {
+            var context = CreateDbContext("LogoutSuccessfullyTest");
+            var repository = new UserRepository(context);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@exmaple.com",
+                Password = "123456",
+            };
+            repository.CreateUser(admin);
+
+            Guid loginToken = repository.Login(admin.Email, admin.Password);
+            Guid logoutToken = repository.Logout(loginToken);
+
+            var result = context.Set<User>().Find(admin.Id).SessionToken;
+
+            Assert.AreEqual(loginToken, logoutToken);
+            Assert.IsNull(result);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

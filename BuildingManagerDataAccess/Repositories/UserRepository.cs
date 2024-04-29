@@ -88,7 +88,12 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid Logout(Guid sessionToken)
         {
-            throw new NotImplementedException();
+            User user = _context.Set<User>().First(i => i.SessionToken == sessionToken);
+            Guid? token = user.SessionToken;
+
+            user.SessionToken = null;
+            _context.SaveChanges();
+            return token.Value;
         }
     }
 }
