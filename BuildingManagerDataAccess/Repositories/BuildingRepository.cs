@@ -82,7 +82,14 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Building UpdateBuilding(Building building)
         {
-            return building;
+            Building buildToUpdate = _context.Set<Building>().Find(building.Id);
+            buildToUpdate.Name = building.Name;
+            buildToUpdate.Address = building.Address;
+            buildToUpdate.Location = building.Location;
+            buildToUpdate.ConstructionCompany = building.ConstructionCompany;
+            buildToUpdate.CommonExpenses = building.CommonExpenses;
+            buildToUpdate.Apartments = building.Apartments;
+            return _context.Set<Building>().Find(building.Id)!;
         }
     }
 }

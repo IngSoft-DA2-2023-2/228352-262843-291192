@@ -13,5 +13,18 @@ namespace BuildingManagerDomain.Entities
         public string ConstructionCompany { get; set; }
         public decimal CommonExpenses { get; set; }
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
+
+        public override bool Equals(object obj)
+        {
+            var other = (Building)obj;
+            return Id == other.Id &&
+                   ManagerId == other.ManagerId &&
+                   Name == other.Name &&
+                   Address == other.Address &&
+                   Location == other.Location &&
+                   ConstructionCompany == other.ConstructionCompany &&
+                   CommonExpenses == other.CommonExpenses &&
+                   Apartments == other.Apartments;
+        }
     }
 }
