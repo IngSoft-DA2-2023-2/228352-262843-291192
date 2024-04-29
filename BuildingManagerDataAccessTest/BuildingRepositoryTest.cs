@@ -200,5 +200,13 @@ namespace BuildingManagerDataAccessTest
             Assert.IsNull(result);
         }
 
+        [TestMethod]
+        public void DeleteBuildingThatDoesNotExistTest()
+        {
+            var context = CreateDbContext("DeleteBuildingThatDoesNotExistTest");
+            var repository = new BuildingRepository(context);
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.DeleteBuilding(Guid.NewGuid()));
+        }
     }
 }

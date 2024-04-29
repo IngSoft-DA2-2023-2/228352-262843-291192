@@ -60,6 +60,11 @@ namespace BuildingManagerDataAccess.Repositories
         {
             var building = _context.Set<Building>().Find(buildingId);
 
+            if (building == null)
+            {
+                throw new ValueNotFoundException("Building");
+            }
+
             _context.Set<Building>().Remove(building);
             _context.SaveChanges();
             return building;
