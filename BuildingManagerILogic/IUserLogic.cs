@@ -7,8 +7,8 @@ namespace BuildingManagerILogic
     public interface IUserLogic
     {
         public User CreateUser(User user);
-        public bool Exists(Guid userId);
-        public RoleType Role(Guid userId);
+        public bool ExistsFromSessionToken(Guid sessionToken);
+        public RoleType RoleFromSessionToken(Guid sessionToken);
         public User DeleteUser(Guid userId, RoleType role);
         public Guid Login(string email, string password);
         public Guid Logout(Guid sessionToken);

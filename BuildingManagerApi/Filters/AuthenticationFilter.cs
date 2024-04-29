@@ -34,12 +34,12 @@ namespace ECommerceApi.Filters
             }
 
             IUserLogic userLogic = context.HttpContext.RequestServices.GetService(typeof(IUserLogic)) as IUserLogic;
-            if (!userLogic.Exists(token))
+            if (!userLogic.ExistsFromSessionToken(token))
             {
                 SetUnauthorizedResult(context, "Invalid Token");
                 return;
             }
-            if (!_requiredRole.Equals(userLogic.Role(token)))
+            if (!_requiredRole.Equals(userLogic.RoleFromSessionToken(token)))
             {
                 context.Result = new ObjectResult(new { ErrorMessage = "You don't have enough permissions to proceed further" })
                 {

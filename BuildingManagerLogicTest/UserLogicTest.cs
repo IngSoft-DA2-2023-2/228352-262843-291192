@@ -125,7 +125,7 @@ namespace BuildingManagerLogicTest
             userRespositoryMock.Setup(x => x.ExistsFromSessionToken(It.IsAny<Guid>())).Returns(true);
             var userLogic = new UserLogic(userRespositoryMock.Object);
 
-            var result = userLogic.Exists(new Guid());
+            var result = userLogic.ExistsFromSessionToken(new Guid());
 
             Assert.IsTrue(result);
         }
@@ -137,7 +137,7 @@ namespace BuildingManagerLogicTest
             userRespositoryMock.Setup(x => x.RoleFromSessionToken(It.IsAny<Guid>())).Returns(RoleType.ADMIN);
             var userLogic = new UserLogic(userRespositoryMock.Object);
 
-            var result = userLogic.Role(new Guid());
+            var result = userLogic.RoleFromSessionToken(new Guid());
 
             Assert.AreEqual(RoleType.ADMIN, result);
         }

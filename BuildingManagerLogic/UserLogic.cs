@@ -39,7 +39,7 @@ namespace BuildingManagerLogic
             }
         }
 
-        public bool Exists(Guid userId)
+        public bool ExistsFromSessionToken(Guid userId)
         {
             return _userRepository.ExistsFromSessionToken(userId);
         }
@@ -68,7 +68,7 @@ namespace BuildingManagerLogic
             }
         }
 
-        public RoleType Role(Guid userId)
+        public RoleType RoleFromSessionToken(Guid userId)
         {
             return _userRepository.RoleFromSessionToken(userId);
         }
