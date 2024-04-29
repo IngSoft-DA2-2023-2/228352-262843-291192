@@ -18,10 +18,23 @@ namespace BuildingManagerDomainTest
 
             MaintenanceReport report = new()
             {
-                maintenanceDatas = [data]
+                MaintenanceDatas = [data]
             };
 
-            Assert.AreEqual(report.maintenanceDatas.First(), data);
+            Assert.AreEqual(report.MaintenanceDatas.First(), data);
+        }
+
+        [TestMethod]
+        public void MaintenanceDataRequestsTest()
+        {
+            Request request = new();
+
+            MaintenanceReport report = new()
+            {
+                Requests = [request]
+            };
+
+            Assert.AreEqual(report.Requests.First(), request);
         }
     }
 }
