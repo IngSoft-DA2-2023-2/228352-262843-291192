@@ -70,5 +70,10 @@ namespace BuildingManagerDataAccess.Repositories
             return building;
         }
 
+        public Guid GetManagerIdBySessionToken(Guid sessionToken)
+        {
+            return Guid.NewGuid();
+        }
+
     }
 }

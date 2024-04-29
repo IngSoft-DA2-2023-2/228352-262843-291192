@@ -197,5 +197,18 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(_building, result);
         }
+
+        [TestMethod]
+        public void GetManagerIdBySessionTokenTest()
+        {
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(_building.ManagerId);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+
+            var result = buildingLogic.GetManagerIdBySessionToken(_building.ManagerId);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(_building.ManagerId, result);
+        }
     }
 }

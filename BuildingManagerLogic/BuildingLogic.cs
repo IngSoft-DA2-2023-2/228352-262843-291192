@@ -5,9 +5,6 @@ using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuildingManagerLogic
 {
@@ -74,6 +71,11 @@ namespace BuildingManagerLogic
         public Building DeleteBuilding(Guid buildingId)
         {
             return _buildingRepository.DeleteBuilding(buildingId);
+        }
+
+        public Guid GetManagerIdBySessionToken(Guid sessionToken)
+        {
+            return _buildingRepository.GetManagerIdBySessionToken(sessionToken);
         }
     }
 }
