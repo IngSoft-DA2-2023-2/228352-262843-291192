@@ -31,10 +31,10 @@ namespace BuildingManagerApi.Controllers
 
         [HttpDelete("{buildingId}")]
         [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult DeleteBuilding([FromBody] DeleteBuildingRequest buildingRequest)
+        public IActionResult DeleteBuilding([FromRoute] Guid buildingId)
         {
-            DeleteBuildingResponse deleteBuildingResponse = new DeleteBuildingResponse(_buildingLogic.DeleteBuilding(buildingRequest.ToEntity()));
-            return CreatedAtAction(nameof(DeleteBuilding), deleteBuildingResponse);
+            DeleteBuildingResponse deleteBuildingResponse = new DeleteBuildingResponse(_buildingLogic.DeleteBuilding(buildingId));
+            return Ok(deleteBuildingResponse);
         }
     }
 }

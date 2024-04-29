@@ -16,8 +16,6 @@ namespace BuildingManagerApiTest.Controllers
         private Building _building;
         private CreateBuildingRequest _createBuildingRequest;
         private CreateBuildingResponse _createBuildingResponse;
-        private DeleteBuildingRequest _deleteBuildingRequest;
-        private DeleteBuildingResponse _deleteBuildingResponse;
         private Guid managerId;
 
         [TestInitialize]
@@ -45,12 +43,6 @@ namespace BuildingManagerApiTest.Controllers
                 CommonExpenses = 1000
             };
             _createBuildingResponse = new CreateBuildingResponse(_building);
-            
-            _deleteBuildingRequest = new DeleteBuildingRequest
-            {
-                BuildingId = _building.Id
-            };
-            _deleteBuildingResponse = new DeleteBuildingResponse(_building);
         }
 
         [TestMethod]
@@ -273,28 +265,18 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void DeleteBuilding_Ok()
         {
-            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            var mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
+            var buildingController = new BuildingController(mockBuildingLogic.Object);
+            OkObjectResult expected = new OkObjectResult(new DeleteBuildingResponse(_building));
+            DeleteBuildingResponse expectedObject = expected.Value as DeleteBuildingResponse;
 
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Headers["Authorization"] = managerId.ToString();
-
-            var controllerContext = new ControllerContext
-            {
-                HttpContext = httpContext,
-            };
-
-            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object)
-            {
-                ControllerContext = controllerContext
-            };
-
-            var result = buildingController.DeleteBuilding(_deleteBuildingRequest);
-            var okResult = result as CreatedAtActionResult;
-            var content = okResult.Value as DeleteBuildingResponse;
+            OkObjectResult result = buildingController.DeleteBuilding(_building.Id) as OkObjectResult;
+            DeleteBuildingResponse resultObject = result.Value as DeleteBuildingResponse;
 
             mockBuildingLogic.VerifyAll();
-            Assert.AreEqual(_deleteBuildingResponse, content);
+            Assert.AreEqual(result.StatusCode, expected.StatusCode);
+            Assert.AreEqual(expectedObject.Id, resultObject.Id);
         }
     }
 }
