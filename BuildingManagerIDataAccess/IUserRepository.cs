@@ -7,7 +7,7 @@ namespace BuildingManagerIDataAccess
     public interface IUserRepository
     {
         User CreateUser(User user);
-        bool Exists(Guid userId);
+        bool ExistsFromSessionToken(Guid sessionToken);
         bool EmailExists(string email);
         RoleType RoleFromSessionToken(Guid sessionToken);
         User DeleteUser(Guid userId, RoleType role);

@@ -41,7 +41,7 @@ namespace BuildingManagerLogic
 
         public bool Exists(Guid userId)
         {
-            return _userRepository.Exists(userId);
+            return _userRepository.ExistsFromSessionToken(userId);
         }
 
         public Guid Login(string email, string password)

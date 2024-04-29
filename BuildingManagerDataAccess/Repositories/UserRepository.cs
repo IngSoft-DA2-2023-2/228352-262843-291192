@@ -25,7 +25,7 @@ namespace BuildingManagerDataAccess.Repositories
             return user;
         }
 
-        public bool Exists(Guid userId)
+        public bool ExistsFromSessionToken(Guid userId)
         {
             return _context.Set<User>().Any(a => a.SessionToken == userId);
         }

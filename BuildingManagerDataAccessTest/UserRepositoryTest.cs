@@ -97,7 +97,7 @@ namespace BuildingManagerDataAccessTest
             repository.CreateUser(admin);
             Guid token = repository.Login(admin.Email, admin.Password);
 
-            var result = repository.Exists(token);
+            var result = repository.ExistsFromSessionToken(token);
 
             Assert.IsTrue(result);
         }

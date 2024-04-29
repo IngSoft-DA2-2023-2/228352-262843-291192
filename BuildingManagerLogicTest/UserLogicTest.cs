@@ -108,7 +108,7 @@ namespace BuildingManagerLogicTest
         public void FindUserByIdTest()
         {
             var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            userRespositoryMock.Setup(x => x.Exists(It.IsAny<Guid>())).Returns(true);
+            userRespositoryMock.Setup(x => x.ExistsFromSessionToken(It.IsAny<Guid>())).Returns(true);
             var userLogic = new UserLogic(userRespositoryMock.Object);
 
             var result = userLogic.Exists(new Guid());
