@@ -14,8 +14,9 @@ namespace BuildingManagerDomainTest
             int inProgressRequests = 6;
             int averageClosingTime = 10;
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime);
-            
+            string maintainerName = "John";
+
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
             Assert.AreEqual(openRequests, data.OpenRequests);
         }
 
@@ -27,8 +28,9 @@ namespace BuildingManagerDomainTest
             int inProgressRequests = 6;
             int averageClosingTime = 10;
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime);
+            string maintainerName = "John";
 
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
             Assert.AreEqual(closeRequests, data.CloseRequests);
         }
 
@@ -40,7 +42,9 @@ namespace BuildingManagerDomainTest
             int inProgressRequests = 6;
             int averageClosingTime = 10;
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime);
+            string maintainerName = "John";
+
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
 
             Assert.AreEqual(inProgressRequests, data.InProgressRequests);
         }
@@ -52,10 +56,25 @@ namespace BuildingManagerDomainTest
             int closeRequests = 5;
             int inProgressRequests = 6;
             int averageClosingTime = 10;
+            string maintainerName = "John";
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime);
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
 
             Assert.AreEqual(averageClosingTime, data.AverageClosingTime);
+        }
+
+        [TestMethod]
+        public void MaintenanceDataMaintainerNameTest()
+        {
+            int openRequests = 5;
+            int closeRequests = 5;
+            int inProgressRequests = 6;
+            int averageClosingTime = 10;
+            string maintainerName = "John";
+
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
+
+            Assert.AreEqual(maintainerName, data.MaintainerName);
         }
     }
 }
