@@ -51,6 +51,14 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void AdminSessionTokenTest()
+        {
+            Guid sessionToken = new();
+            Admin admin = new Admin { SessionToken = sessionToken };
+            Assert.AreEqual(sessionToken, admin.SessionToken);
+        }
+
+        [TestMethod]
         public void CreateAdminWithoutName()
         {
             Exception exception = null;

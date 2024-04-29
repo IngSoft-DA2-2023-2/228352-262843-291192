@@ -55,5 +55,13 @@ namespace BuildingManagerDomainTest
             Manager manager = new() { };
             Assert.AreEqual(lastname, manager.Lastname);
         }
+
+        [TestMethod]
+        public void ManagerSessionTokenTest()
+        {
+            Guid sessionToken = new();
+            Manager manager = new() { SessionToken = sessionToken };
+            Assert.AreEqual(sessionToken, manager.SessionToken);
+        }
     }
 }

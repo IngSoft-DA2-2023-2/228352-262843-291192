@@ -51,6 +51,14 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void MaintenanceStaffSessionTokenTest()
+        {
+            Guid sessionToken = new();
+            MaintenanceStaff maintenanceStaff = new() { SessionToken = sessionToken };
+            Assert.AreEqual(sessionToken, maintenanceStaff.SessionToken);
+        }
+
+        [TestMethod]
         public void CreatMaintenanceStaffWithoutName()
         {
             Exception exception = null;
