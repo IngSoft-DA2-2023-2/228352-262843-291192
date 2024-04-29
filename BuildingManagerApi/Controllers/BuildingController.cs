@@ -1,5 +1,6 @@
 ﻿using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
+using BuildingManagerLogic;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using ECommerceApi.Filters;
@@ -22,8 +23,8 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult CreateBuilding([FromBody] CreateBuildingRequest buildingRequest)
         {
-            Guid managerId = Guid.Parse(HttpContext.Request.Headers["Authorization"]!);
-            buildingRequest.ManagerId = managerId;
+            Guid managerSessionToken = Guid.Parse(HttpContext.Request.Headers["Authorization"]!);
+            _buildingLogic.GetManagerIdBySessionToken(managerSessionToken);
 
             CreateBuildingResponse createBuildingResponse = new CreateBuildingResponse(_buildingLogic.CreateBuilding(buildingRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateBuilding), createBuildingResponse);

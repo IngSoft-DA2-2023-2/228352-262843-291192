@@ -17,11 +17,13 @@ namespace BuildingManagerApiTest.Controllers
         private CreateBuildingRequest _createBuildingRequest;
         private CreateBuildingResponse _createBuildingResponse;
         private Guid managerId;
+        private Guid sessionToken;
 
         [TestInitialize]
         public void Initialize()
         {
             managerId = Guid.NewGuid();
+            sessionToken = Guid.NewGuid();
 
             _building = new Building
             {
@@ -50,9 +52,10 @@ namespace BuildingManagerApiTest.Controllers
         {
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
+            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
 
             var httpContext = new DefaultHttpContext();
-            httpContext.Request.Headers["Authorization"] = managerId.ToString();
+            httpContext.Request.Headers["Authorization"] = sessionToken.ToString();
 
             var controllerContext = new ControllerContext
             {
@@ -174,9 +177,10 @@ namespace BuildingManagerApiTest.Controllers
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithApartment);
-            
+            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
+
             var httpContext = new DefaultHttpContext();
-            httpContext.Request.Headers["Authorization"] = managerId.ToString();
+            httpContext.Request.Headers["Authorization"] = sessionToken.ToString();
 
             var controllerContext = new ControllerContext
             {
@@ -240,9 +244,10 @@ namespace BuildingManagerApiTest.Controllers
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithOwnerApartment);
+            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
 
             var httpContext = new DefaultHttpContext();
-            httpContext.Request.Headers["Authorization"] = managerId.ToString();
+            httpContext.Request.Headers["Authorization"] = sessionToken.ToString();
 
             var controllerContext = new ControllerContext
             {
