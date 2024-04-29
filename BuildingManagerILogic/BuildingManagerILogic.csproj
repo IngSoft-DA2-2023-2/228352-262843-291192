@@ -50,7 +50,6 @@
     <Compile Include="IRequestLogic.cs" />
     <Compile Include="IBuildingLogic.cs" />
     <Compile Include="IInvitationLogic.cs" />
-    <Compile Include="IMaintenanceReport.cs" />
     <Compile Include="IReportLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

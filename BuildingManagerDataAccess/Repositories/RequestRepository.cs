@@ -26,5 +26,10 @@ namespace BuildingManagerDataAccess.Repositories
             
             return request;
         }
+
+        public List<Request> GetRequests()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
