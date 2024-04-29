@@ -9,6 +9,7 @@ namespace BuildingManagerModels.Inner
     public class CreateBuildingRequest
     {
         private string _name;
+        private Guid _managerId;
         private string _address;
         private string _location;
         private string _constructionCompany;
@@ -26,6 +27,20 @@ namespace BuildingManagerModels.Inner
                 _name = value;
             }
         }
+
+        public Guid ManagerId
+        {
+            get { return _managerId; }
+            set
+            {
+                if (value == Guid.Empty)
+                {
+                    throw new InvalidArgumentException("managerId");
+                }
+                _managerId = value;
+            }
+        }
+
         public string Address
         {
             get { return _address; }
@@ -81,6 +96,7 @@ namespace BuildingManagerModels.Inner
             return new Building()
             {
                 Name = this.Name,
+                ManagerId = this.ManagerId,
                 Address = this.Address,
                 Location = this.Location,
                 ConstructionCompany = this.ConstructionCompany,

@@ -3,6 +3,7 @@ using BuildingManagerDomain.Entities;
 using BuildingManagerILogic;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -20,14 +21,17 @@ namespace BuildingManagerApiTest.Controllers
         private Building _building;
         private CreateBuildingRequest _createBuildingRequest;
         private CreateBuildingResponse _createBuildingResponse;
+        private Guid managerId;
 
         [TestInitialize]
         public void Initialize()
         {
+            managerId = Guid.NewGuid();
+
             _building = new Building
             {
                 Id = new Guid(),
-                ManagerId = new Guid(),
+                ManagerId = managerId,
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
@@ -37,6 +41,7 @@ namespace BuildingManagerApiTest.Controllers
             _createBuildingRequest = new CreateBuildingRequest
             {
                 Name = "Building",
+                ManagerId = managerId,
                 Address = "1234 Main St",
                 Location = "City",
                 ConstructionCompany = "Company",
@@ -50,7 +55,19 @@ namespace BuildingManagerApiTest.Controllers
         {
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
-            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Headers["Authorization"] = managerId.ToString();
+
+            var controllerContext = new ControllerContext
+            {
+                HttpContext = httpContext,
+            };
+
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object)
+            {
+                ControllerContext = controllerContext
+            };
 
             var result = buildingController.CreateBuilding(_createBuildingRequest);
             var createdAtActionResult = result as CreatedAtActionResult;
@@ -139,7 +156,7 @@ namespace BuildingManagerApiTest.Controllers
             Building buildingWithApartment = new Building
             {
                 Id = new Guid(),
-                ManagerId = new Guid(),
+                ManagerId = managerId,
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
@@ -162,7 +179,19 @@ namespace BuildingManagerApiTest.Controllers
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithApartment);
-            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+            
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Headers["Authorization"] = managerId.ToString();
+
+            var controllerContext = new ControllerContext
+            {
+                HttpContext = httpContext,
+            };
+
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object)
+            {
+                ControllerContext = controllerContext
+            };
 
             var result = buildingController.CreateBuilding(createBuildingWithApartmentRequest);
             var createdAtActionResult = result as CreatedAtActionResult;
@@ -193,7 +222,7 @@ namespace BuildingManagerApiTest.Controllers
             Building buildingWithOwnerApartment = new Building
             {
                 Id = new Guid(),
-                ManagerId = new Guid(),
+                ManagerId = managerId,
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
@@ -216,7 +245,19 @@ namespace BuildingManagerApiTest.Controllers
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithOwnerApartment);
-            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Headers["Authorization"] = managerId.ToString();
+
+            var controllerContext = new ControllerContext
+            {
+                HttpContext = httpContext,
+            };
+
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object)
+            {
+                ControllerContext = controllerContext
+            };
 
             var result = buildingController.CreateBuilding(createBuildingWithOwnerApartmentRequest);
             var createdAtActionResult = result as CreatedAtActionResult;
