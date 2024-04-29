@@ -204,5 +204,26 @@ namespace BuildingManagerLogicTest
             userRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void LogoutUserWithInvalidToken()
+        {
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRepositoryMock.Setup(x => x.Logout(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var userLogic = new UserLogic(userRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                userLogic.Logout(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            userRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }

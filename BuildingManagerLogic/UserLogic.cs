@@ -58,7 +58,14 @@ namespace BuildingManagerLogic
 
         public Guid Logout(Guid sessionToken)
         {
-            return _userRepository.Logout(sessionToken);
+            try
+            {
+                return _userRepository.Logout(sessionToken);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public RoleType Role(Guid userId)
