@@ -12,5 +12,14 @@ namespace BuildingManagerModels.Outer
         {
             Token = token;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            var other = (LogoutResponse)obj;
+            return Token == other.Token;
+        }
     }
 }
