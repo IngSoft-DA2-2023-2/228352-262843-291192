@@ -210,6 +210,28 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
         }
 
+        [TestMethod]
+        public void LoginSuccessfullyTest()
+        {
+            var context = CreateDbContext("LoginSuccessfullyTest");
+            var repository = new UserRepository(context);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@exmaple.com",
+                Password = "123456",
+            };
+            repository.CreateUser(admin);
+            
+            Guid token = repository.Login(admin.Email, admin.Password);
+
+            var result = context.Set<User>().Find(admin.Id);
+
+            Assert.AreEqual(token, result.SessionToken);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

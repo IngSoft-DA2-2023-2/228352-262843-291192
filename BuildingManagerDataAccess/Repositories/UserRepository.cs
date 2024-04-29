@@ -62,7 +62,13 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid Login(string email, string password)
         {
-            throw new NotImplementedException();
+            User user = _context.Set<User>().First(i => i.Email == email && i.Password == password);
+            Guid newSessionToken = new();
+
+            user.SessionToken = newSessionToken;
+            _context.SaveChanges();
+
+            return newSessionToken;
         }
     }
 }
