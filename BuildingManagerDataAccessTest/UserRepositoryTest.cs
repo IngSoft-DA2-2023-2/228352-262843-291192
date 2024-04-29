@@ -184,6 +184,25 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void GetUserRoleWithInvalidSessionTokenTest()
+        {
+            var context = CreateDbContext("GetUserRoleWithInvalidSessionTokenTest");
+            var repository = new UserRepository(context);
+            Exception exception = null;
+
+            try
+            {
+                repository.RoleFromSessionToken(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
+        [TestMethod]
         public void DeleteUserWithIncorrectRoleTest()
         {
             var context = CreateDbContext("DeleteUserWithIncorrectRoleTest");

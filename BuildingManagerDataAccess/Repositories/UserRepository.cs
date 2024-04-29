@@ -36,7 +36,14 @@ namespace BuildingManagerDataAccess.Repositories
 
         public RoleType RoleFromSessionToken(Guid userId)
         {
-            return _context.Set<User>().FirstOrDefault(a => a.SessionToken == userId).Role;
+            try
+            {
+                return _context.Set<User>().First(a => a.SessionToken == userId).Role;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("User not found.");
+            }
         }
 
         public User DeleteUser(Guid userId, RoleType role)
