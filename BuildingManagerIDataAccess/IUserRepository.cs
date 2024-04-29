@@ -12,5 +12,6 @@ namespace BuildingManagerIDataAccess
         RoleType RoleFromSessionToken(Guid sessionToken);
         User DeleteUser(Guid userId, RoleType role);
         Guid Login(string email, string password);
+        Guid Logout(Guid sessionToken);
     }
 }

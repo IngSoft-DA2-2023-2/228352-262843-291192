@@ -78,5 +78,10 @@ namespace BuildingManagerDataAccess.Repositories
 
             return newSessionToken;
         }
+
+        public Guid Logout(Guid sessionToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -105,6 +105,20 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
+        public void LogoutSuccessfully()
+        {
+            Guid token = new("12345678-1234-1234-1234-123456789012");
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.Logout(It.IsAny<Guid>())).Returns(token);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.Logout(token);
+
+            userRespositoryMock.VerifyAll();
+            Assert.AreEqual(token, result);
+        }
+
+        [TestMethod]
         public void FindUserByIdTest()
         {
             var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);

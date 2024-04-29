@@ -58,7 +58,7 @@ namespace BuildingManagerLogic
 
         public Guid Logout(Guid sessionToken)
         {
-            throw new NotImplementedException();
+            return _userRepository.Logout(sessionToken);
         }
 
         public RoleType Role(Guid userId)
