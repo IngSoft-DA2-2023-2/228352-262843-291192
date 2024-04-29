@@ -7,7 +7,7 @@ namespace BuildingManagerDomainTest
     public class MaintenanceReportTest
     {
         [TestMethod]
-        public void MaintenanceDataMaintenanceDatasTest()
+        public void MaintenanceReportMaintenanceDatasTest()
         {
             int openRequests = 5;
             int closeRequests = 5;
@@ -25,7 +25,7 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void MaintenanceDataRequestsTest()
+        public void MaintenanceReportRequestsTest()
         {
             Request request = new();
 
