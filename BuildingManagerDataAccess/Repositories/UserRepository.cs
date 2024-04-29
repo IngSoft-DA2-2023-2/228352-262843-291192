@@ -62,7 +62,15 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid Login(string email, string password)
         {
-            User user = _context.Set<User>().First(i => i.Email == email && i.Password == password);
+            User user;
+            try
+            {
+                user = _context.Set<User>().First(i => i.Email == email && i.Password == password);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("User not found.");
+            }
             Guid newSessionToken = new();
 
             user.SessionToken = newSessionToken;

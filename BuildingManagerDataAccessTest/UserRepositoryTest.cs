@@ -224,12 +224,31 @@ namespace BuildingManagerDataAccessTest
                 Password = "123456",
             };
             repository.CreateUser(admin);
-            
+
             Guid token = repository.Login(admin.Email, admin.Password);
 
             var result = context.Set<User>().Find(admin.Id);
 
             Assert.AreEqual(token, result.SessionToken);
+        }
+
+        [TestMethod]
+        public void LoginWithInvalidEmailAndPasswordTest()
+        {
+            var context = CreateDbContext("LoginWithInvalidEmailAndPasswordTest");
+            var repository = new UserRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.Login("test@test.com", "some password");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
         private DbContext CreateDbContext(string name)
