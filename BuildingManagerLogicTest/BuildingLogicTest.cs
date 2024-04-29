@@ -214,12 +214,10 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void UpdateBuildingSuccessfully()
         {
-            Guid buildingId = Guid.NewGuid();
-            Guid managerId = Guid.NewGuid();
-            Building buildingWithFullInformation = new Building
+            Building buildingUpdated = new Building
             {
-                Id = buildingId,
-                ManagerId = managerId,
+                Id = _building.Id,
+                ManagerId = _building.ManagerId,
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
@@ -254,13 +252,13 @@ namespace BuildingManagerLogicTest
                 }
             };
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            buildingRespositoryMock.Setup(x => x.UpdateBuilding(It.IsAny<Building>())).Returns(_building);
+            buildingRespositoryMock.Setup(x => x.UpdateBuilding(It.IsAny<Building>())).Returns(buildingUpdated);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
 
-            var result = buildingLogic.UpdateBuilding(_building);
+            var result = buildingLogic.UpdateBuilding(buildingUpdated);
 
             buildingRespositoryMock.VerifyAll();
-            Assert.AreEqual(_building, result);
+            Assert.AreEqual(buildingUpdated, result);
         }
     }
 }
