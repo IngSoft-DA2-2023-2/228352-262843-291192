@@ -175,5 +175,30 @@ namespace BuildingManagerDataAccessTest
 
             Assert.ThrowsException<ValueDuplicatedException>(() => repository.CreateBuilding(building2));
         }
+
+        [TestMethod]
+        public void DeleteBuildingTest()
+        {
+            var context = CreateDbContext("DeleteBuildingTest");
+            var repository = new BuildingRepository(context);
+            var building = new Building
+            {
+                Id = Guid.NewGuid(),
+                ManagerId = Guid.NewGuid(),
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompany = "Company 1",
+                CommonExpenses = 1000
+            };
+            context.Set<Building>().Add(building);
+            context.SaveChanges();
+
+            repository.DeleteBuilding(building.Id);
+            var result = context.Set<Building>().Find(building.Id);
+
+            Assert.IsNull(result);
+        }
+
     }
 }

@@ -55,5 +55,15 @@ namespace BuildingManagerDataAccess.Repositories
         {
             return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address);
         }
+    
+        public Building DeleteBuilding(Guid buildingId)
+        {
+            var building = _context.Set<Building>().Find(buildingId);
+
+            _context.Set<Building>().Remove(building);
+            _context.SaveChanges();
+            return building;
+        }
+
     }
 }
