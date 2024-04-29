@@ -53,6 +53,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Apartment.cs" />
     <Compile Include="Entities\Building.cs" />
+    <Compile Include="Entities\MaintenanceData.cs" />
     <Compile Include="Entities\Owner.cs" />
     <Compile Include="Enums\RoleType.cs" />
     <Compile Include="Enums\InvitationStatus.cs" />
