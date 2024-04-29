@@ -296,6 +296,25 @@ namespace BuildingManagerDataAccessTest
             Assert.IsNull(result);
         }
 
+        [TestMethod]
+        public void LogoutWithInvalidSessionTokenTest()
+        {
+            var context = CreateDbContext("LogoutWithInvalidSessionTokenTest");
+            var repository = new UserRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.Logout(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

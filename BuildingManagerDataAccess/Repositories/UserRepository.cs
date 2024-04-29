@@ -88,12 +88,21 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid Logout(Guid sessionToken)
         {
-            User user = _context.Set<User>().First(i => i.SessionToken == sessionToken);
-            Guid? token = user.SessionToken;
+            User user;
+            try
+            {
+                user = _context.Set<User>().First(i => i.SessionToken == sessionToken);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("User not found.");
+            }
+            Guid token = user.SessionToken!.Value;
 
             user.SessionToken = null;
             _context.SaveChanges();
-            return token.Value;
+            return token;
+
         }
     }
 }
