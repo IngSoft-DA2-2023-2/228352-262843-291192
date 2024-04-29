@@ -70,7 +70,14 @@ namespace BuildingManagerLogic
 
         public RoleType RoleFromSessionToken(Guid userId)
         {
-            return _userRepository.RoleFromSessionToken(userId);
+            try
+            {
+                return _userRepository.RoleFromSessionToken(userId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }

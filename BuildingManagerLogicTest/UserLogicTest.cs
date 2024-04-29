@@ -225,5 +225,27 @@ namespace BuildingManagerLogicTest
             userRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void GetUserRoleFromInvalidTokenTest()
+        {
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.RoleFromSessionToken(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                userLogic.RoleFromSessionToken(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            userRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }
