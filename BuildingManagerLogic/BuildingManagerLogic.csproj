@@ -47,6 +47,7 @@
     <Compile Include="BuildingLogic.cs" />
     <Compile Include="InvitationLogic.cs" />
     <Compile Include="RequestLogic.cs" />
+    <Compile Include="ReportLogic.cs" />
     <Compile Include="MaintenanceReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

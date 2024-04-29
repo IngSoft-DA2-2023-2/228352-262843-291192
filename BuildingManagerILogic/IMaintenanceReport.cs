@@ -6,6 +6,6 @@ namespace BuildingManagerILogic
 {
     public interface IMaintenanceReport
     {
-        public List<MaintenanceData> GetReport();
+        public List<MaintenanceData> GetReport(Guid buildingId);
     }
 }

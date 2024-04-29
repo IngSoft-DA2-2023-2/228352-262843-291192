@@ -5,7 +5,7 @@ using BuildingManagerILogic;
 
 namespace BuildingManagerLogic
 {
-    public class MaintenanceReport : IMaintenanceReport
+    public class ReportLogic : IReportLogic
     {
         public List<MaintenanceData> GetReport(Guid buildingId)
         {

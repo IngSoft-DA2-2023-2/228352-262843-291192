@@ -17,7 +17,7 @@ namespace BuildingManagerApi.Controllers
         [HttpGet("{buildingId}/maintenances")]
         public IActionResult GetReport([FromRoute] Guid buildingId)
         {
-            MaintenanceReportResponse maintenanceReportResponse = new(_reportLogic.GetReport());
+            MaintenanceReportResponse maintenanceReportResponse = new(_reportLogic.GetReport(buildingId));
             return Ok(maintenanceReportResponse);
         }
     }
