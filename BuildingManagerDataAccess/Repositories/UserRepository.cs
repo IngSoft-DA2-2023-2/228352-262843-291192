@@ -36,7 +36,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public RoleType Role(Guid userId)
         {
-            return _context.Set<User>().FirstOrDefault(a => a.Id == userId).Role;
+            return _context.Set<User>().FirstOrDefault(a => a.SessionToken == userId).Role;
         }
 
         public User DeleteUser(Guid userId, RoleType role)

@@ -33,7 +33,7 @@ namespace ECommerceApi.Filters
                 return;
             }
 
-            IUserLogic userLogic = context.HttpContext.RequestServices.GetService(typeof(IUserLogic)) as IUserLogic; ;
+            IUserLogic userLogic = context.HttpContext.RequestServices.GetService(typeof(IUserLogic)) as IUserLogic;
             if (!userLogic.Exists(token))
             {
                 SetUnauthorizedResult(context, "Invalid Token");
