@@ -4,6 +4,7 @@ using BuildingManagerDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagerDataAccess.Migrations
 {
     [DbContext(typeof(BuildingManagerContext))]
-    partial class BuildingManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240429020029_add-session-token-to-user-table")]
+    partial class addsessiontokentousertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

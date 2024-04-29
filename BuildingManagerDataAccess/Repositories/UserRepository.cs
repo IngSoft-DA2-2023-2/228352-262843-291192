@@ -71,7 +71,7 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("User not found.");
             }
-            Guid newSessionToken = new();
+            Guid newSessionToken = Guid.NewGuid();
 
             user.SessionToken = newSessionToken;
             _context.SaveChanges();
