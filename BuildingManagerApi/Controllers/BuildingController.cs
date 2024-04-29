@@ -24,8 +24,8 @@ namespace BuildingManagerApi.Controllers
         public IActionResult CreateBuilding([FromBody] CreateBuildingRequest buildingRequest)
         {
             Guid managerSessionToken = Guid.Parse(HttpContext.Request.Headers["Authorization"]!);
-            _buildingLogic.GetManagerIdBySessionToken(managerSessionToken);
 
+            buildingRequest.ManagerId = _buildingLogic.GetManagerIdBySessionToken(managerSessionToken);
             CreateBuildingResponse createBuildingResponse = new CreateBuildingResponse(_buildingLogic.CreateBuilding(buildingRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateBuilding), createBuildingResponse);
         }
@@ -36,6 +36,15 @@ namespace BuildingManagerApi.Controllers
         {
             DeleteBuildingResponse deleteBuildingResponse = new DeleteBuildingResponse(_buildingLogic.DeleteBuilding(buildingId));
             return Ok(deleteBuildingResponse);
+        }
+
+        [HttpPut("{buildingId}")]
+        [AuthenticationFilter(RoleType.MANAGER)]
+        public IActionResult UpdateBuilding([FromRoute] Guid buildingId, [FromBody] UpdateBuildingRequest buildingRequest)
+        {
+            buildingRequest.Id = buildingId;
+            UpdateBuildingResponse updateBuildingResponse = new UpdateBuildingResponse(_buildingLogic.UpdateBuilding(buildingRequest.ToEntity()));
+            return CreatedAtAction(nameof(UpdateBuilding), updateBuildingResponse);
         }
     }
 }

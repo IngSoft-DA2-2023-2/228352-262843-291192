@@ -77,5 +77,10 @@ namespace BuildingManagerLogic
         {
             return _buildingRepository.GetManagerIdBySessionToken(sessionToken);
         }
+
+        public Building UpdateBuilding(Building building)
+        {
+            return building;
+        }
     }
 }

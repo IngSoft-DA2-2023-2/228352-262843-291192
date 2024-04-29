@@ -8,5 +8,6 @@ namespace BuildingManagerILogic
         public Building CreateBuilding(Building building);
         public Building DeleteBuilding(Guid buildingId);
         public Guid GetManagerIdBySessionToken(Guid sessionToken);
+        public Building UpdateBuilding(Building building);
     }
 }

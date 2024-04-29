@@ -48,6 +48,7 @@
     <Compile Include="Inner\CreateAdminRequest.cs" />
     <Compile Include="Inner\CreateCategoryRequest.cs" />
     <Compile Include="Inner\ModifyInvitationRequest.cs" />
+    <Compile Include="Inner\UpdateBuildingRequest.cs" />
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
     <Compile Include="Outer\DeleteBuildingResponse.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Outer\InvitationResponse.cs" />
     <Compile Include="Outer\LoginResponse.cs" />
     <Compile Include="Outer\RequestResponse.cs" />
+    <Compile Include="Outer\UpdateBuildingResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -283,5 +283,87 @@ namespace BuildingManagerApiTest.Controllers
             Assert.AreEqual(result.StatusCode, expected.StatusCode);
             Assert.AreEqual(expectedObject.Id, resultObject.Id);
         }
+
+        [TestMethod]
+        public void UpdateBuilding_Ok()
+        {
+            Building buildingWithFullInformation = new Building
+            {
+                Id = Guid.NewGuid(),
+                ManagerId = managerId,
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 3,
+                        HasTerrace = false
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true
+                    }
+                }
+            };
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockBuildingLogic.Setup(x => x.UpdateBuilding(It.IsAny<Building>())).Returns(buildingWithFullInformation);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+
+            UpdateBuildingRequest updateBuildingRequest = new UpdateBuildingRequest
+            {
+                Id = Guid.NewGuid(),
+                Name = "New Building Name",
+                Address = "New Building Address",
+                Location = "New City",
+                ConstructionCompany = "New Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 1,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 2,
+                        HasTerrace = false
+                    }
+                }
+            };
+            UpdateBuildingResponse updateBuildingResponse = new UpdateBuildingResponse(buildingWithFullInformation);
+
+            var result = buildingController.UpdateBuilding(buildingWithFullInformation.Id , updateBuildingRequest);
+            var createdAtActionResult = result as CreatedAtActionResult;
+            var content = createdAtActionResult.Value as UpdateBuildingResponse;
+
+            mockBuildingLogic.VerifyAll();
+            Assert.AreEqual(updateBuildingResponse, content);
+        }
     }
 }
