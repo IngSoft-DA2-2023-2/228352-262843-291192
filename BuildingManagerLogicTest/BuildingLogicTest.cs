@@ -210,5 +210,57 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(_building.ManagerId, result);
         }
+
+        [TestMethod]
+        public void UpdateBuildingSuccessfully()
+        {
+            Guid buildingId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Building buildingWithFullInformation = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 3,
+                        HasTerrace = false
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true
+                    }
+                }
+            };
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.UpdateBuilding(It.IsAny<Building>())).Returns(_building);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+
+            var result = buildingLogic.UpdateBuilding(_building);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(_building, result);
+        }
     }
 }

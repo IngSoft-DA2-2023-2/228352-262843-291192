@@ -80,5 +80,9 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<User>().FirstOrDefault(u => u.SessionToken == sessionToken)!.Id;
         }
 
+        public Building UpdateBuilding(Building building)
+        {
+            return building;
+        }
     }
 }
