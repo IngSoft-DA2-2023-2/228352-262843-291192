@@ -58,7 +58,7 @@ namespace BuildingManagerLogic
 
         public RoleType Role(Guid userId)
         {
-            return _userRepository.Role(userId);
+            return _userRepository.RoleFromSessionToken(userId);
         }
     }
 }

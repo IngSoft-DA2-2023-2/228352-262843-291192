@@ -27,14 +27,14 @@ namespace BuildingManagerDataAccess.Repositories
 
         public bool Exists(Guid userId)
         {
-            return _context.Set<User>().Any(a => a.Id == userId);
+            return _context.Set<User>().Any(a => a.SessionToken == userId);
         }
         public bool EmailExists(string email)
         {
             return _context.Set<User>().Any(a => a.Email == email);
         }
 
-        public RoleType Role(Guid userId)
+        public RoleType RoleFromSessionToken(Guid userId)
         {
             return _context.Set<User>().FirstOrDefault(a => a.SessionToken == userId).Role;
         }

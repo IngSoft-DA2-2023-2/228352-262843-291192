@@ -95,8 +95,9 @@ namespace BuildingManagerDataAccessTest
                 Password = "123456",
             };
             repository.CreateUser(admin);
+            Guid token = repository.Login(admin.Email, admin.Password);
 
-            var result = repository.Exists(admin.Id);
+            var result = repository.Exists(token);
 
             Assert.IsTrue(result);
         }
@@ -137,7 +138,7 @@ namespace BuildingManagerDataAccessTest
             repository.CreateUser(admin);
             Guid token = repository.Login(admin.Email, admin.Password);
 
-            var result = repository.Role(token);
+            var result = repository.RoleFromSessionToken(token);
 
             Assert.AreEqual(RoleType.ADMIN, result);
         }

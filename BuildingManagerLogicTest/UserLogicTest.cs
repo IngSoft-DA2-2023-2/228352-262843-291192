@@ -120,7 +120,7 @@ namespace BuildingManagerLogicTest
         public void GetUserRoleTest()
         {
             var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            userRespositoryMock.Setup(x => x.Role(It.IsAny<Guid>())).Returns(RoleType.ADMIN);
+            userRespositoryMock.Setup(x => x.RoleFromSessionToken(It.IsAny<Guid>())).Returns(RoleType.ADMIN);
             var userLogic = new UserLogic(userRespositoryMock.Object);
 
             var result = userLogic.Role(new Guid());
