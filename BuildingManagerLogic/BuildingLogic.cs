@@ -70,5 +70,10 @@ namespace BuildingManagerLogic
             }
             return false;
         }
+    
+        public Building DeleteBuilding(Guid buildingId)
+        {
+            return _buildingRepository.DeleteBuilding(buildingId);
+        }
     }
 }

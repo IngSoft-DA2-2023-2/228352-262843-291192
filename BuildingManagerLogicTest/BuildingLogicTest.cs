@@ -184,5 +184,18 @@ namespace BuildingManagerLogicTest
             Assert.IsNotNull(exception);
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
+
+        [TestMethod]
+        public void DeleteBuildingSuccessfully()
+        {
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+
+            var result = buildingLogic.DeleteBuilding(_building.Id);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(_building, result);
+        }
     }
 }

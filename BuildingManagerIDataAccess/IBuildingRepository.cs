@@ -10,5 +10,6 @@ namespace BuildingManagerIDataAccess
     public interface IBuildingRepository
     {
         Building CreateBuilding(Building building);
+        Building DeleteBuilding(Guid buildingId);
     }
 }
