@@ -234,5 +234,15 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(managerId, result);
         }
 
+        [TestMethod]
+        public void GetManagerIdBySessionTokenThatDoesNotExistTest()
+        {
+            var context = CreateDbContext("GetManagerIdBySessionTokenThatDoesNotExist");
+            var repository = new BuildingRepository(context);
+            Guid sessionToken = Guid.NewGuid();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetManagerIdBySessionToken(sessionToken));
+        }
+
     }
 }

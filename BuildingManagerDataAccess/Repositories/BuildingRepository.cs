@@ -72,7 +72,12 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetManagerIdBySessionToken(Guid sessionToken)
         {
-            return _context.Set<User>().FirstOrDefault(u => u.SessionToken == sessionToken).Id;
+            if (!_context.Set<User>().Any(u => u.SessionToken == sessionToken))
+            {
+                throw new ValueNotFoundException("Session token");
+            }
+
+            return _context.Set<User>().FirstOrDefault(u => u.SessionToken == sessionToken)!.Id;
         }
 
     }
