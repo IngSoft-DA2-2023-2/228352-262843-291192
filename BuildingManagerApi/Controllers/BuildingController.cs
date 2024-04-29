@@ -28,5 +28,13 @@ namespace BuildingManagerApi.Controllers
             CreateBuildingResponse createBuildingResponse = new CreateBuildingResponse(_buildingLogic.CreateBuilding(buildingRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateBuilding), createBuildingResponse);
         }
+
+        [HttpDelete("{buildingId}")]
+        [AuthenticationFilter(RoleType.MANAGER)]
+        public IActionResult DeleteBuilding([FromBody] DeleteBuildingRequest buildingRequest)
+        {
+            DeleteBuildingResponse deleteBuildingResponse = new DeleteBuildingResponse(_buildingLogic.DeleteBuilding(buildingRequest.ToEntity()));
+            return CreatedAtAction(nameof(DeleteBuilding), deleteBuildingResponse);
+        }
     }
 }

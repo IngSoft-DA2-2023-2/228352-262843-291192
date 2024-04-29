@@ -7,11 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuildingManagerApiTest.Controllers
 {
@@ -21,6 +16,8 @@ namespace BuildingManagerApiTest.Controllers
         private Building _building;
         private CreateBuildingRequest _createBuildingRequest;
         private CreateBuildingResponse _createBuildingResponse;
+        private DeleteBuildingRequest _deleteBuildingRequest;
+        private DeleteBuildingResponse _deleteBuildingResponse;
         private Guid managerId;
 
         [TestInitialize]
@@ -30,7 +27,7 @@ namespace BuildingManagerApiTest.Controllers
 
             _building = new Building
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 ManagerId = managerId,
                 Name = "Building",
                 Address = "1234 Main St",
@@ -48,6 +45,12 @@ namespace BuildingManagerApiTest.Controllers
                 CommonExpenses = 1000
             };
             _createBuildingResponse = new CreateBuildingResponse(_building);
+            
+            _deleteBuildingRequest = new DeleteBuildingRequest
+            {
+                BuildingId = _building.Id
+            };
+            _deleteBuildingResponse = new DeleteBuildingResponse(_building);
         }
 
         [TestMethod]
@@ -265,6 +268,33 @@ namespace BuildingManagerApiTest.Controllers
             
             Assert.AreEqual(createBuildingWithOwnerApartmentResponse, content);
             mockBuildingLogic.VerifyAll();
+        }
+
+        [TestMethod]
+        public void DeleteBuilding_Ok()
+        {
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockBuildingLogic.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
+
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Headers["Authorization"] = managerId.ToString();
+
+            var controllerContext = new ControllerContext
+            {
+                HttpContext = httpContext,
+            };
+
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object)
+            {
+                ControllerContext = controllerContext
+            };
+
+            var result = buildingController.DeleteBuilding(_deleteBuildingRequest);
+            var okResult = result as CreatedAtActionResult;
+            var content = okResult.Value as DeleteBuildingResponse;
+
+            mockBuildingLogic.VerifyAll();
+            Assert.AreEqual(_deleteBuildingResponse, content);
         }
     }
 }
