@@ -1,6 +1,7 @@
 ﻿using BuildingManagerDataAccess.Context;
 using BuildingManagerDataAccess.Repositories;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -208,5 +209,30 @@ namespace BuildingManagerDataAccessTest
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.DeleteBuilding(Guid.NewGuid()));
         }
+
+        [TestMethod]
+        public void GetManagerIdBySessionTokenTest() {             
+            var context = CreateDbContext("GetManagerIdBySessionToken");
+            var repository = new BuildingRepository(context);
+            Guid sessionToken = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            UserRepository userRepository = new UserRepository(context);
+            Manager manager = new Manager
+            {
+                Id = managerId,
+                Name = "John",
+                Lastname = "",
+                Email = "test@test.com",
+                Password = "Somepass",
+                Role = RoleType.MANAGER,
+                SessionToken = sessionToken
+            };
+            userRepository.CreateUser(manager);
+
+            Guid result = repository.GetManagerIdBySessionToken(sessionToken);
+        
+            Assert.AreEqual(managerId, result);
+        }
+
     }
 }
