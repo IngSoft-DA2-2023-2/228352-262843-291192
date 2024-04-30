@@ -76,6 +76,14 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void RequestMaintainerTest()
+        {
+            MaintenanceStaff maintainer = new();
+            Request request = new() { Maintainer = maintainer };
+            Assert.AreEqual(maintainer, request.Maintainer);
+        }
+
+        [TestMethod]
         public void RequestWithoutDescription()
         {
             Exception exception = null;
