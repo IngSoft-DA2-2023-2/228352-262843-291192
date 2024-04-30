@@ -87,6 +87,11 @@ namespace BuildingManagerLogic
                     throw new ValueDuplicatedException("Apartment floor and number");
                 }
 
+                if (HasDistinctOwnersWithSameEmail(building.Apartments))
+                {
+                    throw new ValueDuplicatedException("Owner email");
+                }
+
                 return _buildingRepository.UpdateBuilding(building);
             }
             catch (ValueDuplicatedException e)
