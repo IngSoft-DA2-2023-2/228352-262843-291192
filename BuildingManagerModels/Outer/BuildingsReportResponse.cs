@@ -22,7 +22,12 @@ namespace BuildingManagerModels.Outer
             {
                 foreach(var otherData in other.Datas)
                 {
-                    if (data.OpenRequests != otherData.OpenRequests || data.CloseRequests != otherData.CloseRequests || data.AverageClosingTime != otherData.AverageClosingTime || data.InProgressRequests != otherData.InProgressRequests || data.MaintainerName != otherData.MaintainerName)
+                    if (data.OpenRequests != otherData.OpenRequests || 
+                    data.CloseRequests != otherData.CloseRequests || 
+                    data.AverageClosingTime != otherData.AverageClosingTime || 
+                    data.InProgressRequests != otherData.InProgressRequests || 
+                    data.MaintainerName != otherData.MaintainerName ||
+                    data.BuildingId != otherData.BuildingId)
                         return false;
                 }
             }

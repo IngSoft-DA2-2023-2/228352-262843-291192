@@ -48,11 +48,12 @@ namespace BuildingManagerLogic
                 int inProgress = 0;
                 int averageTime = 0;
                 string name = "";
-                Guid buildingId;
+                Guid buildingId = Guid.Empty;
 
                 foreach (var request in pair.Value)
                 {
                     name = request.MaintenanceStaff.Name;
+                    buildingId = request.BuildingId;
                     if (request.State == RequestState.OPEN)
                     {
                         open++;
@@ -66,7 +67,7 @@ namespace BuildingManagerLogic
                         inProgress++;
                     }
                 }
-                datas.Add(new MaintenanceData(open, close, inProgress, averageTime, name));
+                datas.Add(new MaintenanceData(open, close, inProgress, averageTime, name, buildingId));
             }
 
             return datas;

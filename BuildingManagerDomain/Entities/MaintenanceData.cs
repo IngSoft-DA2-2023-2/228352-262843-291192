@@ -1,21 +1,25 @@
 
+using System;
+
 namespace BuildingManagerDomain.Entities
 {
     public struct MaintenanceData
     {
-        public MaintenanceData(int openRequests, int closeRequests, int inProgressRequests, int averageClosingTime, string maintainerName)
+        public MaintenanceData(int openRequests, int closeRequests, int inProgressRequests, int averageClosingTime, string maintainerName, Guid buildingId)
         {
             OpenRequests = openRequests;
             CloseRequests = closeRequests;
             InProgressRequests = inProgressRequests;
             AverageClosingTime = averageClosingTime;
             MaintainerName = maintainerName;
+            BuildingId = buildingId;
         }
         public int OpenRequests { get; }
         public int CloseRequests { get; }
         public int InProgressRequests { get; }
         public int AverageClosingTime { get; }
         public string MaintainerName { get; }
+        public Guid BuildingId { get; }
 
         public override bool Equals(object obj)
         {
@@ -23,7 +27,12 @@ namespace BuildingManagerDomain.Entities
                 return false;
 
             var other = (MaintenanceData)obj;
-            return OpenRequests == other.OpenRequests && CloseRequests == other.CloseRequests && InProgressRequests == other.InProgressRequests && AverageClosingTime == other.AverageClosingTime && MaintainerName == other.MaintainerName;
+            return OpenRequests == other.OpenRequests &&
+            CloseRequests == other.CloseRequests &&
+            InProgressRequests == other.InProgressRequests &&
+            AverageClosingTime == other.AverageClosingTime &&
+            MaintainerName == other.MaintainerName &&
+            BuildingId == other.BuildingId;
         }
     }
 }
