@@ -14,5 +14,6 @@ namespace BuildingManagerDomain.Entities
         public int ApartmentFloor { get; set; }
         public int ApartmentNumber { get; set; }
         public MaintenanceStaff Maintainer { get; set; }
+        public Category Category { get; set; }
     }
 }

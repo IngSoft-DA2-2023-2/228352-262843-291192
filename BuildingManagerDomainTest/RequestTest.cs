@@ -36,7 +36,7 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void RequestCategoryTest()
+        public void RequestCategoryIdTest()
         {
             Guid categoryId = new();
             Request request = new() { CategoryId = categoryId };
@@ -81,6 +81,14 @@ namespace BuildingManagerDomainTest
             MaintenanceStaff maintainer = new();
             Request request = new() { Maintainer = maintainer };
             Assert.AreEqual(maintainer, request.Maintainer);
+        }
+        
+        [TestMethod]
+        public void RequestCategoryTest()
+        {
+            Category category = new();
+            Request request = new() { Category = category };
+            Assert.AreEqual(category, request.Category);
         }
 
         [TestMethod]
