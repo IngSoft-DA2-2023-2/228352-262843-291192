@@ -56,5 +56,11 @@ namespace BuildingManagerDomain.Entities
                 email = value;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Owner owner = (Owner)obj;
+            return Name == owner.Name && LastName == owner.LastName && Email == owner.Email;
+        }
     }
 }

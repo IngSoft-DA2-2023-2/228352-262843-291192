@@ -80,7 +80,7 @@ namespace BuildingManagerLogic
 
         public Building UpdateBuilding(Building building)
         {
-            return building;
+            return _buildingRepository.UpdateBuilding(building);
         }
     }
 }
