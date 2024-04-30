@@ -11,8 +11,9 @@ namespace BuildingManagerDomainTest
         {
             int openRequests = 5;
             int closeRequests = 2;
+            int inProgressRequests = 1;
 
-            BuildingsReportData data = new(openRequests, closeRequests); 
+            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests);
 
             Assert.AreEqual(openRequests, data.OpenRequests);
         }
@@ -22,10 +23,23 @@ namespace BuildingManagerDomainTest
         {
             int openRequests = 5;
             int closeRequests = 2;
+            int inProgressRequests = 1;
 
-            BuildingsReportData data = new(openRequests, closeRequests); 
+            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests);
 
             Assert.AreEqual(closeRequests, data.CloseRequests);
+        }
+
+        [TestMethod]
+        public void BuildingsReportDataInProgressRequestsTest()
+        {
+            int openRequests = 5;
+            int closeRequests = 2;
+            int inProgressRequests = 1;
+
+            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests);
+
+            Assert.AreEqual(inProgressRequests, data.InProgressRequests);
         }
     }
 }
