@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogic
 {
@@ -13,10 +14,19 @@ namespace BuildingManagerLogic
         {
             _requestRepository = requestRepository;
         }
-        public List<MaintenanceData> GetReport(Guid buildingId, string maintainerName)
+        public List<MaintenanceData> GetReport(Guid? identifier, string filter, string reportType)
         {
-            MaintenanceReport report = new MaintenanceReport(_requestRepository);
-            return report.GetReport(buildingId, maintainerName);
+            if (reportType == "maintenances" && identifier != null)
+            {
+                MaintenanceReport report = new MaintenanceReport(_requestRepository);
+                return report.GetReport(identifier.Value, filter);
+            }
+            else if (reportType == "buildings")
+            {
+                BuildingsReport report = new BuildingsReport(_requestRepository);
+                return report.GetReport(null, filter);
+            }
+            return null;
         }
     }
 }
