@@ -19,8 +19,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BuildingManagerDomain\BuildingManagerDomain.csproj" />
-    <ProjectReference Include="..\BuildingManagerIDataAccess\BuildingManagerIDataAccess.csproj" />
     <ProjectReference Include="..\BuildingManagerLogic\BuildingManagerLogic.csproj" />
+    <ProjectReference Include="..\BuildingManagerModels\BuildingManagerModels.csproj" />
   </ItemGroup>
 
 </Project>

@@ -45,7 +45,7 @@ namespace BuildingManagerApi.Controllers
         [HttpPut("{id}")]
         public IActionResult RespondInvitation([FromRoute] Guid id, [FromBody] RespondInvitationRequest respondInvitationRequest)
         {
-            RespondInvitationResponse acceptInvitationResponse = new RespondInvitationResponse(_invitationLogic.RespondInvitation(id, respondInvitationRequest.ToEntity()));
+            RespondInvitationResponse acceptInvitationResponse = new RespondInvitationResponse(_invitationLogic.RespondInvitation(respondInvitationRequest.ToEntity(id)));
             return Ok(acceptInvitationResponse);
         }
     }

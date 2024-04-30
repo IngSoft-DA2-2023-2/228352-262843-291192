@@ -1,5 +1,6 @@
 using System;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerIDataAccess
 {
@@ -8,5 +9,6 @@ namespace BuildingManagerIDataAccess
         Invitation CreateInvitation(Invitation invitation);
         Invitation DeleteInvitation(Guid id);
         Invitation ModifyInvitation(Guid id, long newDeadline);
+        Invitation RespondInvitation(InvitationAnswer invitationAnswer);
     }
 }
