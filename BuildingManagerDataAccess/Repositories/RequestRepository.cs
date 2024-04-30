@@ -23,13 +23,13 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("CategoryId or ApartmentNumber with ApartmentFloor in BuildingId not found.");
             }
-            
+
             return request;
         }
 
         public List<Request> GetRequests()
         {
-            throw new NotImplementedException();
+            return _context.Set<Request>().ToList();
         }
     }
 }
