@@ -210,5 +210,221 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(_building.ManagerId, result);
         }
+
+        [TestMethod]
+        public void UpdateBuildingSuccessfully()
+        {
+            Building buildingUpdated = new Building
+            {
+                Id = _building.Id,
+                ManagerId = _building.ManagerId,
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 3,
+                        HasTerrace = false,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "Jade",
+                            LastName = "Doe",
+                            Email = "jade@gmail.com"
+                        }
+                    }
+                }
+            };
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.UpdateBuilding(It.IsAny<Building>())).Returns(buildingUpdated);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+
+            var result = buildingLogic.UpdateBuilding(buildingUpdated);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(buildingUpdated, result);
+        }
+
+        [TestMethod]
+        public void UpdateBuildingWithApartmentWithSameFloorAndNumberTest()
+        {
+            Building buildingUpdated = new Building
+            {
+                Id = _building.Id,
+                ManagerId = _building.ManagerId,
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 3,
+                        HasTerrace = false,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "Jade",
+                            LastName = "Doe",
+                            Email = "jade@gmail.com"
+                        }
+                    }
+                }
+            };
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.UpdateBuilding(buildingUpdated);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsNotNull(exception);
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingWithApartmentWithSameOwnerEmailTest()
+        {
+            Building buildingUpdated = new Building
+            {
+                Id = _building.Id,
+                ManagerId = _building.ManagerId,
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompany = "Company",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 3,
+                        HasTerrace = false,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "Jade",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
+                    }
+                }
+            };
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.UpdateBuilding(buildingUpdated);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsNotNull(exception);
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
     }
 }

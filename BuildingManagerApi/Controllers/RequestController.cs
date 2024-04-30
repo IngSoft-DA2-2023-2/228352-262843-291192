@@ -25,5 +25,13 @@ namespace BuildingManagerApi.Controllers
             RequestResponse createRequestResponse = new(_requestLogic.CreateRequest(requestRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateRequest), createRequestResponse);
         }
+
+        [HttpGet]
+        [AuthenticationFilter(RoleType.MANAGER)]
+        public IActionResult GetRequests([FromQuery] string[] categories)
+        {
+            var allRequests = _requestLogic.GetRequests();
+            return Ok(allRequests);
+        }
     }
 }

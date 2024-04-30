@@ -12,28 +12,28 @@ using Moq;
 namespace BuildingManagerApiTest.Controllers
 {
     [TestClass]
-    public class MaintenanceReportControllerTest
+    public class BuildingsReportControllerTest
     {
         private List<MaintenanceData> _datas;
-        private MaintenanceReportResponse _reportResponse;
+        private BuildingsReportResponse _reportResponse;
 
         [TestInitialize]
         public void Initialize()
         {
-            _datas = [new MaintenanceData(3, 2, 1, 7, "John", new Guid())];
-            _reportResponse = new MaintenanceReportResponse(_datas);
+            _datas = [new MaintenanceData(3, 2, 1, 7, "", new Guid())];
+            _reportResponse = new BuildingsReportResponse(_datas);
         }
         [TestMethod]
-        public void GetMaintenanceReport_Ok()
+        public void GetBuildingsReport_Ok()
         {
             var mockReportLogic = new Mock<IReportLogic>(MockBehavior.Strict);
-            mockReportLogic.Setup(x => x.GetReport(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>())).Returns(_datas);
-            var maintenanceReportController = new MaintenanceReportController(mockReportLogic.Object);
-            OkObjectResult expected = new OkObjectResult(new MaintenanceReportResponse(_datas));
-            MaintenanceReportResponse expectedObject = expected.Value as MaintenanceReportResponse;
+            mockReportLogic.Setup(x => x.GetReport(It.IsAny<Guid?>(), It.IsAny<string>(), It.IsAny<string>())).Returns(_datas);
+            var buildingsReportController = new BuildingsReportController(mockReportLogic.Object);
+            OkObjectResult expected = new OkObjectResult(new BuildingsReportResponse(_datas));
+            BuildingsReportResponse expectedObject = expected.Value as BuildingsReportResponse;
 
-            OkObjectResult result = maintenanceReportController.GetReport(new Guid(), "John") as OkObjectResult;
-            MaintenanceReportResponse resultObject = result.Value as MaintenanceReportResponse;
+            OkObjectResult result = buildingsReportController.GetReport(null) as OkObjectResult;
+            BuildingsReportResponse resultObject = result.Value as BuildingsReportResponse;
 
             mockReportLogic.VerifyAll();
             Assert.AreEqual(result.StatusCode, expected.StatusCode);
@@ -43,7 +43,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
-            MaintenanceReportResponse response = new MaintenanceReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
 
             bool result = response.Equals(null);
 
@@ -53,7 +53,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_DifferentTypeObject_ReturnsFalse()
         {
-            MaintenanceReportResponse response = new MaintenanceReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
             object other = new object();
 
             bool result = response.Equals(other);
@@ -64,7 +64,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_SameObject_ReturnsTrue()
         {
-            MaintenanceReportResponse response = new MaintenanceReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
 
             bool result = response.Equals(response);
 
@@ -77,8 +77,8 @@ namespace BuildingManagerApiTest.Controllers
             List<MaintenanceData> datas1 = [new MaintenanceData(3, 2, 1, 7, "John", new Guid())];
             List<MaintenanceData> datas2 = [new MaintenanceData(3, 3, 1, 7, "John", new Guid())];
 
-            MaintenanceReportResponse response1 = new MaintenanceReportResponse(datas1);
-            MaintenanceReportResponse response2 = new MaintenanceReportResponse(datas2);
+            BuildingsReportResponse response1 = new BuildingsReportResponse(datas1);
+            BuildingsReportResponse response2 = new BuildingsReportResponse(datas2);
 
             bool result = response1.Equals(response2);
 

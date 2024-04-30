@@ -2,11 +2,6 @@
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuildingManagerDataAccess.Repositories
 {
@@ -53,7 +48,7 @@ namespace BuildingManagerDataAccess.Repositories
     
         private bool HasSameLocationAndAddress(Building building)
         {
-            return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address);
+            return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address && b.Id != building.Id);
         }
     
         public Building DeleteBuilding(Guid buildingId)
@@ -80,5 +75,88 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<User>().FirstOrDefault(u => u.SessionToken == sessionToken)!.Id;
         }
 
+        public Building UpdateBuilding(Building newBuilding)
+        {
+            if (_context.Set<Building>().Any(b => b.Name == newBuilding.Name && b.Id != newBuilding.Id))
+            {
+                throw new ValueDuplicatedException("Name");
+            }
+
+            if (HasSameLocationAndAddress(newBuilding))
+            {
+                throw new ValueDuplicatedException("Location and Address");
+            }
+
+            Building buildToUpdate = _context.Set<Building>().Include(b => b.Apartments)
+                                                             .ThenInclude(a => a.Owner)
+                                                             .FirstOrDefault(b => b.Id == newBuilding.Id);
+
+            buildToUpdate.Name = newBuilding.Name;
+            buildToUpdate.Address = newBuilding.Address;
+            buildToUpdate.Location = newBuilding.Location;
+            buildToUpdate.ConstructionCompany = newBuilding.ConstructionCompany;
+            buildToUpdate.CommonExpenses = newBuilding.CommonExpenses;
+
+            List<Apartment> apartmentsInDB = buildToUpdate.Apartments;
+            List<Apartment> apartmentsToDelete = new List<Apartment>();
+
+            bool[] deletedApartments = new bool[newBuilding.Apartments.Count];
+            Array.Fill(deletedApartments, false);
+
+            foreach (Apartment apartment in apartmentsInDB)
+            {
+                if (newBuilding.Apartments.Find(a => a.Floor == apartment.Floor && a.Number == apartment.Number) != null)
+                {
+                    Apartment newAparmentData = newBuilding.Apartments.First(a => a.Floor == apartment.Floor && a.Number == apartment.Number);
+                    deletedApartments[newBuilding.Apartments.IndexOf(newAparmentData)] = true;
+
+                    apartment.Rooms = newAparmentData.Rooms;
+                    apartment.Bathrooms = newAparmentData.Bathrooms;
+                    apartment.HasTerrace = newAparmentData.HasTerrace;
+
+                    Owner existingOwner = _context.Set<Owner>().FirstOrDefault(o => o.Email == newAparmentData.Owner.Email);
+
+                    if (existingOwner != null)
+                    {
+                        existingOwner.Name = newAparmentData.Owner.Name;
+                        existingOwner.LastName = newAparmentData.Owner.LastName;
+                        apartment.Owner = existingOwner;
+                    }
+                    else
+                    {
+                        apartment.Owner = newAparmentData.Owner;
+                    }
+                }
+                else
+                {
+                    apartmentsToDelete.Add(apartment);
+                }
+            }
+
+            foreach (Apartment apartment in newBuilding.Apartments)
+            {
+                if (deletedApartments[newBuilding.Apartments.IndexOf(apartment)] == false)
+                {
+                    Owner existingOwner = _context.Set<Owner>().FirstOrDefault(o => o.Email == apartment.Owner.Email);
+
+                    if (existingOwner != null)
+                    {
+                        existingOwner.Name = apartment.Owner.Name;
+                        existingOwner.LastName = apartment.Owner.LastName;
+                        apartment.Owner = existingOwner;
+                    }
+
+                    buildToUpdate.Apartments.Add(apartment);
+                }
+            }
+            
+            foreach(Apartment apartment in apartmentsToDelete)
+            {
+                buildToUpdate.Apartments.Remove(apartment);
+            }
+
+            _context.SaveChanges();
+            return _context.Set<Building>().Find(newBuilding.Id)!;
+        }
     }
 }

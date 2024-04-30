@@ -6,22 +6,22 @@ using BuildingManagerIDataAccess;
 
 namespace BuildingManagerLogic
 {
-    public class MaintenanceReport : Report
+    public class BuildingsReport : Report
     {
 
-        public MaintenanceReport(IRequestRepository repository) : base(repository) { }
+        public BuildingsReport(IRequestRepository repository) : base(repository) { }
 
         internal override void SortRequests(Guid? identifier, string filter)
         {
             if (!string.IsNullOrEmpty(filter))
             {
-                Requests = Requests.Where(r => r.MaintenanceStaff != null && r.MaintenanceStaff.Name == filter).ToList();
+                Requests = Requests.Where(r => r.BuildingId != null && r.BuildingId.ToString() == filter).ToList();
             }
-            foreach (var request in Requests.Where(r => r.BuildingId == identifier))
+            foreach (var request in Requests)
             {
-                if (SortedRequests.ContainsKey(request.MaintainerStaffId.ToString()))
+                if (SortedRequests.ContainsKey(request.BuildingId.ToString()))
                 {
-                    SortedRequests[request.MaintainerStaffId.ToString()].Add(request);
+                    SortedRequests[request.BuildingId.ToString()].Add(request);
                 }
                 else
                 {
@@ -29,7 +29,7 @@ namespace BuildingManagerLogic
                     {
                         request
                     };
-                    SortedRequests[request.MaintainerStaffId.ToString()] = newList;
+                    SortedRequests[request.BuildingId.ToString()] = newList;
                 }
             }
         }

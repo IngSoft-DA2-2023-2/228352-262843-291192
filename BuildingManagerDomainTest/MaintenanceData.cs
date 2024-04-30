@@ -13,11 +13,10 @@ namespace BuildingManagerDomainTest
             int closeRequests = 5;
             int inProgressRequests = 6;
             int averageClosingTime = 10;
-
             string maintainerName = "John";
+            Guid buildingId = new Guid();
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
-            Assert.AreEqual(openRequests, data.OpenRequests);
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId); Assert.AreEqual(openRequests, data.OpenRequests);
         }
 
         [TestMethod]
@@ -27,11 +26,10 @@ namespace BuildingManagerDomainTest
             int closeRequests = 5;
             int inProgressRequests = 6;
             int averageClosingTime = 10;
-
             string maintainerName = "John";
+            Guid buildingId = new Guid();
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
-            Assert.AreEqual(closeRequests, data.CloseRequests);
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId); Assert.AreEqual(closeRequests, data.CloseRequests);
         }
 
         [TestMethod]
@@ -41,11 +39,10 @@ namespace BuildingManagerDomainTest
             int closeRequests = 5;
             int inProgressRequests = 6;
             int averageClosingTime = 10;
-
             string maintainerName = "John";
+            Guid buildingId = new Guid();
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
-
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId);
             Assert.AreEqual(inProgressRequests, data.InProgressRequests);
         }
 
@@ -57,9 +54,9 @@ namespace BuildingManagerDomainTest
             int inProgressRequests = 6;
             int averageClosingTime = 10;
             string maintainerName = "John";
+            Guid buildingId = new Guid();
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
-
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId);
             Assert.AreEqual(averageClosingTime, data.AverageClosingTime);
         }
 
@@ -71,10 +68,25 @@ namespace BuildingManagerDomainTest
             int inProgressRequests = 6;
             int averageClosingTime = 10;
             string maintainerName = "John";
+            Guid buildingId = new Guid();
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName);
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId);
 
             Assert.AreEqual(maintainerName, data.MaintainerName);
+        }
+
+        [TestMethod]
+        public void MaintenanceDataBuildingIdTest()
+        {
+            int openRequests = 5;
+            int closeRequests = 5;
+            int inProgressRequests = 6;
+            int averageClosingTime = 10;
+            string maintainerName = "John";
+            Guid buildingId = new Guid();
+
+            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId);
+            Assert.AreEqual(buildingId, data.BuildingId);
         }
 
         [TestMethod]
@@ -111,8 +123,8 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            MaintenanceData data1 = new MaintenanceData(1,1,1,1,"John");
-            MaintenanceData data2 = new MaintenanceData(2,1,1,1,"John");
+            MaintenanceData data1 = new MaintenanceData(1, 1, 1, 1, "John", new Guid());
+            MaintenanceData data2 = new MaintenanceData(2, 1, 1, 1, "John", new Guid());
 
 
             bool result = data1.Equals(data2);

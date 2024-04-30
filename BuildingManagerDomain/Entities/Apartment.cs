@@ -90,5 +90,17 @@ namespace BuildingManagerDomain.Entities
                 buildingId = value;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Apartment apartment = (Apartment)obj;
+            return apartment.Floor == Floor && 
+                   apartment.Number == Number &&
+                   apartment.BuildingId == BuildingId &&
+                   apartment.Rooms == Rooms &&
+                   apartment.Bathrooms == Bathrooms &&
+                   apartment.HasTerrace == HasTerrace &&
+                   apartment.Owner.Equals(Owner);
+        }
     }
 }

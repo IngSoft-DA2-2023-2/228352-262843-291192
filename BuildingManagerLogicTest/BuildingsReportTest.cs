@@ -13,7 +13,7 @@ namespace BuildingManagerLogicTest
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class MaintenanceReportTest
+    public class BuildingsReportTest
     {
         [TestMethod]
         public void GetReportSuccessfully()
@@ -71,9 +71,9 @@ namespace BuildingManagerLogicTest
             List<MaintenanceData> data = [new MaintenanceData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"))];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
-            var maintenanceReport = new MaintenanceReport(requestRepositoryMock.Object);
+            var buildingsReport = new BuildingsReport(requestRepositoryMock.Object);
 
-            var result = maintenanceReport.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "name");
+            var result = buildingsReport.GetReport(null, new Guid("11111111-1111-1111-1111-111111111111").ToString());
 
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(data.First(), result.First());
