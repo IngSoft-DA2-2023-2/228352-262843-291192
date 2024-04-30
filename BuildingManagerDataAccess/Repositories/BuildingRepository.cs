@@ -77,6 +77,11 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Building UpdateBuilding(Building newBuilding)
         {
+            if (_context.Set<Building>().Any(b => b.Name == newBuilding.Name && b.Id != newBuilding.Id))
+            {
+                throw new ValueDuplicatedException("Name");
+            }
+
             Building buildToUpdate = _context.Set<Building>().Include(b => b.Apartments)
                                                              .ThenInclude(a => a.Owner)
                                                              .FirstOrDefault(b => b.Id == newBuilding.Id);

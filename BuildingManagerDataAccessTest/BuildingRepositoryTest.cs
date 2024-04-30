@@ -572,5 +572,196 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(buildingUpdated, result);
         }
 
+        [TestMethod]
+        public void UpdateBuildingWithNameAlreadyInUseTest()
+        {
+            var context = CreateDbContext("UpdateBuildingWithNameAlreadyInUse");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Building originalBuilding = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompany = "Company 1",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 3,
+                        HasTerrace = false,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "Jade",
+                            LastName = "Doe",
+                            Email = "jade@gmail.com"
+                        }
+                    }
+                }
+            };
+
+            Guid buildingBId = Guid.NewGuid();
+            Guid managerBId = Guid.NewGuid();
+            Building originalBuilding2 = new Building
+            {
+                Id = buildingBId,
+                ManagerId = managerBId,
+                Name = "Building B",
+                Address = "Address B",
+                Location = "Location B",
+                ConstructionCompany = "Company B",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingBId,
+                        Owner = new Owner
+                        {
+                            Name = "JohnB",
+                            LastName = "Doe",
+                            Email = "jhonB@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 3,
+                        HasTerrace = false,
+                        BuildingId = buildingBId,
+                        Owner = new Owner
+                        {
+                            Name = "JaneB",
+                            LastName = "Doe",
+                            Email = "janeB@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        BuildingId = buildingBId,
+                        Owner = new Owner
+                        {
+                            Name = "JadeB",
+                            LastName = "Doe",
+                            Email = "jadeB@gmail.com"
+                        }
+                    }
+                }
+            };
+
+            repository.CreateBuilding(originalBuilding);
+            repository.CreateBuilding(originalBuilding2);
+
+            Building buildingUpdated = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building B",
+                Address = "Address 2",
+                Location = "Location 2",
+                ConstructionCompany = "Company 2",
+                CommonExpenses = 2000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 1,
+                        Bathrooms = 1,
+                        HasTerrace = false,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 2,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "Jose",
+                            LastName = "Doe",
+                            Email = "jose@gmail.com"
+                        }
+                    }
+                }
+            };
+
+            Assert.ThrowsException<ValueDuplicatedException>(() => repository.UpdateBuilding(buildingUpdated));
+        }
     }
 }
