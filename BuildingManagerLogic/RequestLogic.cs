@@ -29,7 +29,7 @@ namespace BuildingManagerLogic
 
         public List<Request> GetRequests()
         {
-            return null;
+            return _requestRepository.GetRequests();
         }
     }
 }

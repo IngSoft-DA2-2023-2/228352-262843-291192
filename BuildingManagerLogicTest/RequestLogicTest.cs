@@ -60,5 +60,19 @@ namespace BuildingManagerLogicTest
             requestRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void GetRequestsSuccessfullyTest()
+        {
+            List<Request> requests = new List<Request> { _request };
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+
+            var result = requestLogic.GetRequests();
+
+            requestRepositoryMock.VerifyAll();
+            Assert.AreEqual(requests, result);
+        }
     }
 }
