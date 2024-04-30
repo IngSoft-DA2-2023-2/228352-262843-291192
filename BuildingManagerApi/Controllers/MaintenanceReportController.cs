@@ -18,9 +18,9 @@ namespace BuildingManagerApi.Controllers
 
         [HttpGet("{buildingId}/maintenances")]
         [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult GetReport([FromRoute] Guid buildingId)
+        public IActionResult GetReport([FromRoute] Guid buildingId, [FromQuery] string? maintainerName)
         {
-            MaintenanceReportResponse maintenanceReportResponse = new(_reportLogic.GetReport(buildingId));
+            MaintenanceReportResponse maintenanceReportResponse = new(_reportLogic.GetReport(buildingId, maintainerName));
             return Ok(maintenanceReportResponse);
         }
     }

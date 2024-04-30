@@ -28,6 +28,11 @@ namespace BuildingManagerLogicTest
                     ApartmentNumber = 1,
                     State = RequestState.OPEN,
                     MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    MaintenanceStaff = new MaintenanceStaff(){
+                        Name = "name",
+                        Role = RoleType.MAINTENANCE,
+                        Id = new Guid("11111111-1111-1111-1111-111111111111")
+                    }
                 },
                 new Request()
                 {
@@ -39,6 +44,11 @@ namespace BuildingManagerLogicTest
                     ApartmentNumber = 1,
                     State = RequestState.CLOSE,
                     MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    MaintenanceStaff = new MaintenanceStaff(){
+                        Name = "name",
+                        Role = RoleType.MAINTENANCE,
+                        Id = new Guid("11111111-1111-1111-1111-111111111111")
+                    }
                 },
                 new Request()
                 {
@@ -50,14 +60,19 @@ namespace BuildingManagerLogicTest
                     ApartmentNumber = 1,
                     State = RequestState.PENDING,
                     MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    MaintenanceStaff = new MaintenanceStaff(){
+                        Name = "name",
+                        Role = RoleType.MAINTENANCE,
+                        Id = new Guid("11111111-1111-1111-1111-111111111111")
+                    }
                 }
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
-            List<MaintenanceData> data = [new MaintenanceData(1, 1, 1, 0, "")];
+            List<MaintenanceData> data = [new MaintenanceData(1, 1, 1, 0, "name")];
             var report = new ReportLogic(requestRepositoryMock.Object);
 
-            var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"));
+            var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "");
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(data.First(), result.First());
         }

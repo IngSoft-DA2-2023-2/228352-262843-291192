@@ -18,11 +18,13 @@ namespace BuildingManagerLogic
             requestRepository = repository;
         }
 
-        public List<MaintenanceData> GetReport(Guid buildingId)
+        public List<MaintenanceData> GetReport(Guid buildingId, string maintainerName)
         {
             List<MaintenanceData> datas = new List<MaintenanceData>();
             Requests = requestRepository.GetRequests();
-
+            if (!string.IsNullOrEmpty(maintainerName)){
+                Requests = Requests.Where(r => r.MaintenanceStaff != null && r.MaintenanceStaff.Name == maintainerName).ToList();
+            }
             foreach (var request in Requests.Where(r => r.BuildingId == buildingId))
             {
                 if (SortedRequests.ContainsKey(request.MaintainerStaffId.ToString()))

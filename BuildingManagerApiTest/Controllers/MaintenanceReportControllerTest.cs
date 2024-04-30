@@ -27,12 +27,12 @@ namespace BuildingManagerApiTest.Controllers
         public void GetMaintenanceReport_Ok()
         {
             var mockReportLogic = new Mock<IReportLogic>(MockBehavior.Strict);
-            mockReportLogic.Setup(x => x.GetReport(It.IsAny<Guid>())).Returns(_datas);
+            mockReportLogic.Setup(x => x.GetReport(It.IsAny<Guid>(), It.IsAny<string>())).Returns(_datas);
             var maintenanceReportController = new MaintenanceReportController(mockReportLogic.Object);
             OkObjectResult expected = new OkObjectResult(new MaintenanceReportResponse(_datas));
             MaintenanceReportResponse expectedObject = expected.Value as MaintenanceReportResponse;
 
-            OkObjectResult result = maintenanceReportController.GetReport(new Guid()) as OkObjectResult;
+            OkObjectResult result = maintenanceReportController.GetReport(new Guid(), "John") as OkObjectResult;
             MaintenanceReportResponse resultObject = result.Value as MaintenanceReportResponse;
 
             mockReportLogic.VerifyAll();

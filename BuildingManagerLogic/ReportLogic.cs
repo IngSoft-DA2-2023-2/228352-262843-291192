@@ -13,10 +13,10 @@ namespace BuildingManagerLogic
         {
             _requestRepository = requestRepository;
         }
-        public List<MaintenanceData> GetReport(Guid buildingId)
+        public List<MaintenanceData> GetReport(Guid buildingId, string maintainerName)
         {
             MaintenanceReport report = new MaintenanceReport(_requestRepository);
-            return report.GetReport(buildingId);
+            return report.GetReport(buildingId, maintainerName);
         }
     }
 }

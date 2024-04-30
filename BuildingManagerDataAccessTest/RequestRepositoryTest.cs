@@ -36,6 +36,8 @@ namespace BuildingManagerDataAccessTest
         {
             var context = CreateDbContext("GetRequestsTest");
             var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
             List<Request> requests = [new Request
             {
                 Id = Guid.NewGuid(),
@@ -44,8 +46,20 @@ namespace BuildingManagerDataAccessTest
                 BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
                 ApartmentFloor = 1,
                 ApartmentNumber = 1,
-                State = RequestState.OPEN
+                State = RequestState.OPEN,
+                MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
             }];
+            userRepository.CreateUser(new User
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Role = RoleType.MAINTENANCE
+            });
+            categoryRepository.CreateCategory(new Category
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
+            });
             repository.CreateRequest(requests[0]);
 
             List<Request> result = repository.GetRequests();
