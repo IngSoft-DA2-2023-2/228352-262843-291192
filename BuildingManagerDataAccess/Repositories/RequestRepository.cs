@@ -29,7 +29,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public List<Request> GetRequests()
         {
-            return _context.Set<Request>().ToList();
+            return _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).ToList();
         }
     }
 }

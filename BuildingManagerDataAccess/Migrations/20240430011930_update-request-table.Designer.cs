@@ -4,6 +4,7 @@ using BuildingManagerDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagerDataAccess.Migrations
 {
     [DbContext(typeof(BuildingManagerContext))]
-    partial class BuildingManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240430011930_update-request-table")]
+    partial class updaterequesttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,10 +154,16 @@ namespace BuildingManagerDataAccess.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CategoryId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("MaintainerStaffId")
+                    b.Property<Guid?>("MaintainerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MaintainerId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("State")
@@ -165,7 +173,11 @@ namespace BuildingManagerDataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("MaintainerStaffId");
+                    b.HasIndex("CategoryId1");
+
+                    b.HasIndex("MaintainerId");
+
+                    b.HasIndex("MaintainerId1");
 
                     b.HasIndex("BuildingId", "ApartmentFloor", "ApartmentNumber");
 
@@ -245,15 +257,23 @@ namespace BuildingManagerDataAccess.Migrations
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Request", b =>
                 {
-                    b.HasOne("BuildingManagerDomain.Entities.Category", "Category")
+                    b.HasOne("BuildingManagerDomain.Entities.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BuildingManagerDomain.Entities.MaintenanceStaff", "MaintenanceStaff")
+                    b.HasOne("BuildingManagerDomain.Entities.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("MaintainerStaffId");
+                        .HasForeignKey("CategoryId1");
+
+                    b.HasOne("BuildingManagerDomain.Entities.MaintenanceStaff", null)
+                        .WithMany()
+                        .HasForeignKey("MaintainerId");
+
+                    b.HasOne("BuildingManagerDomain.Entities.MaintenanceStaff", "Maintainer")
+                        .WithMany()
+                        .HasForeignKey("MaintainerId1");
 
                     b.HasOne("BuildingManagerDomain.Entities.Apartment", null)
                         .WithMany()
@@ -263,7 +283,7 @@ namespace BuildingManagerDataAccess.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("MaintenanceStaff");
+                    b.Navigation("Maintainer");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Building", b =>

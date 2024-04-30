@@ -47,8 +47,8 @@ namespace BuildingManagerDomainTest
         public void RequestMaintainerIdTest()
         {
             Guid maintainerId = new();
-            Request request = new() { MaintainerId = maintainerId };
-            Assert.AreEqual(maintainerId, request.MaintainerId);
+            Request request = new() { MaintainerStaffId = maintainerId };
+            Assert.AreEqual(maintainerId, request.MaintainerStaffId);
         }
 
         [TestMethod]
@@ -79,8 +79,8 @@ namespace BuildingManagerDomainTest
         public void RequestMaintainerTest()
         {
             MaintenanceStaff maintainer = new();
-            Request request = new() { Maintainer = maintainer };
-            Assert.AreEqual(maintainer, request.Maintainer);
+            Request request = new() { MaintenanceStaff = maintainer };
+            Assert.AreEqual(maintainer, request.MaintenanceStaff);
         }
         
         [TestMethod]

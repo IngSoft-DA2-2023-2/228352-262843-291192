@@ -1,5 +1,7 @@
+using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
 using BuildingManagerModels.Outer;
+using ECommerceApi.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildingManagerApi.Controllers
@@ -15,6 +17,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpGet("{buildingId}/maintenances")]
+        [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult GetReport([FromRoute] Guid buildingId)
         {
             MaintenanceReportResponse maintenanceReportResponse = new(_reportLogic.GetReport(buildingId));

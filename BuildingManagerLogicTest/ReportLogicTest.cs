@@ -27,7 +27,7 @@ namespace BuildingManagerLogicTest
                     ApartmentFloor = 1,
                     ApartmentNumber = 1,
                     State = RequestState.OPEN,
-                    MaintainerId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
                 },
                 new Request()
                 {
@@ -38,7 +38,7 @@ namespace BuildingManagerLogicTest
                     ApartmentFloor = 1,
                     ApartmentNumber = 1,
                     State = RequestState.CLOSE,
-                    MaintainerId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
                 },
                 new Request()
                 {
@@ -49,7 +49,7 @@ namespace BuildingManagerLogicTest
                     ApartmentFloor = 1,
                     ApartmentNumber = 1,
                     State = RequestState.PENDING,
-                    MaintainerId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
                 }
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);

@@ -4,6 +4,7 @@ using BuildingManagerDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagerDataAccess.Migrations
 {
     [DbContext(typeof(BuildingManagerContext))]
-    partial class BuildingManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240430012827_fix-request-table")]
+    partial class fixrequesttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,7 +253,7 @@ namespace BuildingManagerDataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BuildingManagerDomain.Entities.MaintenanceStaff", "MaintenanceStaff")
+                    b.HasOne("BuildingManagerDomain.Entities.MaintenanceStaff", "Maintainer")
                         .WithMany()
                         .HasForeignKey("MaintainerStaffId");
 
@@ -263,7 +265,7 @@ namespace BuildingManagerDataAccess.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("MaintenanceStaff");
+                    b.Navigation("Maintainer");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Building", b =>

@@ -25,9 +25,9 @@ namespace BuildingManagerLogic
 
             foreach (var request in Requests.Where(r => r.BuildingId == buildingId))
             {
-                if (SortedRequests.ContainsKey(request.MaintainerId.ToString()))
+                if (SortedRequests.ContainsKey(request.MaintainerStaffId.ToString()))
                 {
-                    SortedRequests[request.MaintainerId.ToString()].Add(request);
+                    SortedRequests[request.MaintainerStaffId.ToString()].Add(request);
                 }
                 else
                 {
@@ -35,7 +35,7 @@ namespace BuildingManagerLogic
                     {
                         request
                     };
-                    SortedRequests[request.MaintainerId.ToString()] = newList;
+                    SortedRequests[request.MaintainerStaffId.ToString()] = newList;
                 }                      
             }
 
@@ -45,9 +45,11 @@ namespace BuildingManagerLogic
                 int close = 0;
                 int inProgress = 0;
                 int averageTime = 0;
+                string name = "";
 
                 foreach (var request in pair.Value)
                 {
+                    name = request.MaintenanceStaff.Name;
                     if (request.State == RequestState.OPEN)
                     {
                         open++;
@@ -61,7 +63,7 @@ namespace BuildingManagerLogic
                         inProgress++;
                     }
                 }
-                datas.Add(new MaintenanceData(open, close, inProgress, averageTime, ""));
+                datas.Add(new MaintenanceData(open, close, inProgress, averageTime, name));
             }
 
             return datas;

@@ -35,13 +35,13 @@ namespace BuildingManagerDataAccess.Context
                 .WithMany()
                 .HasForeignKey(r => new { r.BuildingId, r.ApartmentFloor, r.ApartmentNumber });
             modelBuilder.Entity<Request>()
-                        .HasOne<Category>()
+                        .HasOne<Category>(r => r.Category)
                         .WithMany()
                         .HasForeignKey(r => r.CategoryId);
             modelBuilder.Entity<Request>()
-                        .HasOne<MaintenanceStaff>()
+                        .HasOne<MaintenanceStaff>(r => r.MaintenanceStaff)
                         .WithMany()
-                        .HasForeignKey(r => r.MaintainerId)
+                        .HasForeignKey(r => r.MaintainerStaffId)
                         .IsRequired(false);
         }
     }
