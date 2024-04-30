@@ -64,5 +64,10 @@ namespace BuildingManagerLogic
                 throw e;
             }
         }
+
+        InvitationAnswer IInvitationLogic.RespondInvitation(Guid id, InvitationAnswer invitationAnswer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
