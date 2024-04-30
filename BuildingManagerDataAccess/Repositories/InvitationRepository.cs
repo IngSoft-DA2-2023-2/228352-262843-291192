@@ -88,5 +88,10 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new InvalidOperationException("New deadline must be greater than the current deadline.");
             }
         }
+
+        public Invitation RespondInvitation(InvitationAnswer invitationAnswer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

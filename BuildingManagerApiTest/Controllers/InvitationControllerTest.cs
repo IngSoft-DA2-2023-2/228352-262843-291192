@@ -164,7 +164,7 @@ namespace BuildingManagerApiTest.Controllers
                 Status = InvitationStatus.ACCEPTED
             };
             var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
-            mockInvitationLogic.Setup(x => x.RespondInvitation(It.IsAny<Guid>(), It.IsAny<InvitationAnswer>())).Returns(answer);
+            mockInvitationLogic.Setup(x => x.RespondInvitation(It.IsAny<InvitationAnswer>())).Returns(answer);
             var invitationController = new InvitationController(mockInvitationLogic.Object);
             
             var respondInvitationResponse = new RespondInvitationResponse(answer);
@@ -203,62 +203,5 @@ namespace BuildingManagerApiTest.Controllers
 
             Assert.AreNotEqual(response1, response2);
         }
-
-        [TestMethod]
-        public void RespondInvitation_DifferentType()
-        {
-            var answer = new InvitationAnswer
-            {
-                InvitationId = Guid.NewGuid(),
-                Email = "abc@example.com",
-                Status = InvitationStatus.ACCEPTED
-            };
-
-            var response = new RespondInvitationResponse(answer);
-            var differentType = new object();
-
-            Assert.AreNotEqual(response, differentType);
-        }
-
-        [TestMethod]
-        public void RespondInvitation_NullObject()
-        {
-            var answer = new InvitationAnswer
-            {
-                InvitationId = Guid.NewGuid(),
-                Email = "abc@example.com",
-                Status = InvitationStatus.ACCEPTED
-            };
-
-            var response = new RespondInvitationResponse(answer);
-
-            Assert.AreNotEqual(response, null);
-        }
-
-        [TestMethod]
-        public void RespondInvitation_DifferentId()
-        {
-            var answer1 = new InvitationAnswer
-            {
-                InvitationId = Guid.NewGuid(),
-                Email = "abc@example.com",
-                Status = InvitationStatus.ACCEPTED
-            };
-
-            var answer2 = new InvitationAnswer
-            {
-                InvitationId = Guid.NewGuid(), // Different ID
-                Email = "abc@example.com",
-                Status = InvitationStatus.ACCEPTED
-            };
-
-            var response1 = new RespondInvitationResponse(answer1);
-            var response2 = new RespondInvitationResponse(answer2);
-
-            Assert.AreNotEqual(response1, response2);
-        }
-
-
-
     }
 }

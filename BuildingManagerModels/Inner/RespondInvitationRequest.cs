@@ -1,6 +1,7 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerModels.CustomExceptions;
+using System;
 
 namespace BuildingManagerModels.Inner
 {
@@ -10,11 +11,12 @@ namespace BuildingManagerModels.Inner
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public InvitationAnswer ToEntity()
+        public InvitationAnswer ToEntity(Guid id)
         {
             Validate();
             return new InvitationAnswer()
             {
+                InvitationId = id,
                 Status = this.Status,
                 Email = this.Email,
                 Password = this.Password

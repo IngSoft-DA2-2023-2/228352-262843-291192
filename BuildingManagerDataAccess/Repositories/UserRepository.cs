@@ -104,5 +104,10 @@ namespace BuildingManagerDataAccess.Repositories
             return token;
 
         }
+
+        public User CreateInvitedUser(InvitationAnswer invitationAnswer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

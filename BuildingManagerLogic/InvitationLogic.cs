@@ -4,6 +4,7 @@ using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
 using System;
+using BuildingManagerLogic.Helpers;
 
 namespace BuildingManagerLogic
 {
@@ -65,9 +66,18 @@ namespace BuildingManagerLogic
             }
         }
 
-        InvitationAnswer IInvitationLogic.RespondInvitation(Guid id, InvitationAnswer invitationAnswer)
+        public InvitationAnswer RespondInvitation(InvitationAnswer invitationAnswer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Invitation invitation = _invitationRepository.RespondInvitation(invitationAnswer);
+                User manager = _userRepository.CreateUser(UserFromInvitation.Create(invitationAnswer, invitation.Name));
+                return InvitationResponder.CreateAnswer(manager, invitation);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }
