@@ -139,5 +139,25 @@ namespace BuildingManagerLogicTest
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(data.First(), result.First());
         }
+
+        [TestMethod]
+        public void GetReportWithInvalidReportTypeTest()
+        {
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            var report = new ReportLogic(requestRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                report.GetReport(null, "", "invalid");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            requestRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }
