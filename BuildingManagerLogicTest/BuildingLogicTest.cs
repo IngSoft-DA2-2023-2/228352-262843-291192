@@ -231,7 +231,13 @@ namespace BuildingManagerLogicTest
                         Number = 1,
                         Rooms = 3,
                         Bathrooms = 2,
-                        HasTerrace = true
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
                     },
                     new Apartment
                     {
@@ -239,7 +245,13 @@ namespace BuildingManagerLogicTest
                         Number = 2,
                         Rooms = 4,
                         Bathrooms = 3,
-                        HasTerrace = false
+                        HasTerrace = false,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
                     },
                     new Apartment
                     {
@@ -247,7 +259,13 @@ namespace BuildingManagerLogicTest
                         Number = 3,
                         Rooms = 2,
                         Bathrooms = 1,
-                        HasTerrace = true
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "Jade",
+                            LastName = "Doe",
+                            Email = "jade@gmail.com"
+                        }
                     }
                 }
             };
