@@ -17,6 +17,22 @@ namespace BuildingManagerDomain.Entities
         public override bool Equals(object obj)
         {
             var other = (Building)obj;
+            bool apartmentsAreEqual = true;
+            if (Apartments.Count != other.Apartments.Count)
+            {
+                apartmentsAreEqual = false;
+            }
+            else
+            {
+                for (int i = 0; i < Apartments.Count; i++)
+                {
+                    if (!Apartments.Contains(other.Apartments[i]))
+                    {
+                        apartmentsAreEqual = false;
+                        break;
+                    }
+                }
+            }
             return Id == other.Id &&
                    ManagerId == other.ManagerId &&
                    Name == other.Name &&
@@ -24,7 +40,7 @@ namespace BuildingManagerDomain.Entities
                    Location == other.Location &&
                    ConstructionCompany == other.ConstructionCompany &&
                    CommonExpenses == other.CommonExpenses &&
-                   Apartments == other.Apartments;
+                   apartmentsAreEqual;
         }
     }
 }

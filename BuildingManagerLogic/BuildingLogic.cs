@@ -80,24 +80,7 @@ namespace BuildingManagerLogic
 
         public Building UpdateBuilding(Building building)
         {
-            try
-            {
-                if (HasDuplicatedApartment(building.Apartments))
-                {
-                    throw new ValueDuplicatedException("Apartment floor and number");
-                }
-
-                if (HasDistinctOwnersWithSameEmail(building.Apartments))
-                {
-                    throw new ValueDuplicatedException("Owner email");
-                }
-
-                return _buildingRepository.UpdateBuilding(building);
-            }
-            catch (ValueDuplicatedException e)
-            {
-                throw new DuplicatedValueException(e, e.Message);
-            }
+            return _buildingRepository.UpdateBuilding(building);
         }
     }
 }

@@ -251,7 +251,7 @@ namespace BuildingManagerDataAccessTest
             var repository = new BuildingRepository(context);
             Guid buildingId = Guid.NewGuid();
             Guid managerId = Guid.NewGuid();
-            var originalBuilding = new Building
+            Building originalBuilding = new Building
             {
                 Id = buildingId,
                 ManagerId = managerId,
@@ -269,7 +269,13 @@ namespace BuildingManagerDataAccessTest
                         Rooms = 3,
                         Bathrooms = 2,
                         HasTerrace = true,
-                        BuildingId = buildingId
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
                     },
                     new Apartment
                     {
@@ -278,7 +284,13 @@ namespace BuildingManagerDataAccessTest
                         Rooms = 4,
                         Bathrooms = 3,
                         HasTerrace = false,
-                        BuildingId = buildingId
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
                     },
                     new Apartment
                     {
@@ -287,13 +299,20 @@ namespace BuildingManagerDataAccessTest
                         Rooms = 2,
                         Bathrooms = 1,
                         HasTerrace = true,
-                        BuildingId = buildingId
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "Jade",
+                            LastName = "Doe",
+                            Email = "jade@gmail.com"
+                        }
                     }
                 }
             };
             context.Set<Building>().Add(originalBuilding);
+            context.SaveChanges();
 
-            var buildingUpdated = new Building
+            Building buildingUpdated = new Building
             {
                 Id = buildingId,
                 ManagerId = managerId,
@@ -307,11 +326,17 @@ namespace BuildingManagerDataAccessTest
                     new Apartment
                     {
                         Floor = 1,
-                        Number = 3,
+                        Number = 1,
                         Rooms = 1,
                         Bathrooms = 1,
                         HasTerrace = false,
-                        BuildingId = buildingId
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
                     },
                     new Apartment
                     {
@@ -320,7 +345,28 @@ namespace BuildingManagerDataAccessTest
                         Rooms = 3,
                         Bathrooms = 2,
                         HasTerrace = true,
-                        BuildingId = buildingId
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "Jose",
+                            LastName = "Doe",
+                            Email = "jose@gmail.com"
+                        }
                     }
                 }
             };
@@ -328,7 +374,7 @@ namespace BuildingManagerDataAccessTest
             repository.UpdateBuilding(buildingUpdated);
             var result = context.Set<Building>().Find(originalBuilding.Id);
 
-            Assert.AreEqual(originalBuilding, result);
+            Assert.AreEqual(buildingUpdated, result);
         }
     }
 }

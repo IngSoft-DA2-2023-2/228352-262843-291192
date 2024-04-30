@@ -80,16 +80,78 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<User>().FirstOrDefault(u => u.SessionToken == sessionToken)!.Id;
         }
 
-        public Building UpdateBuilding(Building building)
+        public Building UpdateBuilding(Building newBuilding)
         {
-            Building buildToUpdate = _context.Set<Building>().Find(building.Id);
-            buildToUpdate.Name = building.Name;
-            buildToUpdate.Address = building.Address;
-            buildToUpdate.Location = building.Location;
-            buildToUpdate.ConstructionCompany = building.ConstructionCompany;
-            buildToUpdate.CommonExpenses = building.CommonExpenses;
-            buildToUpdate.Apartments = building.Apartments;
-            return _context.Set<Building>().Find(building.Id)!;
+            Building buildToUpdate = _context.Set<Building>().Include(b => b.Apartments)
+                                                             .ThenInclude(a => a.Owner)
+                                                             .FirstOrDefault(b => b.Id == newBuilding.Id);
+
+            buildToUpdate.Name = newBuilding.Name;
+            buildToUpdate.Address = newBuilding.Address;
+            buildToUpdate.Location = newBuilding.Location;
+            buildToUpdate.ConstructionCompany = newBuilding.ConstructionCompany;
+            buildToUpdate.CommonExpenses = newBuilding.CommonExpenses;
+
+            List<Apartment> apartmentsInDB = buildToUpdate.Apartments;
+            List<Apartment> apartmentsToDelete = new List<Apartment>();
+
+            bool[] deletedApartments = new bool[newBuilding.Apartments.Count];
+            Array.Fill(deletedApartments, false);
+
+            foreach (Apartment apartment in apartmentsInDB)
+            {
+                if (newBuilding.Apartments.Find(a => a.Floor == apartment.Floor && a.Number == apartment.Number) != null)
+                {
+                    Apartment newAparmentData = newBuilding.Apartments.First(a => a.Floor == apartment.Floor && a.Number == apartment.Number);
+                    deletedApartments[newBuilding.Apartments.IndexOf(newAparmentData)] = true;
+
+                    apartment.Rooms = newAparmentData.Rooms;
+                    apartment.Bathrooms = newAparmentData.Bathrooms;
+                    apartment.HasTerrace = newAparmentData.HasTerrace;
+
+                    Owner existingOwner = _context.Set<Owner>().FirstOrDefault(o => o.Email == newAparmentData.Owner.Email);
+
+                    if (existingOwner != null)
+                    {
+                        existingOwner.Name = newAparmentData.Owner.Name;
+                        existingOwner.LastName = newAparmentData.Owner.LastName;
+                        apartment.Owner = existingOwner;
+                    }
+                    else
+                    {
+                        apartment.Owner = newAparmentData.Owner;
+                    }
+                }
+                else
+                {
+                    apartmentsToDelete.Add(apartment);
+                }
+            }
+
+            foreach (Apartment apartment in newBuilding.Apartments)
+            {
+                if (deletedApartments[newBuilding.Apartments.IndexOf(apartment)] == false)
+                {
+                    Owner existingOwner = _context.Set<Owner>().FirstOrDefault(o => o.Email == apartment.Owner.Email);
+
+                    if (existingOwner != null)
+                    {
+                        existingOwner.Name = apartment.Owner.Name;
+                        existingOwner.LastName = apartment.Owner.LastName;
+                        apartment.Owner = existingOwner;
+                    }
+
+                    buildToUpdate.Apartments.Add(apartment);
+                }
+            }
+            
+            foreach(Apartment apartment in apartmentsToDelete)
+            {
+                buildToUpdate.Apartments.Remove(apartment);
+            }
+
+            _context.SaveChanges();
+            return _context.Set<Building>().Find(newBuilding.Id)!;
         }
     }
 }
