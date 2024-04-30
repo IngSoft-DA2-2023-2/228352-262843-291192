@@ -50,6 +50,7 @@
     <Compile Include="ReportLogic.cs" />
     <Compile Include="MaintenanceReport.cs" />
     <Compile Include="BuildingsReport.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
