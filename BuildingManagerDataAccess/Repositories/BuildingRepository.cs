@@ -48,7 +48,7 @@ namespace BuildingManagerDataAccess.Repositories
     
         private bool HasSameLocationAndAddress(Building building)
         {
-            return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address);
+            return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address && b.Id != building.Id);
         }
     
         public Building DeleteBuilding(Guid buildingId)
@@ -80,6 +80,11 @@ namespace BuildingManagerDataAccess.Repositories
             if (_context.Set<Building>().Any(b => b.Name == newBuilding.Name && b.Id != newBuilding.Id))
             {
                 throw new ValueDuplicatedException("Name");
+            }
+
+            if (HasSameLocationAndAddress(newBuilding))
+            {
+                throw new ValueDuplicatedException("Location and Address");
             }
 
             Building buildToUpdate = _context.Set<Building>().Include(b => b.Apartments)
