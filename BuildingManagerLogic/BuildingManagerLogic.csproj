@@ -49,6 +49,7 @@
     <Compile Include="RequestLogic.cs" />
     <Compile Include="ReportLogic.cs" />
     <Compile Include="MaintenanceReport.cs" />
+    <Compile Include="BuildingsReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@ namespace BuildingManagerModels.Outer
             if (obj == null || GetType() != obj.GetType())
                 return false;
 
-            var other = (MaintenanceReportResponse)obj;
+            var other = (BuildingsReportResponse)obj;
             foreach(var data in Datas)
             {
                 foreach(var otherData in other.Datas)

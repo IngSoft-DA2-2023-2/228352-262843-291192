@@ -20,14 +20,14 @@ namespace BuildingManagerApiTest.Controllers
         [TestInitialize]
         public void Initialize()
         {
-            _datas = [new MaintenanceData(3, 2, 1, 7, "John")];
+            _datas = [new MaintenanceData(3, 2, 1, 7, new Guid().ToString())];
             _reportResponse = new BuildingsReportResponse(_datas);
         }
         [TestMethod]
         public void GetBuildingsReport_Ok()
         {
             var mockReportLogic = new Mock<IReportLogic>(MockBehavior.Strict);
-            mockReportLogic.Setup(x => x.GetReport(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>())).Returns(_datas);
+            mockReportLogic.Setup(x => x.GetReport(It.IsAny<Guid?>(), It.IsAny<string>(), It.IsAny<string>())).Returns(_datas);
             var buildingsReportController = new BuildingsReportController(mockReportLogic.Object);
             OkObjectResult expected = new OkObjectResult(new BuildingsReportResponse(_datas));
             BuildingsReportResponse expectedObject = expected.Value as BuildingsReportResponse;

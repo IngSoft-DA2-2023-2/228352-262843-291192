@@ -20,7 +20,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult GetReport([FromRoute] Guid buildingId, [FromQuery] string? maintainerName)
         {
-            MaintenanceReportResponse maintenanceReportResponse = new(_reportLogic.GetReport(buildingId, maintainerName));
+            MaintenanceReportResponse maintenanceReportResponse = new(_reportLogic.GetReport(buildingId, maintainerName, "maintenances"));
             return Ok(maintenanceReportResponse);
         }
     }
