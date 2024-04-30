@@ -35,7 +35,7 @@ namespace BuildingManagerDataAccess.Migrations
             migrationBuilder.InsertData(
                                table: "Users",
                                columns: new[] { "Id", "Email", "Name", "Lastname", "Password", "Role" },
-                               values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), "admin@admin.com", "Homero", "Simpson", "admin", 0 });
+                               values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), "admin@admin.com", "Homero", "Simpson", "password", 0});
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

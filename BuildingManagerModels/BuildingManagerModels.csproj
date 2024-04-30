@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomExceptions\InvalidArgumentException.cs" />
+    <Compile Include="Inner\RespondInvitationRequest.cs" />
     <Compile Include="Inner\CreateMaintenanceStaffRequest.cs" />
     <Compile Include="Inner\CreateAdminRequest.cs" />
     <Compile Include="Inner\CreateCategoryRequest.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Inner\UpdateBuildingRequest.cs" />
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
+    <Compile Include="Outer\RespondInvitationResponse.cs" />
     <Compile Include="Outer\DeleteBuildingResponse.cs" />
     <Compile Include="Outer\LogoutResponse.cs" />
     <Compile Include="Outer\ManagerResponse.cs" />

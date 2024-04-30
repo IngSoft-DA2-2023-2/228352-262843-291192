@@ -8,5 +8,6 @@ namespace BuildingManagerILogic
         public Invitation CreateInvitation(Invitation invitation);
         public Invitation DeleteInvitation(Guid id);
         public Invitation ModifyInvitation(Guid id, long newDeadline);
+        public InvitationAnswer RespondInvitation(Guid id, InvitationAnswer invitationAnswer);
     }
 }
