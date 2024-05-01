@@ -64,5 +64,15 @@ namespace BuildingManagerDomainTest
             Assert.IsFalse(result);
         }
 
+        [TestMethod]
+        public void Equals_DifferentTypeObject_ReturnsFalse()
+        {
+            CategoriesReportData data = new CategoriesReportData();
+
+            bool result = data.Equals(new object());
+
+            Assert.IsFalse(result);
+        }
+
     }
 }
