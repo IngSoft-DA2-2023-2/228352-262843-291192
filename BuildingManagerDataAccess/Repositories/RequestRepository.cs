@@ -92,7 +92,8 @@ namespace BuildingManagerDataAccess.Repositories
 
         public List<Request> GetRequestsByManager(Guid managerSessionToken)
         {
-            return new List<Request>();
+            Guid managerId = _context.Set<Manager>().First(i => i.SessionToken == managerSessionToken).Id;
+            return _context.Set<Request>().Where(r => r.ManagerId == managerId).ToList();
         }
     }
 }

@@ -318,6 +318,61 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(DateTimeOffset.Now.ToUnixTimeSeconds(), result.CompletedAt);
         }
 
+        [TestMethod]
+        public void GetRequestsByManagerTest()
+        {
+            var context = CreateDbContext("GetRequestsTest");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            Guid managerId = Guid.NewGuid();
+            Guid managerSessionToken = Guid.NewGuid();
+            List<Request> requests = [new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ManagerId = managerId
+
+            },
+            new Request {
+                Id = Guid.NewGuid(),
+                Description = "description2",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111112"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111112"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111112"),
+                ManagerId = Guid.NewGuid()
+            }];
+            
+            userRepository.CreateUser(new Manager
+            {
+                Id = managerId,
+                Name = "name",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken
+            });
+            categoryRepository.CreateCategory(new Category
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
+            });
+            repository.CreateRequest(requests[0]);
+            repository.CreateRequest(requests[1]);
+
+            List<Request> result = repository.GetRequestsByManager(managerSessionToken);
+
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual(requests.First(), result.First());
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
