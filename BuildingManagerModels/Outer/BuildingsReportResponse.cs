@@ -7,7 +7,7 @@ namespace BuildingManagerModels.Outer
     {
         public List<BuildingsReportData> Datas { get; set; }
 
-        public BuildingsReportResponse(List<MaintenanceData> datas)
+        public BuildingsReportResponse(List<ReportData> datas)
         {
             Datas = new List<BuildingsReportData>();
             foreach (var data in datas)

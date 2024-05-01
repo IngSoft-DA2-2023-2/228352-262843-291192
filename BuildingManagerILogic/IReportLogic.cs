@@ -6,6 +6,6 @@ namespace BuildingManagerILogic
 {
     public interface IReportLogic
     {
-        public List<MaintenanceData> GetReport(Guid? identifier, string filter, string reportType);
+        public List<ReportData> GetReport(Guid? identifier, string filter, string reportType);
     }
 }

@@ -14,7 +14,7 @@ namespace BuildingManagerLogic
         {
             _requestRepository = requestRepository;
         }
-        public List<MaintenanceData> GetReport(Guid? identifier, string filter, string reportType)
+        public List<ReportData> GetReport(Guid? identifier, string filter, string reportType)
         {
             if (reportType == "maintenances" && identifier != null)
             {

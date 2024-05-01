@@ -3,9 +3,9 @@ using System;
 
 namespace BuildingManagerDomain.Entities
 {
-    public struct MaintenanceData
+    public struct ReportData
     {
-        public MaintenanceData(int openRequests, int closeRequests, int inProgressRequests, int averageClosingTime, string maintainerName, Guid buildingId)
+        public ReportData(int openRequests, int closeRequests, int inProgressRequests, int averageClosingTime, string maintainerName, Guid buildingId)
         {
             OpenRequests = openRequests;
             CloseRequests = closeRequests;
@@ -26,7 +26,7 @@ namespace BuildingManagerDomain.Entities
             if (obj == null || GetType() != obj.GetType())
                 return false;
 
-            var other = (MaintenanceData)obj;
+            var other = (ReportData)obj;
             return OpenRequests == other.OpenRequests &&
             CloseRequests == other.CloseRequests &&
             InProgressRequests == other.InProgressRequests &&

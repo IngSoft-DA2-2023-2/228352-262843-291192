@@ -14,13 +14,13 @@ namespace BuildingManagerApiTest.Controllers
     [TestClass]
     public class MaintenanceReportControllerTest
     {
-        private List<MaintenanceData> _datas;
+        private List<ReportData> _datas;
         private MaintenanceReportResponse _reportResponse;
 
         [TestInitialize]
         public void Initialize()
         {
-            _datas = [new MaintenanceData(3, 2, 1, 7, "John", new Guid())];
+            _datas = [new ReportData(3, 2, 1, 7, "John", new Guid())];
             _reportResponse = new MaintenanceReportResponse(_datas);
         }
         [TestMethod]
@@ -43,7 +43,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
-            MaintenanceReportResponse response = new MaintenanceReportResponse([new MaintenanceData()]);
+            MaintenanceReportResponse response = new MaintenanceReportResponse([new ReportData()]);
 
             bool result = response.Equals(null);
 
@@ -53,7 +53,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_DifferentTypeObject_ReturnsFalse()
         {
-            MaintenanceReportResponse response = new MaintenanceReportResponse([new MaintenanceData()]);
+            MaintenanceReportResponse response = new MaintenanceReportResponse([new ReportData()]);
             object other = new object();
 
             bool result = response.Equals(other);
@@ -64,7 +64,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_SameObject_ReturnsTrue()
         {
-            MaintenanceReportResponse response = new MaintenanceReportResponse([new MaintenanceData()]);
+            MaintenanceReportResponse response = new MaintenanceReportResponse([new ReportData()]);
 
             bool result = response.Equals(response);
 
@@ -74,8 +74,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            List<MaintenanceData> datas1 = [new MaintenanceData(3, 2, 1, 7, "John", new Guid())];
-            List<MaintenanceData> datas2 = [new MaintenanceData(3, 3, 1, 7, "John", new Guid())];
+            List<ReportData> datas1 = [new ReportData(3, 2, 1, 7, "John", new Guid())];
+            List<ReportData> datas2 = [new ReportData(3, 3, 1, 7, "John", new Guid())];
 
             MaintenanceReportResponse response1 = new MaintenanceReportResponse(datas1);
             MaintenanceReportResponse response2 = new MaintenanceReportResponse(datas2);

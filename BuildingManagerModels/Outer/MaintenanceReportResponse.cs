@@ -5,9 +5,9 @@ namespace BuildingManagerModels.Outer
 {
     public class MaintenanceReportResponse
     {
-        public List<MaintenanceData> Datas { get; set; }
+        public List<ReportData> Datas { get; set; }
 
-        public MaintenanceReportResponse(List<MaintenanceData> datas)
+        public MaintenanceReportResponse(List<ReportData> datas)
         {
             Datas = datas;
         }

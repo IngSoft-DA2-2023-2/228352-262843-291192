@@ -14,12 +14,12 @@ namespace BuildingManagerApiTest.Controllers
     [TestClass]
     public class BuildingsReportControllerTest
     {
-        private List<MaintenanceData> _datas;
+        private List<ReportData> _datas;
 
         [TestInitialize]
         public void Initialize()
         {
-            _datas = [new MaintenanceData(3, 2, 1, 7, "", new Guid("11111111-1111-1111-1111-111111111111"))];
+            _datas = [new ReportData(3, 2, 1, 7, "", new Guid("11111111-1111-1111-1111-111111111111"))];
         }
         [TestMethod]
         public void GetBuildingsReport_Ok()
@@ -62,7 +62,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_SameObject_ReturnsTrue()
         {
-            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([new ReportData()]);
 
             bool result = response.Equals(response);
 
@@ -72,8 +72,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            List<MaintenanceData> datas1 = [new MaintenanceData(3, 2, 1, 7, "John", new Guid())];
-            List<MaintenanceData> datas2 = [new MaintenanceData(3, 3, 1, 7, "John", new Guid())];
+            List<ReportData> datas1 = [new ReportData(3, 2, 1, 7, "John", new Guid())];
+            List<ReportData> datas2 = [new ReportData(3, 3, 1, 7, "John", new Guid())];
 
             BuildingsReportResponse response1 = new BuildingsReportResponse(datas1);
             BuildingsReportResponse response2 = new BuildingsReportResponse(datas2);
