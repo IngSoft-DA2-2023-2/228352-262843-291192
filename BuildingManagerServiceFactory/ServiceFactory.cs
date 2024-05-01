@@ -16,8 +16,6 @@ namespace BuildingManagerServiceFactory
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUserLogic, UserLogic>();
             services.AddScoped<IUserRepository, UserRepository>();
-            //services.AddScoped<IMaintenanceLogic, MaintenaceLogic>();
-            //services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
             services.AddScoped<IBuildingLogic, BuildingLogic>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IRequestLogic, RequestLogic>();

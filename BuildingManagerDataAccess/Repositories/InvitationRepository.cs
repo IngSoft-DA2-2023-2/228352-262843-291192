@@ -3,6 +3,7 @@ using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BuildingManagerDataAccess.Repositories
 {
@@ -65,6 +66,20 @@ namespace BuildingManagerDataAccess.Repositories
 
             return invitation;
         }
+        public Invitation RespondInvitation(InvitationAnswer invitationAnswer)
+        {
+            Invitation invitation = _context.Set<Invitation>().FirstOrDefault(i => i.Email == invitationAnswer.Email);
+            if(invitation == null)
+            {
+                throw new ValueNotFoundException("Invitation not found.");
+            }
+            if (invitation.Deadline < DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+            {
+                throw new InvalidOperationException("Invitation expired.");
+            }
+            invitation.Status = invitationAnswer.Status;
+            return invitation;
+        }
         private static void ThrowExceptionIfIsAccepted(Invitation invitation)
         {
             if (invitation.Status == InvitationStatus.ACCEPTED)
@@ -87,11 +102,6 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new InvalidOperationException("New deadline must be greater than the current deadline.");
             }
-        }
-
-        public Invitation RespondInvitation(InvitationAnswer invitationAnswer)
-        {
-            throw new NotImplementedException();
         }
     }
 }
