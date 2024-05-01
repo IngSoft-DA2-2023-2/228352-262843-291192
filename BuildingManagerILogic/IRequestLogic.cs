@@ -10,6 +10,7 @@ namespace BuildingManagerILogic
         Request AttendRequest(Guid id, Guid managerSessionToken);
         Request CompleteRequest(Guid id, int cost);
         public Request CreateRequest(Request request);
+        object GetAssignedRequests(Guid managerSessionToken);
         public List<Request> GetRequests();
     }
 }

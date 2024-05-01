@@ -220,5 +220,34 @@ namespace BuildingManagerApiTest.Controllers
             mockRequestLogic.VerifyAll();
             Assert.AreEqual(requestResponse, content);
         }
+
+        [TestMethod]
+        public void GetAssignedRequests_Ok()
+        {
+            var request = new Request
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.ATTENDING,
+                MaintainerStaffId = new Guid(),
+                AttendedAt = 1714544162
+            };
+            var requestResponse = new RequestResponse(request);
+            var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
+            mockRequestLogic.Setup(x => x.GetAssignedRequests(It.IsAny<Guid>())).Returns(new List<Request> { request });
+            var requestController = new RequestController(mockRequestLogic.Object);
+
+            var result = requestController.GetAssignedRequests((Guid)request.MaintainerStaffId);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as List<Request>;
+
+            mockRequestLogic.VerifyAll();
+            Assert.AreEqual(1, content.Count);
+            Assert.AreEqual(request, content[0]);
+        }
     }
 }
