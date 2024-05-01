@@ -75,5 +75,47 @@ namespace BuildingManagerDomainTest
 
             Assert.AreEqual(maintainerName, data.MaintainerName);
         }
+
+        [TestMethod]
+        public void Equals_NullObject_ReturnsFalse()
+        {
+            MaintenanceReportData data = new MaintenanceReportData();
+
+            bool result = data.Equals(null);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Equals_DifferentTypeObject_ReturnsFalse()
+        {
+            MaintenanceReportData data = new MaintenanceReportData();
+            object other = new object();
+
+            bool result = data.Equals(other);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Equals_SameObject_ReturnsTrue()
+        {
+            MaintenanceReportData data = new MaintenanceReportData();
+
+            bool result = data.Equals(data);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
+        {
+            MaintenanceReportData data1 = new MaintenanceReportData(1, 1, 1, 1, "john");
+            MaintenanceReportData data2 = new MaintenanceReportData(2, 1, 1, 1, "john");
+
+            bool result = data1.Equals(data2);
+
+            Assert.IsFalse(result);
+        }
     }
 }

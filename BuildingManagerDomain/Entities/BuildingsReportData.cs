@@ -17,7 +17,7 @@ namespace BuildingManagerDomain.Entities
         public int InProgressRequests { get; }
         public Guid BuildingId { get; }
 
-         public override bool Equals(object obj)
+        public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
