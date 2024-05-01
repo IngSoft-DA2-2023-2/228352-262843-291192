@@ -49,7 +49,20 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Request CompleteRequest(Guid id, int cost)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Request request = _context.Set<Request>().Find(id);
+                request.State = RequestState.CLOSE;
+                request.CompletedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
+                request.Cost = cost;
+                _context.SaveChanges();
+                return request;
+            }
+            catch (Exception)
+            {
+                throw new ValueNotFoundException("Request not found.");
+            }
+
         }
 
         public Request CreateRequest(Request request)

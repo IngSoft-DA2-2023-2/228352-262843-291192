@@ -222,6 +222,72 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(DateTimeOffset.Now.ToUnixTimeSeconds(), result.AttendedAt);
         }
 
+        [TestMethod]
+        public void CompleteRequestTest()
+        {
+            var context = CreateDbContext("CompleteRequestTest");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.ATTENDING
+            };
+            var staff = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MAINTENANCE
+            };
+            userRepository.CreateUser(staff);
+            repository.CreateRequest(request);
+
+            var result = repository.CompleteRequest(request.Id, 100);
+
+            Assert.AreEqual(RequestState.CLOSE, result.State);
+            Assert.AreEqual(100, result.Cost);
+        }
+
+        [TestMethod]
+        public void CompleteRequestTest_RequestNotFound()
+        {
+            var context = CreateDbContext("CompleteRequestTest_RequestNotFound");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var staff = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MAINTENANCE
+            };
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN
+            };
+            userRepository.CreateUser(staff);
+            Exception exception = null;
+            try
+            {
+                repository.CompleteRequest(request.Id, 100);
+            }
+            catch (ValueNotFoundException ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
