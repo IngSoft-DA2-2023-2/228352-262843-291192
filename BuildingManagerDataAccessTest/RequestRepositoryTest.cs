@@ -2,6 +2,7 @@ using BuildingManagerDataAccess.Context;
 using BuildingManagerDataAccess.Repositories;
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
+using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingManagerDataAccessTest
@@ -65,6 +66,64 @@ namespace BuildingManagerDataAccessTest
             List<Request> result = repository.GetRequests();
 
             Assert.AreEqual(requests.First(), result.First());
+        }
+
+        [TestMethod]
+        public void AssignStaffTest()
+        {
+            var context = CreateDbContext("AssignStaffTest");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN
+            };
+            var staff = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MAINTENANCE
+            };
+            userRepository.CreateUser(staff);
+            repository.CreateRequest(request);
+
+            var result = repository.AssignStaff(request.Id, staff.Id);
+
+            Assert.AreEqual(staff.Id, result.MaintainerStaffId);
+        }
+
+        [TestMethod]
+        public void AssignStaffTest_StaffNotFound()
+        {
+            var context = CreateDbContext("AssignStaffTest_StaffNotFound");
+            var repository = new RequestRepository(context);
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN
+            };
+            Exception exception = null;
+            try
+            {
+                repository.AssignStaff(request.Id, Guid.NewGuid());
+            }
+            catch (ValueNotFoundException ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+
         }
 
         private DbContext CreateDbContext(string name)

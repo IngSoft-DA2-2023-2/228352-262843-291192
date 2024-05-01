@@ -15,7 +15,17 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Request AssignStaff(Guid id, Guid maintenanceStaffId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Request request = _context.Set<Request>().Find(id);
+                request.MaintainerStaffId = maintenanceStaffId;
+                _context.SaveChanges();
+                return request;
+            }
+            catch (Exception)
+            {
+                throw new ValueNotFoundException("Request or maintenance staff not found.");
+            }
         }
 
         public Request CreateRequest(Request request)
