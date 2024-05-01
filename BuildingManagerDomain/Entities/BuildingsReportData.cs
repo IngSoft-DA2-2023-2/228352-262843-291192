@@ -16,5 +16,17 @@ namespace BuildingManagerDomain.Entities
         public int CloseRequests { get; }
         public int InProgressRequests { get; }
         public Guid BuildingId { get; }
+
+         public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            var other = (BuildingsReportData)obj;
+            return OpenRequests == other.OpenRequests &&
+            CloseRequests == other.CloseRequests &&
+            InProgressRequests == other.InProgressRequests &&
+            BuildingId == other.BuildingId;
+        }
     }
 }

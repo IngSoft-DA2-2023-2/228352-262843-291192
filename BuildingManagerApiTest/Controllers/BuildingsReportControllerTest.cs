@@ -15,13 +15,11 @@ namespace BuildingManagerApiTest.Controllers
     public class BuildingsReportControllerTest
     {
         private List<MaintenanceData> _datas;
-        private BuildingsReportResponse _reportResponse;
 
         [TestInitialize]
         public void Initialize()
         {
-            _datas = [new MaintenanceData(3, 2, 1, 7, "", new Guid())];
-            _reportResponse = new BuildingsReportResponse(_datas);
+            _datas = [new MaintenanceData(3, 2, 1, 7, "", new Guid("11111111-1111-1111-1111-111111111111"))];
         }
         [TestMethod]
         public void GetBuildingsReport_Ok()
@@ -43,7 +41,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
-            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([]);
 
             bool result = response.Equals(null);
 
@@ -53,7 +51,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_DifferentTypeObject_ReturnsFalse()
         {
-            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([]);
             object other = new object();
 
             bool result = response.Equals(other);

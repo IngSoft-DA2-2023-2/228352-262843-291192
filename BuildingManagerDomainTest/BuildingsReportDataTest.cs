@@ -57,5 +57,47 @@ namespace BuildingManagerDomainTest
 
             Assert.AreEqual(buildingId, data.BuildingId);
         }
+
+        [TestMethod]
+        public void Equals_NullObject_ReturnsFalse()
+        {
+            BuildingsReportData data = new BuildingsReportData();
+
+            bool result = data.Equals(null);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Equals_DifferentTypeObject_ReturnsFalse()
+        {
+            BuildingsReportData data = new BuildingsReportData();
+            object other = new object();
+
+            bool result = data.Equals(other);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Equals_SameObject_ReturnsTrue()
+        {
+            BuildingsReportData data = new BuildingsReportData();
+
+            bool result = data.Equals(data);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
+        {
+            BuildingsReportData data1 = new BuildingsReportData(1, 1, 1, new Guid());
+            BuildingsReportData data2 = new BuildingsReportData(2, 1, 1, new Guid());
+
+            bool result = data1.Equals(data2);
+
+            Assert.IsFalse(result);
+        }
     }
 }
