@@ -80,6 +80,11 @@ namespace BuildingManagerDataAccess.Repositories
             return request;
         }
 
+        public object GetAssignedRequests(Guid managerSessionToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Request> GetRequests()
         {
             return _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).ToList();
