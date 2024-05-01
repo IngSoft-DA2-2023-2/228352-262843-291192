@@ -12,5 +12,6 @@ namespace BuildingManagerILogic
         public Request CreateRequest(Request request);
         object GetAssignedRequests(Guid managerSessionToken);
         public List<Request> GetRequests();
+        List<Request> GetRequestsByManager(Guid managerSessionToken);
     }
 }

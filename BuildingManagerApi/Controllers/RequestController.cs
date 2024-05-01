@@ -4,6 +4,7 @@ using BuildingManagerILogic;
 using BuildingManagerModels.Inner;
 using ECommerceApi.Filters;
 using BuildingManagerDomain.Enums;
+using BuildingManagerLogic;
 
 namespace BuildingManagerApi.Controllers
 {
@@ -65,6 +66,14 @@ namespace BuildingManagerApi.Controllers
         {
             var assignedRequests = _requestLogic.GetAssignedRequests(managerSessionToken);
             return Ok(assignedRequests);
+        }
+
+        [HttpGet("{managerId}")]
+        [AuthenticationFilter(RoleType.MANAGER)]
+        public IActionResult GetRequestsByManager([FromRoute] Guid managerSession)
+        {
+            var requestsByManager = _requestLogic.GetRequestsByManager(managerSession);
+            return Ok(requestsByManager);
         }
     }
 }
