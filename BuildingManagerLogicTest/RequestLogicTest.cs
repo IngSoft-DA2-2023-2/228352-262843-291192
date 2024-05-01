@@ -203,5 +203,40 @@ namespace BuildingManagerLogicTest
             requestRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void GetAssignedRequestsSuccessfullyTest()
+        {
+            List<Request> requests = new List<Request> { _request };
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.GetAssignedRequests(It.IsAny<Guid>())).Returns(requests);
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+
+            var result = requestLogic.GetAssignedRequests(new Guid());
+
+            requestRepositoryMock.VerifyAll();
+            Assert.AreEqual(requests, result);
+        }
+
+        [TestMethod]
+        public void GetAssignedRequestsWithInvalidSessionTokenTest()
+        {
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.GetAssignedRequests(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                requestLogic.GetAssignedRequests(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            requestRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }

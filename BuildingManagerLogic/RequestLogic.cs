@@ -67,7 +67,14 @@ namespace BuildingManagerLogic
 
         public object GetAssignedRequests(Guid managerSessionToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _requestRepository.GetAssignedRequests(managerSessionToken);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public List<Request> GetRequests()
