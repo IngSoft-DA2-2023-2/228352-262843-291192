@@ -27,6 +27,11 @@ namespace BuildingManagerLogic
                 BuildingsReport report = new BuildingsReport(_requestRepository);
                 return report.GetReport(null, filter);
             }
+            else if (reportType == ReportType.CATEGORIES)
+            {
+                CategoriesReport report = new CategoriesReport(_requestRepository);
+                return report.GetReport(identifier.Value, filter);
+            }
             throw  new NotFoundException(new Exception(), "Missing information.");
         }
     }
