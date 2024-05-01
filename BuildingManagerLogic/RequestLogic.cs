@@ -3,6 +3,7 @@ using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
+using System;
 using System.Collections.Generic;
 
 namespace BuildingManagerLogic
@@ -14,6 +15,12 @@ namespace BuildingManagerLogic
         {
             _requestRepository = requestRepository;
         }
+
+        public Request AssignStaff(Guid id, Guid maintenanceStaffId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Request CreateRequest(Request request)
         {
             try

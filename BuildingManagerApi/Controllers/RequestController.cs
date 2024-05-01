@@ -33,5 +33,13 @@ namespace BuildingManagerApi.Controllers
             var allRequests = _requestLogic.GetRequests();
             return Ok(allRequests);
         }
+
+        [HttpPut("{id}")]
+        [AuthenticationFilter(RoleType.MANAGER)]
+        public IActionResult AssignStaff([FromRoute] Guid id, [FromBody] Guid maintenanceStaffId)
+        {
+            RequestResponse updateRequestResponse = new(_requestLogic.AssignStaff(id, maintenanceStaffId));
+            return Ok(updateRequestResponse);
+        }
     }
 }
