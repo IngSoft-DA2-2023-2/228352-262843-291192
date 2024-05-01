@@ -155,5 +155,53 @@ namespace BuildingManagerLogicTest
             requestRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void CompleteRequestSuccessfullyTest()
+        {
+            var request = new Request
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.CLOSE,
+                MaintainerStaffId = new Guid(),
+                AttendedAt = 1714544162,
+                CompletedAt = 1714544162,
+                Cost = 100
+            };
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.CompleteRequest(It.IsAny<Guid>(), It.IsAny<int>())).Returns(request);
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+
+            var result = requestLogic.CompleteRequest(request.Id, request.Cost);
+
+            requestRepositoryMock.VerifyAll();
+            Assert.AreEqual(request, result);
+        }
+
+        [TestMethod]
+        public void CompleteRequestWithInvalidRequestIdTest()
+        {
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.CompleteRequest(It.IsAny<Guid>(), It.IsAny<int>())).Throws(new ValueNotFoundException(""));
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                requestLogic.CompleteRequest(_request.Id, 100);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            requestRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }

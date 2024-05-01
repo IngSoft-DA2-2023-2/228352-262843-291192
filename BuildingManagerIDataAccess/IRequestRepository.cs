@@ -8,6 +8,7 @@ namespace BuildingManagerIDataAccess
     {
         Request AssignStaff(Guid id, Guid maintenanceStaffId);
         Request AttendRequest(Guid id, Guid managerSessionToken);
+        Request CompleteRequest(Guid id, int cost);
         Request CreateRequest (Request request);
         List<Request> GetRequests();
     }
