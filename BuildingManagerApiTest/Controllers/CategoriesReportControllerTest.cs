@@ -40,5 +40,15 @@ namespace BuildingManagerApiTest.Controllers
             Assert.AreEqual(result.StatusCode, expected.StatusCode);
             Assert.AreEqual(expectedObject, resultObject);
         }
+
+        [TestMethod]
+        public void Equals_NullObject_ReturnsFalse()
+        {
+            CategoriesReportResponse response = new CategoriesReportResponse([new ReportData()]);
+
+            bool result = response.Equals(null);
+
+            Assert.IsFalse(result);
+        }
     }
 }
