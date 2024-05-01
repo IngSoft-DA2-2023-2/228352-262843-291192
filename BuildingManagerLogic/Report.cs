@@ -49,6 +49,7 @@ namespace BuildingManagerLogic
                 int averageTime = 0;
                 string name = "";
                 Guid buildingId = Guid.Empty;
+                string categoryName = "Electricista";
 
                 foreach (var request in pair.Value)
                 {
@@ -67,7 +68,7 @@ namespace BuildingManagerLogic
                         inProgress++;
                     }
                 }
-                datas.Add(new ReportData(open, close, inProgress, averageTime, name, buildingId));
+                datas.Add(new ReportData(open, close, inProgress, averageTime, name, buildingId, categoryName));
             }
 
             return datas;
