@@ -71,5 +71,18 @@ namespace BuildingManagerApiTest.Controllers
 
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
+        {
+            List<ReportData> data1 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista")];
+            List<ReportData> data2 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Plomero")];
+            CategoriesReportResponse response1 = new CategoriesReportResponse(data1);
+            CategoriesReportResponse response2 = new CategoriesReportResponse(data2);
+
+            bool result = response1.Equals(response2);
+
+            Assert.IsFalse(result);
+        }
     }
 }
