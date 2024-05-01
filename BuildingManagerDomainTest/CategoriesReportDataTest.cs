@@ -41,5 +41,17 @@ namespace BuildingManagerDomainTest
             CategoriesReportData data = new(categoryName, openRequests, closeRequests, inProgressRequests);
             Assert.AreEqual(inProgressRequests, data.InProgressRequests);
         }
+
+        [TestMethod]
+        public void CategoriesReportDataCategoryNameTest()
+        {
+            string categoryName = "Electricista";
+            int openRequests = 5;
+            int closeRequests = 2;
+            int inProgressRequests = 1;
+
+            CategoriesReportData data = new(categoryName, openRequests, closeRequests, inProgressRequests);
+            Assert.AreEqual(categoryName, data.CategoryName);
+        }
     }
 }
