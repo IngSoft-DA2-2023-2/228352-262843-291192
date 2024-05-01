@@ -40,6 +40,11 @@ namespace BuildingManagerLogic
             }
         }
 
+        public Request CompleteRequest(Guid id, int cost)
+        {
+            throw new NotImplementedException();
+        }
+
         public Request CreateRequest(Request request)
         {
             try

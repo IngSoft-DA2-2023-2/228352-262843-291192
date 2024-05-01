@@ -16,5 +16,7 @@ namespace BuildingManagerDomain.Entities
         public MaintenanceStaff MaintenanceStaff { get; set; }
         public Category Category { get; set; }
         public long AttendedAt { get; set; }
+        public long CompletedAt { get; set; }
+        public int Cost { get; set; }
     }
 }

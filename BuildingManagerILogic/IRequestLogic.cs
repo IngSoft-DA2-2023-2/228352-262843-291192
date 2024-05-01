@@ -8,6 +8,7 @@ namespace BuildingManagerILogic
     {
         Request AssignStaff(Guid id, Guid maintenanceStaffId);
         Request AttendRequest(Guid id, Guid managerSessionToken);
+        Request CompleteRequest(Guid id, int cost);
         public Request CreateRequest(Request request);
         public List<Request> GetRequests();
     }

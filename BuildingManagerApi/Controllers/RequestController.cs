@@ -49,5 +49,13 @@ namespace BuildingManagerApi.Controllers
             RequestResponse updateRequestResponse = new(_requestLogic.AttendRequest(id, managerSessionToken));
             return Ok(updateRequestResponse);
         }
+
+        [HttpPut("{id}/completed")]
+        [AuthenticationFilter(RoleType.MAINTENANCE)]
+        public IActionResult CompleteRequest([FromRoute] Guid id, int cost)
+        {
+            RequestResponse updateRequestResponse = new(_requestLogic.CompleteRequest(id, cost));
+            return Ok(updateRequestResponse);
+        }
     }
 }
