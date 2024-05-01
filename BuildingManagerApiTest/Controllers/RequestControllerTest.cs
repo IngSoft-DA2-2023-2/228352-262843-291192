@@ -190,5 +190,35 @@ namespace BuildingManagerApiTest.Controllers
             mockRequestLogic.VerifyAll();
             Assert.AreEqual(requestResponse, content);
         }
+
+        [TestMethod]
+        public void CompleteRequest_Ok()
+        {
+            var request = new Request
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.CLOSE,
+                MaintainerStaffId = new Guid(),
+                AttendedAt = 1714544162,
+                CompletedAt = 1714544162,
+                Cost = 100
+            };
+            var requestResponse = new RequestResponse(request);
+            var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
+            mockRequestLogic.Setup(x => x.CompleteRequest(It.IsAny<Guid>(), It.IsAny<int>())).Returns(request);
+            var requestController = new RequestController(mockRequestLogic.Object);
+
+            var result = requestController.CompleteRequest(request.Id, request.Cost);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as RequestResponse;
+
+            mockRequestLogic.VerifyAll();
+            Assert.AreEqual(requestResponse, content);
+        }
     }
 }
