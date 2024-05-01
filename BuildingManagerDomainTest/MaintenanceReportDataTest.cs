@@ -12,8 +12,9 @@ namespace BuildingManagerDomainTest
             int openRequests = 5;
             int closeRequests = 2;
             int inProgressRequests = 1;
+            int averageClosingTime = 10;
 
-            MaintenanceReportData data = new(openRequests, closeRequests, inProgressRequests);
+            MaintenanceReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime);
 
             Assert.AreEqual(openRequests, data.OpenRequests);
         }
@@ -24,8 +25,9 @@ namespace BuildingManagerDomainTest
             int openRequests = 5;
             int closeRequests = 2;
             int inProgressRequests = 1;
+            int averageClosingTime = 10;
 
-            MaintenanceReportData data = new(openRequests, closeRequests, inProgressRequests);
+            MaintenanceReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime);
 
             Assert.AreEqual(closeRequests, data.CloseRequests);
         }
@@ -36,10 +38,24 @@ namespace BuildingManagerDomainTest
             int openRequests = 5;
             int closeRequests = 2;
             int inProgressRequests = 1;
+            int averageClosingTime = 10;
 
-            MaintenanceReportData data = new(openRequests, closeRequests, inProgressRequests);
+            MaintenanceReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime);
 
             Assert.AreEqual(inProgressRequests, data.InProgressRequests);
+        }
+
+        [TestMethod]
+        public void MaintenanceReportDataAverageTimeRequestsTest()
+        {
+            int openRequests = 5;
+            int closeRequests = 2;
+            int inProgressRequests = 1;
+            int averageClosingTime = 10;
+
+            MaintenanceReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime);
+
+            Assert.AreEqual(averageClosingTime, data.AverageClosingTime);
         }
     }
 }
