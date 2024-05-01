@@ -20,7 +20,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult GetReport([FromQuery] Guid? buildingId)
         {
-            BuildingsReportResponse buildingsReportResponse = new(_reportLogic.GetReport(null, buildingId.ToString(), "buildings"));
+            BuildingsReportResponse buildingsReportResponse = new(_reportLogic.GetReport(null, buildingId.ToString(), ReportType.BUILDINGS));
             return Ok(buildingsReportResponse);
         }
     }

@@ -72,7 +72,7 @@ namespace BuildingManagerLogicTest
             List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"))];
             var report = new ReportLogic(requestRepositoryMock.Object);
 
-            var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "", "maintenances");
+            var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "", ReportType.MAINTENANCE);
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(data.First(), result.First());
         }
@@ -135,13 +135,13 @@ namespace BuildingManagerLogicTest
             List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"))];
             var report = new ReportLogic(requestRepositoryMock.Object);
 
-            var result = report.GetReport(null, "", "buildings");
+            var result = report.GetReport(null, "", ReportType.BUILDINGS);
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(data.First(), result.First());
         }
 
         [TestMethod]
-        public void GetReportWithInvalidReportTypeTest()
+        public void GetReportWithInvalidIdentifierTest()
         {
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             var report = new ReportLogic(requestRepositoryMock.Object);
@@ -149,7 +149,7 @@ namespace BuildingManagerLogicTest
 
             try
             {
-                report.GetReport(null, "", "invalid");
+                report.GetReport(null, "", ReportType.MAINTENANCE);
             }
             catch (Exception ex)
             {

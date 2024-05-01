@@ -59,6 +59,7 @@
     <Compile Include="Entities\MaintenanceReportData.cs" />
     <Compile Include="Enums\RoleType.cs" />
     <Compile Include="Enums\InvitationStatus.cs" />
+    <Compile Include="Enums\ReportType.cs" />
     <Compile Include="Enums\RequestState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
