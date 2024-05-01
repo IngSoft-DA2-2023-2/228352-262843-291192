@@ -49,11 +49,13 @@ namespace BuildingManagerLogic
                 int averageTime = 0;
                 string name = "";
                 Guid buildingId = Guid.Empty;
-                string categoryName = "Electricista";
+                string categoryName = pair.Key;
 
                 foreach (var request in pair.Value)
                 {
-                    name = request.MaintenanceStaff.Name;
+                    if(request.MaintenanceStaff != null){
+                        name = request.MaintenanceStaff.Name;
+                    }
                     buildingId = request.BuildingId;
                     if (request.State == RequestState.OPEN)
                     {

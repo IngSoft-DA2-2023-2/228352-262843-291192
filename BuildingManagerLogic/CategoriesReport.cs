@@ -18,9 +18,9 @@ namespace BuildingManagerLogic
             }
             foreach (var request in Requests.Where(r => r.BuildingId == identifier))
             {
-                if (SortedRequests.ContainsKey(request.CategoryId.ToString()))
+                if (SortedRequests.ContainsKey(request.Category.Name))
                 {
-                    SortedRequests[request.CategoryId.ToString()].Add(request);
+                    SortedRequests[request.Category.Name].Add(request);
                 }
                 else
                 {
@@ -28,7 +28,7 @@ namespace BuildingManagerLogic
                     {
                         request
                     };
-                    SortedRequests[request.CategoryId.ToString()] = newList;
+                    SortedRequests[request.Category.Name] = newList;
                 }
             }
         }
