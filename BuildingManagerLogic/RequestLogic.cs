@@ -30,7 +30,14 @@ namespace BuildingManagerLogic
 
         public Request AttendRequest(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _requestRepository.AttendRequest(id);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public Request CreateRequest(Request request)

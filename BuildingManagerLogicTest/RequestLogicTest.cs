@@ -5,6 +5,7 @@ using BuildingManagerIDataAccess;
 using BuildingManagerLogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerLogicTest
 {
@@ -99,6 +100,52 @@ namespace BuildingManagerLogicTest
             try
             {
                 requestLogic.AssignStaff(_request.Id, new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            requestRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void AttendRequestSuccessfullyTest()
+        {
+            var request = new Request
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.ATTENDING,
+                MaintainerStaffId = new Guid(),
+                AttendedAt = 1714544162
+            };
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.AttendRequest(It.IsAny<Guid>())).Returns(request);
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+
+            var result = requestLogic.AttendRequest(request.Id);
+
+            requestRepositoryMock.VerifyAll();
+            Assert.AreEqual(request, result);
+        }
+
+        [TestMethod]
+        public void AttendRequestWithInvalidRequestIdTest()
+        {
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.AttendRequest(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                requestLogic.AttendRequest(_request.Id);
             }
             catch (Exception ex)
             {
