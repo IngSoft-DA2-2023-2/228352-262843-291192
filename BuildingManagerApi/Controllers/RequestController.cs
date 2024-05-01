@@ -68,11 +68,12 @@ namespace BuildingManagerApi.Controllers
             return Ok(assignedRequests);
         }
 
-        [HttpGet("{managerId}")]
+        [HttpGet]
+        [Route("manager")]
         [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult GetRequestsByManager([FromRoute] Guid managerSession)
+        public IActionResult GetRequestsByManager([FromHeader(Name = "Authorization")] Guid managerSessionToken)
         {
-            var requestsByManager = _requestLogic.GetRequestsByManager(managerSession);
+            var requestsByManager = _requestLogic.GetRequestsByManager(managerSessionToken);
             return Ok(requestsByManager);
         }
     }
