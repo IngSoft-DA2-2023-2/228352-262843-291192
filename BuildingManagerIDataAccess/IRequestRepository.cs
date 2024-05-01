@@ -10,7 +10,7 @@ namespace BuildingManagerIDataAccess
         Request AttendRequest(Guid id, Guid managerSessionToken);
         Request CompleteRequest(Guid id, int cost);
         Request CreateRequest (Request request, Guid managerSessionToken);
-        object GetAssignedRequests(Guid managerSessionToken);
+        List<Request> GetAssignedRequests(Guid managerSessionToken);
         List<Request> GetRequests();
         List<Request> GetRequestsByManager(Guid managerSessionToken);
     }

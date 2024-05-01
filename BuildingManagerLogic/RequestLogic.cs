@@ -65,7 +65,7 @@ namespace BuildingManagerLogic
 
         }
 
-        public object GetAssignedRequests(Guid managerSessionToken)
+        public List<Request> GetAssignedRequests(Guid managerSessionToken)
         {
             try
             {

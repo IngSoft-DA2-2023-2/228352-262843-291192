@@ -29,16 +29,20 @@ namespace BuildingManagerDataAccess.Repositories
             }
         }
 
-        public Request AttendRequest(Guid id , Guid managerSessionToken)
+        public Request AttendRequest(Guid id , Guid maintainerStaffId)
         {
             try
             {
                 Request request = _context.Set<Request>().Find(id);
                 request.State = RequestState.ATTENDING;
-                request.MaintainerStaffId = managerSessionToken;
+                request.MaintainerStaffId = maintainerStaffId;
                 request.AttendedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
                 _context.SaveChanges();
                 return request;
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new ValueNotFoundException(e.Message);
             }
             catch(Exception)
             {
@@ -82,9 +86,18 @@ namespace BuildingManagerDataAccess.Repositories
             return request;
         }
 
-        public object GetAssignedRequests(Guid sessionToken)
+        public List<Request> GetAssignedRequests(Guid sessionToken)
         {
-            return _context.Set<Request>().Where(r => r.MaintainerStaffId == sessionToken).ToList();
+            Guid maintainerStaffId = Guid.Empty;
+            try
+            { 
+                MaintenanceStaff maintenanceStaff = _context.Set<MaintenanceStaff>().First(i => i.SessionToken == sessionToken);
+                maintainerStaffId = maintenanceStaff.Id;
+            }catch(InvalidOperationException)
+            {
+                throw new ValueNotFoundException("User not found.");
+            }
+            return _context.Set<Request>().Where(r => r.MaintainerStaffId == maintainerStaffId).ToList();
         }
 
         public List<Request> GetRequests()
