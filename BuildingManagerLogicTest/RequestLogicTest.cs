@@ -238,5 +238,34 @@ namespace BuildingManagerLogicTest
             requestRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void GetRequestsByManagerSuccessfullyTest()
+        {
+            Guid managerId = Guid.NewGuid();
+            var request = new Request
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.ATTENDING,
+                MaintainerStaffId = new Guid(),
+                AttendedAt = 1714544162,
+                ManagerId = managerId
+            };
+
+            List<Request> requests = new List<Request> { request };
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.GetRequestsByManager(It.IsAny<Guid>())).Returns(requests);
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+
+            var result = requestLogic.GetRequestsByManager(managerId);
+
+            requestRepositoryMock.VerifyAll();
+            Assert.AreEqual(requests, result);
+        }
     }
 }

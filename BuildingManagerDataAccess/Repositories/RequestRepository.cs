@@ -89,5 +89,10 @@ namespace BuildingManagerDataAccess.Repositories
         {
             return _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).ToList();
         }
+
+        public List<Request> GetRequestsByManager(Guid managerSessionToken)
+        {
+            return new List<Request>();
+        }
     }
 }
