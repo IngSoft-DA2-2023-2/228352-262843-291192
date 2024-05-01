@@ -10,10 +10,22 @@ namespace BuildingManagerDomainTest
         public void MaintenanceReportDataOpenRequestsTest()
         {
             int openRequests = 5;
+            int closeRequests = 2;
 
-            MaintenanceReportData data = new(openRequests);
+            MaintenanceReportData data = new(openRequests, closeRequests);
 
             Assert.AreEqual(openRequests, data.OpenRequests);
+        }
+
+        [TestMethod]
+        public void MaintenanceReportDataCloseRequestsTest()
+        {
+            int openRequests = 5;
+            int closeRequests = 2;
+
+            MaintenanceReportData data = new(openRequests, closeRequests);
+
+            Assert.AreEqual(closeRequests, data.CloseRequests);
         }
     }
 }
