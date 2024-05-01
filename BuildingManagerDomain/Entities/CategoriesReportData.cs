@@ -14,5 +14,17 @@
             CloseRequests = closeRequests;
             InProgressRequests = inProgressRequests;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            var other = (CategoriesReportData)obj;
+            return CategoryName == other.CategoryName &&
+            OpenRequests == other.OpenRequests &&
+            CloseRequests == other.CloseRequests &&
+            InProgressRequests == other.InProgressRequests;
+        }
     }
 }

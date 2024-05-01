@@ -84,5 +84,16 @@ namespace BuildingManagerDomainTest
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void Equals_DifferentObject_ReturnsFalse()
+        {
+            CategoriesReportData data = new CategoriesReportData(Guid.NewGuid().ToString(), 1, 2, 3);
+            CategoriesReportData other = new CategoriesReportData(Guid.NewGuid().ToString(), 1, 3, 2);
+
+            bool result = data.Equals(other);
+
+            Assert.IsFalse(result);
+        }
+
     }
 }
