@@ -18,7 +18,14 @@ namespace BuildingManagerLogic
 
         public Request AssignStaff(Guid id, Guid maintenanceStaffId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _requestRepository.AssignStaff(id, maintenanceStaffId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public Request CreateRequest(Request request)

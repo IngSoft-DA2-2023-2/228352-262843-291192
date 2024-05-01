@@ -12,6 +12,12 @@ namespace BuildingManagerDataAccess.Repositories
         {
             _context = context;
         }
+
+        public Request AssignStaff(Guid id, Guid maintenanceStaffId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Request CreateRequest(Request request)
         {
             try
