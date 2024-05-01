@@ -42,7 +42,14 @@ namespace BuildingManagerLogic
 
         public Request CompleteRequest(Guid id, int cost)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _requestRepository.CompleteRequest(id, cost);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public Request CreateRequest(Request request)
