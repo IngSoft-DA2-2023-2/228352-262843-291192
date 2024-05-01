@@ -18,9 +18,9 @@ namespace BuildingManagerLogic
             requestRepository = repository;
         }
 
-        public List<MaintenanceData> GetReport(Guid? identifier, string filter)
+        public List<ReportData> GetReport(Guid? identifier, string filter)
         {
-            List<MaintenanceData> datas = new List<MaintenanceData>();
+            List<ReportData> datas = new List<ReportData>();
 
             LoadRequests();
 
@@ -37,9 +37,9 @@ namespace BuildingManagerLogic
 
         internal abstract void SortRequests(Guid? identifier, string filter);
 
-        private List<MaintenanceData> ConvertToDatas()
+        private List<ReportData> ConvertToDatas()
         {
-            List<MaintenanceData> datas = new List<MaintenanceData>();
+            List<ReportData> datas = new List<ReportData>();
 
             foreach (var pair in SortedRequests)
             {
@@ -67,7 +67,7 @@ namespace BuildingManagerLogic
                         inProgress++;
                     }
                 }
-                datas.Add(new MaintenanceData(open, close, inProgress, averageTime, name, buildingId));
+                datas.Add(new ReportData(open, close, inProgress, averageTime, name, buildingId));
             }
 
             return datas;

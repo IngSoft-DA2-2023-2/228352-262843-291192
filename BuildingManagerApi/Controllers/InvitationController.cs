@@ -42,7 +42,7 @@ namespace BuildingManagerApi.Controllers
             return Ok(modifyInvitationResponse);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("response/{id}")]
         public IActionResult RespondInvitation([FromRoute] Guid id, [FromBody] RespondInvitationRequest respondInvitationRequest)
         {
             RespondInvitationResponse acceptInvitationResponse = new RespondInvitationResponse(_invitationLogic.RespondInvitation(respondInvitationRequest.ToEntity(id)));
