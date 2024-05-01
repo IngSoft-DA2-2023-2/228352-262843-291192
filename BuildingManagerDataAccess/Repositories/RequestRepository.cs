@@ -1,4 +1,5 @@
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -28,9 +29,22 @@ namespace BuildingManagerDataAccess.Repositories
             }
         }
 
-        public Request AttendRequest(Guid id)
+        public Request AttendRequest(Guid id , Guid managerSessionToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Request request = _context.Set<Request>().Find(id);
+                request.State = RequestState.ATTENDING;
+                request.MaintainerStaffId = managerSessionToken;
+                request.AttendedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
+                _context.SaveChanges();
+                return request;
+            }
+            catch(Exception)
+            {
+                throw new ValueNotFoundException("Request not found.");
+            }
+            
         }
 
         public Request CreateRequest(Request request)

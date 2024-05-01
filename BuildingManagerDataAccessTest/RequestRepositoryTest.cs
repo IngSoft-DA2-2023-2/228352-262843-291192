@@ -126,6 +126,102 @@ namespace BuildingManagerDataAccessTest
 
         }
 
+        [TestMethod]
+        public void AttendRequestTest()
+        {
+            var context = CreateDbContext("AttendRequestTest");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN
+            };
+            var staff = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MAINTENANCE
+            };
+            userRepository.CreateUser(staff);
+            repository.CreateRequest(request);
+
+            var result = repository.AttendRequest(request.Id, staff.Id);
+
+            Assert.AreEqual(RequestState.ATTENDING, result.State);
+            Assert.AreEqual(staff.Id, result.MaintainerStaffId);
+        }
+
+        [TestMethod]
+        public void AttendRequestTest_RequestNotFound()
+        {
+            var context = CreateDbContext("AttendRequestTest_RequestNotFound");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var staff = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MAINTENANCE
+            };
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN
+            };
+            userRepository.CreateUser(staff);
+            Exception exception = null;
+            try
+            {
+                repository.AttendRequest(request.Id, staff.Id);
+            }
+            catch (ValueNotFoundException ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
+        [TestMethod]
+        public void AttendRequestAttendAtNowTest()
+        {
+            var context = CreateDbContext("AttendRequestAttendAtNowTest");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN
+            };
+            var staff = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MAINTENANCE
+            };
+            userRepository.CreateUser(staff);
+            repository.CreateRequest(request);
+
+            var result = repository.AttendRequest(request.Id, staff.Id);
+
+            Assert.AreEqual(DateTimeOffset.Now.ToUnixTimeSeconds(), result.AttendedAt);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

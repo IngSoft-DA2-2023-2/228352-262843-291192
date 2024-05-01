@@ -44,9 +44,9 @@ namespace BuildingManagerApi.Controllers
 
         [HttpPut("{id}/attendance")]
         [AuthenticationFilter(RoleType.MAINTENANCE)]
-        public IActionResult AttendRequest([FromRoute] Guid id)
+        public IActionResult AttendRequest([FromRoute] Guid id, [FromHeader(Name = "Authorization")] Guid managerSessionToken)
         {
-            RequestResponse updateRequestResponse = new(_requestLogic.AttendRequest(id));
+            RequestResponse updateRequestResponse = new(_requestLogic.AttendRequest(id, managerSessionToken));
             return Ok(updateRequestResponse);
         }
     }

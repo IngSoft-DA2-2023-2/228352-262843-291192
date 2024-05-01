@@ -180,10 +180,10 @@ namespace BuildingManagerApiTest.Controllers
             };
             var requestResponse = new RequestResponse(request);
             var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
-            mockRequestLogic.Setup(x => x.AttendRequest(It.IsAny<Guid>())).Returns(request);
+            mockRequestLogic.Setup(x => x.AttendRequest(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(request);
             var requestController = new RequestController(mockRequestLogic.Object);
 
-            var result = requestController.AttendRequest(_request.Id);
+            var result = requestController.AttendRequest(request.Id, (Guid)request.MaintainerStaffId);
             var okObjectResult = result as OkObjectResult;
             var content = okObjectResult.Value as RequestResponse;
 
