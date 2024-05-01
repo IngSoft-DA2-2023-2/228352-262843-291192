@@ -321,7 +321,7 @@ namespace BuildingManagerDataAccessTest
         [TestMethod]
         public void GetRequestsByManagerTest()
         {
-            var context = CreateDbContext("GetRequestsTest");
+            var context = CreateDbContext("GetRequestsByManager");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
             var categoryRepository = new CategoryRepository(context);
@@ -371,6 +371,67 @@ namespace BuildingManagerDataAccessTest
 
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(requests.First(), result.First());
+        }
+
+        [TestMethod]
+        public void GetRequestsAndManagerDoesntExistsTest()
+        {
+            var context = CreateDbContext("GetRequestsAndManagerDoesntExists");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            Guid managerId = Guid.NewGuid();
+            Guid managerSessionToken = Guid.NewGuid();
+            List<Request> requests = [new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ManagerId = managerId
+
+            },
+            new Request {
+                Id = Guid.NewGuid(),
+                Description = "description2",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111112"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111112"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111112"),
+                ManagerId = Guid.NewGuid()
+            }];
+
+            userRepository.CreateUser(new Manager
+            {
+                Id = managerId,
+                Name = "name",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken
+            });
+            categoryRepository.CreateCategory(new Category
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
+            });
+            repository.CreateRequest(requests[0]);
+            repository.CreateRequest(requests[1]);
+
+            Exception exception = null;
+            try
+            {
+                repository.GetRequestsByManager(Guid.NewGuid());
+            }
+            catch (ValueNotFoundException ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
         private DbContext CreateDbContext(string name)

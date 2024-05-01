@@ -92,7 +92,16 @@ namespace BuildingManagerDataAccess.Repositories
 
         public List<Request> GetRequestsByManager(Guid managerSessionToken)
         {
-            Guid managerId = _context.Set<Manager>().First(i => i.SessionToken == managerSessionToken).Id;
+            Manager manager;
+            try
+            {
+                manager = _context.Set<Manager>().First(i => i.SessionToken == managerSessionToken);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("User not found.");
+            }
+            Guid managerId = manager.Id;
             return _context.Set<Request>().Where(r => r.ManagerId == managerId).ToList();
         }
     }
