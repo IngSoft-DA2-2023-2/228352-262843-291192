@@ -126,10 +126,10 @@ namespace BuildingManagerLogicTest
                 AttendedAt = 1714544162
             };
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
-            requestRepositoryMock.Setup(x => x.AttendRequest(It.IsAny<Guid>())).Returns(request);
+            requestRepositoryMock.Setup(x => x.AttendRequest(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(request);
             var requestLogic = new RequestLogic(requestRepositoryMock.Object);
 
-            var result = requestLogic.AttendRequest(request.Id);
+            var result = requestLogic.AttendRequest(request.Id, (Guid)request.MaintainerStaffId);
 
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(request, result);
@@ -139,13 +139,13 @@ namespace BuildingManagerLogicTest
         public void AttendRequestWithInvalidRequestIdTest()
         {
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
-            requestRepositoryMock.Setup(x => x.AttendRequest(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            requestRepositoryMock.Setup(x => x.AttendRequest(It.IsAny<Guid>(), It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
             var requestLogic = new RequestLogic(requestRepositoryMock.Object);
             Exception exception = null;
 
             try
             {
-                requestLogic.AttendRequest(_request.Id);
+                requestLogic.AttendRequest(_request.Id, new Guid());
             }
             catch (Exception ex)
             {

@@ -28,11 +28,11 @@ namespace BuildingManagerLogic
             }
         }
 
-        public Request AttendRequest(Guid id)
+        public Request AttendRequest(Guid id, Guid managerSessionToken)
         {
             try
             {
-                return _requestRepository.AttendRequest(id);
+                return _requestRepository.AttendRequest(id, managerSessionToken);
             }
             catch (ValueNotFoundException e)
             {

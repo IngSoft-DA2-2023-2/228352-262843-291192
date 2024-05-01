@@ -7,7 +7,7 @@ namespace BuildingManagerIDataAccess
     public interface IRequestRepository
     {
         Request AssignStaff(Guid id, Guid maintenanceStaffId);
-        Request AttendRequest(Guid id);
+        Request AttendRequest(Guid id, Guid managerSessionToken);
         Request CreateRequest (Request request);
         List<Request> GetRequests();
     }
