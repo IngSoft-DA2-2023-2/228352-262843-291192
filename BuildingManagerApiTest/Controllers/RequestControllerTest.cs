@@ -2,6 +2,7 @@ using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
@@ -134,6 +135,32 @@ namespace BuildingManagerApiTest.Controllers
             mockRequestLogic.VerifyAll();
             Assert.AreEqual(1, content.Count);
             Assert.AreEqual(_request, content[0]);
+        }
+
+        [TestMethod]
+        public void AssignStaff_Ok()
+        {
+            var request = new Request
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Description = "description",
+                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                MaintainerStaffId = new Guid()
+            };
+            var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
+            mockRequestLogic.Setup(x => x.AssignStaff(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(request);
+            var requestController = new RequestController(mockRequestLogic.Object);
+
+            var result = requestController.AssignStaff(_request.Id, (Guid)request.MaintainerStaffId);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as RequestResponse;
+
+            mockRequestLogic.VerifyAll();
+            Assert.AreEqual(_requestResponse, content);
         }
     }
 }
