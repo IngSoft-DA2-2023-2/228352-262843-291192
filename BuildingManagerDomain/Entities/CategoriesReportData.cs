@@ -1,6 +1,6 @@
 ﻿namespace BuildingManagerDomain.Entities
 {
-    public class CategoriesReportData
+    public struct CategoriesReportData
     {
         public string CategoryName { get; set; }
         public int OpenRequests { get; set; }

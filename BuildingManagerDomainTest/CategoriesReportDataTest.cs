@@ -53,5 +53,16 @@ namespace BuildingManagerDomainTest
             CategoriesReportData data = new(categoryName, openRequests, closeRequests, inProgressRequests);
             Assert.AreEqual(categoryName, data.CategoryName);
         }
+
+        [TestMethod]
+        public void Equals_NullObject_ReturnsFalse()
+        {
+            CategoriesReportData data = new CategoriesReportData();
+
+            bool result = data.Equals(null);
+
+            Assert.IsFalse(result);
+        }
+
     }
 }
