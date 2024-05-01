@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriesReport.cs" />
     <Compile Include="Helpers\InvitationResponder.cs" />
     <Compile Include="Helpers\UserFromInvitation.cs" />
     <Compile Include="UserLogic.cs" />

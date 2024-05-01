@@ -20,14 +20,14 @@ namespace BuildingManagerLogic
 
         public List<ReportData> GetReport(Guid? identifier, string filter)
         {
-            List<ReportData> datas = new List<ReportData>();
+            List<ReportData> data = new List<ReportData>();
 
             LoadRequests();
 
             SortRequests(identifier, filter);
 
-            datas = ConvertToDatas();
-            return datas;
+            data = ConvertToDatas();
+            return data;
         }
 
         private void LoadRequests()
