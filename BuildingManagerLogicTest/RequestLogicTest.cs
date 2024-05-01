@@ -25,6 +25,7 @@ namespace BuildingManagerLogicTest
                 BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
                 ApartmentFloor = 1,
                 ApartmentNumber = 1,
+                ManagerId = new Guid("11111111-1111-1111-1111-111111111111")
             };
         }
 
@@ -32,10 +33,10 @@ namespace BuildingManagerLogicTest
         public void CreateRequestSuccessfully()
         {
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
-            requestRepositoryMock.Setup(x => x.CreateRequest(It.IsAny<Request>())).Returns(_request);
+            requestRepositoryMock.Setup(x => x.CreateRequest(It.IsAny<Request>(), It.IsAny<Guid>())).Returns(_request);
             var requestLogic = new RequestLogic(requestRepositoryMock.Object);
-
-            var result = requestLogic.CreateRequest(_request);
+            Guid managerSessionId = Guid.NewGuid();
+            var result = requestLogic.CreateRequest(_request, managerSessionId);
 
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(_request, result);
@@ -45,13 +46,13 @@ namespace BuildingManagerLogicTest
         public void CreateRequestWithInvalidCategoryIdOrApartmentIdTest()
         {
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
-            requestRepositoryMock.Setup(x => x.CreateRequest(It.IsAny<Request>())).Throws(new ValueNotFoundException(""));
+            requestRepositoryMock.Setup(x => x.CreateRequest(It.IsAny<Request>(), It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
             var requestLogic = new RequestLogic(requestRepositoryMock.Object);
             Exception exception = null;
 
             try
             {
-                requestLogic.CreateRequest(_request);
+                requestLogic.CreateRequest(_request, Guid.NewGuid());
             }
             catch (Exception ex)
             {

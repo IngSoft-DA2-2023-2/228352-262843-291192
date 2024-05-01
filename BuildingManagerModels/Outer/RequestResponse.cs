@@ -11,6 +11,7 @@ namespace BuildingManagerModels.Outer
         public Guid CategoryId { get; set; }
         public RequestState State { get; set; }
         public Guid BuildingId { get; set; }
+        public Guid ManagerId { get; set; }
         public int ApartmentFloor { get; set; }
         public int ApartmentNumber { get; set; }
 
@@ -20,6 +21,7 @@ namespace BuildingManagerModels.Outer
             Description = request.Description;
             CategoryId = request.CategoryId;
             BuildingId = request.BuildingId;
+            ManagerId = request.ManagerId;
             ApartmentFloor = request.ApartmentFloor;
             ApartmentNumber = request.ApartmentNumber;
             State = request.State;
@@ -35,6 +37,7 @@ namespace BuildingManagerModels.Outer
             Description == other.Description &&
             BuildingId == other.BuildingId &&
             CategoryId == other.CategoryId &&
+            ManagerId == other.ManagerId &&
             State == other.State &&
             ApartmentFloor == other.ApartmentFloor &&
             ApartmentNumber == other.ApartmentNumber;

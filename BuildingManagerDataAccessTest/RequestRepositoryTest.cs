@@ -2,6 +2,7 @@ using BuildingManagerDataAccess.Context;
 using BuildingManagerDataAccess.Repositories;
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
+using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,8 @@ namespace BuildingManagerDataAccessTest
         {
             var context = CreateDbContext("CreateRequestTest");
             var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            Guid managerSessionToken = Guid.NewGuid();
             var request = new Request
             {
                 Id = Guid.NewGuid(),
@@ -25,8 +28,15 @@ namespace BuildingManagerDataAccessTest
                 ApartmentNumber = 1,
                 State = RequestState.OPEN
             };
-
-            repository.CreateRequest(request);
+            userRepository.CreateUser(new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken,
+                Email = "manager@gmail.com"
+            });
+            repository.CreateRequest(request, managerSessionToken);
             var result = context.Set<Request>().Find(request.Id);
 
             Assert.AreEqual(request, result);
@@ -39,6 +49,7 @@ namespace BuildingManagerDataAccessTest
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
             var categoryRepository = new CategoryRepository(context);
+            Guid managerSessionToken = Guid.NewGuid();
             List<Request> requests = [new Request
             {
                 Id = Guid.NewGuid(),
@@ -56,12 +67,20 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MAINTENANCE
             });
+            userRepository.CreateUser(new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken,
+                Email = "manager@gmail.com"
+            });
             categoryRepository.CreateCategory(new Category
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "name"
             });
-            repository.CreateRequest(requests[0]);
+            repository.CreateRequest(requests[0], managerSessionToken);
 
             List<Request> result = repository.GetRequests();
 
@@ -74,6 +93,7 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("AssignStaffTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            Guid managerSessionToken = Guid.NewGuid();
             var request = new Request
             {
                 Id = Guid.NewGuid(),
@@ -90,8 +110,17 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MAINTENANCE
             };
+            Manager manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "manager",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken,
+                Email = "manager@gmail.com"
+            };
+            userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
-            repository.CreateRequest(request);
+            repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.AssignStaff(request.Id, staff.Id);
 
@@ -132,6 +161,7 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("AttendRequestTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            Guid managerSessionToken = Guid.NewGuid();
             var request = new Request
             {
                 Id = Guid.NewGuid(),
@@ -148,8 +178,17 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MAINTENANCE
             };
+            Manager manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "manager",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken,
+                Email = "manager@gmail.com"
+            };
+            userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
-            repository.CreateRequest(request);
+            repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.AttendRequest(request.Id, staff.Id);
 
@@ -198,6 +237,7 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("AttendRequestAttendAtNowTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            Guid managerSessionToken = Guid.NewGuid();
             var request = new Request
             {
                 Id = Guid.NewGuid(),
@@ -214,8 +254,17 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MAINTENANCE
             };
+            Manager manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "manager",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken,
+                Email = "manager@gmail.com"
+            };
+            userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
-            repository.CreateRequest(request);
+            repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.AttendRequest(request.Id, staff.Id);
 
@@ -228,6 +277,7 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("CompleteRequestTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            Guid managerSessionToken = Guid.NewGuid();
             var request = new Request
             {
                 Id = Guid.NewGuid(),
@@ -244,8 +294,17 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MAINTENANCE
             };
+            Manager manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "manager",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken,
+                Email = "manager@gmail.com"
+            };
+            userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
-            repository.CreateRequest(request);
+            repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.CompleteRequest(request.Id, 100);
 
@@ -294,6 +353,7 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("CompleteRequestCompletedAtNowTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            Guid managerSessionToken = Guid.NewGuid();
             var request = new Request
             {
                 Id = Guid.NewGuid(),
@@ -310,8 +370,17 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MAINTENANCE
             };
+            Manager manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "manager",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken,
+                Email = "manager@gmail.com"
+            };
+            userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
-            repository.CreateRequest(request);
+            repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.CompleteRequest(request.Id, 100);
 
@@ -327,6 +396,7 @@ namespace BuildingManagerDataAccessTest
             var categoryRepository = new CategoryRepository(context);
             Guid managerId = Guid.NewGuid();
             Guid managerSessionToken = Guid.NewGuid();
+            Guid managerSessionToken2 = Guid.NewGuid();
             List<Request> requests = [new Request
             {
                 Id = Guid.NewGuid(),
@@ -359,13 +429,21 @@ namespace BuildingManagerDataAccessTest
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken
             });
+            userRepository.CreateUser(new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken2,
+                Email = "manager@gmail.com"
+            });
             categoryRepository.CreateCategory(new Category
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "name"
             });
-            repository.CreateRequest(requests[0]);
-            repository.CreateRequest(requests[1]);
+            repository.CreateRequest(requests[0], managerSessionToken);
+            repository.CreateRequest(requests[1], managerSessionToken2);
 
             List<Request> result = repository.GetRequestsByManager(managerSessionToken);
 
@@ -419,8 +497,8 @@ namespace BuildingManagerDataAccessTest
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "name"
             });
-            repository.CreateRequest(requests[0]);
-            repository.CreateRequest(requests[1]);
+            repository.CreateRequest(requests[0], managerSessionToken);
+            repository.CreateRequest(requests[1], managerSessionToken);
 
             Exception exception = null;
             try

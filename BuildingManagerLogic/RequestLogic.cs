@@ -52,11 +52,11 @@ namespace BuildingManagerLogic
             }
         }
 
-        public Request CreateRequest(Request request)
+        public Request CreateRequest(Request request, Guid managerSessionToken)
         {
             try
             {
-                return _requestRepository.CreateRequest(request);
+                return _requestRepository.CreateRequest(request, managerSessionToken);
             }
             catch (ValueNotFoundException e)
             {

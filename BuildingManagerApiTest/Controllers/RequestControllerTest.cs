@@ -29,6 +29,7 @@ namespace BuildingManagerApiTest.Controllers
                 BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
                 ApartmentFloor = 1,
                 ApartmentNumber = 1,
+                ManagerId = new Guid("11111111-1111-1111-1111-111111111111")
             };
             _createRequestRequest = new CreateRequestRequest
             {
@@ -37,6 +38,7 @@ namespace BuildingManagerApiTest.Controllers
                 BuildingId = _request.BuildingId,
                 ApartmentFloor = _request.ApartmentFloor,
                 ApartmentNumber = _request.ApartmentNumber,
+                ManagerId = _request.ManagerId
             };
             _requestResponse = new RequestResponse(_request);
 
@@ -45,10 +47,10 @@ namespace BuildingManagerApiTest.Controllers
         public void CreateRequest_Ok()
         {
             var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
-            mockRequestLogic.Setup(x => x.CreateRequest(It.IsAny<Request>())).Returns(_request);
+            mockRequestLogic.Setup(x => x.CreateRequest(It.IsAny<Request>(), It.IsAny<Guid>())).Returns(_request);
             var requestController = new RequestController(mockRequestLogic.Object);
 
-            var result = requestController.CreateRequest(_createRequestRequest);
+            var result = requestController.CreateRequest(_createRequestRequest, Guid.NewGuid());
             var createdAtActionResult = result as CreatedAtActionResult;
             var content = createdAtActionResult.Value as RequestResponse;
 
@@ -149,7 +151,8 @@ namespace BuildingManagerApiTest.Controllers
                 ApartmentFloor = 1,
                 ApartmentNumber = 1,
                 State = RequestState.OPEN,
-                MaintainerStaffId = new Guid()
+                MaintainerStaffId = new Guid(),
+                ManagerId = new Guid("11111111-1111-1111-1111-111111111111")
             };
             var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
             mockRequestLogic.Setup(x => x.AssignStaff(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(request);

@@ -21,9 +21,9 @@ namespace BuildingManagerApi.Controllers
 
         [HttpPost]
         [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult CreateRequest([FromBody] CreateRequestRequest requestRequest)
+        public IActionResult CreateRequest([FromBody] CreateRequestRequest requestRequest, [FromHeader(Name = "Authorization")] Guid managerSessionToken)
         {
-            RequestResponse createRequestResponse = new(_requestLogic.CreateRequest(requestRequest.ToEntity()));
+            RequestResponse createRequestResponse = new(_requestLogic.CreateRequest(requestRequest.ToEntity(), managerSessionToken));
             return CreatedAtAction(nameof(CreateRequest), createRequestResponse);
         }
 

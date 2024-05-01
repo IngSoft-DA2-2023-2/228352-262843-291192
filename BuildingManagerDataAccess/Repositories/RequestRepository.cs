@@ -65,10 +65,12 @@ namespace BuildingManagerDataAccess.Repositories
 
         }
 
-        public Request CreateRequest(Request request)
+        public Request CreateRequest(Request request, Guid managerSessionToken)
         {
             try
             {
+                Manager manager = _context.Set<Manager>().First(i => i.SessionToken == managerSessionToken);
+                request.ManagerId = manager.Id;
                 _context.Set<Request>().Add(request);
                 _context.SaveChanges();
             }

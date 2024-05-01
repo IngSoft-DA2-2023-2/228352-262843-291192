@@ -43,6 +43,10 @@ namespace BuildingManagerDataAccess.Context
                         .WithMany()
                         .HasForeignKey(r => r.MaintainerStaffId)
                         .IsRequired(false);
+            modelBuilder.Entity<Request>()
+                        .HasOne<Manager>()
+                        .WithMany()
+                        .HasForeignKey(r => r.ManagerId);   
         }
     }
 }
