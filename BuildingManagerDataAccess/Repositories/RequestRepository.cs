@@ -28,6 +28,11 @@ namespace BuildingManagerDataAccess.Repositories
             }
         }
 
+        public Request AttendRequest(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Request CreateRequest(Request request)
         {
             try
