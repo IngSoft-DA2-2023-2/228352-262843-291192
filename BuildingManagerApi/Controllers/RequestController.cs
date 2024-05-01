@@ -57,5 +57,14 @@ namespace BuildingManagerApi.Controllers
             RequestResponse updateRequestResponse = new(_requestLogic.CompleteRequest(id, cost));
             return Ok(updateRequestResponse);
         }
+
+        [HttpGet]
+        [Route("assigned")]
+        [AuthenticationFilter(RoleType.MAINTENANCE)]
+        public IActionResult GetAssignedRequests([FromHeader(Name = "Authorization")] Guid managerSessionToken)
+        {
+            var assignedRequests = _requestLogic.GetAssignedRequests(managerSessionToken);
+            return Ok(assignedRequests);
+        }
     }
 }
