@@ -74,5 +74,39 @@ namespace BuildingManagerLogicTest
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(requests, result);
         }
+
+        [TestMethod]
+        public void AssignStaffSuccessfullyTest()
+        {
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.AssignStaff(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(_request);
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+
+            var result = requestLogic.AssignStaff(_request.Id, new Guid());
+
+            requestRepositoryMock.VerifyAll();
+            Assert.AreEqual(_request, result);
+        }
+
+        [TestMethod]
+        public void AssignStaffWithInvalidRequestIdTest()
+        {
+            var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            requestRepositoryMock.Setup(x => x.AssignStaff(It.IsAny<Guid>(), It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var requestLogic = new RequestLogic(requestRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                requestLogic.AssignStaff(_request.Id, new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            requestRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }
