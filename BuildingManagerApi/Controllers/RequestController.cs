@@ -41,5 +41,13 @@ namespace BuildingManagerApi.Controllers
             RequestResponse updateRequestResponse = new(_requestLogic.AssignStaff(id, maintenanceStaffId));
             return Ok(updateRequestResponse);
         }
+
+        [HttpPut("{id}/attendance")]
+        [AuthenticationFilter(RoleType.MAINTENANCE)]
+        public IActionResult AttendRequest([FromRoute] Guid id)
+        {
+            RequestResponse updateRequestResponse = new(_requestLogic.AttendRequest(id));
+            return Ok(updateRequestResponse);
+        }
     }
 }
