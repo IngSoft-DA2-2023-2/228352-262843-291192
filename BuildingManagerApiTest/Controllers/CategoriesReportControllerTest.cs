@@ -50,5 +50,16 @@ namespace BuildingManagerApiTest.Controllers
 
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void Equals_DifferentTypeObject_ReturnsFalse()
+        {
+            CategoriesReportResponse response = new CategoriesReportResponse([new ReportData()]);
+            object other = new object();
+
+            bool result = response.Equals(other);
+
+            Assert.IsFalse(result);
+        }
     }
 }
