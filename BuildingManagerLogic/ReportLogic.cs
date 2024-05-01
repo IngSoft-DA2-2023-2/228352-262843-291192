@@ -27,7 +27,7 @@ namespace BuildingManagerLogic
                 BuildingsReport report = new BuildingsReport(_requestRepository);
                 return report.GetReport(null, filter);
             }
-            throw  new NotFoundException(new Exception(), "Report type not found.");
+            throw  new NotFoundException(new Exception(), "Missing information.");
         }
     }
 }
