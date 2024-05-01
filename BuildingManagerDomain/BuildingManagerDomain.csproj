@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\CategoriesReportData.cs" />
     <Compile Include="Entities\InvitationAnswer.cs" />
     <Compile Include="Entities\Invitation.cs" />
     <Compile Include="Entities\Manager.cs" />
@@ -52,11 +53,14 @@
     <Compile Include="Entities\Request.cs" />
     <Compile Include="Entities\Apartment.cs" />
     <Compile Include="Entities\Building.cs" />
-    <Compile Include="Entities\MaintenanceData.cs" />
+    <Compile Include="Entities\ReportData.cs" />
     <Compile Include="Entities\Owner.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\BuildingsReportData.cs" />
+    <Compile Include="Entities\MaintenanceReportData.cs" />
     <Compile Include="Enums\RoleType.cs" />
     <Compile Include="Enums\InvitationStatus.cs" />
+    <Compile Include="Enums\ReportType.cs" />
     <Compile Include="Enums\RequestState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

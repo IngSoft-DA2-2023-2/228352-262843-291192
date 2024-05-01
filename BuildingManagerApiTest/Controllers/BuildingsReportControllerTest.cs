@@ -14,20 +14,18 @@ namespace BuildingManagerApiTest.Controllers
     [TestClass]
     public class BuildingsReportControllerTest
     {
-        private List<MaintenanceData> _datas;
-        private BuildingsReportResponse _reportResponse;
+        private List<ReportData> _datas;
 
         [TestInitialize]
         public void Initialize()
         {
-            _datas = [new MaintenanceData(3, 2, 1, 7, "", new Guid())];
-            _reportResponse = new BuildingsReportResponse(_datas);
+            _datas = [new ReportData(3, 2, 1, 7, "", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista")];
         }
         [TestMethod]
         public void GetBuildingsReport_Ok()
         {
             var mockReportLogic = new Mock<IReportLogic>(MockBehavior.Strict);
-            mockReportLogic.Setup(x => x.GetReport(It.IsAny<Guid?>(), It.IsAny<string>(), It.IsAny<string>())).Returns(_datas);
+            mockReportLogic.Setup(x => x.GetReport(It.IsAny<Guid?>(), It.IsAny<string>(), It.IsAny<ReportType>())).Returns(_datas);
             var buildingsReportController = new BuildingsReportController(mockReportLogic.Object);
             OkObjectResult expected = new OkObjectResult(new BuildingsReportResponse(_datas));
             BuildingsReportResponse expectedObject = expected.Value as BuildingsReportResponse;
@@ -43,7 +41,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
-            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([]);
 
             bool result = response.Equals(null);
 
@@ -53,7 +51,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_DifferentTypeObject_ReturnsFalse()
         {
-            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([]);
             object other = new object();
 
             bool result = response.Equals(other);
@@ -64,7 +62,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_SameObject_ReturnsTrue()
         {
-            BuildingsReportResponse response = new BuildingsReportResponse([new MaintenanceData()]);
+            BuildingsReportResponse response = new BuildingsReportResponse([new ReportData()]);
 
             bool result = response.Equals(response);
 
@@ -74,8 +72,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            List<MaintenanceData> datas1 = [new MaintenanceData(3, 2, 1, 7, "John", new Guid())];
-            List<MaintenanceData> datas2 = [new MaintenanceData(3, 3, 1, 7, "John", new Guid())];
+            List<ReportData> datas1 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista")];
+            List<ReportData> datas2 = [new ReportData(3, 3, 1, 7, "John", new Guid(), "Electricista")];
 
             BuildingsReportResponse response1 = new BuildingsReportResponse(datas1);
             BuildingsReportResponse response2 = new BuildingsReportResponse(datas2);

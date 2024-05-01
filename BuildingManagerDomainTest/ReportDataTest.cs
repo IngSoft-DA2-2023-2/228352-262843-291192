@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BuildingManagerDomainTest
 {
     [TestClass]
-    public class MaintenanceDataTest
+    public class ReportDataTest
     {
         [TestMethod]
-        public void MaintenanceDataOpenRequestsTest()
+        public void ReportDataOpenRequestsTest()
         {
             int openRequests = 5;
             int closeRequests = 5;
@@ -15,12 +15,13 @@ namespace BuildingManagerDomainTest
             int averageClosingTime = 10;
             string maintainerName = "John";
             Guid buildingId = new Guid();
+            string categoryName = "Electricista";
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId); Assert.AreEqual(openRequests, data.OpenRequests);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName); Assert.AreEqual(openRequests, data.OpenRequests);
         }
 
         [TestMethod]
-        public void MaintenanceDataCloseRequestsTest()
+        public void ReportDataCloseRequestsTest()
         {
             int openRequests = 5;
             int closeRequests = 5;
@@ -28,12 +29,13 @@ namespace BuildingManagerDomainTest
             int averageClosingTime = 10;
             string maintainerName = "John";
             Guid buildingId = new Guid();
+            string categoryName = "Electricista";
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId); Assert.AreEqual(closeRequests, data.CloseRequests);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName); Assert.AreEqual(closeRequests, data.CloseRequests);
         }
 
         [TestMethod]
-        public void MaintenanceDataInProgressRequestsTest()
+        public void ReportDataInProgressRequestsTest()
         {
             int openRequests = 5;
             int closeRequests = 5;
@@ -41,13 +43,14 @@ namespace BuildingManagerDomainTest
             int averageClosingTime = 10;
             string maintainerName = "John";
             Guid buildingId = new Guid();
+            string categoryName = "Electricista";
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName);
             Assert.AreEqual(inProgressRequests, data.InProgressRequests);
         }
 
         [TestMethod]
-        public void MaintenanceDataAverageClosingTimeTest()
+        public void ReportDataAverageClosingTimeTest()
         {
             int openRequests = 5;
             int closeRequests = 5;
@@ -55,13 +58,14 @@ namespace BuildingManagerDomainTest
             int averageClosingTime = 10;
             string maintainerName = "John";
             Guid buildingId = new Guid();
+            string categoryName = "Electricista";
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName);
             Assert.AreEqual(averageClosingTime, data.AverageClosingTime);
         }
 
         [TestMethod]
-        public void MaintenanceDataMaintainerNameTest()
+        public void ReportDataMaintainerNameTest()
         {
             int openRequests = 5;
             int closeRequests = 5;
@@ -69,14 +73,15 @@ namespace BuildingManagerDomainTest
             int averageClosingTime = 10;
             string maintainerName = "John";
             Guid buildingId = new Guid();
+            string categoryName = "Electricista";
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName);
 
             Assert.AreEqual(maintainerName, data.MaintainerName);
         }
 
         [TestMethod]
-        public void MaintenanceDataBuildingIdTest()
+        public void ReportDataBuildingIdTest()
         {
             int openRequests = 5;
             int closeRequests = 5;
@@ -84,15 +89,16 @@ namespace BuildingManagerDomainTest
             int averageClosingTime = 10;
             string maintainerName = "John";
             Guid buildingId = new Guid();
+            string categoryName = "Electricista";
 
-            MaintenanceData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName);
             Assert.AreEqual(buildingId, data.BuildingId);
         }
 
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
-            MaintenanceData data = new MaintenanceData();
+            ReportData data = new ReportData();
 
             bool result = data.Equals(null);
 
@@ -102,7 +108,7 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void Equals_DifferentTypeObject_ReturnsFalse()
         {
-            MaintenanceData data = new MaintenanceData();
+            ReportData data = new ReportData();
             object other = new object();
 
             bool result = data.Equals(other);
@@ -113,7 +119,7 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void Equals_SameObject_ReturnsTrue()
         {
-            MaintenanceData data = new MaintenanceData();
+            ReportData data = new ReportData();
 
             bool result = data.Equals(data);
 
@@ -123,8 +129,8 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            MaintenanceData data1 = new MaintenanceData(1, 1, 1, 1, "John", new Guid());
-            MaintenanceData data2 = new MaintenanceData(2, 1, 1, 1, "John", new Guid());
+            ReportData data1 = new ReportData(1, 1, 1, 1, "John", new Guid(), "Electricista");
+            ReportData data2 = new ReportData(2, 1, 1, 1, "John", new Guid(), "Electricista");
 
 
             bool result = data1.Equals(data2);

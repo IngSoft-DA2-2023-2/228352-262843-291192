@@ -1,19 +1,21 @@
-using BuildingManagerDomain.Entities;
+﻿using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
-using BuildingManagerIDataAccess.Exceptions;
-using BuildingManagerILogic.Exceptions;
 using BuildingManagerLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Data.Common;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BuildingManagerLogicTest
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class MaintenanceReportTest
+    public class CategoriesReportTest
     {
         [TestMethod]
         public void GetReportSuccessfully()
@@ -33,6 +35,10 @@ namespace BuildingManagerLogicTest
                         Name = "name",
                         Role = RoleType.MAINTENANCE,
                         Id = new Guid("11111111-1111-1111-1111-111111111111")
+                    },
+                    Category = new Category(){
+                        Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                        Name = "Electricista"
                     }
                 },
                 new Request()
@@ -49,6 +55,10 @@ namespace BuildingManagerLogicTest
                         Name = "name",
                         Role = RoleType.MAINTENANCE,
                         Id = new Guid("11111111-1111-1111-1111-111111111111")
+                    },
+                    Category = new Category(){
+                        Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                        Name = "Electricista"
                     }
                 },
                 new Request()
@@ -65,15 +75,19 @@ namespace BuildingManagerLogicTest
                         Name = "name",
                         Role = RoleType.MAINTENANCE,
                         Id = new Guid("11111111-1111-1111-1111-111111111111")
+                    },
+                    Category = new Category(){
+                        Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                        Name = "Electricista"
                     }
                 }
             ];
             List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista")];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
-            var maintenanceReport = new MaintenanceReport(requestRepositoryMock.Object);
+            var categoriesReport = new CategoriesReport(requestRepositoryMock.Object);
 
-            var result = maintenanceReport.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "name");
+            var result = categoriesReport.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "Electricista");
 
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(data.First(), result.First());
