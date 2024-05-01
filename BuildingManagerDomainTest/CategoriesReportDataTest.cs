@@ -74,5 +74,15 @@ namespace BuildingManagerDomainTest
             Assert.IsFalse(result);
         }
 
+        [TestMethod]
+        public void Equals_SameObject_ReturnsTrue()
+        {
+            CategoriesReportData data = new CategoriesReportData();
+
+            bool result = data.Equals(data);
+
+            Assert.IsTrue(result);
+        }
+
     }
 }
