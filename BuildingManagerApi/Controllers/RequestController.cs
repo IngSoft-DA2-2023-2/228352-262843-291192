@@ -27,14 +27,6 @@ namespace BuildingManagerApi.Controllers
             return CreatedAtAction(nameof(CreateRequest), createRequestResponse);
         }
 
-        [HttpGet]
-        [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult GetRequests()
-        {
-            var allRequests = _requestLogic.GetRequests();
-            return Ok(allRequests);
-        }
-
         [HttpPut("{id}")]
         [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult AssignStaff([FromRoute] Guid id, [FromBody] Guid maintenanceStaffId)

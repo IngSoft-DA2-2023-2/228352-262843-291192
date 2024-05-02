@@ -124,22 +124,6 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
-        public void GetRequests_Ok()
-        {
-            var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
-            mockRequestLogic.Setup(x => x.GetRequests()).Returns(new List<Request> { _request });
-            var requestController = new RequestController(mockRequestLogic.Object);
-
-            var result = requestController.GetRequests();
-            var okObjectResult = result as OkObjectResult;
-            var content = okObjectResult.Value as List<Request>;
-
-            mockRequestLogic.VerifyAll();
-            Assert.AreEqual(1, content.Count);
-            Assert.AreEqual(_request, content[0]);
-        }
-
-        [TestMethod]
         public void AssignStaff_Ok()
         {
             var request = new Request
