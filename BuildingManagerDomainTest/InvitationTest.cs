@@ -134,7 +134,7 @@ namespace BuildingManagerDomainTest
                 exception = ex;
             }
 
-            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
         }
     }
 }

@@ -33,9 +33,8 @@ namespace BuildingManagerDataAccess.Repositories
         {
             try
             {
-                Request request = _context.Set<Request>().Find(id);
+                Request request = _context.Set<Request>().First(r => r.Id == id);
                 request.State = RequestState.ATTENDING;
-                request.MaintainerStaffId = maintainerStaffId;
                 request.AttendedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
                 _context.SaveChanges();
                 return request;

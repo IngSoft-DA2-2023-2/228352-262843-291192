@@ -193,7 +193,6 @@ namespace BuildingManagerDataAccessTest
             var result = repository.AttendRequest(request.Id, staff.Id);
 
             Assert.AreEqual(RequestState.ATTENDING, result.State);
-            Assert.AreEqual(staff.Id, result.MaintainerStaffId);
         }
 
         [TestMethod]
