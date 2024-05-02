@@ -40,13 +40,14 @@ namespace BuildingManagerLogic
         private List<ReportData> ConvertToDatas()
         {
             List<ReportData> datas = new List<ReportData>();
+            int convertSecondsToHours = 3600;
 
             foreach (var pair in SortedRequests)
             {
                 int open = 0;
                 int close = 0;
                 int inProgress = 0;
-                int averageTime = 0;
+                long totalTime = 0;
                 string name = "";
                 Guid buildingId = Guid.Empty;
                 string categoryName = pair.Value.First().Category.Name;
@@ -64,13 +65,14 @@ namespace BuildingManagerLogic
                     else if (request.State == RequestState.CLOSE)
                     {
                         close++;
+                        totalTime = totalTime + (request.CompletedAt - request.AttendedAt);
                     }
                     else if (request.State == RequestState.PENDING)
                     {
                         inProgress++;
                     }
                 }
-                datas.Add(new ReportData(open, close, inProgress, averageTime, name, buildingId, categoryName));
+                datas.Add(new ReportData(open, close, inProgress, (int)((totalTime/close)/convertSecondsToHours), name, buildingId, categoryName));
             }
 
             return datas;

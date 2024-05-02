@@ -38,7 +38,7 @@ namespace BuildingManagerLogicTest
                     {
                         Id = new Guid("11111111-1111-1111-1111-111111111111"),
                         Name = "name"
-                    }
+                    },
                 },
                 new Request()
                 {
@@ -59,7 +59,10 @@ namespace BuildingManagerLogicTest
                     {
                         Id = new Guid("11111111-1111-1111-1111-111111111111"),
                         Name = "name"
-                    }
+                    },
+                    AttendedAt = 1714665140,
+                    CompletedAt =1714672340,
+                    Cost = 100
                 },
                 new Request()
                 {
@@ -80,10 +83,11 @@ namespace BuildingManagerLogicTest
                     {
                         Id = new Guid("11111111-1111-1111-1111-111111111111"),
                         Name = "name"
-                    }
+                    },
                 }
             ];
-            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name")];
+            int time = (1714672340 - 1714665140) / 3600;
+            List<ReportData> data = [new ReportData(1, 1, 1, time, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name")];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
             var maintenanceReport = new MaintenanceReport(requestRepositoryMock.Object);
