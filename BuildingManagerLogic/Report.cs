@@ -49,7 +49,7 @@ namespace BuildingManagerLogic
                 int averageTime = 0;
                 string name = "";
                 Guid buildingId = Guid.Empty;
-                string categoryName = pair.Key;
+                string categoryName = pair.Value.First().Category.Name;
 
                 foreach (var request in pair.Value)
                 {

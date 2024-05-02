@@ -34,7 +34,8 @@ namespace BuildingManagerDomain.Entities
             InProgressRequests == other.InProgressRequests &&
             AverageClosingTime == other.AverageClosingTime &&
             MaintainerName == other.MaintainerName &&
-            BuildingId == other.BuildingId;
+            BuildingId == other.BuildingId &&
+            CategoryName == other.CategoryName;
         }
     }
 }
