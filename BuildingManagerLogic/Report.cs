@@ -40,7 +40,6 @@ namespace BuildingManagerLogic
         private List<ReportData> ConvertToDatas()
         {
             List<ReportData> datas = new List<ReportData>();
-            int convertSecondsToHours = 3600;
 
             foreach (var pair in SortedRequests)
             {
@@ -48,13 +47,15 @@ namespace BuildingManagerLogic
                 int close = 0;
                 int inProgress = 0;
                 long totalTime = 0;
+                long averageTime = 0;
                 string name = "";
                 Guid buildingId = Guid.Empty;
                 string categoryName = pair.Value.First().Category.Name;
 
                 foreach (var request in pair.Value)
                 {
-                    if(request.MaintenanceStaff != null){
+                    if (request.MaintenanceStaff != null)
+                    {
                         name = request.MaintenanceStaff.Name;
                     }
                     buildingId = request.BuildingId;
@@ -65,14 +66,19 @@ namespace BuildingManagerLogic
                     else if (request.State == RequestState.CLOSE)
                     {
                         close++;
-                        totalTime = totalTime + (request.CompletedAt - request.AttendedAt);
+                        totalTime += (request.CompletedAt - request.AttendedAt);
                     }
                     else if (request.State == RequestState.PENDING)
                     {
                         inProgress++;
                     }
                 }
-                datas.Add(new ReportData(open, close, inProgress, (int)((totalTime/close)/convertSecondsToHours), name, buildingId, categoryName));
+                if (close > 0)
+                {
+                    int convertSecondsToHours = 3600;
+                    averageTime = (totalTime / close) / convertSecondsToHours;
+                }
+                datas.Add(new ReportData(open, close, inProgress, (int)averageTime, name, buildingId, categoryName));
             }
 
             return datas;
