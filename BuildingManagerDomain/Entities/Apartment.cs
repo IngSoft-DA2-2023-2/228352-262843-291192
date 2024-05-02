@@ -42,9 +42,9 @@ namespace BuildingManagerDomain.Entities
             get { return rooms; }
             set
             {
-                if (value < 0)
+                if (value < 1)
                 {
-                    throw new ArgumentException("Rooms must be greater than 0");
+                    throw new ArgumentException("Rooms must be greater than 1");
                 }
                 rooms = value;
             }
@@ -55,9 +55,9 @@ namespace BuildingManagerDomain.Entities
             get { return bathrooms; }
             set
             {
-                if (value < 0)
+                if (value < 1)
                 {
-                    throw new ArgumentException("Bathrooms must be greater than 0");
+                    throw new ArgumentException("Bathrooms must be greater than 1");
                 }
                 bathrooms = value;
             }

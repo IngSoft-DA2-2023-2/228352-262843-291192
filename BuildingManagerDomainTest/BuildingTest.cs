@@ -438,6 +438,33 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void CreateBuildingWithZeroApartmentRoomsTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithZeroApartmentRooms = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Rooms = 0 }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
+        [TestMethod]
         public void CreateBuildingWithNegativeApartmentBathroomsTest()
         {
             Exception exception = null;
@@ -453,6 +480,33 @@ namespace BuildingManagerDomainTest
                     Apartments = new List<Apartment>
                     {
                         new Apartment { Bathrooms = -1 }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithZeroApartmentBathroomsTest()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithZeroApartmentBathrooms = new CreateBuildingRequest()
+                {
+                    Name = "Building 1",
+                    Address = "Address 1",
+                    Location = "Location 1",
+                    ConstructionCompany = "Company 1",
+                    CommonExpenses = 2000,
+                    Apartments = new List<Apartment>
+                    {
+                        new Apartment { Bathrooms = 0 }
                     }
                 };
             }
