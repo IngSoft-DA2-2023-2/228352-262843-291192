@@ -13,7 +13,7 @@ namespace BuildingManagerModels.Inner
         private string _address;
         private string _location;
         private string _constructionCompany;
-        private decimal _commonExpenses;
+        private decimal? _commonExpenses;
 
         public string Name
         {
@@ -77,12 +77,12 @@ namespace BuildingManagerModels.Inner
                 _constructionCompany = value;
             }
         }
-        public decimal CommonExpenses
+        public decimal? CommonExpenses
         {
             get { return _commonExpenses; }
             set
             {
-                if (value <= 0)
+                if (value == null || value <= 0)
                 {
                     throw new InvalidArgumentException("commonExpenses");
                 }

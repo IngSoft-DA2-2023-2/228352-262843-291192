@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ECommerceApi.Filters
+namespace BuildingManagerApi.Filters
 {
     [ExcludeFromCodeCoverage]
     public class AuthenticationFilter : Attribute, IAuthorizationFilter

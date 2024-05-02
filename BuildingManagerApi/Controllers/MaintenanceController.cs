@@ -4,7 +4,7 @@ using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
-using ECommerceApi.Filters;
+using BuildingManagerApi.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildingManagerApi.Controllers

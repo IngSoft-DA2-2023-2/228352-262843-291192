@@ -1,10 +1,11 @@
-﻿using BuildingManagerILogic.Exceptions;
+﻿using BuildingManagerIDataAccess.Exceptions;
+using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ECommerceApi.Filters
+namespace BuildingManagerApi.Filters
 {
     [ExcludeFromCodeCoverage]
     public class CustomExceptionFilter : IExceptionFilter
@@ -25,7 +26,7 @@ namespace ECommerceApi.Filters
                     StatusCode = 400
                 };
             }
-            else if (context.Exception is NotFoundException)
+            else if (context.Exception is NotFoundException || context.Exception is ValueNotFoundException)
             {
                 context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
                 {

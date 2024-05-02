@@ -11,7 +11,7 @@ namespace BuildingManagerModels.Inner
 
         public string Name { get; set; }
 
-        public Guid ManagerId { get; }
+        public Guid ManagerId { get; set; }
 
         public string Address { get; set; }
 
@@ -25,6 +25,7 @@ namespace BuildingManagerModels.Inner
 
         public Building ToEntity()
         {
+            Validate();
             return new Building()
             {
                 Id = this.Id,
@@ -36,6 +37,38 @@ namespace BuildingManagerModels.Inner
                 CommonExpenses = this.CommonExpenses,
                 Apartments = this.Apartments
             };
+        }
+
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new InvalidArgumentException("name");
+            }
+            if (ManagerId == Guid.Empty)
+            {
+                throw new InvalidArgumentException("managerId");
+            }
+            if (string.IsNullOrEmpty(Address))
+            {
+                throw new InvalidArgumentException("address");
+            }
+            if (string.IsNullOrEmpty(Location))
+            {
+                throw new InvalidArgumentException("location");
+            }
+            if (string.IsNullOrEmpty(ConstructionCompany))
+            {
+                throw new InvalidArgumentException("constructionCompany");
+            }
+            if (CommonExpenses <= 0)
+            {
+                throw new InvalidArgumentException("commonExpenses");
+            }
+            if (Apartments == null || Apartments.Count <= 0)
+            {
+                throw new InvalidArgumentException("apartments");
+            }
         }
     }
 }

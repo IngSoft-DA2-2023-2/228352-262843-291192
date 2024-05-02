@@ -14,7 +14,7 @@ namespace BuildingManagerDomain.Entities
             get { return name; }
             set
             {
-                if (value == null)
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Owner name must not be empty");
                 }
@@ -27,7 +27,7 @@ namespace BuildingManagerDomain.Entities
             get { return lastName; }
             set
             {
-                if (value == null)
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Owner last name must not be empty");
                 }

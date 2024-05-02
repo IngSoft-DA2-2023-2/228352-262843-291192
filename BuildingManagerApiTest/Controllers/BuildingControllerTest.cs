@@ -446,7 +446,7 @@ namespace BuildingManagerApiTest.Controllers
             Building buildingWithFullInformation = new Building
             {
                 Id = Guid.NewGuid(),
-                ManagerId = managerId,
+                ManagerId = Guid.NewGuid(),
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
@@ -488,6 +488,7 @@ namespace BuildingManagerApiTest.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = "New Building Name",
+                ManagerId = buildingWithFullInformation.ManagerId,
                 Address = "New Building Address",
                 Location = "New City",
                 ConstructionCompany = "New Company",
@@ -520,6 +521,145 @@ namespace BuildingManagerApiTest.Controllers
 
             mockBuildingLogic.VerifyAll();
             Assert.AreEqual(updateBuildingResponse, content);
+        }
+
+        [TestMethod]
+        public void UpdateBuildingWithoutName()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new UpdateBuildingRequest()
+                {
+                    Name = null,
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000
+                };
+                requestWithoutName.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingWithoutAddress()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutAddress = new UpdateBuildingRequest()
+                {
+                    Name = "Building",
+                    Address = null,
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000
+                };
+                requestWithoutAddress.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingWithoutLocation()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutLocation = new UpdateBuildingRequest()
+                {
+                    Name = "Building",
+                    Address = "1234 Main St",
+                    Location = null,
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000
+                };
+                requestWithoutLocation.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingWithoutConstructionCompany()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutConstructionCompany = new UpdateBuildingRequest()
+                {
+                    Name = "Building",
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = null,
+                    CommonExpenses = 1000
+                };
+                requestWithoutConstructionCompany.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingWithoutCommonExpenses()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutCommonExpenses = new UpdateBuildingRequest()
+                {
+                    Name = "Building",
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 0
+                };
+                requestWithoutCommonExpenses.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingWithoutApartments()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutApartments = new UpdateBuildingRequest()
+                {
+                    Name = "Building",
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000,
+                    Apartments = null
+                };
+                requestWithoutApartments.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
     }
 }

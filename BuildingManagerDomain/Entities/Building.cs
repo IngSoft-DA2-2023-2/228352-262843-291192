@@ -11,7 +11,7 @@ namespace BuildingManagerDomain.Entities
         public string Address { get; set; }
         public string Location { get; set; }
         public string ConstructionCompany { get; set; }
-        public decimal CommonExpenses { get; set; }
+        public decimal? CommonExpenses { get; set; }
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
 
         public override bool Equals(object obj)
