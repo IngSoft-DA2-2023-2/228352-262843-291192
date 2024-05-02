@@ -17,18 +17,8 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Logout()
+        public IActionResult Logout([FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            string? stringSessionToken = HttpContext.Request.Headers["Authorization"];
-            if (string.IsNullOrEmpty(stringSessionToken) || !Guid.TryParse(stringSessionToken, out _))
-            {
-                return new ObjectResult(new { ErrorMessage = "A token is required" })
-                {
-                    StatusCode = 401
-                };
-            }
-            Guid sessionToken = Guid.Parse(stringSessionToken);
-
             LogoutResponse logoutResponse = new(_userLogic.Logout(sessionToken));
             return Ok(logoutResponse);
         }

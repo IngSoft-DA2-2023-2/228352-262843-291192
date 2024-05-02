@@ -34,7 +34,7 @@ namespace BuildingManagerApiTest.Controllers
                 ControllerContext = controllerContext
             };
 
-            OkObjectResult result = logoutController.Logout() as OkObjectResult;
+            OkObjectResult result = logoutController.Logout(Guid.NewGuid()) as OkObjectResult;
             LogoutResponse resultObject = result.Value as LogoutResponse;
 
             mockUserLogic.VerifyAll();
