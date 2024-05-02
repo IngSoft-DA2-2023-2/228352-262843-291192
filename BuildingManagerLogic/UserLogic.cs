@@ -39,9 +39,9 @@ namespace BuildingManagerLogic
             }
         }
 
-        public bool ExistsFromSessionToken(Guid userId)
+        public bool ExistsFromSessionToken(Guid sessionToken)
         {
-            return _userRepository.ExistsFromSessionToken(userId);
+            return _userRepository.ExistsFromSessionToken(sessionToken);
         }
 
         public Guid Login(string email, string password)
@@ -68,11 +68,11 @@ namespace BuildingManagerLogic
             }
         }
 
-        public RoleType RoleFromSessionToken(Guid userId)
+        public RoleType RoleFromSessionToken(Guid sessionToken)
         {
             try
             {
-                return _userRepository.RoleFromSessionToken(userId);
+                return _userRepository.RoleFromSessionToken(sessionToken);
             }
             catch (ValueNotFoundException e)
             {
