@@ -45,10 +45,6 @@ namespace BuildingManagerModels.Inner
             {
                 throw new InvalidArgumentException("name");
             }
-            if (ManagerId == Guid.Empty)
-            {
-                throw new InvalidArgumentException("managerId");
-            }
             if (string.IsNullOrEmpty(Address))
             {
                 throw new InvalidArgumentException("address");
