@@ -45,7 +45,7 @@ namespace BuildingManagerApi.Controllers
 
         [HttpPut("{id}/completed")]
         [AuthenticationFilter(RoleType.MAINTENANCE)]
-        public IActionResult CompleteRequest([FromRoute] Guid id, int cost)
+        public IActionResult CompleteRequest([FromRoute] Guid id, [FromBody]int cost)
         {
             RequestResponse updateRequestResponse = new(_requestLogic.CompleteRequest(id, cost));
             return Ok(updateRequestResponse);
