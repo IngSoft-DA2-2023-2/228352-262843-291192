@@ -56,7 +56,7 @@ namespace BuildingManagerDataAccess.Repositories
         {
             foreach (var apartment in apartments)
             {
-                Owner existingOwner = _context.Set<Owner>().First(o => o.Email == apartment.Owner.Email && o.Name == apartment.Owner.Name && o.LastName == apartment.Owner.LastName);
+                Owner existingOwner = _context.Set<Owner>().FirstOrDefault(o => o.Email == apartment.Owner.Email && o.Name == apartment.Owner.Name && o.LastName == apartment.Owner.LastName);
                 if (existingOwner != null)
                 {
                     apartment.Owner = existingOwner;
