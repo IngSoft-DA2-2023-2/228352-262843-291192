@@ -6,10 +6,10 @@ namespace BuildingManagerLogic.Helpers
 {
     public static class UserFromInvitation
     {
-        public static User Create(InvitationAnswer answer, string name)
+        public static Manager Create(InvitationAnswer answer, string name)
         {
             if (answer.Status == InvitationStatus.DECLINED) { return null; }
-            return new User
+            return new Manager
             {
                 Id = new System.Guid(),
                 Name = name,
