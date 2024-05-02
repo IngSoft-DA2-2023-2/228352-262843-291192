@@ -82,9 +82,9 @@ namespace BuildingManagerLogic
             return _requestRepository.GetRequests();
         }
 
-        public List<Request> GetRequestsByManager(Guid managerId)
+        public List<Request> GetRequestsByManager(Guid managerId, string category)
         {
-            return _requestRepository.GetRequestsByManager(managerId);
+            return _requestRepository.GetRequestsByManager(managerId, category);
         }
     }
 }

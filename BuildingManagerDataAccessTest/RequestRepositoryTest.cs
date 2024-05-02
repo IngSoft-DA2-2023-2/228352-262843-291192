@@ -445,7 +445,7 @@ namespace BuildingManagerDataAccessTest
             repository.CreateRequest(requests[0], managerSessionToken);
             repository.CreateRequest(requests[1], managerSessionToken2);
 
-            List<Request> result = repository.GetRequestsByManager(managerSessionToken);
+            List<Request> result = repository.GetRequestsByManager(managerSessionToken, "");
 
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(requests.First(), result.First());
@@ -503,7 +503,7 @@ namespace BuildingManagerDataAccessTest
             Exception exception = null;
             try
             {
-                repository.GetRequestsByManager(Guid.NewGuid());
+                repository.GetRequestsByManager(Guid.NewGuid(), "");
             }
             catch (ValueNotFoundException ex)
             {

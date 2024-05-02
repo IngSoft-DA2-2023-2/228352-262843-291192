@@ -12,6 +12,6 @@ namespace BuildingManagerIDataAccess
         Request CreateRequest (Request request, Guid managerSessionToken);
         List<Request> GetAssignedRequests(Guid managerSessionToken);
         List<Request> GetRequests();
-        List<Request> GetRequestsByManager(Guid managerSessionToken);
+        List<Request> GetRequestsByManager(Guid managerSessionToken, string category);
     }
 }

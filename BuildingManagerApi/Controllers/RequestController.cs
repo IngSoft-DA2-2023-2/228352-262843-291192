@@ -29,7 +29,7 @@ namespace BuildingManagerApi.Controllers
 
         [HttpGet]
         [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult GetRequests([FromQuery] string[] categories)
+        public IActionResult GetRequests()
         {
             var allRequests = _requestLogic.GetRequests();
             return Ok(allRequests);
@@ -71,9 +71,9 @@ namespace BuildingManagerApi.Controllers
         [HttpGet]
         [Route("manager")]
         [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult GetRequestsByManager([FromHeader(Name = "Authorization")] Guid managerSessionToken)
+        public IActionResult GetRequestsByManager([FromHeader(Name = "Authorization")] Guid managerSessionToken, [FromQuery] string? category)
         {
-            var requestsByManager = _requestLogic.GetRequestsByManager(managerSessionToken);
+            var requestsByManager = _requestLogic.GetRequestsByManager(managerSessionToken, category);
             return Ok(requestsByManager);
         }
     }

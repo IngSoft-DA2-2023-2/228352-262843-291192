@@ -130,7 +130,7 @@ namespace BuildingManagerApiTest.Controllers
             mockRequestLogic.Setup(x => x.GetRequests()).Returns(new List<Request> { _request });
             var requestController = new RequestController(mockRequestLogic.Object);
 
-            var result = requestController.GetRequests([]);
+            var result = requestController.GetRequests();
             var okObjectResult = result as OkObjectResult;
             var content = okObjectResult.Value as List<Request>;
 
@@ -265,14 +265,19 @@ namespace BuildingManagerApiTest.Controllers
                     ApartmentFloor = 1,
                     ApartmentNumber = 1,
                     State = RequestState.OPEN,
-                    ManagerId = new Guid("11111111-1111-1111-1111-111111111111")
+                    ManagerId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    Category = new Category
+                    {
+                        Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Name = "Electricista"
+                    }
                 };
             var requestResponse = new RequestResponse(request);
             var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
-            mockRequestLogic.Setup(x => x.GetRequestsByManager(It.IsAny<Guid>())).Returns(new List<Request> { request });
+            mockRequestLogic.Setup(x => x.GetRequestsByManager(It.IsAny<Guid>(), It.IsAny<string>())).Returns(new List<Request> { request });
             var requestController = new RequestController(mockRequestLogic.Object);
             
-            var result = requestController.GetRequestsByManager(request.BuildingId);
+            var result = requestController.GetRequestsByManager(request.BuildingId, "Electricista");
             var okObjectResult = result as OkObjectResult;
             var content = okObjectResult.Value as List<Request>;
             

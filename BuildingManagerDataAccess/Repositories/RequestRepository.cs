@@ -105,7 +105,7 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).ToList();
         }
 
-        public List<Request> GetRequestsByManager(Guid managerSessionToken)
+        public List<Request> GetRequestsByManager(Guid managerSessionToken, string? category)
         {
             Manager manager;
             try
@@ -117,7 +117,14 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueNotFoundException("User not found.");
             }
             Guid managerId = manager.Id;
-            return _context.Set<Request>().Where(r => r.ManagerId == managerId).ToList();
+            if (!string.IsNullOrEmpty(category))
+            {
+                return _context.Set<Request>().Where(r => r.ManagerId == managerId && r.Category.Name == category).ToList();
+            }
+            else
+            {
+                return _context.Set<Request>().Where(r => r.ManagerId == managerId).ToList();
+            }
         }
     }
 }

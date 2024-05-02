@@ -260,10 +260,10 @@ namespace BuildingManagerLogicTest
 
             List<Request> requests = new List<Request> { request };
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
-            requestRepositoryMock.Setup(x => x.GetRequestsByManager(It.IsAny<Guid>())).Returns(requests);
+            requestRepositoryMock.Setup(x => x.GetRequestsByManager(It.IsAny<Guid>(), It.IsAny<string>())).Returns(requests);
             var requestLogic = new RequestLogic(requestRepositoryMock.Object);
 
-            var result = requestLogic.GetRequestsByManager(managerId);
+            var result = requestLogic.GetRequestsByManager(managerId, "Electricista");
 
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(requests, result);
