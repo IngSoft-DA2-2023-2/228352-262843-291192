@@ -11,7 +11,7 @@ namespace ECommerceApi.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception is InvalidArgumentException)
+            if (context.Exception is InvalidArgumentException || context.Exception is ArgumentException)
             {
                 context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
                 {
