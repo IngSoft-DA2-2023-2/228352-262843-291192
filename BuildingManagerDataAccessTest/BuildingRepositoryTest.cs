@@ -146,6 +146,59 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void CreateBuildingWithValidSameOwnerEmailAndNamesTest()
+        {
+            var context = CreateDbContext("CreateBuildingWithValidSameOwnerEmailAndNames");
+            var repository = new BuildingRepository(context);
+            var building = new Building
+            {
+                Id = Guid.NewGuid(),
+                ManagerId = Guid.NewGuid(),
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompany = "Company 1",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+            repository.CreateBuilding(building);
+
+            var result = context.Set<Building>().Find(building.Id);
+
+            Assert.AreEqual(building, result);
+        }
+
+        [TestMethod]
         public void CreateBuildingWithOwnerThatExistsButDoesntHaveApartmentTest()
         {
             var context = CreateDbContext("CreateBuildingWithOwnerThatExistsButDoesntHaveApartment");

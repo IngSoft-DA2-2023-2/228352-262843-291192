@@ -62,6 +62,19 @@ namespace BuildingManagerDataAccess.Repositories
                     apartment.Owner = existingOwner;
                 }
             }
+
+            for(int i = 0; i < apartments.Count; i++)
+            {
+                for(int j = i + 1; j < apartments.Count; j++)
+                {
+                    if (apartments[i].Owner.Email == apartments[j].Owner.Email && 
+                        apartments[i].Owner.Name == apartments[j].Owner.Name && 
+                        apartments[i].Owner.LastName == apartments[j].Owner.LastName)
+                    {
+                        apartments[j].Owner = apartments[i].Owner;
+                    }
+                }
+            }
         }
 
         private bool HasSameLocationAndAddress(Building building)
