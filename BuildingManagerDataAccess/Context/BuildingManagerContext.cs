@@ -46,7 +46,31 @@ namespace BuildingManagerDataAccess.Context
             modelBuilder.Entity<Request>()
                         .HasOne<Manager>()
                         .WithMany()
-                        .HasForeignKey(r => r.ManagerId);   
+                        .HasForeignKey(r => r.ManagerId);
+
+            modelBuilder.Entity<Building>()
+                        .HasMany<Apartment>(b => b.Apartments)
+                        .WithOne()
+                        .HasForeignKey(a => a.BuildingId)
+                        .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Apartment>()
+                        .HasOne<Owner>(a => a.Owner)
+                        .WithMany()
+                        .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Apartment>()
+                        .HasMany<Request>()
+                        .WithOne()
+                        .HasForeignKey(r => new { r.BuildingId, r.ApartmentFloor, r.ApartmentNumber })
+                        .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Request>()
+                        .HasOne(r => r.MaintenanceStaff)
+                        .WithMany()
+                        .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Request>()
+                        .HasOne<Building>()
+                        .WithMany()
+                        .HasForeignKey(r => r.BuildingId)
+                        .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
