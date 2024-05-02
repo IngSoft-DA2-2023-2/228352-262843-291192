@@ -29,6 +29,8 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueDuplicatedException("Location and Address");
             }
 
+            UpdateOwnerIfAlreadyExists(building.Apartments);
+
             _context.Set<Building>().Add(building);
             _context.SaveChanges();
             return building;
@@ -42,10 +44,26 @@ namespace BuildingManagerDataAccess.Repositories
                 {
                     return true;
                 }
+                if (_context.Set<Owner>().Any(o => o.Email == apartment.Owner.Email && (o.Name != apartment.Owner.Name || o.LastName != apartment.Owner.LastName)))
+                {
+                    return true;
+                }
             }
             return false;
         }
-    
+
+        private void UpdateOwnerIfAlreadyExists(List<Apartment> apartments)
+        {
+            foreach (var apartment in apartments)
+            {
+                Owner existingOwner = _context.Set<Owner>().First(o => o.Email == apartment.Owner.Email && o.Name == apartment.Owner.Name && o.LastName == apartment.Owner.LastName);
+                if (existingOwner != null)
+                {
+                    apartment.Owner = existingOwner;
+                }
+            }
+        }
+
         private bool HasSameLocationAndAddress(Building building)
         {
             return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address && b.Id != building.Id);
