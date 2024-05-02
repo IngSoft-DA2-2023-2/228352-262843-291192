@@ -1,6 +1,7 @@
 ﻿using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
 using BuildingManagerILogic;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +34,18 @@ namespace BuildingManagerApiTest.Controllers
                 Address = "1234 Main St",
                 Location = "City",
                 ConstructionCompany = "Company",
-                CommonExpenses = 1000
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    }
+                }
             };
             _createBuildingRequest = new CreateBuildingRequest
             {
@@ -42,7 +54,18 @@ namespace BuildingManagerApiTest.Controllers
                 Address = "1234 Main St",
                 Location = "City",
                 ConstructionCompany = "Company",
-                CommonExpenses = 1000
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    }
+                }
             };
             _createBuildingResponse = new CreateBuildingResponse(_building);
         }
@@ -61,6 +84,175 @@ namespace BuildingManagerApiTest.Controllers
 
             mockBuildingLogic.VerifyAll();
             Assert.AreEqual(_createBuildingResponse, content);
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithoutName()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateBuildingRequest()
+                {
+                    Name = null,
+                    ManagerId = managerId,
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000
+                };
+                requestWithoutName.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithoutManagerId()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutManagerId = new CreateBuildingRequest()
+                {
+                    Name = "Building",
+                    ManagerId = Guid.Empty,
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000
+                };
+                requestWithoutManagerId.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithoutAddress()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutAddress = new CreateBuildingRequest()
+                {
+                    Name = "Building",
+                    ManagerId = managerId,
+                    Address = null,
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000
+                };
+                requestWithoutAddress.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithoutLocation()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutLocation = new CreateBuildingRequest()
+                {
+                    Name = "Building",
+                    ManagerId = managerId,
+                    Address = "1234 Main St",
+                    Location = null,
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000
+                };
+                requestWithoutLocation.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithoutConstructionCompany()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutConstructionCompany = new CreateBuildingRequest()
+                {
+                    Name = "Building",
+                    ManagerId = managerId,
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = null,
+                    CommonExpenses = 1000
+                };
+                requestWithoutConstructionCompany.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithoutCommonExpenses()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutCommonExpenses = new CreateBuildingRequest()
+                {
+                    Name = "Building",
+                    ManagerId = managerId,
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 0
+                };
+                requestWithoutCommonExpenses.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void CreateBuildingWithoutApartments()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutApartments = new CreateBuildingRequest()
+                {
+                    Name = "Building",
+                    ManagerId = managerId,
+                    Address = "1234 Main St",
+                    Location = "City",
+                    ConstructionCompany = "Company",
+                    CommonExpenses = 1000,
+                    Apartments = null
+                };
+                requestWithoutApartments.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
 
         [TestMethod]
