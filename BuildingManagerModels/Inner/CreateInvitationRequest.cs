@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerModels.CustomExceptions;
@@ -24,7 +25,7 @@ namespace BuildingManagerModels.Inner
 
         public void Validate()
         {
-            if (string.IsNullOrEmpty(Email))
+            if (!IsValidEmail(Email))
             {
                 throw new InvalidArgumentException("email");
             }
@@ -41,6 +42,24 @@ namespace BuildingManagerModels.Inner
             {
                 throw new InvalidArgumentException("deadline");
             }
+        }
+
+        public bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("Owner email must not be empty");
+            }
+
+            string emailRegexPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            Regex regex = new Regex(emailRegexPattern);
+
+            if (!regex.IsMatch(email))
+            {
+                throw new ArgumentException("Invalid email format");
+            }
+
+            return true;
         }
     }
 }
