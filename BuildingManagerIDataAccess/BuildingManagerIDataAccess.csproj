@@ -44,8 +44,6 @@
     <Compile Include="Exceptions\ValueDuplicatedException.cs" />
     <Compile Include="Exceptions\ValueNotFoundException.cs" />
     <Compile Include="IUserRepository.cs" />
-    <Compile Include="IMaintenanceRepository.cs" />
-    <Compile Include="IAdminRepository.cs" />
     <Compile Include="IRequestRepository.cs" />
     <Compile Include="ICategoryRepository.cs" />
     <Compile Include="IRequestRepository.cs" />
