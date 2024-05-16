@@ -1,0 +1,962 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\requestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\requestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\filters\\customexceptionfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\filters\\customexceptionfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\filters\\authenticationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\filters\\authenticationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{466ADB50-56FD-4400-8B1D-7826041212E9}|BuildingManagerDataAccess\\BuildingManagerDataAccess.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerdataaccess\\repositories\\requestrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{466ADB50-56FD-4400-8B1D-7826041212E9}|BuildingManagerDataAccess\\BuildingManagerDataAccess.csproj|solutionrelative:buildingmanagerdataaccess\\repositories\\requestrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E60E332-954E-4573-9DF9-C169CE3C3D5E}|BuildingManagerIDataAccess\\BuildingManagerIDataAccess.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanageridataaccess\\irequestrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E60E332-954E-4573-9DF9-C169CE3C3D5E}|BuildingManagerIDataAccess\\BuildingManagerIDataAccess.csproj|solutionrelative:buildingmanageridataaccess\\irequestrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\buildingmanagerlogic\\requestlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|solutionrelative:buildingmanagerlogic\\requestlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6BB93EB8-4315-4575-BBA0-069B6C6531D3}|BuildingManagerILogic\\BuildingManagerILogic.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerilogic\\irequestlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6BB93EB8-4315-4575-BBA0-069B6C6531D3}|BuildingManagerILogic\\BuildingManagerILogic.csproj|solutionrelative:buildingmanagerilogic\\irequestlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6BB93EB8-4315-4575-BBA0-069B6C6531D3}|BuildingManagerILogic\\BuildingManagerILogic.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerilogic\\ireportlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6BB93EB8-4315-4575-BBA0-069B6C6531D3}|BuildingManagerILogic\\BuildingManagerILogic.csproj|solutionrelative:buildingmanagerilogic\\ireportlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerlogic\\report.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|solutionrelative:buildingmanagerlogic\\report.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerlogic\\categoriesreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|solutionrelative:buildingmanagerlogic\\categoriesreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerlogic\\buildingsreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|solutionrelative:buildingmanagerlogic\\buildingsreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerlogic\\invitationlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|solutionrelative:buildingmanagerlogic\\invitationlogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagermodels\\outer\\invitationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\outer\\invitationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagermodels\\outer\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\outer\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{466ADB50-56FD-4400-8B1D-7826041212E9}|BuildingManagerDataAccess\\BuildingManagerDataAccess.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerdataaccess\\repositories\\invitationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{466ADB50-56FD-4400-8B1D-7826041212E9}|BuildingManagerDataAccess\\BuildingManagerDataAccess.csproj|solutionrelative:buildingmanagerdataaccess\\repositories\\invitationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapitest\\controllers\\invitationcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|solutionrelative:buildingmanagerapitest\\controllers\\invitationcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\invitationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\invitationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA0EA4CB-7284-4BE7-8075-5A6346834123}|BuildingManagerDataAccessTest\\BuildingManagerDataAccessTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerdataaccesstest\\buildingrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA0EA4CB-7284-4BE7-8075-5A6346834123}|BuildingManagerDataAccessTest\\BuildingManagerDataAccessTest.csproj|solutionrelative:buildingmanagerdataaccesstest\\buildingrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}|BuildingManagerServiceFactory\\BuildingManagerServiceFactory.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerservicefactory\\servicefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}|BuildingManagerServiceFactory\\BuildingManagerServiceFactory.csproj|solutionrelative:buildingmanagerservicefactory\\servicefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\buildingmanagerapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\buildingmanagerapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{466ADB50-56FD-4400-8B1D-7826041212E9}|BuildingManagerDataAccess\\BuildingManagerDataAccess.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerdataaccess\\repositories\\buildingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{466ADB50-56FD-4400-8B1D-7826041212E9}|BuildingManagerDataAccess\\BuildingManagerDataAccess.csproj|solutionrelative:buildingmanagerdataaccess\\repositories\\buildingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA0EA4CB-7284-4BE7-8075-5A6346834123}|BuildingManagerDataAccessTest\\BuildingManagerDataAccessTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerdataaccesstest\\categoryrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA0EA4CB-7284-4BE7-8075-5A6346834123}|BuildingManagerDataAccessTest\\BuildingManagerDataAccessTest.csproj|solutionrelative:buildingmanagerdataaccesstest\\categoryrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{466ADB50-56FD-4400-8B1D-7826041212E9}|BuildingManagerDataAccess\\BuildingManagerDataAccess.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerdataaccess\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{466ADB50-56FD-4400-8B1D-7826041212E9}|BuildingManagerDataAccess\\BuildingManagerDataAccess.csproj|solutionrelative:buildingmanagerdataaccess\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5B2E724B-B1FB-4294-9D6A-87EF153DD90C}|BuildingManagerLogicTest\\BuildingManagerLogicTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerlogictest\\buildingsreporttest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5B2E724B-B1FB-4294-9D6A-87EF153DD90C}|BuildingManagerLogicTest\\BuildingManagerLogicTest.csproj|solutionrelative:buildingmanagerlogictest\\buildingsreporttest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5B2E724B-B1FB-4294-9D6A-87EF153DD90C}|BuildingManagerLogicTest\\BuildingManagerLogicTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerlogictest\\categorylogictest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5B2E724B-B1FB-4294-9D6A-87EF153DD90C}|BuildingManagerLogicTest\\BuildingManagerLogicTest.csproj|solutionrelative:buildingmanagerlogictest\\categorylogictest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5B2E724B-B1FB-4294-9D6A-87EF153DD90C}|BuildingManagerLogicTest\\BuildingManagerLogicTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerlogictest\\buildinglogictest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5B2E724B-B1FB-4294-9D6A-87EF153DD90C}|BuildingManagerLogicTest\\BuildingManagerLogicTest.csproj|solutionrelative:buildingmanagerlogictest\\buildinglogictest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\buildingmanagerlogic\\buildinglogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|solutionrelative:buildingmanagerlogic\\buildinglogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerlogic\\categorylogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}|BuildingManagerLogic\\BuildingManagerLogic.csproj|solutionrelative:buildingmanagerlogic\\categorylogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagermodels\\inner\\createcategoryrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\inner\\createcategoryrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagermodels\\customexceptions\\invalidargumentexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\customexceptions\\invalidargumentexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\buildingsreportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\buildingsreportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapitest\\controllers\\categorycontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|solutionrelative:buildingmanagerapitest\\controllers\\categorycontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapitest\\controllers\\buildingcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|solutionrelative:buildingmanagerapitest\\controllers\\buildingcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagermodels\\outer\\buildingsreportresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\outer\\buildingsreportresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapitest\\controllers\\buildingsreportcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|solutionrelative:buildingmanagerapitest\\controllers\\buildingsreportcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\categoriesreportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\categoriesreportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagermodels\\outer\\createcategoryresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\outer\\createcategoryresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagermodels\\outer\\managerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\outer\\managerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapi\\controllers\\logoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B9D3D44-6E1E-4021-AD16-1B93B8282DAB}|BuildingManagerApi\\BuildingManagerApi.csproj|solutionrelative:buildingmanagerapi\\controllers\\logoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerapitest\\controllers\\admincontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{09471835-DA6A-4119-974B-CC1C2EE6A505}|BuildingManagerApiTest\\BuildingManagerApiTest.csproj|solutionrelative:buildingmanagerapitest\\controllers\\admincontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\buildingmanagermodels\\inner\\updatebuildingrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\inner\\updatebuildingrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{593A3950-F867-4146-96F1-F36D100077EB}|BuildingManagerDomainTest\\BuildingManagerDomainTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerdomaintest\\invitationtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{593A3950-F867-4146-96F1-F36D100077EB}|BuildingManagerDomainTest\\BuildingManagerDomainTest.csproj|solutionrelative:buildingmanagerdomaintest\\invitationtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\buildingmanagermodels\\inner\\createinvitationrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\inner\\createinvitationrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA0EA4CB-7284-4BE7-8075-5A6346834123}|BuildingManagerDataAccessTest\\BuildingManagerDataAccessTest.csproj|c:\\users\\rafae\\documents\\github\\228352-262843-291192\\buildingmanagerdataaccesstest\\requestrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA0EA4CB-7284-4BE7-8075-5A6346834123}|BuildingManagerDataAccessTest\\BuildingManagerDataAccessTest.csproj|solutionrelative:buildingmanagerdataaccesstest\\requestrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}|BuildingManagerDomain\\BuildingManagerDomain.csproj|C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\buildingmanagerdomain\\entities\\apartment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}|BuildingManagerDomain\\BuildingManagerDomain.csproj|solutionrelative:buildingmanagerdomain\\entities\\apartment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}|BuildingManagerDomain\\BuildingManagerDomain.csproj|C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\buildingmanagerdomain\\entities\\owner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}|BuildingManagerDomain\\BuildingManagerDomain.csproj|solutionrelative:buildingmanagerdomain\\entities\\owner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\buildingmanagermodels\\inner\\createbuildingrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3654A562-BE01-4AB7-BC5E-A669DD1518AB}|BuildingManagerModels\\BuildingManagerModels.csproj|solutionrelative:buildingmanagermodels\\inner\\createbuildingrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "BuildingControllerTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\BuildingControllerTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApiTest\\Controllers\\BuildingControllerTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\BuildingControllerTest.cs",
+              "RelativeToolTip": "BuildingManagerApiTest\\Controllers\\BuildingControllerTest.cs",
+              "ViewState": "AQIAADACAAAAAAAAAAAiwEUAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T05:57:20.432Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "UpdateBuildingRequest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Inner\\UpdateBuildingRequest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Inner\\UpdateBuildingRequest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Inner\\UpdateBuildingRequest.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Inner\\UpdateBuildingRequest.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAIwC4AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T16:27:01.162Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "AdminControllerTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\AdminControllerTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApiTest\\Controllers\\AdminControllerTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\AdminControllerTest.cs",
+              "RelativeToolTip": "BuildingManagerApiTest\\Controllers\\AdminControllerTest.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T06:09:18.228Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "Apartment.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDomain\\Entities\\Apartment.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDomain\\Entities\\Apartment.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDomain\\Entities\\Apartment.cs",
+              "RelativeToolTip": "BuildingManagerDomain\\Entities\\Apartment.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAQAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T06:21:38.78Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "Owner.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDomain\\Entities\\Owner.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDomain\\Entities\\Owner.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDomain\\Entities\\Owner.cs",
+              "RelativeToolTip": "BuildingManagerDomain\\Entities\\Owner.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAQwDUAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T12:27:13.265Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "CreateInvitationRequest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Inner\\CreateInvitationRequest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Inner\\CreateInvitationRequest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Inner\\CreateInvitationRequest.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Inner\\CreateInvitationRequest.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAuwBsAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T16:57:13.791Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ManagerController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\ManagerController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\ManagerController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\ManagerController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\ManagerController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T04:22:17.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CustomExceptionFilter.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Filters\\CustomExceptionFilter.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Filters\\CustomExceptionFilter.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Filters\\CustomExceptionFilter.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Filters\\CustomExceptionFilter.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:11:55.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthenticationFilter.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Filters\\AuthenticationFilter.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Filters\\AuthenticationFilter.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Filters\\AuthenticationFilter.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Filters\\AuthenticationFilter.cs",
+              "ViewState": "AQIAADIAAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:11:42.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IRequestRepository.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerIDataAccess\\IRequestRepository.cs",
+              "RelativeDocumentMoniker": "BuildingManagerIDataAccess\\IRequestRepository.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerIDataAccess\\IRequestRepository.cs",
+              "RelativeToolTip": "BuildingManagerIDataAccess\\IRequestRepository.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAIAwwAkAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:07:35.1Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RequestController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\RequestController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\RequestController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\RequestController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\RequestController.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAkwDoAAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T19:04:39.106Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IRequestLogic.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerILogic\\IRequestLogic.cs",
+              "RelativeDocumentMoniker": "BuildingManagerILogic\\IRequestLogic.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerILogic\\IRequestLogic.cs",
+              "RelativeToolTip": "BuildingManagerILogic\\IRequestLogic.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAIA1wAwAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:06:40.975Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RequestLogic.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\RequestLogic.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogic\\RequestLogic.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\RequestLogic.cs",
+              "RelativeToolTip": "BuildingManagerLogic\\RequestLogic.cs",
+              "ViewState": "AQIAADYAAAAAAAAAAAAzwEcAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T19:26:18.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Program.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Program.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Program.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T00:11:04.491Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IReportLogic.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerILogic\\IReportLogic.cs",
+              "RelativeDocumentMoniker": "BuildingManagerILogic\\IReportLogic.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerILogic\\IReportLogic.cs",
+              "RelativeToolTip": "BuildingManagerILogic\\IReportLogic.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:06:45.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Report.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\Report.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogic\\Report.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\Report.cs",
+              "RelativeToolTip": "BuildingManagerLogic\\Report.cs",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAowAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:05:49.115Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RequestRepository.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccess\\Repositories\\RequestRepository.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDataAccess\\Repositories\\RequestRepository.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccess\\Repositories\\RequestRepository.cs",
+              "RelativeToolTip": "BuildingManagerDataAccess\\Repositories\\RequestRepository.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAgwCMAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T19:26:49.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CategoriesReport.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\CategoriesReport.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogic\\CategoriesReport.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\CategoriesReport.cs",
+              "RelativeToolTip": "BuildingManagerLogic\\CategoriesReport.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:05:40.071Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BuildingsReport.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\BuildingsReport.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogic\\BuildingsReport.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\BuildingsReport.cs",
+              "RelativeToolTip": "BuildingManagerLogic\\BuildingsReport.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:05:30.828Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "InvitationResponse.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\InvitationResponse.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Outer\\InvitationResponse.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\InvitationResponse.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Outer\\InvitationResponse.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:04:21.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "LoginResponse.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\LoginResponse.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Outer\\LoginResponse.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\LoginResponse.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Outer\\LoginResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:04:20.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "InvitationControllerTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\InvitationControllerTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApiTest\\Controllers\\InvitationControllerTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\InvitationControllerTest.cs",
+              "RelativeToolTip": "BuildingManagerApiTest\\Controllers\\InvitationControllerTest.cs",
+              "ViewState": "AQIAALwAAAAAAAAAAAAUwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T03:03:46.216Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "InvitationLogic.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\InvitationLogic.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogic\\InvitationLogic.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\InvitationLogic.cs",
+              "RelativeToolTip": "BuildingManagerLogic\\InvitationLogic.cs",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAkwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T02:59:09.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "InvitationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccess\\Repositories\\InvitationRepository.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDataAccess\\Repositories\\InvitationRepository.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccess\\Repositories\\InvitationRepository.cs",
+              "RelativeToolTip": "BuildingManagerDataAccess\\Repositories\\InvitationRepository.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T02:58:53.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Properties\\launchSettings.json",
+              "RelativeToolTip": "BuildingManagerApi\\Properties\\launchSettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-10T02:49:22.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BuildingManagerApi.http",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\BuildingManagerApi.http",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\BuildingManagerApi.http",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\BuildingManagerApi.http",
+              "RelativeToolTip": "BuildingManagerApi\\BuildingManagerApi.http",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2024-05-10T02:49:08.131Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "InvitationController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\InvitationController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\InvitationController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\InvitationController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\InvitationController.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T23:56:24.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "BuildingRepository.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccess\\Repositories\\BuildingRepository.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDataAccess\\Repositories\\BuildingRepository.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccess\\Repositories\\BuildingRepository.cs",
+              "RelativeToolTip": "BuildingManagerDataAccess\\Repositories\\BuildingRepository.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAcAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T18:59:23.359Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "BuildingRepositoryTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccessTest\\BuildingRepositoryTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDataAccessTest\\BuildingRepositoryTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccessTest\\BuildingRepositoryTest.cs",
+              "RelativeToolTip": "BuildingManagerDataAccessTest\\BuildingRepositoryTest.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAQwBAAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T19:58:10.102Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ServiceFactory.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerServiceFactory\\ServiceFactory.cs",
+              "RelativeDocumentMoniker": "BuildingManagerServiceFactory\\ServiceFactory.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerServiceFactory\\ServiceFactory.cs",
+              "RelativeToolTip": "BuildingManagerServiceFactory\\ServiceFactory.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABQAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T00:38:37.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "CategoryRepositoryTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccessTest\\CategoryRepositoryTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDataAccessTest\\CategoryRepositoryTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccessTest\\CategoryRepositoryTest.cs",
+              "RelativeToolTip": "BuildingManagerDataAccessTest\\CategoryRepositoryTest.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAtwDYAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T01:30:38.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\appsettings.json",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\appsettings.json",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\appsettings.json",
+              "RelativeToolTip": "BuildingManagerApi\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-09T20:29:18.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "BuildingsReportTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogicTest\\BuildingsReportTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogicTest\\BuildingsReportTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogicTest\\BuildingsReportTest.cs",
+              "RelativeToolTip": "BuildingManagerLogicTest\\BuildingsReportTest.cs",
+              "ViewState": "AQIAAFUAAAAAAAAAAAAQwFoAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T00:33:25.76Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "CategoryLogicTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogicTest\\CategoryLogicTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogicTest\\CategoryLogicTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogicTest\\CategoryLogicTest.cs",
+              "RelativeToolTip": "BuildingManagerLogicTest\\CategoryLogicTest.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T00:33:13.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "CategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccess\\Repositories\\CategoryRepository.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDataAccess\\Repositories\\CategoryRepository.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccess\\Repositories\\CategoryRepository.cs",
+              "RelativeToolTip": "BuildingManagerDataAccess\\Repositories\\CategoryRepository.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T19:32:34.881Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "BuildingLogicTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogicTest\\BuildingLogicTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogicTest\\BuildingLogicTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogicTest\\BuildingLogicTest.cs",
+              "RelativeToolTip": "BuildingManagerLogicTest\\BuildingLogicTest.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T00:34:13.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "CategoryLogic.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\CategoryLogic.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogic\\CategoryLogic.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\CategoryLogic.cs",
+              "RelativeToolTip": "BuildingManagerLogic\\CategoryLogic.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T00:32:00.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "InvalidArgumentException.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\CustomExceptions\\InvalidArgumentException.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\CustomExceptions\\InvalidArgumentException.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\CustomExceptions\\InvalidArgumentException.cs",
+              "RelativeToolTip": "BuildingManagerModels\\CustomExceptions\\InvalidArgumentException.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T00:00:27.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "BuildingLogic.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\BuildingLogic.cs",
+              "RelativeDocumentMoniker": "BuildingManagerLogic\\BuildingLogic.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerLogic\\BuildingLogic.cs",
+              "RelativeToolTip": "BuildingManagerLogic\\BuildingLogic.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAEoAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T19:00:23.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "BuildingsReportController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\BuildingsReportController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\BuildingsReportController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\BuildingsReportController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\BuildingsReportController.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T23:56:37.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "CreateCategoryRequest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Inner\\CreateCategoryRequest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Inner\\CreateCategoryRequest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Inner\\CreateCategoryRequest.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Inner\\CreateCategoryRequest.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAzwBEAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T23:49:27.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "CategoryControllerTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\CategoryControllerTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApiTest\\Controllers\\CategoryControllerTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\CategoryControllerTest.cs",
+              "RelativeToolTip": "BuildingManagerApiTest\\Controllers\\CategoryControllerTest.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAzwB0AAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T23:44:17.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\CategoryController.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwBoAAACNAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T20:51:35.805Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "BuildingsReportControllerTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\BuildingsReportControllerTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApiTest\\Controllers\\BuildingsReportControllerTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApiTest\\Controllers\\BuildingsReportControllerTest.cs",
+              "RelativeToolTip": "BuildingManagerApiTest\\Controllers\\BuildingsReportControllerTest.cs",
+              "ViewState": "AQIAADoAAAAAAAAAAAAkwEIAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T23:30:01.895Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "CategoriesReportController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\CategoriesReportController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\CategoriesReportController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\CategoriesReportController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\CategoriesReportController.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T23:29:55.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "ManagerResponse.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\ManagerResponse.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Outer\\ManagerResponse.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\ManagerResponse.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Outer\\ManagerResponse.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAzwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T21:21:56.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "CreateCategoryResponse.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\CreateCategoryResponse.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Outer\\CreateCategoryResponse.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\CreateCategoryResponse.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Outer\\CreateCategoryResponse.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T21:21:37.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "BuildingsReportResponse.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\BuildingsReportResponse.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Outer\\BuildingsReportResponse.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Outer\\BuildingsReportResponse.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Outer\\BuildingsReportResponse.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAAtwBcAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T21:20:54.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\LoginController.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAzwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T20:51:42.157Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "LogoutController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\LogoutController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\LogoutController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\LogoutController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\LogoutController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T20:51:40.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "BuildingManagerApi\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerApi\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "BuildingManagerApi\\Controllers\\AdminController.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T20:30:21.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "InvitationTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDomainTest\\InvitationTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDomainTest\\InvitationTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDomainTest\\InvitationTest.cs",
+              "RelativeToolTip": "BuildingManagerDomainTest\\InvitationTest.cs",
+              "ViewState": "AQIAAHcAAAAAAAAAAIBJwIgAAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T19:42:01.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "RequestRepositoryTest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccessTest\\RequestRepositoryTest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerDataAccessTest\\RequestRepositoryTest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerDataAccessTest\\RequestRepositoryTest.cs",
+              "RelativeToolTip": "BuildingManagerDataAccessTest\\RequestRepositoryTest.cs",
+              "ViewState": "AQIAALgAAAAAAAAAAIBJwMIAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T19:41:41.389Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "CreateBuildingRequest.cs",
+              "DocumentMoniker": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Inner\\CreateBuildingRequest.cs",
+              "RelativeDocumentMoniker": "BuildingManagerModels\\Inner\\CreateBuildingRequest.cs",
+              "ToolTip": "C:\\Users\\rafae\\Documents\\GitHub\\228352-262843-291192\\BuildingManagerModels\\Inner\\CreateBuildingRequest.cs",
+              "RelativeToolTip": "BuildingManagerModels\\Inner\\CreateBuildingRequest.cs",
+              "ViewState": "AQIAAFwAAAAAAAAAAAAswAgAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T16:30:24.922Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1129,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
