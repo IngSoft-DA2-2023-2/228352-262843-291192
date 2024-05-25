@@ -22,7 +22,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "company 1"
             };
 
-            repository.CreateConstructionCompany(constructionCompany);
+            repository.CreateConstructionCompany(constructionCompany, Guid.NewGuid());
             var result = context.Set<ConstructionCompany>().Find(constructionCompany.Id);
 
             Assert.AreEqual(constructionCompany, result);
@@ -33,17 +33,18 @@ namespace BuildingManagerDataAccessTest
         {
             var context = CreateDbContext("CreateConstructionCompanyWithDuplicatedNameTest");
             var repository = new ConstructionCompanyRepository(context);
+            var sessionToken = Guid.NewGuid();
             var constructionCompany = new ConstructionCompany
             {
                 Id = Guid.NewGuid(),
                 Name = "company 1"
             };
-            repository.CreateConstructionCompany(constructionCompany);
+            repository.CreateConstructionCompany(constructionCompany, sessionToken);
 
             Exception exception = null;
             try
             {
-                repository.CreateConstructionCompany(constructionCompany);
+                repository.CreateConstructionCompany(constructionCompany, sessionToken);
             }
             catch (Exception ex)
             {

@@ -22,7 +22,7 @@ namespace BuildingManagerLogicTest
                 Name = "company"
             };
             var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
-            constructionCompanyRepositoryMock.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>())).Returns(constructionCompany);
+            constructionCompanyRepositoryMock.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>(), It.IsAny<Guid>())).Returns(constructionCompany);
             var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object);
 
             var result = constructionCompanyLogic.CreateConstructionCompany(constructionCompany, Guid.NewGuid());
@@ -35,7 +35,7 @@ namespace BuildingManagerLogicTest
         public void CreateConstructionCompanyDuplicatedName()
         {
             var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
-            constructionCompanyRepositoryMock.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>())).Throws(new ValueDuplicatedException(""));
+            constructionCompanyRepositoryMock.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>(), It.IsAny<Guid>())).Throws(new ValueDuplicatedException(""));
             var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object);
 
             Exception exception = null;

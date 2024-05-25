@@ -18,7 +18,7 @@ namespace BuildingManagerLogic
         {
             try
             {
-                return _constructionCompanyRepository.CreateConstructionCompany(constructionCompany);
+                return _constructionCompanyRepository.CreateConstructionCompany(constructionCompany, sessionToken);
             }
             catch (ValueDuplicatedException e)
             {

@@ -12,7 +12,7 @@ namespace BuildingManagerDataAccess.Repositories
         {
             _context = context;
         }
-        public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany)
+        public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken)
         {
             if (_context.Set<ConstructionCompany>().Any(a => a.Name == constructionCompany.Name))
             {
