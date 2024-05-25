@@ -336,6 +336,25 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(admin.Id, result);
         }
 
+        [TestMethod]
+        public void GetUserIdWithInvalidSessionTokenTest()
+        {
+            var context = CreateDbContext("GetUserIdWithInvalidSessionTokenTest");
+            var repository = new UserRepository(context);
+            Exception exception = null;
+
+            try
+            {
+                repository.GetUserIdFromSessionToken(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

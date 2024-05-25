@@ -107,7 +107,14 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetUserIdFromSessionToken(Guid sessionToken)
         {
-            return _context.Set<User>().First(a => a.SessionToken == sessionToken).Id;
+            try
+            {
+                return _context.Set<User>().First(a => a.SessionToken == sessionToken).Id;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("User not found.");
+            }
         }
     }
 }
