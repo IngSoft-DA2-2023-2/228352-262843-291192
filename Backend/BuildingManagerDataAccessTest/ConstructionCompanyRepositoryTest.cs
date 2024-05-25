@@ -21,11 +21,15 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Name = "company 1"
             };
+            var sessionToken = Guid.NewGuid();
 
-            repository.CreateConstructionCompany(constructionCompany, Guid.NewGuid());
-            var result = context.Set<ConstructionCompany>().Find(constructionCompany.Id);
+            repository.CreateConstructionCompany(constructionCompany, sessionToken);
+            var companyResult = context.Set<ConstructionCompany>().Find(constructionCompany.Id);
+            var companyAdminAssociationResult = context.Set<CompanyAdminAssociation>().Find(sessionToken, constructionCompany.Id);
 
-            Assert.AreEqual(constructionCompany, result);
+            Assert.AreEqual(constructionCompany, companyResult);
+            Assert.AreEqual(constructionCompany.Id, companyAdminAssociationResult.ConstructionCompanyId);
+            Assert.AreEqual(sessionToken, companyAdminAssociationResult.ConstructionCompanyAdminId);
         }
 
         [TestMethod]

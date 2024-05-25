@@ -15,6 +15,7 @@ namespace BuildingManagerDataAccess.Context
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<ConstructionCompany> ConstructionCompanies { get; set; }
+        public DbSet<CompanyAdminAssociation> CompanyAdminAssociations { get; set; }
 
         public BuildingManagerContext(DbContextOptions<BuildingManagerContext> options) : base(options)
         {
@@ -31,7 +32,7 @@ namespace BuildingManagerDataAccess.Context
 
             modelBuilder.Entity<Apartment>().ToTable("Apartments").HasKey(a => new { a.BuildingId, a.Floor, a.Number });
             modelBuilder.Entity<Owner>().ToTable("Owners").HasKey(o => o.Email);
-            
+
             modelBuilder.Entity<Request>()
                 .HasOne<Apartment>()
                 .WithMany()
@@ -73,6 +74,20 @@ namespace BuildingManagerDataAccess.Context
                         .WithMany()
                         .HasForeignKey(r => r.BuildingId)
                         .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<CompanyAdminAssociation>()
+            .HasKey(c => new { c.ConstructionCompanyAdminId, c.ConstructionCompanyId });
+
+            modelBuilder.Entity<CompanyAdminAssociation>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(c => c.ConstructionCompanyAdminId);
+
+            modelBuilder.Entity<CompanyAdminAssociation>()
+                .HasOne<ConstructionCompany>()
+                .WithMany()
+                .HasForeignKey(c => c.ConstructionCompanyId);
         }
     }
 }

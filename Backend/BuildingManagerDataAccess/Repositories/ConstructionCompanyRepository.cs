@@ -20,6 +20,15 @@ namespace BuildingManagerDataAccess.Repositories
             }
             _context.Set<ConstructionCompany>().Add(constructionCompany);
             _context.SaveChanges();
+
+            var companyAdminAssociation = new CompanyAdminAssociation
+            {
+                ConstructionCompanyAdminId = sessionToken,
+                ConstructionCompanyId = constructionCompany.Id
+            };
+            _context.Set<CompanyAdminAssociation>().Add(companyAdminAssociation);
+            _context.SaveChanges();
+            
             return constructionCompany;
         }
     }
