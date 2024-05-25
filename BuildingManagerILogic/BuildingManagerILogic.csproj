@@ -51,6 +51,7 @@
     <Compile Include="IBuildingLogic.cs" />
     <Compile Include="IInvitationLogic.cs" />
     <Compile Include="IReportLogic.cs" />
+    <Compile Include="IConstructionCompanyLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
