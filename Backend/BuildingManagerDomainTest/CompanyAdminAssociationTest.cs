@@ -13,5 +13,13 @@ namespace BuildingManagerDomainTest
             CompanyAdminAssociation association = new CompanyAdminAssociation { ConstructionCompanyAdminId = constructionCompanyAdminId };
             Assert.AreEqual(constructionCompanyAdminId, association.ConstructionCompanyAdminId);
         }
+
+        [TestMethod]
+        public void ConstructionCompanyIdTest()
+        {
+            Guid constructionCompanyId = Guid.NewGuid();
+            CompanyAdminAssociation association = new CompanyAdminAssociation { ConstructionCompanyId = constructionCompanyId };
+            Assert.AreEqual(constructionCompanyId, association.ConstructionCompanyId);
+        }
     }
 }
