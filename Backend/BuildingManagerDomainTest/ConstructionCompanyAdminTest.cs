@@ -24,5 +24,13 @@ namespace BuildingManagerDomainTest
             ConstructionCompanyAdmin constructionCompanyAdmin = new ConstructionCompanyAdmin { Name = constructionCompanyAdminName };
             Assert.AreEqual(constructionCompanyAdminName, constructionCompanyAdmin.Name);
         }
+
+        [TestMethod]
+        public void ConstructionCompanyAdminRoleTest()
+        {
+            RoleType role = RoleType.CONSTRUCTIONCOMPANYADMIN;
+            ConstructionCompanyAdmin constructionCompanyAdmin = new() { };
+            Assert.AreEqual(role, constructionCompanyAdmin.Role);
+        }
     }
 }
