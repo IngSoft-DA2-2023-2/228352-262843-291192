@@ -1,3 +1,5 @@
+using BuildingManagerApi.Filters;
+using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
@@ -7,7 +9,7 @@ namespace BuildingManagerApi.Controllers
 {
     [ApiController]
     [Route("api/construction-company")]
-    public class ConstructionCompanyController: ControllerBase
+    public class ConstructionCompanyController : ControllerBase
     {
         private readonly IConstructionCompanyLogic _constructionCompanyLogic;
 
@@ -17,6 +19,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult CreateConstructionCompany([FromBody] CreateConstructionCompanyRequest constructionCompanyRequest)
         {
             CreateConstructionCompanyResponse createConstructionCompanyResponse = new(_constructionCompanyLogic.CreateConstructionCompany(constructionCompanyRequest.ToEntity()));
