@@ -2,6 +2,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BuildingManagerDomain.Entities;
 using System.Diagnostics.CodeAnalysis;
 using BuildingManagerDomain.Enums;
+using BuildingManagerModels.Inner;
+using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerDomainTest
 {
@@ -63,6 +65,27 @@ namespace BuildingManagerDomainTest
             Guid sessionToken = new();
             ConstructionCompanyAdmin constructionCompanyAdmin = new() { SessionToken = sessionToken };
             Assert.AreEqual(sessionToken, constructionCompanyAdmin.SessionToken);
+        }
+
+        [TestMethod]
+        public void CreateConstructionCompanyAdminWithoutName()
+        {
+            Exception exception = null;
+            try
+            {
+                var requestWithoutName = new CreateConstructionCompanyAdminRequest()
+                {
+                    Name = null,
+                    Email = "abc@email.com",
+                    Password = "password"
+                };
+                requestWithoutName.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
     }
 }

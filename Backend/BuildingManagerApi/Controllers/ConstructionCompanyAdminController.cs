@@ -19,7 +19,6 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
-        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult CreateConstructionCompanyAdmin([FromBody] CreateConstructionCompanyAdminRequest constructionCompanyAdminRequest)
         {
             CreateConstructionCompanyAdminResponse createConstructionCompanyAdminResponse = new CreateConstructionCompanyAdminResponse(_userLogic.CreateUser(constructionCompanyAdminRequest.ToEntity()));
