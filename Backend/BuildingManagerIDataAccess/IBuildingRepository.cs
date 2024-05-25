@@ -13,5 +13,6 @@ namespace BuildingManagerIDataAccess
         Building DeleteBuilding(Guid buildingId);
         Guid GetManagerIdBySessionToken(Guid sessionToken);
         Building UpdateBuilding(Building building);
+        List<Building> ListBuildings();
     }
 }

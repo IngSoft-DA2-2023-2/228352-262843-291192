@@ -104,7 +104,7 @@ namespace BuildingManagerLogic
 
         public List<Building> ListBuildings()
         {
-            throw new NotImplementedException();
+            return _buildingRepository.ListBuildings();
         }
     }
 }

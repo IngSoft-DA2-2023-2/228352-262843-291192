@@ -189,5 +189,10 @@ namespace BuildingManagerDataAccess.Repositories
             _context.SaveChanges();
             return _context.Set<Building>().Find(newBuilding.Id)!;
         }
+
+        public List<Building> ListBuildings()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

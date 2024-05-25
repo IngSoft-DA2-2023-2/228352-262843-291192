@@ -46,6 +46,23 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
+        public void ListBuildingsSuccessfully()
+        {
+            var buildingsList = new List<Building> { _building };
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
+            buildingRespositoryMock.Setup(x => x.ListBuildings()).Returns(buildingsList);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
+            buildingLogic.CreateBuilding(_building);
+
+            var result = buildingLogic.ListBuildings();
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(buildingsList, result);
+
+        }
+
+        [TestMethod]
         public void CreateBuildingWithAlreadyInUseName()
         {
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
@@ -65,7 +82,8 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
-        public void CreateBuildingWithApartmentWithSameFloorAndNumberTest() {             
+        public void CreateBuildingWithApartmentWithSameFloorAndNumberTest()
+        {
             Building buildingWithApartmentWithSameFloorAndNumber = new Building()
             {
                 Id = new Guid(),
