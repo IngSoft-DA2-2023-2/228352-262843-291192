@@ -61,6 +61,7 @@
     <Compile Include="Entities\ConstructionCompany.cs" />
     <Compile Include="Entities\ConstructionCompanyAdmin.cs" />
     <Compile Include="Entities\ListBuildingData.cs" />
+    <Compile Include="Entities\CompanyAdminAssociation.cs" />
     <Compile Include="Enums\RoleType.cs" />
     <Compile Include="Enums\InvitationStatus.cs" />
     <Compile Include="Enums\ReportType.cs" />
