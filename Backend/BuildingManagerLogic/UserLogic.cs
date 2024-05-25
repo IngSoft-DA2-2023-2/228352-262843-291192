@@ -46,7 +46,14 @@ namespace BuildingManagerLogic
 
         public Guid GetUserIdFromSessionToken(Guid sessionToken)
         {
-            return _userRepository.GetUserIdFromSessionToken(sessionToken);
+            try
+            {
+                return _userRepository.GetUserIdFromSessionToken(sessionToken);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public Guid Login(string email, string password)
