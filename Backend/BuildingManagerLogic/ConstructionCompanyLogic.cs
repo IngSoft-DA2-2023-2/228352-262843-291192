@@ -10,15 +10,18 @@ namespace BuildingManagerLogic
     public class ConstructionCompanyLogic : IConstructionCompanyLogic
     {
         private readonly IConstructionCompanyRepository _constructionCompanyRepository;
-        public ConstructionCompanyLogic(IConstructionCompanyRepository constructionCompanyRepository)
+        private readonly IUserRepository _userRepository;
+        public ConstructionCompanyLogic(IConstructionCompanyRepository constructionCompanyRepository, IUserRepository userRepository)
         {
             _constructionCompanyRepository = constructionCompanyRepository;
+            _userRepository = userRepository;
         }
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken)
         {
+            Guid userId = _userRepository.GetUserIdFromSessionToken(sessionToken);
             try
             {
-                return _constructionCompanyRepository.CreateConstructionCompany(constructionCompany, sessionToken);
+                return _constructionCompanyRepository.CreateConstructionCompany(constructionCompany, userId);
             }
             catch (ValueDuplicatedException e)
             {

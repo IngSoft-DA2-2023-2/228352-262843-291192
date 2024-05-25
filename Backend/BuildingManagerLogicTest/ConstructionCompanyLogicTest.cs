@@ -16,14 +16,17 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void CreateConstructionCompanySuccessfully()
         {
+            var userId = Guid.NewGuid();
             var constructionCompany = new ConstructionCompany
             {
                 Id = new Guid(),
                 Name = "company"
             };
             var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
             constructionCompanyRepositoryMock.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>(), It.IsAny<Guid>())).Returns(constructionCompany);
-            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object);
+            userRepositoryMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
 
             var result = constructionCompanyLogic.CreateConstructionCompany(constructionCompany, Guid.NewGuid());
 
@@ -34,9 +37,12 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void CreateConstructionCompanyDuplicatedName()
         {
+            var userId = Guid.NewGuid();
             var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
             constructionCompanyRepositoryMock.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>(), It.IsAny<Guid>())).Throws(new ValueDuplicatedException(""));
-            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object);
+            userRepositoryMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
 
             Exception exception = null;
             try
