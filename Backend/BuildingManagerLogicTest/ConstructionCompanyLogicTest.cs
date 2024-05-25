@@ -25,7 +25,7 @@ namespace BuildingManagerLogicTest
             constructionCompanyRepositoryMock.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>())).Returns(constructionCompany);
             var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object);
 
-            var result = constructionCompanyLogic.CreateConstructionCompany(constructionCompany);
+            var result = constructionCompanyLogic.CreateConstructionCompany(constructionCompany, Guid.NewGuid());
 
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.AreEqual(constructionCompany, result);
@@ -41,7 +41,7 @@ namespace BuildingManagerLogicTest
             Exception exception = null;
             try
             {
-                constructionCompanyLogic.CreateConstructionCompany(new ConstructionCompany());
+                constructionCompanyLogic.CreateConstructionCompany(new ConstructionCompany(), Guid.NewGuid());
             }
             catch (Exception ex)
             {

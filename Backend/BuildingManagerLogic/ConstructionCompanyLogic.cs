@@ -1,3 +1,4 @@
+using System;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
@@ -13,7 +14,7 @@ namespace BuildingManagerLogic
         {
             _constructionCompanyRepository = constructionCompanyRepository;
         }
-        public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany)
+        public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken)
         {
             try
             {

@@ -23,10 +23,10 @@ namespace BuildingManagerApiTest.Controllers
                 Name  = "Test"
             };
             var mockConstructionCompanyLogic = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
-            mockConstructionCompanyLogic.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>())).Returns(constructionCompany);
+            mockConstructionCompanyLogic.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>(), It.IsAny<Guid>())).Returns(constructionCompany);
             var controller = new ConstructionCompanyController(mockConstructionCompanyLogic.Object);
 
-            var result = controller.CreateConstructionCompany(new CreateConstructionCompanyRequest { Name = "Test"});
+            var result = controller.CreateConstructionCompany(new CreateConstructionCompanyRequest { Name = "Test"}, new Guid());
             var createdAtActionResult = result as CreatedAtActionResult;
             var content = createdAtActionResult.Value as CreateConstructionCompanyResponse;
 

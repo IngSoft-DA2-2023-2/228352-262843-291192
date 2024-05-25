@@ -20,9 +20,9 @@ namespace BuildingManagerApi.Controllers
 
         [HttpPost]
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
-        public IActionResult CreateConstructionCompany([FromBody] CreateConstructionCompanyRequest constructionCompanyRequest)
+        public IActionResult CreateConstructionCompany([FromBody] CreateConstructionCompanyRequest constructionCompanyRequest, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            CreateConstructionCompanyResponse createConstructionCompanyResponse = new(_constructionCompanyLogic.CreateConstructionCompany(constructionCompanyRequest.ToEntity()));
+            CreateConstructionCompanyResponse createConstructionCompanyResponse = new(_constructionCompanyLogic.CreateConstructionCompany(constructionCompanyRequest.ToEntity(), sessionToken));
             return CreatedAtAction(nameof(CreateConstructionCompany), createConstructionCompanyResponse);
         }
     }
