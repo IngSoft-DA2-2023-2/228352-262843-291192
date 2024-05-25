@@ -19,12 +19,12 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueDuplicatedException("Name");
             }
 
-            if(HasDuplicatedOwnerEmail(building.Apartments))
+            if (HasDuplicatedOwnerEmail(building.Apartments))
             {
                 throw new ValueDuplicatedException("Owner email");
             }
 
-            if(HasSameLocationAndAddress(building))
+            if (HasSameLocationAndAddress(building))
             {
                 throw new ValueDuplicatedException("Location and Address");
             }
@@ -63,12 +63,12 @@ namespace BuildingManagerDataAccess.Repositories
                 }
             }
 
-            for(int i = 0; i < apartments.Count; i++)
+            for (int i = 0; i < apartments.Count; i++)
             {
-                for(int j = i + 1; j < apartments.Count; j++)
+                for (int j = i + 1; j < apartments.Count; j++)
                 {
-                    if (apartments[i].Owner.Email == apartments[j].Owner.Email && 
-                        apartments[i].Owner.Name == apartments[j].Owner.Name && 
+                    if (apartments[i].Owner.Email == apartments[j].Owner.Email &&
+                        apartments[i].Owner.Name == apartments[j].Owner.Name &&
                         apartments[i].Owner.LastName == apartments[j].Owner.LastName)
                     {
                         apartments[j].Owner = apartments[i].Owner;
@@ -81,7 +81,7 @@ namespace BuildingManagerDataAccess.Repositories
         {
             return _context.Set<Building>().Any(b => b.Location == building.Location && b.Address == building.Address && b.Id != building.Id);
         }
-    
+
         public Building DeleteBuilding(Guid buildingId)
         {
             var building = _context.Set<Building>().Find(buildingId);
@@ -180,8 +180,8 @@ namespace BuildingManagerDataAccess.Repositories
                     buildToUpdate.Apartments.Add(apartment);
                 }
             }
-            
-            foreach(Apartment apartment in apartmentsToDelete)
+
+            foreach (Apartment apartment in apartmentsToDelete)
             {
                 buildToUpdate.Apartments.Remove(apartment);
             }
@@ -192,7 +192,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public List<Building> ListBuildings()
         {
-            throw new NotImplementedException();
+            return _context.Set<Building>().ToList();
         }
     }
 }

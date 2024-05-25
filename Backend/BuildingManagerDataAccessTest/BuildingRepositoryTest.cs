@@ -58,6 +58,45 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void ListBuildingsTest()
+        {
+            var context = CreateDbContext("ListBuildingsTest");
+            var repository = new BuildingRepository(context);
+            var building = new Building
+            {
+                Id = Guid.NewGuid(),
+                ManagerId = Guid.NewGuid(),
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompany = "Company 1",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "validmail@outlook.com"
+                        }
+                    }
+                }
+            };
+            repository.CreateBuilding(building);
+
+            var result = repository.ListBuildings();
+
+            Assert.AreEqual(building, result.First());
+        }
+
+        [TestMethod]
         public void CreateBuildingWithAlreadyInUseNameTest()
         {
             var context = CreateDbContext("CreateBuildingWithAlreadyInUseNameTest");
@@ -331,7 +370,8 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
-        public void GetManagerIdBySessionTokenTest() {             
+        public void GetManagerIdBySessionTokenTest()
+        {
             var context = CreateDbContext("GetManagerIdBySessionToken");
             var repository = new BuildingRepository(context);
             Guid sessionToken = Guid.NewGuid();
@@ -350,7 +390,7 @@ namespace BuildingManagerDataAccessTest
             userRepository.CreateUser(manager);
 
             Guid result = repository.GetManagerIdBySessionToken(sessionToken);
-        
+
             Assert.AreEqual(managerId, result);
         }
 
@@ -623,7 +663,7 @@ namespace BuildingManagerDataAccessTest
                     }
                 }
             };
-            
+
             repository.CreateBuilding(originalBuilding);
             repository.CreateBuilding(originalBuilding2);
 
