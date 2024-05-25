@@ -57,5 +57,32 @@ namespace BuildingManagerLogicTest
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
+
+        [TestMethod]
+        public void CreateConstructionCompanyWithInvalidSessionTokenTest()
+        {
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = new Guid(),
+                Name = "company"
+            };
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRepositoryMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
+
+            Exception exception = null;
+            try
+            {
+                constructionCompanyLogic.CreateConstructionCompany(new ConstructionCompany(), Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            constructionCompanyRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }

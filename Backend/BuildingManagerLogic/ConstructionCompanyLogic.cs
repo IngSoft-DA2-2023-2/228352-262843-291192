@@ -18,7 +18,15 @@ namespace BuildingManagerLogic
         }
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken)
         {
-            Guid userId = _userRepository.GetUserIdFromSessionToken(sessionToken);
+            Guid userId;
+            try
+            {
+                userId = _userRepository.GetUserIdFromSessionToken(sessionToken);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
             try
             {
                 return _constructionCompanyRepository.CreateConstructionCompany(constructionCompany, userId);
