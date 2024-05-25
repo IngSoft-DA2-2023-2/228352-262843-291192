@@ -69,6 +69,8 @@
     <Compile Include="Outer\MaintenanceReportResponse.cs" />
     <Compile Include="Outer\BuildingsReportResponse.cs" />
     <Compile Include="Outer\UpdateBuildingResponse.cs" />
+    <Compile Include="Inner\CreateConstructionCompanyRequest.cs" />
+    <Compile Include="Outer\CreateConstructionCompanyResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
