@@ -16,7 +16,8 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void CreateConstructionCompanySuccessfully()
         {
-            var constructionCompany = new ConstructionCompany {
+            var constructionCompany = new ConstructionCompany
+            {
                 Id = new Guid(),
                 Name = "company"
             };
@@ -28,6 +29,27 @@ namespace BuildingManagerLogicTest
 
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.AreEqual(constructionCompany, result);
+        }
+
+        [TestMethod]
+        public void CreateConstructionCompanyDuplicatedName()
+        {
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            constructionCompanyRepositoryMock.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>())).Throws(new ValueDuplicatedException(""));
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object);
+
+            Exception exception = null;
+            try
+            {
+                constructionCompanyLogic.CreateConstructionCompany(new ConstructionCompany());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            constructionCompanyRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
     }
 }

@@ -1,6 +1,8 @@
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
 
 namespace BuildingManagerLogic
 {
@@ -13,7 +15,14 @@ namespace BuildingManagerLogic
         }
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany)
         {
-            return _constructionCompanyRepository.CreateConstructionCompany(constructionCompany);
+            try
+            {
+                return _constructionCompanyRepository.CreateConstructionCompany(constructionCompany);
+            }
+            catch (ValueDuplicatedException e)
+            {
+                throw new DuplicatedValueException(e, e.Message);
+            }
         }
     }
 }
