@@ -247,5 +247,18 @@ namespace BuildingManagerLogicTest
             userRespositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void GetUserIdFromSessionTokenTest()
+        {
+            Guid userId = Guid.NewGuid();
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.GetUserIdFromSessionToken(Guid.NewGuid());
+
+            Assert.AreEqual(userId, result);
+        }
     }
 }

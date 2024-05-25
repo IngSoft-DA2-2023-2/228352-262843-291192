@@ -44,6 +44,11 @@ namespace BuildingManagerLogic
             return _userRepository.ExistsFromSessionToken(sessionToken);
         }
 
+        public Guid GetUserIdFromSessionToken(Guid sessionToken)
+        {
+            return _userRepository.GetUserIdFromSessionToken(sessionToken);
+        }
+
         public Guid Login(string email, string password)
         {
             try

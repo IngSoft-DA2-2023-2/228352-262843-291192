@@ -104,5 +104,10 @@ namespace BuildingManagerDataAccess.Repositories
             return token;
 
         }
+
+        public Guid GetUserIdFromSessionToken(Guid sessionToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
