@@ -40,5 +40,13 @@ namespace BuildingManagerDomainTest
             ConstructionCompanyAdmin constructionCompanyAdmin = new() { Email = email };
             Assert.AreEqual(email, constructionCompanyAdmin.Email);
         }
+
+        [TestMethod]
+        public void ConstructionCompanyAdminPasswordTest()
+        {
+            string password = "pass123";
+            ConstructionCompanyAdmin constructionCompanyAdmin = new() { Password = password };
+            Assert.AreEqual(password, constructionCompanyAdmin.Password);
+        }
     }
 }
