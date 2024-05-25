@@ -37,18 +37,18 @@ namespace BuildingManagerDataAccessTest
         {
             var context = CreateDbContext("CreateConstructionCompanyWithDuplicatedNameTest");
             var repository = new ConstructionCompanyRepository(context);
-            var sessionToken = Guid.NewGuid();
+            var userId = Guid.NewGuid();
             var constructionCompany = new ConstructionCompany
             {
                 Id = Guid.NewGuid(),
                 Name = "company 1"
             };
-            repository.CreateConstructionCompany(constructionCompany, sessionToken);
+            repository.CreateConstructionCompany(constructionCompany, userId);
 
             Exception exception = null;
             try
             {
-                repository.CreateConstructionCompany(constructionCompany, sessionToken);
+                repository.CreateConstructionCompany(constructionCompany, userId);
             }
             catch (Exception ex)
             {
@@ -63,13 +63,13 @@ namespace BuildingManagerDataAccessTest
         {
             var context = CreateDbContext("CreateConstructionCompanyWithDuplicatedUserTest");
             var repository = new ConstructionCompanyRepository(context);
-            var sessionToken = Guid.NewGuid();
+            var userId = Guid.NewGuid();
             var constructionCompany1 = new ConstructionCompany
             {
                 Id = Guid.NewGuid(),
                 Name = "company 1"
             };
-            repository.CreateConstructionCompany(constructionCompany1, sessionToken);
+            repository.CreateConstructionCompany(constructionCompany1, userId);
             var constructionCompany2 = new ConstructionCompany
             {
                 Id = Guid.NewGuid(),
@@ -79,7 +79,7 @@ namespace BuildingManagerDataAccessTest
             Exception exception = null;
             try
             {
-                repository.CreateConstructionCompany(constructionCompany2, sessionToken);
+                repository.CreateConstructionCompany(constructionCompany2, userId);
             }
             catch (Exception ex)
             {

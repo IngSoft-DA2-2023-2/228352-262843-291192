@@ -12,13 +12,13 @@ namespace BuildingManagerDataAccess.Repositories
         {
             _context = context;
         }
-        public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken)
+        public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid constructionCompanyAdminId)
         {
             if (_context.Set<ConstructionCompany>().Any(a => a.Name == constructionCompany.Name))
             {
                 throw new ValueDuplicatedException("Name");
             }
-            if (_context.Set<CompanyAdminAssociation>().Any(a => a.ConstructionCompanyAdminId == sessionToken))
+            if (_context.Set<CompanyAdminAssociation>().Any(a => a.ConstructionCompanyAdminId == constructionCompanyAdminId))
             {
                 throw new ValueDuplicatedException("User");
             }
@@ -27,7 +27,7 @@ namespace BuildingManagerDataAccess.Repositories
 
             var companyAdminAssociation = new CompanyAdminAssociation
             {
-                ConstructionCompanyAdminId = sessionToken,
+                ConstructionCompanyAdminId = constructionCompanyAdminId,
                 ConstructionCompanyId = constructionCompany.Id
             };
             _context.Set<CompanyAdminAssociation>().Add(companyAdminAssociation);

@@ -5,6 +5,6 @@ namespace BuildingManagerIDataAccess
 {
     public interface IConstructionCompanyRepository
     {
-        ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken); 
+        ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid constructionCompanyAdminId); 
     }
 }
