@@ -10,10 +10,22 @@ namespace BuildingManagerDomainTest
         public void ListBuildingDataNameTest()
         {
             string name = "test";
+            string address = "address";
 
-            ListBuildingData data = new(name);
+            ListBuildingData data = new(name, address);
 
             Assert.AreEqual(name, data.Name);
+        }
+
+        [TestMethod]
+        public void ListBuildingDataAddressTest()
+        {
+            string name = "test";
+            string address = "address";
+
+            ListBuildingData data = new(name, address);
+
+            Assert.AreEqual(address, data.Address);
         }
 
         [TestMethod]
@@ -50,8 +62,8 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            ListBuildingData data1 = new ListBuildingData("test1");
-            ListBuildingData data2 = new ListBuildingData("test2");
+            ListBuildingData data1 = new ListBuildingData("test1", "address1");
+            ListBuildingData data2 = new ListBuildingData("test2", "address1");
 
             bool result = data1.Equals(data2);
 
