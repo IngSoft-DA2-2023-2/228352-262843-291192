@@ -101,5 +101,10 @@ namespace BuildingManagerLogic
                 throw new DuplicatedValueException(e, e.Message);
             }
         }
+
+        public List<Building> ListBuildings()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

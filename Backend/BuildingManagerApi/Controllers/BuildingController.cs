@@ -44,5 +44,11 @@ namespace BuildingManagerApi.Controllers
             UpdateBuildingResponse updateBuildingResponse = new UpdateBuildingResponse(_buildingLogic.UpdateBuilding(buildingRequest.ToEntity()));
             return CreatedAtAction(nameof(UpdateBuilding), updateBuildingResponse);
         }
+
+        [HttpGet]
+        public IActionResult ListBuildings(){
+            ListBuildingsResponse listBuildingsResponse = new(_buildingLogic.ListBuildings());
+            return Ok(listBuildingsResponse);
+        }
     }
 }

@@ -87,6 +87,25 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
+        public void ListBuildings_Ok()
+        {
+            List<Building> buildings = [_building];
+
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockBuildingLogic.Setup(x => x.ListBuildings()).Returns(buildings);
+            var listBuildingsController = new BuildingController(mockBuildingLogic.Object);
+            OkObjectResult expected = new OkObjectResult(new ListBuildingsResponse(buildings));
+            ListBuildingsResponse expectedObject = expected.Value as ListBuildingsResponse;
+
+            OkObjectResult result = listBuildingsController.ListBuildings() as OkObjectResult;
+            ListBuildingsResponse resultObject = result.Value as ListBuildingsResponse;
+
+            mockBuildingLogic.VerifyAll();
+            Assert.AreEqual(result.StatusCode, expected.StatusCode);
+            Assert.AreEqual(expectedObject, resultObject);
+        }
+
+        [TestMethod]
         public void CreateBuildingWithoutName()
         {
             Exception exception = null;
@@ -359,7 +378,7 @@ namespace BuildingManagerApiTest.Controllers
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithApartment);
             mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
             BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
-            
+
             var result = buildingController.CreateBuilding(createBuildingWithApartmentRequest, sessionToken);
             var createdAtActionResult = result as CreatedAtActionResult;
             var content = createdAtActionResult.Value as CreateBuildingResponse;
@@ -418,7 +437,7 @@ namespace BuildingManagerApiTest.Controllers
             var result = buildingController.CreateBuilding(createBuildingWithOwnerApartmentRequest, sessionToken);
             var createdAtActionResult = result as CreatedAtActionResult;
             var content = createdAtActionResult.Value as CreateBuildingResponse;
-            
+
             Assert.AreEqual(createBuildingWithOwnerApartmentResponse, content);
             mockBuildingLogic.VerifyAll();
         }
@@ -515,7 +534,7 @@ namespace BuildingManagerApiTest.Controllers
             };
             UpdateBuildingResponse updateBuildingResponse = new UpdateBuildingResponse(buildingWithFullInformation);
 
-            var result = buildingController.UpdateBuilding(buildingWithFullInformation.Id , updateBuildingRequest);
+            var result = buildingController.UpdateBuilding(buildingWithFullInformation.Id, updateBuildingRequest);
             var createdAtActionResult = result as CreatedAtActionResult;
             var content = createdAtActionResult.Value as UpdateBuildingResponse;
 
