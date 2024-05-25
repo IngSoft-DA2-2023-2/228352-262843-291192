@@ -27,7 +27,32 @@ namespace BuildingManagerDataAccessTest
 
             Assert.AreEqual(constructionCompany, result);
         }
-        
+
+        [TestMethod]
+        public void CreateConstructionCompanyWithDuplicatedNameTest()
+        {
+            var context = CreateDbContext("CreateConstructionCompanyWithDuplicatedNameTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            repository.CreateConstructionCompany(constructionCompany);
+
+            Exception exception = null;
+            try
+            {
+                repository.CreateConstructionCompany(constructionCompany);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
