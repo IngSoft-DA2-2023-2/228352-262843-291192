@@ -14,6 +14,7 @@ namespace BuildingManagerDataAccess.Context
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<ConstructionCompany> ConstructionCompanies { get; set; }
 
         public BuildingManagerContext(DbContextOptions<BuildingManagerContext> options) : base(options)
         {
