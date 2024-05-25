@@ -315,6 +315,27 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
+        [TestMethod]
+        public void GetUserIdFromSessionTokenTest()
+        {
+            var context = CreateDbContext("GetUserIdFromSessionTokenTest");
+            var repository = new UserRepository(context);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456",
+            };
+            repository.CreateUser(admin);
+            Guid token = repository.Login(admin.Email, admin.Password);
+
+            var result = repository.GetUserIdFromSessionToken(token);
+
+            Assert.AreEqual(admin.Id, result);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

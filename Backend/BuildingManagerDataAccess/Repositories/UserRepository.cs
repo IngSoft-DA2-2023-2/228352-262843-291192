@@ -107,7 +107,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetUserIdFromSessionToken(Guid sessionToken)
         {
-            throw new NotImplementedException();
+            return _context.Set<User>().First(a => a.SessionToken == sessionToken).Id;
         }
     }
 }
