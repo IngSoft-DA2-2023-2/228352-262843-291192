@@ -56,5 +56,12 @@ namespace BuildingManagerApiTest.Controllers
             var response2 = new CreateConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test2" });
             Assert.IsFalse(response1.Equals(response2));
         }
+
+        [TestMethod]
+        public void Validate_EmptyName_ReturnsInvalidArgumentException()
+        {
+            var request = new CreateConstructionCompanyRequest { Name = "" };
+            Assert.ThrowsException<InvalidArgumentException>(() => request.Validate());
+        }
     }
 }

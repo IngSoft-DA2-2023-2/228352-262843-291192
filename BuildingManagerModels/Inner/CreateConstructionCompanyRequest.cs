@@ -1,4 +1,5 @@
 using BuildingManagerDomain.Entities;
+using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerModels.Inner
 {
@@ -8,10 +9,19 @@ namespace BuildingManagerModels.Inner
 
         public ConstructionCompany ToEntity()
         {
+            Validate();
             return new ConstructionCompany
             {
                 Name = Name
             };
+        }
+
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new InvalidArgumentException("name");
+            }
         }
     }
 }
