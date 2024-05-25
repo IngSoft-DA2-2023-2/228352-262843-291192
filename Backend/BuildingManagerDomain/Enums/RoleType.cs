@@ -11,5 +11,6 @@ namespace BuildingManagerDomain.Enums
         ADMIN,
         MAINTENANCE,
         MANAGER,
+        CONSTRUCTIONCOMPANYADMIN
     }
 }
