@@ -16,5 +16,13 @@ namespace BuildingManagerDomainTest
             ConstructionCompanyAdmin constructionCompanyAdmin = new ConstructionCompanyAdmin { Id = constructionCompanyAdminId };
             Assert.AreEqual(constructionCompanyAdminId, constructionCompanyAdmin.Id);
         }
+
+        [TestMethod]
+        public void ConstructionCompanyAdminNameTest()
+        {
+            string constructionCompanyAdminName = "John";
+            ConstructionCompanyAdmin constructionCompanyAdmin = new ConstructionCompanyAdmin { Name = constructionCompanyAdminName };
+            Assert.AreEqual(constructionCompanyAdminName, constructionCompanyAdmin.Name);
+        }
     }
 }
