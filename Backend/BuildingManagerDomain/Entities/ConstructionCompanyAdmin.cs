@@ -11,6 +11,7 @@ namespace BuildingManagerDomain.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string Lastname = "";
+        public Guid? SessionToken { get; set; }
     }
 }
 

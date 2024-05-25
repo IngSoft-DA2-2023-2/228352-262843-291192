@@ -56,5 +56,13 @@ namespace BuildingManagerDomainTest
             ConstructionCompanyAdmin constructionCompanyAdmin = new() { };
             Assert.AreEqual(lastname, constructionCompanyAdmin.Lastname);
         }
+
+        [TestMethod]
+        public void ConstructionCompanyAdminSessionTokenTest()
+        {
+            Guid sessionToken = new();
+            ConstructionCompanyAdmin constructionCompanyAdmin = new() { SessionToken = sessionToken };
+            Assert.AreEqual(sessionToken, constructionCompanyAdmin.SessionToken);
+        }
     }
 }
