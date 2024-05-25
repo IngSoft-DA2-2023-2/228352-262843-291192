@@ -58,6 +58,37 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
 
+        [TestMethod]
+        public void CreateConstructionCompanyWithDuplicatedUserTest()
+        {
+            var context = CreateDbContext("CreateConstructionCompanyWithDuplicatedUserTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var sessionToken = Guid.NewGuid();
+            var constructionCompany1 = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            repository.CreateConstructionCompany(constructionCompany1, sessionToken);
+            var constructionCompany2 = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 2"
+            };
+
+            Exception exception = null;
+            try
+            {
+                repository.CreateConstructionCompany(constructionCompany2, sessionToken);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

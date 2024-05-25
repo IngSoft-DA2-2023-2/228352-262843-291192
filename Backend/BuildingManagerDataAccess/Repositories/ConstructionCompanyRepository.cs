@@ -18,6 +18,10 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueDuplicatedException("Name");
             }
+            if (_context.Set<CompanyAdminAssociation>().Any(a => a.ConstructionCompanyAdminId == sessionToken))
+            {
+                throw new ValueDuplicatedException("User");
+            }
             _context.Set<ConstructionCompany>().Add(constructionCompany);
             _context.SaveChanges();
 
