@@ -38,7 +38,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetCompanyIdFromUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            return _context.Set<CompanyAdminAssociation>().First(i => i.ConstructionCompanyAdminId == userId).ConstructionCompanyId;
         }
 
         public ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name, Guid userId)
