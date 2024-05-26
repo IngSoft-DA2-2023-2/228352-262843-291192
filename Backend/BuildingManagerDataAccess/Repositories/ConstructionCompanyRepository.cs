@@ -12,6 +12,12 @@ namespace BuildingManagerDataAccess.Repositories
         {
             _context = context;
         }
+
+        public void AssociateCompanyToUser(Guid userId, Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
+
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid constructionCompanyAdminId)
         {
             if (_context.Set<ConstructionCompany>().Any(a => a.Name == constructionCompany.Name))

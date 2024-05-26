@@ -10,7 +10,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerLogicTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ConstructionCompanyLogicTest
     {
         [TestMethod]
@@ -195,6 +194,28 @@ namespace BuildingManagerLogicTest
 
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void AssociateCompanyToUserSuccessfully()
+        {
+            var userId1 = Guid.NewGuid();
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = new Guid(),
+                Name = "company"
+            };
+            var userId2 = Guid.NewGuid();
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            constructionCompanyRepositoryMock.Setup(x => x.AssociateCompanyToUser(It.IsAny<Guid>(), It.IsAny<Guid>()));
+            constructionCompanyRepositoryMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(constructionCompany.Id);
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
+            var companyIdAssociated = constructionCompanyLogic.GetCompanyIdFromUserId(userId2);
+            constructionCompanyLogic.AssociateCompanyToUser(constructionCompany.Id, userId2);
+
+            constructionCompanyRepositoryMock.VerifyAll();
+            Assert.AreEqual(constructionCompany.Id, companyIdAssociated);
         }
     }
 }

@@ -16,6 +16,12 @@ namespace BuildingManagerLogic
             _constructionCompanyRepository = constructionCompanyRepository;
             _userRepository = userRepository;
         }
+
+        public void AssociateCompanyToUser(Guid userId, Guid companyId)
+        {
+            _constructionCompanyRepository.AssociateCompanyToUser(userId, companyId);
+        }
+
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken)
         {
             Guid userId;
