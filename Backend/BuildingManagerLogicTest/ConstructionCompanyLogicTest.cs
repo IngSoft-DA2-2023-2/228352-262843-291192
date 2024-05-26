@@ -84,5 +84,30 @@ namespace BuildingManagerLogicTest
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void ModifyConstructionCompanyNameSuccessfully()
+        {
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = new Guid(),
+                Name = "company"
+            };
+            string newName = "company2";
+            ConstructionCompany modifiedCompany = new()
+            {
+                Id = constructionCompany.Id,
+                Name = newName
+            };
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>())).Returns(modifiedCompany);
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
+
+            var result = constructionCompanyLogic.ModifyName(constructionCompany.Id, newName);
+
+            constructionCompanyRepositoryMock.VerifyAll();
+            Assert.AreEqual(modifiedCompany, result);
+        }
     }
 }

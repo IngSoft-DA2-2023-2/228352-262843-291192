@@ -39,7 +39,7 @@ namespace BuildingManagerLogic
 
         public ConstructionCompany ModifyName(Guid id, string name)
         {
-            throw new NotImplementedException();
+            return _constructionCompanyRepository.ModifyConstructionCompanyName(id, name);
         }
     }
 }
