@@ -36,5 +36,10 @@ namespace BuildingManagerLogic
                 throw new DuplicatedValueException(e, e.Message);
             }
         }
+
+        public ConstructionCompany ModifyName(Guid id, string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -25,5 +25,12 @@ namespace BuildingManagerApi.Controllers
             CreateConstructionCompanyResponse createConstructionCompanyResponse = new(_constructionCompanyLogic.CreateConstructionCompany(constructionCompanyRequest.ToEntity(), sessionToken));
             return CreatedAtAction(nameof(CreateConstructionCompany), createConstructionCompanyResponse);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult ModifyConstructionCompanyName([FromRoute] Guid id, [FromBody] CreateConstructionCompanyRequest constructionCompanyRequest)
+        {
+            CreateConstructionCompanyResponse modifyNameResponse = new(_constructionCompanyLogic.ModifyName(id, constructionCompanyRequest.Name));
+            return Ok(modifyNameResponse);
+        }
     }
 }

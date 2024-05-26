@@ -6,5 +6,6 @@ namespace BuildingManagerILogic
     public interface IConstructionCompanyLogic
     {
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken);
+        public ConstructionCompany ModifyName(Guid id, string name);
     }
 }
