@@ -7,5 +7,6 @@ namespace BuildingManagerILogic
     {
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken);
         public ConstructionCompany ModifyName(Guid id, string name, Guid sessionToken);
+        public Guid GetCompanyIdFromUserId(Guid userId);
     }
 }

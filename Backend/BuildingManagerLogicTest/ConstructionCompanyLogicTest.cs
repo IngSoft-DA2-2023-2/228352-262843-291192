@@ -159,5 +159,20 @@ namespace BuildingManagerLogicTest
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
+
+        [TestMethod]
+        public void GetConstructionCompanyIdFromUserIdTest()
+        {
+            Guid userId = Guid.NewGuid();
+            Guid companyId = Guid.NewGuid();
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            constructionCompanyRepositoryMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
+
+            var result = constructionCompanyLogic.GetCompanyIdFromUserId(userId);
+
+            Assert.AreEqual(companyId, result);
+        }
     }
 }

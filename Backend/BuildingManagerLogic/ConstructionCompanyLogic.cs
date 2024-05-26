@@ -37,6 +37,11 @@ namespace BuildingManagerLogic
             }
         }
 
+        public Guid GetCompanyIdFromUserId(Guid userId)
+        {
+            return _constructionCompanyRepository.GetCompanyIdFromUserId(userId);
+        }
+
         public ConstructionCompany ModifyName(Guid id, string name, Guid sessionToken)
         {
             Guid userId = _userRepository.GetUserIdFromSessionToken(sessionToken);

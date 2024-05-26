@@ -36,6 +36,11 @@ namespace BuildingManagerDataAccess.Repositories
             return constructionCompany;
         }
 
+        public Guid GetCompanyIdFromUserId(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name, Guid userId)
         {
             if (_context.Set<ConstructionCompany>().Any(a => a.Name == name))
