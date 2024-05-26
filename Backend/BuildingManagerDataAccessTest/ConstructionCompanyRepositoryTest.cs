@@ -249,8 +249,34 @@ namespace BuildingManagerDataAccessTest
             var companyAdminAssociationResult = context.Set<CompanyAdminAssociation>().Find(userId2, constructionCompany.Id);
 
             Assert.AreEqual(constructionCompany.Id, companyAdminAssociationResult.ConstructionCompanyId);
-                        Assert.AreEqual(constructionCompany.Id, companyAdminAssociationResult.ConstructionCompanyId);
+            Assert.AreEqual(constructionCompany.Id, companyAdminAssociationResult.ConstructionCompanyId);
             Assert.AreEqual(userId2, companyAdminAssociationResult.ConstructionCompanyAdminId);
+        }
+
+        [TestMethod]
+        public void AssociateCompanyToAdminWithDuplicatedUserTest()
+        {
+            var context = CreateDbContext("AssociateCompanyToAdminWithDuplicatedUserTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var userId = Guid.NewGuid();
+            var constructionCompany1 = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            repository.CreateConstructionCompany(constructionCompany1, userId);
+
+            Exception exception = null;
+            try
+            {
+                repository.AssociateCompanyToUser(userId, constructionCompany1.Id);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
 
         private DbContext CreateDbContext(string name)

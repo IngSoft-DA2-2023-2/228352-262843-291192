@@ -15,6 +15,10 @@ namespace BuildingManagerDataAccess.Repositories
 
         public void AssociateCompanyToUser(Guid userId, Guid companyId)
         {
+            if (_context.Set<CompanyAdminAssociation>().Any(a => a.ConstructionCompanyAdminId == userId))
+            {
+                throw new ValueDuplicatedException("Company User Association");
+            }
             var companyAdminAssociation = new CompanyAdminAssociation
             {
                 ConstructionCompanyAdminId = userId,
