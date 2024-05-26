@@ -52,6 +52,10 @@ namespace BuildingManagerLogic
             {
                 throw new DuplicatedValueException(e, e.Message);
             }
+            catch (InvalidOperationException e)
+            {
+                throw e;
+            }
         }
     }
 }

@@ -159,5 +159,29 @@ namespace BuildingManagerLogicTest
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
         }
+
+        [TestMethod]
+        public void ModifyConstructionCompanyNameWithInvalidUser()
+        {
+            var userId = Guid.NewGuid();
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            userRepositoryMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
+            constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>())).Throws(new InvalidOperationException(""));
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                constructionCompanyLogic.ModifyName(Guid.NewGuid(), "existing name", userId);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            constructionCompanyRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
     }
 }
