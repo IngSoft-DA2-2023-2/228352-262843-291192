@@ -239,5 +239,28 @@ namespace BuildingManagerLogicTest
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void AssociateCompanyToUserWithUserAlreadyAssociatedToCompany()
+        {
+            var userId = Guid.NewGuid();
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            constructionCompanyRepositoryMock.Setup(x => x.AssociateCompanyToUser(It.IsAny<Guid>(), It.IsAny<Guid>())).Throws(new ValueDuplicatedException(""));
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
+
+            Exception exception = null;
+            try
+            {
+                constructionCompanyLogic.AssociateCompanyToUser(Guid.NewGuid(), Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            constructionCompanyRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
     }
 }
