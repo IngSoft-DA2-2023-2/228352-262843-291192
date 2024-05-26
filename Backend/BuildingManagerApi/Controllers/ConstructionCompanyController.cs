@@ -30,6 +30,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult ModifyConstructionCompanyName([FromRoute] Guid id, [FromBody] ConstructionCompanyRequest constructionCompanyRequest, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
+            constructionCompanyRequest.Validate();
             ConstructionCompanyResponse modifyNameResponse = new(_constructionCompanyLogic.ModifyName(id, constructionCompanyRequest.Name, sessionToken));
             return Ok(modifyNameResponse);
         }

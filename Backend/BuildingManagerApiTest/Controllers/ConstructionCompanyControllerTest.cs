@@ -43,7 +43,7 @@ namespace BuildingManagerApiTest.Controllers
                 Id = Guid.NewGuid(),
                 Name = "Test1"
             };
-            ConstructionCompanyRequest modifyNameRequest = new ConstructionCompanyRequest(){Name = "Test2"};
+            ConstructionCompanyRequest modifyNameRequest = new ConstructionCompanyRequest() { Name = "Test2" };
             var mockConstructionCompanyLogic = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             mockConstructionCompanyLogic.Setup(x => x.ModifyName(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>())).Returns(constructionCompany);
             var controller = new ConstructionCompanyController(mockConstructionCompanyLogic.Object);
@@ -58,6 +58,31 @@ namespace BuildingManagerApiTest.Controllers
             Assert.AreEqual(expectedObject.Id, resultObject.Id);
         }
 
+        [TestMethod]
+        public void ModifyConstructionCompanyNameWithInvalidName()
+        {
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "test"
+            };
+            ConstructionCompanyRequest modifyNameRequest = new ConstructionCompanyRequest() { Name = null };
+            var mockConstructionCompanyLogic = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var controller = new ConstructionCompanyController(mockConstructionCompanyLogic.Object);
+            Exception exception = null;
+
+            try
+            {
+                controller.ModifyConstructionCompanyName(constructionCompany.Id, modifyNameRequest, Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            mockConstructionCompanyLogic.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
 
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
