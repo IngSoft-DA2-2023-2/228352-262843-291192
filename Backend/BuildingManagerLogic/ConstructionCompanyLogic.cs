@@ -39,7 +39,14 @@ namespace BuildingManagerLogic
 
         public ConstructionCompany ModifyName(Guid id, string name)
         {
-            return _constructionCompanyRepository.ModifyConstructionCompanyName(id, name);
+            try
+            {
+                return _constructionCompanyRepository.ModifyConstructionCompanyName(id, name);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }
