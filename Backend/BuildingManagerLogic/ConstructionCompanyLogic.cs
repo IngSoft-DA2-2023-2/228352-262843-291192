@@ -47,6 +47,10 @@ namespace BuildingManagerLogic
             {
                 throw new NotFoundException(e, e.Message);
             }
+            catch (ValueDuplicatedException e)
+            {
+                throw new DuplicatedValueException(e, e.Message);
+            }
         }
     }
 }
