@@ -236,14 +236,17 @@ namespace BuildingManagerDataAccessTest
         {
             var context = CreateDbContext("AssociateCompanyToAdminTest");
             var repository = new ConstructionCompanyRepository(context);
+            var repositoryUser = new UserRepository(context);
             var userId = Guid.NewGuid();
             var constructionCompany = new ConstructionCompany
             {
                 Id = Guid.NewGuid(),
                 Name = "company 1"
             };
+            repositoryUser.CreateUser(new ConstructionCompanyAdmin { Id = userId, Email = "email", Password = "password" });
             repository.CreateConstructionCompany(constructionCompany, userId);
             var userId2 = Guid.NewGuid();
+            repositoryUser.CreateUser(new ConstructionCompanyAdmin { Id = userId2, Email = "email2", Password = "password2" });
 
             repository.AssociateCompanyToUser(userId2, constructionCompany.Id);
             var companyAdminAssociationResult = context.Set<CompanyAdminAssociation>().Find(userId2, constructionCompany.Id);
@@ -290,6 +293,32 @@ namespace BuildingManagerDataAccessTest
             try
             {
                 repository.AssociateCompanyToUser(userId, Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
+        [TestMethod]
+        public void AssociateCompanyToAdminWithInvalidUserIdTest()
+        {
+            var context = CreateDbContext("AssociateCompanyToAdminWithInvalidUserIdTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var userId = Guid.NewGuid();
+            var constructionCompany1 = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            repository.CreateConstructionCompany(constructionCompany1, userId);
+
+            Exception exception = null;
+            try
+            {
+                repository.AssociateCompanyToUser(Guid.NewGuid(), constructionCompany1.Id);
             }
             catch (Exception ex)
             {
