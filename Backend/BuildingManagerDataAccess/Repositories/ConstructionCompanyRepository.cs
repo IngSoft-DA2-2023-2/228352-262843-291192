@@ -42,6 +42,10 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueDuplicatedException("Name");
             }
+            if (!_context.Set<ConstructionCompany>().Any(a => a.Id == constructionCompanyId))
+            {
+                throw new ValueNotFoundException("Construction Company");
+            }
             ConstructionCompany company = _context.Set<ConstructionCompany>().First(i => i.Id == constructionCompanyId);
             company.Name = name;
             _context.SaveChanges();
