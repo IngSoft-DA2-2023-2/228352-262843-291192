@@ -32,13 +32,17 @@ namespace BuildingManagerDataAccess.Repositories
             };
             _context.Set<CompanyAdminAssociation>().Add(companyAdminAssociation);
             _context.SaveChanges();
-            
+
             return constructionCompany;
         }
 
         public ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name, Guid userId)
         {
-            throw new NotImplementedException();
+            ConstructionCompany company = _context.Set<ConstructionCompany>().First(i => i.Id == constructionCompanyId);
+            company.Name = name;
+            _context.SaveChanges();
+
+            return company;
         }
     }
 }
