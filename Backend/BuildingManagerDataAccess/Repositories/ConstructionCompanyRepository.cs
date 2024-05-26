@@ -36,7 +36,7 @@ namespace BuildingManagerDataAccess.Repositories
             return constructionCompany;
         }
 
-        public ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name)
+        public ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name, Guid userId)
         {
             throw new NotImplementedException();
         }

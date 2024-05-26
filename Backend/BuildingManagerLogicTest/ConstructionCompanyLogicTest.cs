@@ -99,9 +99,11 @@ namespace BuildingManagerLogicTest
                 Id = constructionCompany.Id,
                 Name = newName
             };
+            var userId = Guid.NewGuid();
             var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
             var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
-            constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>())).Returns(modifiedCompany);
+            userRepositoryMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
+            constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>())).Returns(modifiedCompany);
             var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
 
             var result = constructionCompanyLogic.ModifyName(constructionCompany.Id, newName, Guid.NewGuid());
@@ -113,9 +115,11 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void ModifyConstructionCompanyNameWithInvalidId()
         {
+            var userId = Guid.NewGuid();
             var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
             var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
-            constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>())).Throws(new ValueNotFoundException(""));
+            userRepositoryMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
+            constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
             var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
             Exception exception = null;
 
@@ -135,9 +139,11 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void ModifyConstructionCompanyNameToAlreadyExistingName()
         {
+            var userId = Guid.NewGuid();
             var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
             var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
-            constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>())).Throws(new ValueDuplicatedException(""));
+            userRepositoryMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
+            constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>())).Throws(new ValueDuplicatedException(""));
             var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
             Exception exception = null;
 
