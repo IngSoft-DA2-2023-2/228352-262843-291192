@@ -38,6 +38,10 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetCompanyIdFromUserId(Guid userId)
         {
+            if (!_context.Set<CompanyAdminAssociation>().Any(a => a.ConstructionCompanyAdminId == userId))
+            {
+                throw new ValueNotFoundException("Company User Association");
+            }
             return _context.Set<CompanyAdminAssociation>().First(i => i.ConstructionCompanyAdminId == userId).ConstructionCompanyId;
         }
 

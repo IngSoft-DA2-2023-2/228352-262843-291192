@@ -211,6 +211,26 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(constructionCompany.Id, result);
         }
 
+        [TestMethod]
+        public void GetConstructionCompanyIdFromUserIdWithInvalidUserIdAssociationTest()
+        {
+            var context = CreateDbContext("GetConstructionCompanyIdFromUserIdWithInvalidUserIdAssociationTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var userId = Guid.NewGuid();
+
+            Exception exception = null;
+            try
+            {
+                repository.GetCompanyIdFromUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
