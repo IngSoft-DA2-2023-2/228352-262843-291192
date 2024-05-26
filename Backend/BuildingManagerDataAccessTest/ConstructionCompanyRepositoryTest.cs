@@ -279,6 +279,26 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
 
+        [TestMethod]
+        public void AssociateCompanyToAdminWithInvalidCompanyIdTest()
+        {
+            var context = CreateDbContext("AssociateCompanyToAdminWithInvalidCompanyIdTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var userId = Guid.NewGuid();
+
+            Exception exception = null;
+            try
+            {
+                repository.AssociateCompanyToUser(userId, Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

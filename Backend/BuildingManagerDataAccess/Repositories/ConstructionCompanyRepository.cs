@@ -19,6 +19,9 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueDuplicatedException("Company User Association");
             }
+            if (!_context.Set<ConstructionCompany>().Any(a => a.Id == companyId)){
+                throw new ValueNotFoundException("Construction Company");
+            }
             var companyAdminAssociation = new CompanyAdminAssociation
             {
                 ConstructionCompanyAdminId = userId,
