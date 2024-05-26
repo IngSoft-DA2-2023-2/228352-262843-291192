@@ -100,12 +100,44 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Name = "company 1"
             };
-            constructionCompany.Name = "company 2";
             repository.CreateConstructionCompany(constructionCompany, userId);
 
             var result = repository.ModifyConstructionCompanyName(constructionCompany.Id, "company 2", userId);
 
             Assert.AreEqual(constructionCompany, result);
+        }
+
+        [TestMethod]
+        public void ModifyConstructionCompanyWithDuplicatedNameTest()
+        {
+            var context = CreateDbContext("ModifyConstructionCompanyWithDuplicatedNameTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var userId1 = Guid.NewGuid();
+            var userId2 = Guid.NewGuid();
+            var constructionCompany1 = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            var constructionCompany2 = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 2"
+            };
+            repository.CreateConstructionCompany(constructionCompany1, userId1);
+            repository.CreateConstructionCompany(constructionCompany2, userId2);
+
+            Exception exception = null;
+            try
+            {
+                repository.ModifyConstructionCompanyName(constructionCompany1.Id, "company 2", userId1);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
 
         private DbContext CreateDbContext(string name)

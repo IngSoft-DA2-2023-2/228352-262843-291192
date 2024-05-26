@@ -38,6 +38,10 @@ namespace BuildingManagerDataAccess.Repositories
 
         public ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name, Guid userId)
         {
+            if (_context.Set<ConstructionCompany>().Any(a => a.Name == name))
+            {
+                throw new ValueDuplicatedException("Name");
+            }
             ConstructionCompany company = _context.Set<ConstructionCompany>().First(i => i.Id == constructionCompanyId);
             company.Name = name;
             _context.SaveChanges();
