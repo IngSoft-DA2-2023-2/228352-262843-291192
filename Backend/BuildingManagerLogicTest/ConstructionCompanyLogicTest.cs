@@ -104,7 +104,7 @@ namespace BuildingManagerLogicTest
             constructionCompanyRepositoryMock.Setup(x => x.ModifyConstructionCompanyName(It.IsAny<Guid>(), It.IsAny<string>())).Returns(modifiedCompany);
             var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
 
-            var result = constructionCompanyLogic.ModifyName(constructionCompany.Id, newName);
+            var result = constructionCompanyLogic.ModifyName(constructionCompany.Id, newName, Guid.NewGuid());
 
             constructionCompanyRepositoryMock.VerifyAll();
             Assert.AreEqual(modifiedCompany, result);
@@ -121,7 +121,7 @@ namespace BuildingManagerLogicTest
 
             try
             {
-                constructionCompanyLogic.ModifyName(Guid.NewGuid(), "new name");
+                constructionCompanyLogic.ModifyName(Guid.NewGuid(), "new name", Guid.NewGuid());
             }
             catch (Exception ex)
             {
@@ -143,7 +143,7 @@ namespace BuildingManagerLogicTest
 
             try
             {
-                constructionCompanyLogic.ModifyName(Guid.NewGuid(), "existing name");
+                constructionCompanyLogic.ModifyName(Guid.NewGuid(), "existing name", Guid.NewGuid());
             }
             catch (Exception ex)
             {

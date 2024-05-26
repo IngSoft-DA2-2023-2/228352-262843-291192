@@ -45,12 +45,12 @@ namespace BuildingManagerApiTest.Controllers
             };
             ConstructionCompanyRequest modifyNameRequest = new ConstructionCompanyRequest(){Name = "Test2"};
             var mockConstructionCompanyLogic = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
-            mockConstructionCompanyLogic.Setup(x => x.ModifyName(It.IsAny<Guid>(), It.IsAny<string>())).Returns(constructionCompany);
+            mockConstructionCompanyLogic.Setup(x => x.ModifyName(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>())).Returns(constructionCompany);
             var controller = new ConstructionCompanyController(mockConstructionCompanyLogic.Object);
             OkObjectResult expected = new OkObjectResult(new ConstructionCompanyResponse(constructionCompany));
             ConstructionCompanyResponse expectedObject = expected.Value as ConstructionCompanyResponse;
 
-            OkObjectResult result = controller.ModifyConstructionCompanyName(constructionCompany.Id, modifyNameRequest) as OkObjectResult;
+            OkObjectResult result = controller.ModifyConstructionCompanyName(constructionCompany.Id, modifyNameRequest, Guid.NewGuid()) as OkObjectResult;
             ConstructionCompanyResponse resultObject = result.Value as ConstructionCompanyResponse;
 
             mockConstructionCompanyLogic.VerifyAll();

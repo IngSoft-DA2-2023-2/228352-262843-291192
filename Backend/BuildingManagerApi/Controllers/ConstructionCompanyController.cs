@@ -27,9 +27,10 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult ModifyConstructionCompanyName([FromRoute] Guid id, [FromBody] ConstructionCompanyRequest constructionCompanyRequest)
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult ModifyConstructionCompanyName([FromRoute] Guid id, [FromBody] ConstructionCompanyRequest constructionCompanyRequest, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            ConstructionCompanyResponse modifyNameResponse = new(_constructionCompanyLogic.ModifyName(id, constructionCompanyRequest.Name));
+            ConstructionCompanyResponse modifyNameResponse = new(_constructionCompanyLogic.ModifyName(id, constructionCompanyRequest.Name, sessionToken));
             return Ok(modifyNameResponse);
         }
     }

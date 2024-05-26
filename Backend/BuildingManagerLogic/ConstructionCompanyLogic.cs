@@ -37,7 +37,7 @@ namespace BuildingManagerLogic
             }
         }
 
-        public ConstructionCompany ModifyName(Guid id, string name)
+        public ConstructionCompany ModifyName(Guid id, string name, Guid sessionToken)
         {
             try
             {
