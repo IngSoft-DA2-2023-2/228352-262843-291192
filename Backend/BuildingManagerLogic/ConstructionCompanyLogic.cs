@@ -19,7 +19,14 @@ namespace BuildingManagerLogic
 
         public void AssociateCompanyToUser(Guid userId, Guid companyId)
         {
-            _constructionCompanyRepository.AssociateCompanyToUser(userId, companyId);
+            try
+            {
+                _constructionCompanyRepository.AssociateCompanyToUser(userId, companyId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid sessionToken)
