@@ -3,7 +3,7 @@ using BuildingManagerModels.CustomExceptions;
 
 namespace BuildingManagerModels.Inner
 {
-    public class CreateConstructionCompanyRequest
+    public class ConstructionCompanyRequest
     {
         public string Name { get; set; }
 

@@ -3,12 +3,12 @@ using System;
 
 namespace BuildingManagerModels.Outer
 {
-    public class CreateConstructionCompanyResponse
+    public class ConstructionCompanyResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public CreateConstructionCompanyResponse(ConstructionCompany constructionCompany)
+        public ConstructionCompanyResponse(ConstructionCompany constructionCompany)
         {
             Id = constructionCompany.Id;
             Name = constructionCompany.Name;
@@ -20,7 +20,7 @@ namespace BuildingManagerModels.Outer
             {
                 return false;
             }
-            CreateConstructionCompanyResponse other = (CreateConstructionCompanyResponse)obj;
+            ConstructionCompanyResponse other = (ConstructionCompanyResponse)obj;
             return Id == other.Id && Name == other.Name;
         }
     }

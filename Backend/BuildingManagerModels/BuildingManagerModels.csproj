@@ -70,10 +70,10 @@
     <Compile Include="Outer\MaintenanceReportResponse.cs" />
     <Compile Include="Outer\BuildingsReportResponse.cs" />
     <Compile Include="Outer\UpdateBuildingResponse.cs" />
-    <Compile Include="Inner\CreateConstructionCompanyRequest.cs" />
+    <Compile Include="Inner\ConstructionCompanyRequest.cs" />
     <Compile Include="Outer\CreateConstructionCompanyAdminResponse.cs" />
     <Compile Include="Inner\CreateConstructionCompanyAdminRequest.cs" />
-    <Compile Include="Outer\CreateConstructionCompanyResponse.cs" />
+    <Compile Include="Outer\ConstructionCompanyResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

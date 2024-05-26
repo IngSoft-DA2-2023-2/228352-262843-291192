@@ -20,16 +20,16 @@ namespace BuildingManagerApi.Controllers
 
         [HttpPost]
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
-        public IActionResult CreateConstructionCompany([FromBody] CreateConstructionCompanyRequest constructionCompanyRequest, [FromHeader(Name = "Authorization")] Guid sessionToken)
+        public IActionResult CreateConstructionCompany([FromBody] ConstructionCompanyRequest constructionCompanyRequest, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            CreateConstructionCompanyResponse createConstructionCompanyResponse = new(_constructionCompanyLogic.CreateConstructionCompany(constructionCompanyRequest.ToEntity(), sessionToken));
+            ConstructionCompanyResponse createConstructionCompanyResponse = new(_constructionCompanyLogic.CreateConstructionCompany(constructionCompanyRequest.ToEntity(), sessionToken));
             return CreatedAtAction(nameof(CreateConstructionCompany), createConstructionCompanyResponse);
         }
 
         [HttpPut("{id}")]
-        public IActionResult ModifyConstructionCompanyName([FromRoute] Guid id, [FromBody] CreateConstructionCompanyRequest constructionCompanyRequest)
+        public IActionResult ModifyConstructionCompanyName([FromRoute] Guid id, [FromBody] ConstructionCompanyRequest constructionCompanyRequest)
         {
-            CreateConstructionCompanyResponse modifyNameResponse = new(_constructionCompanyLogic.ModifyName(id, constructionCompanyRequest.Name));
+            ConstructionCompanyResponse modifyNameResponse = new(_constructionCompanyLogic.ModifyName(id, constructionCompanyRequest.Name));
             return Ok(modifyNameResponse);
         }
     }

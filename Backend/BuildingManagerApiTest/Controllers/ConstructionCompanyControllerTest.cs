@@ -27,12 +27,12 @@ namespace BuildingManagerApiTest.Controllers
             mockConstructionCompanyLogic.Setup(x => x.CreateConstructionCompany(It.IsAny<ConstructionCompany>(), It.IsAny<Guid>())).Returns(constructionCompany);
             var controller = new ConstructionCompanyController(mockConstructionCompanyLogic.Object);
 
-            var result = controller.CreateConstructionCompany(new CreateConstructionCompanyRequest { Name = "Test" }, new Guid());
+            var result = controller.CreateConstructionCompany(new ConstructionCompanyRequest { Name = "Test" }, new Guid());
             var createdAtActionResult = result as CreatedAtActionResult;
-            var content = createdAtActionResult.Value as CreateConstructionCompanyResponse;
+            var content = createdAtActionResult.Value as ConstructionCompanyResponse;
 
             mockConstructionCompanyLogic.VerifyAll();
-            Assert.AreEqual(new CreateConstructionCompanyResponse(constructionCompany), content);
+            Assert.AreEqual(new ConstructionCompanyResponse(constructionCompany), content);
         }
 
         [TestMethod]
@@ -43,15 +43,15 @@ namespace BuildingManagerApiTest.Controllers
                 Id = Guid.NewGuid(),
                 Name = "Test1"
             };
-            CreateConstructionCompanyRequest modifyNameRequest = new CreateConstructionCompanyRequest(){Name = "Test2"};
+            ConstructionCompanyRequest modifyNameRequest = new ConstructionCompanyRequest(){Name = "Test2"};
             var mockConstructionCompanyLogic = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             mockConstructionCompanyLogic.Setup(x => x.ModifyName(It.IsAny<Guid>(), It.IsAny<string>())).Returns(constructionCompany);
             var controller = new ConstructionCompanyController(mockConstructionCompanyLogic.Object);
-            OkObjectResult expected = new OkObjectResult(new CreateConstructionCompanyResponse(constructionCompany));
-            CreateConstructionCompanyResponse expectedObject = expected.Value as CreateConstructionCompanyResponse;
+            OkObjectResult expected = new OkObjectResult(new ConstructionCompanyResponse(constructionCompany));
+            ConstructionCompanyResponse expectedObject = expected.Value as ConstructionCompanyResponse;
 
             OkObjectResult result = controller.ModifyConstructionCompanyName(constructionCompany.Id, modifyNameRequest) as OkObjectResult;
-            CreateConstructionCompanyResponse resultObject = result.Value as CreateConstructionCompanyResponse;
+            ConstructionCompanyResponse resultObject = result.Value as ConstructionCompanyResponse;
 
             mockConstructionCompanyLogic.VerifyAll();
             Assert.AreEqual(result.StatusCode, expected.StatusCode);
@@ -62,14 +62,14 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
-            var response = new CreateConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test" });
+            var response = new ConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test" });
             Assert.IsFalse(response.Equals(null));
         }
 
         [TestMethod]
         public void Equals_ObjectOfDifferentType_ReturnsFalse()
         {
-            var response = new CreateConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test" });
+            var response = new ConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test" });
             var differentTypeObject = new object();
             Assert.IsFalse(response.Equals(differentTypeObject));
         }
@@ -77,15 +77,15 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_ObjectWithDifferentAttributes_ReturnsFalse()
         {
-            var response1 = new CreateConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test" });
-            var response2 = new CreateConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test2" });
+            var response1 = new ConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test" });
+            var response2 = new ConstructionCompanyResponse(new ConstructionCompany { Id = Guid.NewGuid(), Name = "Test2" });
             Assert.IsFalse(response1.Equals(response2));
         }
 
         [TestMethod]
         public void Validate_EmptyName_ReturnsInvalidArgumentException()
         {
-            var request = new CreateConstructionCompanyRequest { Name = "" };
+            var request = new ConstructionCompanyRequest { Name = "" };
             Assert.ThrowsException<InvalidArgumentException>(() => request.Validate());
         }
     }
