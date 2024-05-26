@@ -15,7 +15,13 @@ namespace BuildingManagerDataAccess.Repositories
 
         public void AssociateCompanyToUser(Guid userId, Guid companyId)
         {
-            throw new NotImplementedException();
+            var companyAdminAssociation = new CompanyAdminAssociation
+            {
+                ConstructionCompanyAdminId = userId,
+                ConstructionCompanyId = companyId
+            };
+            _context.Set<CompanyAdminAssociation>().Add(companyAdminAssociation);
+            _context.SaveChanges();
         }
 
         public ConstructionCompany CreateConstructionCompany(ConstructionCompany constructionCompany, Guid constructionCompanyAdminId)
