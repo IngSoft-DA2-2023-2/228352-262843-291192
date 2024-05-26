@@ -39,7 +39,14 @@ namespace BuildingManagerLogic
 
         public Guid GetCompanyIdFromUserId(Guid userId)
         {
-            return _constructionCompanyRepository.GetCompanyIdFromUserId(userId);
+            try
+            {
+                return _constructionCompanyRepository.GetCompanyIdFromUserId(userId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public ConstructionCompany ModifyName(Guid id, string name, Guid sessionToken)

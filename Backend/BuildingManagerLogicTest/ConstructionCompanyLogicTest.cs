@@ -174,5 +174,27 @@ namespace BuildingManagerLogicTest
 
             Assert.AreEqual(companyId, result);
         }
+
+        [TestMethod]
+        public void GetConstructionCompanyIdWithInvalidUserId()
+        {
+            var userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            constructionCompanyRepositoryMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, userRepositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                constructionCompanyLogic.GetCompanyIdFromUserId(Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            constructionCompanyRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }
