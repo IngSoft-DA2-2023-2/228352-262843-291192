@@ -17,7 +17,7 @@ namespace BuildingManagerLogic
             _buildingRepository = buildingRepository;
         }
 
-        public Building CreateBuilding(Building building)
+        public Building CreateBuilding(Building building, Guid sessionToken)
         {
             try
             {
