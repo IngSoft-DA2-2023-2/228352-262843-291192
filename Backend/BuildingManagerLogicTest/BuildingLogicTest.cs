@@ -26,7 +26,7 @@ namespace BuildingManagerLogicTest
                 Name = "Building 1",
                 Address = "Address",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
         }
@@ -38,7 +38,7 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
 
-            var result = buildingLogic.CreateBuilding(_building);
+            var result = buildingLogic.CreateBuilding(_building, Guid.NewGuid());
 
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(_building, result);
@@ -53,7 +53,7 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
             buildingRespositoryMock.Setup(x => x.ListBuildings()).Returns(buildingsList);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
-            buildingLogic.CreateBuilding(_building);
+            buildingLogic.CreateBuilding(_building, Guid.NewGuid());
 
             var result = buildingLogic.ListBuildings();
 
@@ -71,7 +71,7 @@ namespace BuildingManagerLogicTest
             Exception exception = null;
             try
             {
-                buildingLogic.CreateBuilding(_building);
+                buildingLogic.CreateBuilding(_building, Guid.NewGuid());
             }
             catch (Exception ex)
             {
@@ -91,7 +91,7 @@ namespace BuildingManagerLogicTest
                 Name = "Building 1",
                 Address = "Address",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -131,7 +131,7 @@ namespace BuildingManagerLogicTest
 
             try
             {
-                buildingLogic.CreateBuilding(buildingWithApartmentWithSameFloorAndNumber);
+                buildingLogic.CreateBuilding(buildingWithApartmentWithSameFloorAndNumber, Guid.NewGuid());
             }
             catch (Exception ex)
             {
@@ -155,7 +155,7 @@ namespace BuildingManagerLogicTest
                 Name = "Building 2",
                 Address = "Address",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -192,7 +192,7 @@ namespace BuildingManagerLogicTest
 
             try
             {
-                buildingLogic.CreateBuilding(buildingWithSameOwnerEmail);
+                buildingLogic.CreateBuilding(buildingWithSameOwnerEmail, Guid.NewGuid());
             }
             catch (Exception ex)
             {
@@ -239,7 +239,7 @@ namespace BuildingManagerLogicTest
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -307,7 +307,7 @@ namespace BuildingManagerLogicTest
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -381,7 +381,7 @@ namespace BuildingManagerLogicTest
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {

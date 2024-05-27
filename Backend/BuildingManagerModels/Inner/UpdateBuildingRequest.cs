@@ -17,8 +17,6 @@ namespace BuildingManagerModels.Inner
 
         public string Location { get; set; }
 
-        public string ConstructionCompany { get; set; }
-
         public decimal CommonExpenses { get; set; }
 
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
@@ -33,7 +31,6 @@ namespace BuildingManagerModels.Inner
                 ManagerId = this.ManagerId,
                 Address = this.Address,
                 Location = this.Location,
-                ConstructionCompany = this.ConstructionCompany,
                 CommonExpenses = this.CommonExpenses,
                 Apartments = this.Apartments
             };
@@ -52,10 +49,6 @@ namespace BuildingManagerModels.Inner
             if (string.IsNullOrEmpty(Location))
             {
                 throw new InvalidArgumentException("location");
-            }
-            if (string.IsNullOrEmpty(ConstructionCompany))
-            {
-                throw new InvalidArgumentException("constructionCompany");
             }
             if (CommonExpenses <= 0)
             {

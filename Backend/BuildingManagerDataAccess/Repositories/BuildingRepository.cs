@@ -125,7 +125,7 @@ namespace BuildingManagerDataAccess.Repositories
             buildToUpdate.Name = newBuilding.Name;
             buildToUpdate.Address = newBuilding.Address;
             buildToUpdate.Location = newBuilding.Location;
-            buildToUpdate.ConstructionCompany = newBuilding.ConstructionCompany;
+            buildToUpdate.ConstructionCompanyId = newBuilding.ConstructionCompanyId;
             buildToUpdate.CommonExpenses = newBuilding.CommonExpenses;
 
             List<Apartment> apartmentsInDB = buildToUpdate.Apartments;

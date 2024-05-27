@@ -22,7 +22,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -69,7 +69,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -108,7 +108,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
 
@@ -130,7 +130,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -160,7 +160,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -196,7 +196,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -250,7 +250,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -280,7 +280,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -316,7 +316,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
             context.Set<Building>().Add(building);
@@ -329,7 +329,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
 
@@ -348,7 +348,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
             context.Set<Building>().Add(building);
@@ -418,7 +418,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -479,7 +479,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 2",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
@@ -551,7 +551,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -612,7 +612,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompany = "Company B",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -674,7 +674,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 2",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
@@ -746,7 +746,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -807,7 +807,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompany = "Company B",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -869,7 +869,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 2",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
@@ -938,7 +938,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -999,7 +999,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompany = "Company B",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -1061,7 +1061,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompany = "Company 2",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
