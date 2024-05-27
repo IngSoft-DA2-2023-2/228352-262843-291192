@@ -52,6 +52,7 @@
     <Compile Include="IInvitationLogic.cs" />
     <Compile Include="IReportLogic.cs" />
     <Compile Include="IConstructionCompanyLogic.cs" />
+    <Compile Include="IConstructionCompanyAdminLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

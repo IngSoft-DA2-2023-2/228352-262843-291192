@@ -41,13 +41,9 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void CreateConstructionCompanyAdmin_Ok()
         {
-            var mockConstructionCompanyAdminLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-            var mockConstructionCompanyLogic = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
-            mockConstructionCompanyAdminLogic.Setup(x => x.CreateUser(It.IsAny<ConstructionCompanyAdmin>())).Returns(_constructionCompanyAdmin);
-            mockConstructionCompanyAdminLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(new Guid());
-            mockConstructionCompanyLogic.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(new Guid());
-            mockConstructionCompanyLogic.Setup(x => x.AssociateCompanyToUser(It.IsAny<Guid>(), It.IsAny<Guid>()));
-            var constructionCompanyAdminController = new ConstructionCompanyAdminController(mockConstructionCompanyAdminLogic.Object, mockConstructionCompanyLogic.Object);
+            var mockConstructionCompanyAdminLogic = new Mock<IConstructionCompanyAdminLogic>(MockBehavior.Strict);
+            mockConstructionCompanyAdminLogic.Setup(x => x.CreateConstructionCompanyAdmin(It.IsAny<User>(), It.IsAny<Guid>())).Returns(_constructionCompanyAdmin);
+            var constructionCompanyAdminController = new ConstructionCompanyAdminController(mockConstructionCompanyAdminLogic.Object);
 
             var result = constructionCompanyAdminController.CreateConstructionCompanyAdmin(_createConstructionCompanyAdminRequest, Guid.NewGuid());
             var createdAtActionResult = result as CreatedAtActionResult;
