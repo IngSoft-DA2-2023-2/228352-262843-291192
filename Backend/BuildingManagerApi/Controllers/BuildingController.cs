@@ -23,7 +23,6 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult CreateBuilding([FromBody] CreateBuildingRequest buildingRequest, [FromHeader(Name = "Authorization")] Guid managerSessionToken)
         {
-            buildingRequest.ManagerId = _buildingLogic.GetManagerIdBySessionToken(managerSessionToken);
             CreateBuildingResponse createBuildingResponse = new CreateBuildingResponse(_buildingLogic.CreateBuilding(buildingRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateBuilding), createBuildingResponse);
         }

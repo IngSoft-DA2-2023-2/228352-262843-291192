@@ -75,7 +75,6 @@ namespace BuildingManagerApiTest.Controllers
         {
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
-            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
             BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
 
             var result = buildingController.CreateBuilding(_createBuildingRequest, sessionToken);
@@ -366,6 +365,7 @@ namespace BuildingManagerApiTest.Controllers
             {
                 Name = "Building",
                 Address = "1234 Main St",
+                ManagerId = managerId,
                 Location = "City",
                 ConstructionCompany = "Company",
                 CommonExpenses = 1000,
@@ -376,7 +376,6 @@ namespace BuildingManagerApiTest.Controllers
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithApartment);
-            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
             BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
 
             var result = buildingController.CreateBuilding(createBuildingWithApartmentRequest, sessionToken);
@@ -420,6 +419,7 @@ namespace BuildingManagerApiTest.Controllers
             CreateBuildingRequest createBuildingWithOwnerApartmentRequest = new CreateBuildingRequest
             {
                 Name = "Building",
+                ManagerId = managerId,
                 Address = "1234 Main St",
                 Location = "City",
                 ConstructionCompany = "Company",
@@ -431,7 +431,6 @@ namespace BuildingManagerApiTest.Controllers
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithOwnerApartment);
-            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
             BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
 
             var result = buildingController.CreateBuilding(createBuildingWithOwnerApartmentRequest, sessionToken);
