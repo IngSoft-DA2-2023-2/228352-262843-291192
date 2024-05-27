@@ -55,6 +55,7 @@
     <Compile Include="BuildingsReport.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="ConstructionCompanyLogic.cs" />
+    <Compile Include="ConstructionCompanyAdminLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
