@@ -20,7 +20,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
-        [AuthenticationFilter(RoleType.MANAGER)]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult CreateBuilding([FromBody] CreateBuildingRequest buildingRequest, [FromHeader(Name = "Authorization")] Guid managerSessionToken)
         {
             buildingRequest.ManagerId = _buildingLogic.GetManagerIdBySessionToken(managerSessionToken);
