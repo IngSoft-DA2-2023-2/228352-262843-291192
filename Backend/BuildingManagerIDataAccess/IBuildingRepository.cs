@@ -11,7 +11,7 @@ namespace BuildingManagerIDataAccess
     {
         Building CreateBuilding(Building building);
         Building DeleteBuilding(Guid buildingId);
-        Guid GetManagerIdBySessionToken(Guid sessionToken);
+        Guid GetUserIdBySessionToken(Guid sessionToken);
         Building UpdateBuilding(Building building);
         List<Building> ListBuildings();
     }

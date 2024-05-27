@@ -75,9 +75,9 @@ namespace BuildingManagerLogic
             return _buildingRepository.DeleteBuilding(buildingId);
         }
 
-        public Guid GetManagerIdBySessionToken(Guid sessionToken)
+        public Guid GetUserIdBySessionToken(Guid sessionToken)
         {
-            return _buildingRepository.GetManagerIdBySessionToken(sessionToken);
+            return _buildingRepository.GetUserIdBySessionToken(sessionToken);
         }
 
         public Building UpdateBuilding(Building building)

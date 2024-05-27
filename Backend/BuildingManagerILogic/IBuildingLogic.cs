@@ -8,7 +8,7 @@ namespace BuildingManagerILogic
     {
         public Building CreateBuilding(Building building, Guid sessionToken);
         public Building DeleteBuilding(Guid buildingId);
-        public Guid GetManagerIdBySessionToken(Guid sessionToken);
+        public Guid GetUserIdBySessionToken(Guid sessionToken);
         public Building UpdateBuilding(Building building);
         public List<Building> ListBuildings();
     }

@@ -389,7 +389,7 @@ namespace BuildingManagerDataAccessTest
             };
             userRepository.CreateUser(manager);
 
-            Guid result = repository.GetManagerIdBySessionToken(sessionToken);
+            Guid result = repository.GetUserIdBySessionToken(sessionToken);
 
             Assert.AreEqual(managerId, result);
         }
@@ -401,7 +401,7 @@ namespace BuildingManagerDataAccessTest
             var repository = new BuildingRepository(context);
             Guid sessionToken = Guid.NewGuid();
 
-            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetManagerIdBySessionToken(sessionToken));
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetUserIdBySessionToken(sessionToken));
         }
 
         [TestMethod]

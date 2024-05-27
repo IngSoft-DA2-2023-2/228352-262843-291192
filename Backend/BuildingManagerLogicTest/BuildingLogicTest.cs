@@ -220,10 +220,10 @@ namespace BuildingManagerLogicTest
         public void GetManagerIdBySessionTokenTest()
         {
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            buildingRespositoryMock.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(_building.ManagerId);
+            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(_building.ManagerId);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object);
 
-            var result = buildingLogic.GetManagerIdBySessionToken(_building.ManagerId);
+            var result = buildingLogic.GetUserIdBySessionToken(_building.ManagerId);
 
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(_building.ManagerId, result);

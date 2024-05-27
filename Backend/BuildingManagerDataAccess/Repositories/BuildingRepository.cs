@@ -96,7 +96,7 @@ namespace BuildingManagerDataAccess.Repositories
             return building;
         }
 
-        public Guid GetManagerIdBySessionToken(Guid sessionToken)
+        public Guid GetUserIdBySessionToken(Guid sessionToken)
         {
             if (!_context.Set<User>().Any(u => u.SessionToken == sessionToken))
             {
