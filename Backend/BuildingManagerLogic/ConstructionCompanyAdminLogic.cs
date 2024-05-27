@@ -16,11 +16,16 @@ namespace BuildingManagerLogic
 
         public User CreateConstructionCompanyAdmin(User user, Guid sessionToken)
         {
-            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
-            Guid companyId = _constructionCompanyLogic.GetCompanyIdFromUserId(userId);
-            User newUser =_userLogic.CreateUser(user);
+            Guid companyId = GetCompanyIdFromSessionToken(sessionToken);
+            User newUser = _userLogic.CreateUser(user);
             _constructionCompanyLogic.AssociateCompanyToUser(newUser.Id, companyId);
             return newUser;
+        }
+
+        private Guid GetCompanyIdFromSessionToken(Guid sessionToken)
+        {
+            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
+            return _constructionCompanyLogic.GetCompanyIdFromUserId(userId);
         }
     }
 }
