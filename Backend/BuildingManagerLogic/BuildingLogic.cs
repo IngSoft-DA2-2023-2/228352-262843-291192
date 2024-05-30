@@ -79,7 +79,7 @@ namespace BuildingManagerLogic
         public Building DeleteBuilding(Guid buildingId, Guid sessionToken)
         {
             Guid userId = GetUserIdBySessionToken(sessionToken);
-            Guid companyId = _constructionCompanyLogic.GetCompanyIdFromUserId(userId);
+            Guid companyId = GetConstructionCompanyFromBuildingId(buildingId);
             if (_constructionCompanyLogic.IsUserAssociatedToCompany(userId, companyId))
             {
                 return _buildingRepository.DeleteBuilding(buildingId);

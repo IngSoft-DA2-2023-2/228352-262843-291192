@@ -233,10 +233,10 @@ namespace BuildingManagerLogicTest
         {
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
             constructionCompanyLogicMock.Setup(x => x.IsUserAssociatedToCompany(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(true);
             buildingRespositoryMock.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
             buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
+            buildingRespositoryMock.Setup(x => x.GetConstructionCompanyFromBuildingId(It.IsAny<Guid>())).Returns(companyId);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
 
             var result = buildingLogic.DeleteBuilding(_building.Id, sessionToken);
@@ -520,10 +520,10 @@ namespace BuildingManagerLogicTest
         {
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
-            constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
             constructionCompanyLogicMock.Setup(x => x.IsUserAssociatedToCompany(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(false);
             buildingRespositoryMock.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
             buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
+            buildingRespositoryMock.Setup(x => x.GetConstructionCompanyFromBuildingId(It.IsAny<Guid>())).Returns(companyId);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
             Exception exception = null;
             try
