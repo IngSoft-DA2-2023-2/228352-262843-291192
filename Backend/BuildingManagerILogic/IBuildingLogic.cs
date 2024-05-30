@@ -11,5 +11,6 @@ namespace BuildingManagerILogic
         public Guid GetUserIdBySessionToken(Guid sessionToken);
         public Building UpdateBuilding(Building building);
         public List<Building> ListBuildings();
+        public Guid GetConstructionCompanyFromBuildingId(Guid buildingId);
     }
 }

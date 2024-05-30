@@ -37,7 +37,8 @@ namespace BuildingManagerLogic
                 }
 
                 return _buildingRepository.CreateBuilding(building);
-            }catch(ValueDuplicatedException e)
+            }
+            catch (ValueDuplicatedException e)
             {
                 throw new DuplicatedValueException(e, e.Message);
             }
@@ -64,8 +65,8 @@ namespace BuildingManagerLogic
             {
                 for (int j = i + 1; j < apartments.Count; j++)
                 {
-                    if (apartments[i].Owner.Email == apartments[j].Owner.Email && 
-                        (apartments[i].Owner.Name != apartments[j].Owner.Name || 
+                    if (apartments[i].Owner.Email == apartments[j].Owner.Email &&
+                        (apartments[i].Owner.Name != apartments[j].Owner.Name ||
                         apartments[i].Owner.LastName != apartments[j].Owner.LastName))
                     {
                         return true;
@@ -74,7 +75,7 @@ namespace BuildingManagerLogic
             }
             return false;
         }
-    
+
         public Building DeleteBuilding(Guid buildingId)
         {
             return _buildingRepository.DeleteBuilding(buildingId);
@@ -110,6 +111,11 @@ namespace BuildingManagerLogic
         public List<Building> ListBuildings()
         {
             return _buildingRepository.ListBuildings();
+        }
+
+        public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)
+        {
+            return _buildingRepository.GetConstructionCompanyFromBuildingId(buildingId);
         }
     }
 }
