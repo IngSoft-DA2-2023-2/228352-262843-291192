@@ -29,9 +29,9 @@ namespace BuildingManagerApi.Controllers
 
         [HttpDelete("{buildingId}")]
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
-        public IActionResult DeleteBuilding([FromRoute] Guid buildingId)
+        public IActionResult DeleteBuilding([FromRoute] Guid buildingId, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            DeleteBuildingResponse deleteBuildingResponse = new DeleteBuildingResponse(_buildingLogic.DeleteBuilding(buildingId));
+            DeleteBuildingResponse deleteBuildingResponse = new DeleteBuildingResponse(_buildingLogic.DeleteBuilding(buildingId, sessionToken));
             return Ok(deleteBuildingResponse);
         }
 

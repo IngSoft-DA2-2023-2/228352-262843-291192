@@ -236,7 +236,7 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
 
-            var result = buildingLogic.DeleteBuilding(_building.Id);
+            var result = buildingLogic.DeleteBuilding(_building.Id, sessionToken);
 
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(_building, result);

@@ -412,12 +412,12 @@ namespace BuildingManagerApiTest.Controllers
         public void DeleteBuilding_Ok()
         {
             var mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
-            mockBuildingLogic.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
+            mockBuildingLogic.Setup(x => x.DeleteBuilding(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(_building);
             var buildingController = new BuildingController(mockBuildingLogic.Object);
             OkObjectResult expected = new OkObjectResult(new DeleteBuildingResponse(_building));
             DeleteBuildingResponse expectedObject = expected.Value as DeleteBuildingResponse;
 
-            OkObjectResult result = buildingController.DeleteBuilding(_building.Id) as OkObjectResult;
+            OkObjectResult result = buildingController.DeleteBuilding(_building.Id, sessionToken) as OkObjectResult;
             DeleteBuildingResponse resultObject = result.Value as DeleteBuildingResponse;
 
             mockBuildingLogic.VerifyAll();

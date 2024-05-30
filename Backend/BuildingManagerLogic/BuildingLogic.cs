@@ -76,7 +76,7 @@ namespace BuildingManagerLogic
             return false;
         }
 
-        public Building DeleteBuilding(Guid buildingId)
+        public Building DeleteBuilding(Guid buildingId, Guid sessionToken)
         {
             return _buildingRepository.DeleteBuilding(buildingId);
         }
