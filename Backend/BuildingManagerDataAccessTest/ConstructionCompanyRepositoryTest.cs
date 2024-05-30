@@ -328,6 +328,31 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
+        [TestMethod]
+        public void IsUserAssociatedToCompanyTest()
+        {
+            var context = CreateDbContext("IsUserAssociatedToCompanyTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var userRepository = new UserRepository(context);
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            ConstructionCompanyAdmin user = new()
+            {
+                Id = Guid.NewGuid(),
+                Email = "email",
+                Password = "password"
+            };
+            userRepository.CreateUser(user);
+            repository.CreateConstructionCompany(constructionCompany, user.Id);
+
+            var result = repository.IsUserAssociatedToCompany(user.Id, constructionCompany.Id);
+
+            Assert.IsTrue(result);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

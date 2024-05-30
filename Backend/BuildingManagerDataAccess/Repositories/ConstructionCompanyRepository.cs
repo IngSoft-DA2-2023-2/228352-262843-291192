@@ -69,7 +69,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public bool IsUserAssociatedToCompany(Guid userId, Guid companyId)
         {
-            throw new NotImplementedException();
+            return _context.Set<CompanyAdminAssociation>().Any(a => a.ConstructionCompanyId == companyId && a.ConstructionCompanyAdminId == userId);
         }
 
         public ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name, Guid userId)
