@@ -197,7 +197,8 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)
         {
-            throw new NotImplementedException();
+            return _context.Set<Building>().Find(buildingId).ConstructionCompanyId;
+
         }
     }
 }
