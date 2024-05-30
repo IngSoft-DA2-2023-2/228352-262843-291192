@@ -115,7 +115,14 @@ namespace BuildingManagerLogic
 
         public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)
         {
-            return _buildingRepository.GetConstructionCompanyFromBuildingId(buildingId);
+            try
+            {
+                return _buildingRepository.GetConstructionCompanyFromBuildingId(buildingId);
+            }
+            catch(ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }

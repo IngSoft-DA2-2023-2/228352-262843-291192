@@ -271,6 +271,29 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
+        public void GetConstructionCompanyFromInvalidBuildingIdTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetConstructionCompanyFromBuildingId(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.GetConstructionCompanyFromBuildingId(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
         public void UpdateBuildingSuccessfully()
         {
             Building buildingUpdated = new Building
