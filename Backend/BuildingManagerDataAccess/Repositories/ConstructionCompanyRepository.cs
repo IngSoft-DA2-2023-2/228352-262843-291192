@@ -67,6 +67,11 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<CompanyAdminAssociation>().First(i => i.ConstructionCompanyAdminId == userId).ConstructionCompanyId;
         }
 
+        public bool IsUserAssociatedToCompany(Guid userId, Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
+
         public ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name, Guid userId)
         {
             if (_context.Set<ConstructionCompany>().Any(a => a.Name == name))

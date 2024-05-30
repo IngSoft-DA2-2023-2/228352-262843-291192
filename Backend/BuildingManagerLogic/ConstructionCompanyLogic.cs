@@ -66,6 +66,11 @@ namespace BuildingManagerLogic
             }
         }
 
+        public bool IsUserAssociatedToCompany(Guid userId, Guid companyId)
+        {
+            return _constructionCompanyRepository.IsUserAssociatedToCompany(userId, companyId);
+        }
+
         public ConstructionCompany ModifyName(Guid id, string name, Guid sessionToken)
         {
             Guid userId = _userRepository.GetUserIdFromSessionToken(sessionToken);
