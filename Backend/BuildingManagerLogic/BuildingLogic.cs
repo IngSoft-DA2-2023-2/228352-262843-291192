@@ -11,14 +11,19 @@ namespace BuildingManagerLogic
     public class BuildingLogic : IBuildingLogic
     {
         private IBuildingRepository _buildingRepository;
+        private IConstructionCompanyLogic _constructionCompanyLogic;
 
-        public BuildingLogic(IBuildingRepository buildingRepository)
+        public BuildingLogic(IBuildingRepository buildingRepository, IConstructionCompanyLogic constructionCompanyLogic)
         {
             _buildingRepository = buildingRepository;
+            _constructionCompanyLogic = constructionCompanyLogic;
         }
 
         public Building CreateBuilding(Building building, Guid sessionToken)
         {
+            Guid userId = GetUserIdBySessionToken(sessionToken);
+            Guid companyId = _constructionCompanyLogic.GetCompanyIdFromUserId(userId);
+            building.ConstructionCompanyId = companyId;
             try
             {
                 if (HasDuplicatedApartment(building.Apartments))
