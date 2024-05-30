@@ -1172,5 +1172,15 @@ namespace BuildingManagerDataAccessTest
 
             Assert.AreEqual(constructionCompanyId, result);
         }
+
+        [TestMethod]
+        public void GetConstructionCompanyIdFromBuildingIdWithInvalidBuildingIdTest()
+        {
+            var context = CreateDbContext("GetConstructionCompanyIdFromBuildingIdWithInvalidBuildingIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetConstructionCompanyFromBuildingId(buildingId));
+        }
     }
 }

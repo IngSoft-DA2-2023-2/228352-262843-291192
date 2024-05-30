@@ -197,8 +197,10 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)
         {
-            return _context.Set<Building>().Find(buildingId).ConstructionCompanyId;
-
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId)){
+                throw new ValueNotFoundException("Building");
+            }
+            return _context.Set<Building>().Find(buildingId)!.ConstructionCompanyId;
         }
     }
 }
