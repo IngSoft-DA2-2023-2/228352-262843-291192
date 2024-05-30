@@ -78,7 +78,13 @@ namespace BuildingManagerLogic
 
         public Building DeleteBuilding(Guid buildingId, Guid sessionToken)
         {
-            return _buildingRepository.DeleteBuilding(buildingId);
+            Guid userId = GetUserIdBySessionToken(sessionToken);
+            Guid companyId = _constructionCompanyLogic.GetCompanyIdFromUserId(userId);
+            if (_constructionCompanyLogic.IsUserAssociatedToCompany(userId, companyId))
+            {
+                return _buildingRepository.DeleteBuilding(buildingId);
+            }
+            else throw new ValueNotFoundException("Building");
         }
 
         public Guid GetUserIdBySessionToken(Guid sessionToken)
@@ -119,7 +125,7 @@ namespace BuildingManagerLogic
             {
                 return _buildingRepository.GetConstructionCompanyFromBuildingId(buildingId);
             }
-            catch(ValueNotFoundException e)
+            catch (ValueNotFoundException e)
             {
                 throw new NotFoundException(e, e.Message);
             }

@@ -233,7 +233,10 @@ namespace BuildingManagerLogicTest
         {
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
+            constructionCompanyLogicMock.Setup(x => x.IsUserAssociatedToCompany(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(true);
             buildingRespositoryMock.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
+            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
 
             var result = buildingLogic.DeleteBuilding(_building.Id, sessionToken);
@@ -510,6 +513,29 @@ namespace BuildingManagerLogicTest
             }
             Assert.IsNotNull(exception);
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
+
+        [TestMethod]
+        public void DeleteBuildingThatIsNotMine()
+        {
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
+            constructionCompanyLogicMock.Setup(x => x.IsUserAssociatedToCompany(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(false);
+            buildingRespositoryMock.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            Exception exception = null;
+            try
+            {
+                buildingLogic.DeleteBuilding(_building.Id, sessionToken);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsNotNull(exception);
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
     }
 }
