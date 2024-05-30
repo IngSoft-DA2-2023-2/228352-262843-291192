@@ -2,17 +2,17 @@
 using BuildingManagerModels.CustomExceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BuildingManagerModels.Inner
 {
     public class CreateBuildingRequest
     {
         private string _name;
-        private Guid _managerId;
         private string _address;
         private string _location;
         private decimal? _commonExpenses;
+
+        public Guid? ManagerId { get; set; }
 
         public string Name
         {
@@ -24,19 +24,6 @@ namespace BuildingManagerModels.Inner
                     throw new InvalidArgumentException("name");
                 }
                 _name = value;
-            }
-        }
-
-        public Guid ManagerId
-        {
-            get { return _managerId; }
-            set
-            {
-                if (value == Guid.Empty)
-                {
-                    throw new InvalidArgumentException("managerId");
-                }
-                _managerId = value;
             }
         }
 
@@ -97,10 +84,6 @@ namespace BuildingManagerModels.Inner
             if (string.IsNullOrEmpty(Name))
             {
                 throw new InvalidArgumentException("name");
-            }
-            if (ManagerId == Guid.Empty)
-            {
-                throw new InvalidArgumentException("managerId");
             }
             if (string.IsNullOrEmpty(Address))
             {

@@ -125,30 +125,7 @@ namespace BuildingManagerApiTest.Controllers
             }
             Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
-
-        [TestMethod]
-        public void CreateBuildingWithoutManagerId()
-        {
-            Exception exception = null;
-            try
-            {
-                var requestWithoutManagerId = new CreateBuildingRequest()
-                {
-                    Name = "Building",
-                    ManagerId = Guid.Empty,
-                    Address = "1234 Main St",
-                    Location = "City",
-                    CommonExpenses = 1000
-                };
-                requestWithoutManagerId.Validate();
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
-        }
-
+        
         [TestMethod]
         public void CreateBuildingWithoutAddress()
         {

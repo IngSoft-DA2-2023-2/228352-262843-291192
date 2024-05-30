@@ -93,6 +93,12 @@ namespace BuildingManagerDataAccess.Context
                 .HasOne<ConstructionCompany>()
                 .WithMany()
                 .HasForeignKey(c => c.ConstructionCompanyId);
+
+            modelBuilder.Entity<Building>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(b => b.ManagerId)
+                .IsRequired(false);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BuildingManagerModels.Inner
 
         public string Name { get; set; }
 
-        public Guid ManagerId { get; set; }
+        public Guid? ManagerId { get; set; }
 
         public string Address { get; set; }
 

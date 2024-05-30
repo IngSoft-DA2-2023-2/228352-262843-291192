@@ -247,13 +247,13 @@ namespace BuildingManagerLogicTest
         {
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(_building.ManagerId);
+            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
 
-            var result = buildingLogic.GetUserIdBySessionToken(_building.ManagerId);
+            var result = buildingLogic.GetUserIdBySessionToken(sessionToken);
 
             buildingRespositoryMock.VerifyAll();
-            Assert.AreEqual(_building.ManagerId, result);
+            Assert.AreEqual(userId, result);
         }
 
         [TestMethod]
