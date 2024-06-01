@@ -5,7 +5,7 @@ export const authRedirectGuard: CanActivateFn = (route, state) => {
   const isAuthenticated = !!localStorage.getItem('sessionToken');
 
   if (isAuthenticated) {
-    window.location.href = '/home';
+    window.location.href = '/manager/home';
     return false;
   }
   return true;

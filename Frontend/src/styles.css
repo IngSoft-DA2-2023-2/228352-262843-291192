@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html{
   display: flex;
   width: 100vw;
@@ -9,4 +13,8 @@ body{
   margin: 0;
   width: 100%;
   background-color: #F4F4F4;
+}
+
+#app-root {
+  display: flex;
 }

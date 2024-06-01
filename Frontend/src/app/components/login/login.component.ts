@@ -33,7 +33,7 @@ export class LoginComponent {
       (user: User) => {
         Swal.close();
         localStorage.setItem('sessionToken', JSON.stringify(user));
-        this.routerServices.navigate(['/home']);
+        this.routerServices.navigate(['/manager/home']);
       },
       (error: HttpErrorResponse) => {
         Swal.close();
