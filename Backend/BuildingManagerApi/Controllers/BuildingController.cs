@@ -51,5 +51,13 @@ namespace BuildingManagerApi.Controllers
             ListBuildingsResponse listBuildingsResponse = new(_buildingLogic.ListBuildings());
             return Ok(listBuildingsResponse);
         }
+
+        [HttpPut("{buildingId}/managers")]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult UpdateBuildingManager([FromRoute] Guid buildingId, [FromBody] UpdateBuildingManagerRequest updateManagerRequest)
+        {
+            UpdateBuildingManagerResponse updateBuildingManagerResponse = new UpdateBuildingManagerResponse(_buildingLogic.ModifyBuildingManager(updateManagerRequest.ManagerId, buildingId), buildingId);
+            return Ok(updateBuildingManagerResponse);
+        }
     }
 }
