@@ -192,5 +192,10 @@ namespace BuildingManagerDataAccess.Repositories
             }
             return _context.Set<Building>().Find(buildingId)!.ConstructionCompanyId;
         }
+
+        public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -130,7 +130,7 @@ namespace BuildingManagerLogic
 
         public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
         {
-            throw new NotImplementedException();
+            return _buildingRepository.ModifyBuildingManager(managerId, buildingId);
         }
     }
 }
