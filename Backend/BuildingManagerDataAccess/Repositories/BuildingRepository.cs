@@ -1,4 +1,5 @@
 ﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -200,7 +201,7 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Building");
             }
-            if (!_context.Set<User>().Any(m => m.Id == managerId))
+            if (!_context.Set<User>().Any(m => m.Id == managerId && m.Role == RoleType.MANAGER))
             {
                 throw new ValueNotFoundException("Manager");
             }
