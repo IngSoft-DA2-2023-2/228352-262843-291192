@@ -1147,5 +1147,51 @@ namespace BuildingManagerDataAccessTest
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.GetConstructionCompanyFromBuildingId(buildingId));
         }
+
+        [TestMethod]
+        public void UpdateBuildingManagerTest()
+        {
+            var context = CreateDbContext("UpdateBuildingManagerTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Building originalBuilding = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+            context.Set<Building>().Add(originalBuilding);
+            context.SaveChanges();
+            Guid newManagerId = Guid.NewGuid();
+
+            repository.ModifyBuildingManager(newManagerId, buildingId);
+            var result = context.Set<Building>().Find(originalBuilding.Id);
+
+            Assert.AreEqual(newManagerId, result.ManagerId);
+        }
+
     }
 }
