@@ -130,7 +130,14 @@ namespace BuildingManagerLogic
 
         public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
         {
-            return _buildingRepository.ModifyBuildingManager(managerId, buildingId);
+            try
+            {
+                return _buildingRepository.ModifyBuildingManager(managerId, buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }
