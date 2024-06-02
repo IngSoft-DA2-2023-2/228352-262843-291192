@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\DuplicatedValueException.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="IImporterLogic.cs" />
     <Compile Include="IUserLogic.cs" />
     <Compile Include="ICategoryLogic.cs" />
     <Compile Include="IRequestLogic.cs" />
@@ -59,6 +60,10 @@
     <ProjectReference Include="..\BuildingManagerDomain\BuildingManagerDomain.csproj">
       <Project>{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}</Project>
       <Name>BuildingManagerDomain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BuildingManagerModels\BuildingManagerModels.csproj">
+      <Project>{3654A562-BE01-4AB7-BC5E-A669DD1518AB}</Project>
+      <Name>BuildingManagerModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
