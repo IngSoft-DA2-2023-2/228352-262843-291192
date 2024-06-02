@@ -12,16 +12,18 @@ namespace BuildingManagerLogic
     {
         private IBuildingRepository _buildingRepository;
         private IConstructionCompanyLogic _constructionCompanyLogic;
+        private IUserLogic _userLogic;
 
-        public BuildingLogic(IBuildingRepository buildingRepository, IConstructionCompanyLogic constructionCompanyLogic)
+        public BuildingLogic(IBuildingRepository buildingRepository, IConstructionCompanyLogic constructionCompanyLogic, IUserLogic userLogic)
         {
             _buildingRepository = buildingRepository;
             _constructionCompanyLogic = constructionCompanyLogic;
+            _userLogic = userLogic;
         }
 
         public Building CreateBuilding(Building building, Guid sessionToken)
         {
-            Guid userId = GetUserIdBySessionToken(sessionToken);
+            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
             Guid companyId = _constructionCompanyLogic.GetCompanyIdFromUserId(userId);
             building.ConstructionCompanyId = companyId;
             try
@@ -78,18 +80,13 @@ namespace BuildingManagerLogic
 
         public Building DeleteBuilding(Guid buildingId, Guid sessionToken)
         {
-            Guid userId = GetUserIdBySessionToken(sessionToken);
+            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
             Guid companyId = GetConstructionCompanyFromBuildingId(buildingId);
             if (_constructionCompanyLogic.IsUserAssociatedToCompany(userId, companyId))
             {
                 return _buildingRepository.DeleteBuilding(buildingId);
             }
             else throw new ValueNotFoundException("Building");
-        }
-
-        public Guid GetUserIdBySessionToken(Guid sessionToken)
-        {
-            return _buildingRepository.GetUserIdBySessionToken(sessionToken);
         }
 
         public Building UpdateBuilding(Building building)
