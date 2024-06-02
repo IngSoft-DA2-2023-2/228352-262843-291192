@@ -196,6 +196,10 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
         {
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
+            {
+                throw new ValueNotFoundException("Building");
+            }
             Building building = _context.Set<Building>().First(b => b.Id == buildingId);
             building.ManagerId = managerId;
             _context.SaveChanges();

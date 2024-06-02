@@ -1193,5 +1193,14 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(newManagerId, result.ManagerId);
         }
 
+        [TestMethod]
+        public void UpdateBuildingManagerWithInvalidBuildingIdTest()
+        {
+            var context = CreateDbContext("UpdateBuildingManagerWithInvalidBuildingIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.ModifyBuildingManager(Guid.NewGuid(), buildingId));
+        }
     }
 }
