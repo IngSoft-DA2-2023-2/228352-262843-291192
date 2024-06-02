@@ -96,16 +96,6 @@ namespace BuildingManagerDataAccess.Repositories
             return building;
         }
 
-        public Guid GetUserIdBySessionToken(Guid sessionToken)
-        {
-            if (!_context.Set<User>().Any(u => u.SessionToken == sessionToken))
-            {
-                throw new ValueNotFoundException("Session token");
-            }
-
-            return _context.Set<User>().FirstOrDefault(u => u.SessionToken == sessionToken)!.Id;
-        }
-
         public Building UpdateBuilding(Building newBuilding)
         {
             if (_context.Set<Building>().Any(b => b.Name == newBuilding.Name && b.Id != newBuilding.Id))

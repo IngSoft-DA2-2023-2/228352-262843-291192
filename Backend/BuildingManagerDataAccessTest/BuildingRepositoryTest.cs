@@ -370,41 +370,6 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
-        public void GetManagerIdBySessionTokenTest()
-        {
-            var context = CreateDbContext("GetManagerIdBySessionToken");
-            var repository = new BuildingRepository(context);
-            Guid sessionToken = Guid.NewGuid();
-            Guid managerId = Guid.NewGuid();
-            UserRepository userRepository = new UserRepository(context);
-            Manager manager = new Manager
-            {
-                Id = managerId,
-                Name = "John",
-                Lastname = "",
-                Email = "test@test.com",
-                Password = "Somepass",
-                Role = RoleType.MANAGER,
-                SessionToken = sessionToken
-            };
-            userRepository.CreateUser(manager);
-
-            Guid result = repository.GetUserIdBySessionToken(sessionToken);
-
-            Assert.AreEqual(managerId, result);
-        }
-
-        [TestMethod]
-        public void GetManagerIdBySessionTokenThatDoesNotExistTest()
-        {
-            var context = CreateDbContext("GetManagerIdBySessionTokenThatDoesNotExist");
-            var repository = new BuildingRepository(context);
-            Guid sessionToken = Guid.NewGuid();
-
-            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetUserIdBySessionToken(sessionToken));
-        }
-
-        [TestMethod]
         public void UpdateBuildingTest()
         {
             var context = CreateDbContext("UpdateBuildingTest");
