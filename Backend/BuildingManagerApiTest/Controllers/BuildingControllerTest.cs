@@ -660,5 +660,26 @@ namespace BuildingManagerApiTest.Controllers
             Assert.AreEqual(expected.StatusCode, result.StatusCode);
             Assert.AreEqual(expectedObject, resultObject);
         }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithoutManagerId()
+        {
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+            var requestWithoutManagerId = new UpdateBuildingManagerRequest()
+            {
+            };
+
+            Exception exception = null;
+            try
+            {
+                buildingController.UpdateBuildingManager(Guid.NewGuid(), requestWithoutManagerId);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
     }
 }

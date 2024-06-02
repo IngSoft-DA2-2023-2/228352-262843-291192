@@ -56,6 +56,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult UpdateBuildingManager([FromRoute] Guid buildingId, [FromBody] UpdateBuildingManagerRequest updateManagerRequest)
         {
+            updateManagerRequest.Validate();
             UpdateBuildingManagerResponse updateBuildingManagerResponse = new UpdateBuildingManagerResponse(_buildingLogic.ModifyBuildingManager(updateManagerRequest.ManagerId, buildingId), buildingId);
             return Ok(updateBuildingManagerResponse);
         }
