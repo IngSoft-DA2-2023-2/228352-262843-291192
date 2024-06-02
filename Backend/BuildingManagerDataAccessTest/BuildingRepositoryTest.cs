@@ -1183,9 +1183,11 @@ namespace BuildingManagerDataAccessTest
                     }
                 }
             };
-            context.Set<Building>().Add(originalBuilding);
-            context.SaveChanges();
             Guid newManagerId = Guid.NewGuid();
+            context.Set<User>().Add(new Manager { Id = managerId, Name = "John", Lastname = "Doe", Email = "a@a.com" });
+            context.Set<Building>().Add(originalBuilding);
+            context.Set<User>().Add(new Manager { Id = newManagerId, Name = "John1", Lastname = "Doe1", Email = "b@b.com" });
+            context.SaveChanges();
 
             repository.ModifyBuildingManager(newManagerId, buildingId);
             var result = context.Set<Building>().Find(originalBuilding.Id);
@@ -1199,6 +1201,46 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("UpdateBuildingManagerWithInvalidBuildingIdTest");
             var repository = new BuildingRepository(context);
             Guid buildingId = Guid.NewGuid();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.ModifyBuildingManager(Guid.NewGuid(), buildingId));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithInvalidManagerIdTest()
+        {
+            var context = CreateDbContext("UpdateBuildingManagerWithInvalidManagerIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Building originalBuilding = new Building
+            {
+                Id = buildingId,
+                ManagerId = Guid.NewGuid(),
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+            context.Set<Building>().Add(originalBuilding);
+            context.SaveChanges();
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.ModifyBuildingManager(Guid.NewGuid(), buildingId));
         }

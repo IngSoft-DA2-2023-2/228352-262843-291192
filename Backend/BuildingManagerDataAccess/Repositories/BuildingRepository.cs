@@ -200,6 +200,10 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Building");
             }
+            if (!_context.Set<User>().Any(m => m.Id == managerId))
+            {
+                throw new ValueNotFoundException("Manager");
+            }
             Building building = _context.Set<Building>().First(b => b.Id == buildingId);
             building.ManagerId = managerId;
             _context.SaveChanges();
