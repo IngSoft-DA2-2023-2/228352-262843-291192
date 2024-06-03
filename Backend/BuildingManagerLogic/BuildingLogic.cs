@@ -139,17 +139,5 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
-
-        public string GetApartmentOwner(Guid buildingId, int floor, int number)
-        {
-            try
-            {
-                return _buildingRepository.GetApartmentOwner(buildingId, floor, number);
-            }
-            catch (ValueNotFoundException e)
-            {
-                throw new NotFoundException(e, e.Message);
-            }
-        }
     }
 }
