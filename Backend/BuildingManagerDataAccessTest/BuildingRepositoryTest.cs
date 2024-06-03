@@ -1147,5 +1147,62 @@ namespace BuildingManagerDataAccessTest
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.GetConstructionCompanyFromBuildingId(buildingId));
         }
+
+        [TestMethod]
+        public void GetBuildingFromBuildingIdTest()
+        {
+            var context = CreateDbContext("GetBuildingFromBuildingIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid userId = Guid.NewGuid();
+            Guid constructionCompanyId = Guid.NewGuid();
+            UserRepository userRepository = new UserRepository(context);
+            ConstructionCompanyRepository companyRepository = new ConstructionCompanyRepository(context);
+            BuildingRepository buildingRepository = new BuildingRepository(context);
+            ConstructionCompanyAdmin user = new ConstructionCompanyAdmin
+            {
+                Id = userId,
+                Name = "John",
+                Lastname = "",
+                Email = "test@test.com",
+                Password = "Somepass",
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN,
+            };
+            userRepository.CreateUser(user);
+            companyRepository.CreateConstructionCompany(new ConstructionCompany() { Name = "Company 1", Id = constructionCompanyId }, userId);
+            Building building = new Building
+            {
+                Id = buildingId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = constructionCompanyId,
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                }
+            };
+            buildingRepository.CreateBuilding(building);
+
+
+            Building result = repository.GetBuildingById(buildingId);
+
+            Assert.AreEqual(building, result);
+        }
     }
 }

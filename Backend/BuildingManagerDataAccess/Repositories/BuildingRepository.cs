@@ -195,7 +195,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Building GetBuildingById(Guid buildingId)
         {
-            throw new NotImplementedException();
+           return _context.Set<Building>().First(b=> b.Id == buildingId);
         }
     }
 }
