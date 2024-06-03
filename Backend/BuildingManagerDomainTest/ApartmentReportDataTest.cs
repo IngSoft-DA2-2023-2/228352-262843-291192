@@ -10,9 +10,10 @@ namespace BuildingManagerDomainTest
         public void ApartmentReportDataFloorTest()
         {
             int apartmentFloor = 1;
-            int apartmentNumber = 101;
+            int apartmentNumber = 101; 
+            string ownerName = "John Doe";
 
-            ApartmentsReportData data = new(apartmentFloor, apartmentNumber);
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName);
             Assert.AreEqual(apartmentFloor, data.ApartmentFloor);
         }
 
@@ -21,9 +22,21 @@ namespace BuildingManagerDomainTest
         {
             int apartmentFloor = 1;
             int apartmentNumber = 101;
+            string ownerName = "John Doe";
 
-            ApartmentsReportData data = new(apartmentFloor, apartmentNumber);
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName); 
             Assert.AreEqual(apartmentNumber, data.ApartmentNumber);
+        }
+
+        [TestMethod]
+        public void ApartmentReportDataOwnerNameTest()
+        {
+            int apartmentFloor = 1;
+            int apartmentNumber = 101;
+            string ownerName = "John Doe";
+
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName);
+            Assert.AreEqual(ownerName, data.OwnerName);
         }
     }
 }

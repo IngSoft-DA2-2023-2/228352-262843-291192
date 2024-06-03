@@ -4,10 +4,12 @@ namespace BuildingManagerDomain.Entities
     {
         public int ApartmentFloor { get; set; }
         public int ApartmentNumber { get; set; }
-        public ApartmentsReportData(int apartmentFloor, int apartmentNumber)
+        public string  OwnerName { get; set; }
+        public ApartmentsReportData(int apartmentFloor, int apartmentNumber, string ownerName)
         {
             ApartmentFloor = apartmentFloor;
             ApartmentNumber = apartmentNumber;
+            OwnerName = ownerName;
         }
     }
 }
