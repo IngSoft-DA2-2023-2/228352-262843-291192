@@ -4,6 +4,7 @@ using System.Linq;
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
+using BuildingManagerILogic;
 
 namespace BuildingManagerLogic
 {
@@ -62,6 +63,8 @@ namespace BuildingManagerLogic
                         name = request.MaintenanceStaff.Name;
                     }
                     buildingId = request.BuildingId;
+                    apartmentFloor = request.ApartmentFloor;
+                    apartmentNumber = request.ApartmentNumber;
                     if (request.State == RequestState.OPEN)
                     {
                         open++;
