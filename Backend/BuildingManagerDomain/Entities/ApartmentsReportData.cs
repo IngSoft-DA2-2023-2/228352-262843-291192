@@ -7,14 +7,16 @@ namespace BuildingManagerDomain.Entities
         public string OwnerName { get; set; }
         public int OpenRequests { get; set; }
         public int CloseRequests { get; set; }
+        public int InProgressRequests { get; set; }
 
-        public ApartmentsReportData(int apartmentFloor, int apartmentNumber, string ownerName, int openRequests, int closeRequests)
+        public ApartmentsReportData(int apartmentFloor, int apartmentNumber, string ownerName, int openRequests, int closeRequests, int inProgressRequests)
         {
             ApartmentFloor = apartmentFloor;
             ApartmentNumber = apartmentNumber;
             OwnerName = ownerName;
             OpenRequests = openRequests;
             CloseRequests = closeRequests;
+            InProgressRequests = inProgressRequests;
         }
     }
 }
