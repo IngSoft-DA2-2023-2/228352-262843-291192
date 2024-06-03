@@ -13,8 +13,9 @@ namespace BuildingManagerDomainTest
             int apartmentNumber = 101;
             string ownerName = "John Doe";
             int openRequests = 2;
+            int closeRequests = 1;
 
-            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests);
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests, closeRequests);
             Assert.AreEqual(apartmentFloor, data.ApartmentFloor);
         }
 
@@ -25,8 +26,9 @@ namespace BuildingManagerDomainTest
             int apartmentNumber = 101;
             string ownerName = "John Doe";
             int openRequests = 2;
+            int closeRequests = 1;
 
-            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests);
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests, closeRequests);
             Assert.AreEqual(apartmentNumber, data.ApartmentNumber);
         }
 
@@ -37,8 +39,9 @@ namespace BuildingManagerDomainTest
             int apartmentNumber = 101;
             string ownerName = "John Doe";
             int openRequests = 2;
+            int closeRequests = 1;
 
-            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests);
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests, closeRequests);
             Assert.AreEqual(ownerName, data.OwnerName);
         }
 
@@ -49,9 +52,23 @@ namespace BuildingManagerDomainTest
             int apartmentNumber = 101;
             string ownerName = "John Doe";
             int openRequests = 2;
+            int closeRequests = 1;
 
-            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests);
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests, closeRequests);
             Assert.AreEqual(openRequests, data.OpenRequests);
+        }
+
+        [TestMethod]
+        public void ApartmentReportDataCloseRequestsTest()
+        {
+            int apartmentFloor = 1;
+            int apartmentNumber = 101;
+            string ownerName = "John Doe";
+            int openRequests = 2;
+            int closeRequests = 1;
+
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber, ownerName, openRequests, closeRequests);
+            Assert.AreEqual(closeRequests, data.CloseRequests);
         }
     }
 }
