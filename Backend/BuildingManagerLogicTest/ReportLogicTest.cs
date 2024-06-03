@@ -84,7 +84,7 @@ namespace BuildingManagerLogicTest
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
-            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name")];
+            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", null, null, null)];
             var report = new ReportLogic(requestRepositoryMock.Object);
 
             var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "", ReportType.MAINTENANCE);
@@ -162,7 +162,7 @@ namespace BuildingManagerLogicTest
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
-            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name")];
+            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", null, null, null)];
             var report = new ReportLogic(requestRepositoryMock.Object);
 
             var result = report.GetReport(null, "", ReportType.BUILDINGS);
@@ -237,7 +237,7 @@ namespace BuildingManagerLogicTest
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
-            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista")];
+            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", null, null, null)];
             var report = new ReportLogic(requestRepositoryMock.Object);
 
             var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", ReportType.CATEGORIES);
@@ -294,7 +294,7 @@ namespace BuildingManagerLogicTest
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
-            List<ReportData> data = [new ReportData(1, 1, 1, 0, "", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista")];
+            List<ReportData> data = [new ReportData(1, 1, 1, 0, "", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", null, null, null)];
             var report = new ReportLogic(requestRepositoryMock.Object);
 
             var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", ReportType.CATEGORIES);

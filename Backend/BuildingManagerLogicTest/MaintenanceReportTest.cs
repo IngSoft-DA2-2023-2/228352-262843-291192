@@ -87,7 +87,7 @@ namespace BuildingManagerLogicTest
                 }
             ];
             int time = (1714672340 - 1714665140) / 3600;
-            List<ReportData> data = [new ReportData(1, 1, 1, time, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name")];
+            List<ReportData> data = [new ReportData(1, 1, 1, time, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", null, null, null)];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
             var maintenanceReport = new MaintenanceReport(requestRepositoryMock.Object);

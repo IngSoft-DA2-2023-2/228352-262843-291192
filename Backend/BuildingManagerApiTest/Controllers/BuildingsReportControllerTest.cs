@@ -19,7 +19,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestInitialize]
         public void Initialize()
         {
-            _datas = [new ReportData(3, 2, 1, 7, "", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista")];
+            _datas = [new ReportData(3, 2, 1, 7, "", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", null, null, null)];
         }
         [TestMethod]
         public void GetBuildingsReport_Ok()
@@ -72,8 +72,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            List<ReportData> datas1 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista")];
-            List<ReportData> datas2 = [new ReportData(3, 3, 1, 7, "John", new Guid(), "Electricista")];
+            List<ReportData> datas1 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", null, null, null)];
+            List<ReportData> datas2 = [new ReportData(3, 3, 1, 7, "John", new Guid(), "Electricista", null, null, null)];
 
             BuildingsReportResponse response1 = new BuildingsReportResponse(datas1);
             BuildingsReportResponse response2 = new BuildingsReportResponse(datas2);
