@@ -5,7 +5,7 @@ namespace BuildingManagerDomain.Entities
 {
     public struct ReportData
     {
-        public ReportData(int openRequests, int closeRequests, int inProgressRequests, int averageClosingTime, string maintainerName, Guid buildingId, string categoryName)
+        public ReportData(int openRequests, int closeRequests, int inProgressRequests, int averageClosingTime, string maintainerName, Guid buildingId, string categoryName, int apartmentFloor)
         {
             OpenRequests = openRequests;
             CloseRequests = closeRequests;
@@ -14,6 +14,7 @@ namespace BuildingManagerDomain.Entities
             MaintainerName = maintainerName;
             BuildingId = buildingId;
             CategoryName = categoryName;
+            ApartmentFloor = apartmentFloor;
         }
         public int OpenRequests { get; }
         public int CloseRequests { get; }
@@ -22,6 +23,7 @@ namespace BuildingManagerDomain.Entities
         public string MaintainerName { get; }
         public Guid BuildingId { get; }
         public string CategoryName { get; }
+        public int ApartmentFloor { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -35,7 +37,8 @@ namespace BuildingManagerDomain.Entities
             AverageClosingTime == other.AverageClosingTime &&
             MaintainerName == other.MaintainerName &&
             BuildingId == other.BuildingId &&
-            CategoryName == other.CategoryName;
+            CategoryName == other.CategoryName &&
+            ApartmentFloor == other.ApartmentFloor;
         }
     }
 }
