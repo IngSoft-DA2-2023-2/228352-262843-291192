@@ -195,6 +195,9 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Building GetBuildingById(Guid buildingId)
         {
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId)){
+                throw new ValueNotFoundException("Building");
+            }
            return _context.Set<Building>().First(b=> b.Id == buildingId);
         }
     }
