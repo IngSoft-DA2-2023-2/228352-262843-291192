@@ -23,6 +23,33 @@ namespace BuildingManagerLogicTest
             mockImporter.VerifyAll();
             Assert.IsTrue(importers.Contains("TestImporter"));
         }
+
+        [TestMethod]
+        public void TestImportData()
+        {
+            var building = new Building()
+            {
+                Id = new Guid(),
+                ManagerId = new Guid(),
+                Name = "Building 1",
+                Address = "Address",
+                Location = "City",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000
+            };
+            var buildings = new List<Building> { building };
+            var importerLogic = new ImporterLogic();
+            var mock = new Mock<IImporter>(MockBehavior.Strict);
+            mock.Setup(i => i.Name).Returns("defaultJson");
+            mock.Setup(i => i.Import(It.IsAny<string>())).Returns(buildings);
+
+            importerLogic.Importers.Add(mock.Object);
+
+            var result = importerLogic.ImportData("defaultJson", "testPath");
+
+            Assert.AreEqual(buildings, result);
+        }
+
     }
 
 }

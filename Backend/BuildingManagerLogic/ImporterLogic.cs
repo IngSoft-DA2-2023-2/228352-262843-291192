@@ -12,6 +12,11 @@ namespace BuildingManagerLogic
         {
             Importers = new List<IImporter>();
         }
+        public List<Building> ImportData(string importerName, string path)
+        {
+            IImporter importer = Importers.Find(i => i.Name.Equals(importerName));
+            return importer.Import(path);
+        }
 
         public List<string> ListImporters()
         {
