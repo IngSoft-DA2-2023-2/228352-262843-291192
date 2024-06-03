@@ -331,6 +331,76 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
+        public void GetApartmentOwnerTest()
+        {
+             Building building = new Building
+            {
+                Id = _building.Id,
+                ManagerId = _building.ManagerId,
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 2,
+                        Number = 2,
+                        Rooms = 4,
+                        Bathrooms = 3,
+                        HasTerrace = false,
+                        Owner = new Owner
+                        {
+                            Name = "Jane",
+                            LastName = "Doe",
+                            Email = "jane@gmail.com"
+                        }
+                    },
+                    new Apartment
+                    {
+                        Floor = 3,
+                        Number = 3,
+                        Rooms = 2,
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "Jade",
+                            LastName = "Doe",
+                            Email = "jade@gmail.com"
+                        }
+                    }
+                }
+            };
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetApartmentOwner(It.IsAny<Guid>(), It.IsAny<int>(), It.IsAny<int>())).Returns("Jade Doe");
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.GetApartmentOwner(_building.Id, 3, 3);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual("Jade Doe", result);
+        }
+
+        [TestMethod]
         public void UpdateBuildingSuccessfully()
         {
             Building buildingUpdated = new Building

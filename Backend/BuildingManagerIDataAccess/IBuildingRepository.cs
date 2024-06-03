@@ -12,5 +12,6 @@ namespace BuildingManagerIDataAccess
         List<Building> ListBuildings();
         Guid GetConstructionCompanyFromBuildingId(Guid buildingId);
         Building GetBuildingById(Guid buildingId);
+        string GetApartmentOwner(Guid buildingId, int floor, int number);
     }
 }
