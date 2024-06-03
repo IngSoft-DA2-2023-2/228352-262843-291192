@@ -127,5 +127,10 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
+
+        public Building GetBuildingById(Guid buildingId)
+        {
+            return _buildingRepository.GetBuildingById(buildingId);
+        }
     }
 }

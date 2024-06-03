@@ -292,6 +292,21 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
+        public void GetBuildingFromBuildingIdTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Returns(_building);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.GetBuildingById(_building.Id);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(_building, result);
+        }
+
+        [TestMethod]
         public void UpdateBuildingSuccessfully()
         {
             Building buildingUpdated = new Building

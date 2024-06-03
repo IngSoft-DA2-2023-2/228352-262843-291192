@@ -1,9 +1,6 @@
 ﻿using BuildingManagerDomain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuildingManagerIDataAccess
 {
@@ -14,5 +11,6 @@ namespace BuildingManagerIDataAccess
         Building UpdateBuilding(Building building);
         List<Building> ListBuildings();
         Guid GetConstructionCompanyFromBuildingId(Guid buildingId);
+        Building GetBuildingById(Guid buildingId);
     }
 }
