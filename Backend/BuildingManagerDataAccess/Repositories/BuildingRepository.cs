@@ -187,7 +187,8 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)
         {
-            if (!_context.Set<Building>().Any(b => b.Id == buildingId)){
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
+            {
                 throw new ValueNotFoundException("Building");
             }
             return _context.Set<Building>().Find(buildingId)!.ConstructionCompanyId;
@@ -195,10 +196,21 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Building GetBuildingById(Guid buildingId)
         {
-            if (!_context.Set<Building>().Any(b => b.Id == buildingId)){
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
+            {
                 throw new ValueNotFoundException("Building");
             }
-           return _context.Set<Building>().First(b=> b.Id == buildingId);
+            try
+            {
+                return _context.Set<Building>()
+                                                  .Include(b => b.Apartments)
+                                                      .ThenInclude(a => a.Owner)
+                                                  .FirstOrDefault(b => b.Id == buildingId);
+            }
+            catch(Exception e)
+            {
+                throw new ValueNotFoundException("Building");
+            }
         }
     }
 }
