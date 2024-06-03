@@ -51,13 +51,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IInvitationRepository.cs" />
     <Compile Include="IConstructionCompanyRepository.cs" />
-
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuildingManagerDomain\BuildingManagerDomain.csproj">
       <Project>{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}</Project>
       <Name>BuildingManagerDomain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,6 @@ namespace BuildingManagerILogic
     public interface IImporterLogic
     {
         List<Building> ImportData(string importerName, string path);
-        ListImportersResponse ListImporters();
+        List<string> ListImporters();
     }
 }

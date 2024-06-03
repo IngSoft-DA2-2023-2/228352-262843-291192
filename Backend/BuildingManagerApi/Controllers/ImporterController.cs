@@ -20,7 +20,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult GetImporters()
         {
-            ListImportersResponse importers = _importerLogic.ListImporters();
+            ListImportersResponse importers = new ListImportersResponse(_importerLogic.ListImporters());
             return Ok(importers);
         }
 

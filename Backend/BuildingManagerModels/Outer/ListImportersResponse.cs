@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BuildingManagerDomain.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BuildingManagerModels.Outer
 {
@@ -14,5 +16,15 @@ namespace BuildingManagerModels.Outer
                 Importers.Add(importer);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            ListImportersResponse other = (ListImportersResponse)obj;
+            return Importers.SequenceEqual(other.Importers);
+        }
+
     }
 }
