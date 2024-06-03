@@ -10,10 +10,20 @@ namespace BuildingManagerDomainTest
         public void ApartmentReportDataFloorTest()
         {
             int apartmentFloor = 1;
+            int apartmentNumber = 101;
 
-            ApartmentsReportData data = new(apartmentFloor);
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber);
             Assert.AreEqual(apartmentFloor, data.ApartmentFloor);
         }
 
+        [TestMethod]
+        public void ApartmentReportDataNumberTest()
+        {
+            int apartmentFloor = 1;
+            int apartmentNumber = 101;
+
+            ApartmentsReportData data = new(apartmentFloor, apartmentNumber);
+            Assert.AreEqual(apartmentNumber, data.ApartmentNumber);
+        }
     }
 }
