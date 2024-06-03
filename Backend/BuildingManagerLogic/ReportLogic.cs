@@ -32,6 +32,11 @@ namespace BuildingManagerLogic
                 CategoriesReport report = new CategoriesReport(_requestRepository);
                 return report.GetReport(identifier.Value, filter);
             }
+            else if (reportType == ReportType.APARTMENTS){
+                ApartmentsReport report = new ApartmentsReport(_requestRepository);
+                return report.GetReport(identifier.Value, filter);
+            }
+            
             throw  new NotFoundException(new Exception(), "Missing information.");
         }
     }
