@@ -23,5 +23,12 @@ namespace BuildingManagerApi.Controllers
             ListImportersResponse importers = _importerLogic.ListImporters();
             return Ok(importers);
         }
+
+        [HttpPost("{importerName}")]
+        public IActionResult ImportData([FromRoute] string importerName, [FromBody] string path)
+        {
+            ImportBuildingsResponse data = new ImportBuildingsResponse(_importerLogic.ImportData(importerName, path));
+            return CreatedAtAction(nameof(ImportData), data);
+        }
     }
 }

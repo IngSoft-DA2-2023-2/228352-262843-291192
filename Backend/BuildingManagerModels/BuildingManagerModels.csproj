@@ -53,6 +53,7 @@
     <Compile Include="Outer\CategoriesReportResponse.cs" />
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />
+    <Compile Include="Outer\ImportBuildingsResponse.cs" />
     <Compile Include="Outer\ListImportersResponse.cs" />
     <Compile Include="Outer\RespondInvitationResponse.cs" />
     <Compile Include="Outer\DeleteBuildingResponse.cs" />
