@@ -400,6 +400,31 @@ namespace BuildingManagerLogicTest
             Assert.AreEqual("Jade Doe", result);
         }
 
+         [TestMethod]
+        public void GetApartmentOwnerFromInvalidTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetApartmentOwner(It.IsAny<Guid>(), It.IsAny<int>(), It.IsAny<int>() )).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.GetApartmentOwner(new Guid(), 0, 0 );
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+
         [TestMethod]
         public void UpdateBuildingSuccessfully()
         {
