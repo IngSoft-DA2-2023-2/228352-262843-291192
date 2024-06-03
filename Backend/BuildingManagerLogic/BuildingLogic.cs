@@ -130,7 +130,14 @@ namespace BuildingManagerLogic
 
         public Building GetBuildingById(Guid buildingId)
         {
-            return _buildingRepository.GetBuildingById(buildingId);
+            try
+            {
+                return _buildingRepository.GetBuildingById(buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }
