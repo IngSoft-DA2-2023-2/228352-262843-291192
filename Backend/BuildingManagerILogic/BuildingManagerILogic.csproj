@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\DuplicatedValueException.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="IImporter.cs" />
     <Compile Include="IImporterLogic.cs" />
     <Compile Include="IUserLogic.cs" />
     <Compile Include="ICategoryLogic.cs" />
