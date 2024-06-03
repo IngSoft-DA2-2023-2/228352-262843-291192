@@ -17,8 +17,9 @@ namespace BuildingManagerDomainTest
             Guid buildingId = new Guid();
             string categoryName = "Electricista";
             int apartmentFloor = 1;
+            int apartmentNumber = 101;
 
-            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor, apartmentNumber);
 
             Assert.AreEqual(openRequests, data.OpenRequests);
         }
@@ -34,8 +35,9 @@ namespace BuildingManagerDomainTest
             Guid buildingId = new Guid();
             string categoryName = "Electricista";
             int apartmentFloor = 1;
+            int apartmentNumber = 101;
 
-            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor, apartmentNumber);
 
             Assert.AreEqual(closeRequests, data.CloseRequests);
         }
@@ -51,8 +53,9 @@ namespace BuildingManagerDomainTest
             Guid buildingId = new Guid();
             string categoryName = "Electricista";
             int apartmentFloor = 1;
+            int apartmentNumber = 101;
 
-            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor, apartmentNumber);
 
             Assert.AreEqual(inProgressRequests, data.InProgressRequests);
         }
@@ -68,8 +71,9 @@ namespace BuildingManagerDomainTest
             Guid buildingId = new Guid();
             string categoryName = "Electricista";
             int apartmentFloor = 1;
+            int apartmentNumber = 101;
 
-            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor, apartmentNumber);
 
             Assert.AreEqual(averageClosingTime, data.AverageClosingTime);
         }
@@ -85,8 +89,9 @@ namespace BuildingManagerDomainTest
             Guid buildingId = new Guid();
             string categoryName = "Electricista";
             int apartmentFloor = 1;
+            int apartmentNumber = 101;
 
-            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor, apartmentNumber);
 
             Assert.AreEqual(maintainerName, data.MaintainerName);
         }
@@ -102,8 +107,9 @@ namespace BuildingManagerDomainTest
             Guid buildingId = new Guid();
             string categoryName = "Electricista";
             int apartmentFloor = 1;
+            int apartmentNumber = 101;
 
-            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor, apartmentNumber);
 
             Assert.AreEqual(buildingId, data.BuildingId);
         }
@@ -119,10 +125,29 @@ namespace BuildingManagerDomainTest
             Guid buildingId = new Guid();
             string categoryName = "Electricista";
             int apartmentFloor = 1;
+            int apartmentNumber = 101;
 
-            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor);
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor, apartmentNumber);
 
             Assert.AreEqual(apartmentFloor, data.ApartmentFloor);
+        }
+
+        [TestMethod]
+        public void ReportDataApartmentNumberTest()
+        {
+            int openRequests = 5;
+            int closeRequests = 5;
+            int inProgressRequests = 6;
+            int averageClosingTime = 10;
+            string maintainerName = "John";
+            Guid buildingId = new Guid();
+            string categoryName = "Electricista";
+            int apartmentFloor = 1;
+            int apartmentNumber = 101;
+
+            ReportData data = new(openRequests, closeRequests, inProgressRequests, averageClosingTime, maintainerName, buildingId, categoryName, apartmentFloor, apartmentNumber);
+
+            Assert.AreEqual(apartmentNumber, data.ApartmentNumber);
         }
 
         [TestMethod]
@@ -159,8 +184,8 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            ReportData data1 = new ReportData(1, 1, 1, 1, "John", new Guid(), "Electricista", 1);
-            ReportData data2 = new ReportData(2, 1, 1, 1, "John", new Guid(), "Electricista", 1);
+            ReportData data1 = new ReportData(1, 1, 1, 1, "John", new Guid(), "Electricista", 1, 101);
+            ReportData data2 = new ReportData(2, 1, 1, 1, "John", new Guid(), "Electricista", 1, 101);
 
 
             bool result = data1.Equals(data2);
