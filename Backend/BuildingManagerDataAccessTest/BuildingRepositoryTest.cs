@@ -22,7 +22,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -69,7 +69,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -108,7 +108,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
 
@@ -130,7 +130,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -160,7 +160,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -196,7 +196,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -250,7 +250,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -280,7 +280,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -316,7 +316,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
             context.Set<Building>().Add(building);
@@ -329,7 +329,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
 
@@ -348,7 +348,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
             context.Set<Building>().Add(building);
@@ -370,41 +370,6 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
-        public void GetManagerIdBySessionTokenTest()
-        {
-            var context = CreateDbContext("GetManagerIdBySessionToken");
-            var repository = new BuildingRepository(context);
-            Guid sessionToken = Guid.NewGuid();
-            Guid managerId = Guid.NewGuid();
-            UserRepository userRepository = new UserRepository(context);
-            Manager manager = new Manager
-            {
-                Id = managerId,
-                Name = "John",
-                Lastname = "",
-                Email = "test@test.com",
-                Password = "Somepass",
-                Role = RoleType.MANAGER,
-                SessionToken = sessionToken
-            };
-            userRepository.CreateUser(manager);
-
-            Guid result = repository.GetManagerIdBySessionToken(sessionToken);
-
-            Assert.AreEqual(managerId, result);
-        }
-
-        [TestMethod]
-        public void GetManagerIdBySessionTokenThatDoesNotExistTest()
-        {
-            var context = CreateDbContext("GetManagerIdBySessionTokenThatDoesNotExist");
-            var repository = new BuildingRepository(context);
-            Guid sessionToken = Guid.NewGuid();
-
-            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetManagerIdBySessionToken(sessionToken));
-        }
-
-        [TestMethod]
         public void UpdateBuildingTest()
         {
             var context = CreateDbContext("UpdateBuildingTest");
@@ -418,7 +383,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -479,7 +444,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 2",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
@@ -551,7 +516,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -612,7 +577,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompany = "Company B",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -674,7 +639,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 2",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
@@ -746,7 +711,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -807,7 +772,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompany = "Company B",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -869,7 +834,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompany = "Company 2",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
@@ -938,7 +903,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompany = "Company 1",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -999,7 +964,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompany = "Company B",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -1061,7 +1026,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompany = "Company 2",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
@@ -1114,6 +1079,281 @@ namespace BuildingManagerDataAccessTest
             };
 
             Assert.ThrowsException<ValueDuplicatedException>(() => repository.UpdateBuilding(buildingUpdated));
+        }
+
+        [TestMethod]
+        public void GetConstructionCompanyIdFromBuildingIdTest()
+        {
+            var context = CreateDbContext("GetConstructionCompanyIdFromBuildingIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid userId = Guid.NewGuid();
+            Guid constructionCompanyId = Guid.NewGuid();
+            UserRepository userRepository = new UserRepository(context);
+            ConstructionCompanyRepository companyRepository = new ConstructionCompanyRepository(context);
+            BuildingRepository buildingRepository = new BuildingRepository(context);
+            ConstructionCompanyAdmin user = new ConstructionCompanyAdmin
+            {
+                Id = userId,
+                Name = "John",
+                Lastname = "",
+                Email = "test@test.com",
+                Password = "Somepass",
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN,
+            };
+            userRepository.CreateUser(user);
+            companyRepository.CreateConstructionCompany(new ConstructionCompany() { Name = "Company 1", Id = constructionCompanyId }, userId);
+            Building building = new Building
+            {
+                Id = buildingId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = constructionCompanyId,
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                }
+            };
+            buildingRepository.CreateBuilding(building);
+
+
+            Guid result = repository.GetConstructionCompanyFromBuildingId(buildingId);
+
+            Assert.AreEqual(constructionCompanyId, result);
+        }
+
+        [TestMethod]
+        public void GetConstructionCompanyIdFromBuildingIdWithInvalidBuildingIdTest()
+        {
+            var context = CreateDbContext("GetConstructionCompanyIdFromBuildingIdWithInvalidBuildingIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetConstructionCompanyFromBuildingId(buildingId));
+        }
+
+        [TestMethod]
+        public void GetBuildingFromBuildingIdTest()
+        {
+            var context = CreateDbContext("GetBuildingFromBuildingIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid userId = Guid.NewGuid();
+            Guid constructionCompanyId = Guid.NewGuid();
+            UserRepository userRepository = new UserRepository(context);
+            ConstructionCompanyRepository companyRepository = new ConstructionCompanyRepository(context);
+            BuildingRepository buildingRepository = new BuildingRepository(context);
+            ConstructionCompanyAdmin user = new ConstructionCompanyAdmin
+            {
+                Id = userId,
+                Name = "John",
+                Lastname = "",
+                Email = "test@test.com",
+                Password = "Somepass",
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN,
+            };
+            userRepository.CreateUser(user);
+            companyRepository.CreateConstructionCompany(new ConstructionCompany() { Name = "Company 1", Id = constructionCompanyId }, userId);
+            Building building = new Building
+            {
+                Id = buildingId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = constructionCompanyId,
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    },
+                }
+            };
+            buildingRepository.CreateBuilding(building);
+
+
+            Building result = repository.GetBuildingById(buildingId);
+
+            Assert.AreEqual(building, result);
+        }
+
+         [TestMethod]
+        public void GetBuildingFromBuildingIdWithInvalidBuildingIdTest()
+        {
+            var context = CreateDbContext("GetBuildingFromBuildingIdWithInvalidBuildingIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetBuildingById(buildingId));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerTest()
+        {
+            var context = CreateDbContext("UpdateBuildingManagerTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Building originalBuilding = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+            Guid newManagerId = Guid.NewGuid();
+            context.Set<User>().Add(new Manager { Id = managerId, Name = "John", Lastname = "Doe", Email = "a@a.com" });
+            context.Set<Building>().Add(originalBuilding);
+            context.Set<User>().Add(new Manager { Id = newManagerId, Name = "John1", Lastname = "Doe1", Email = "b@b.com" });
+            context.SaveChanges();
+
+            repository.ModifyBuildingManager(newManagerId, buildingId);
+            var result = context.Set<Building>().Find(originalBuilding.Id);
+
+            Assert.AreEqual(newManagerId, result.ManagerId);
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithInvalidBuildingIdTest()
+        {
+            var context = CreateDbContext("UpdateBuildingManagerWithInvalidBuildingIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.ModifyBuildingManager(Guid.NewGuid(), buildingId));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithInvalidManagerIdTest()
+        {
+            var context = CreateDbContext("UpdateBuildingManagerWithInvalidManagerIdTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Building originalBuilding = new Building
+            {
+                Id = buildingId,
+                ManagerId = Guid.NewGuid(),
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+            context.Set<Building>().Add(originalBuilding);
+            context.SaveChanges();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.ModifyBuildingManager(Guid.NewGuid(), buildingId));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithInvalidManagerRoleTest()
+        {
+            var context = CreateDbContext("UpdateBuildingManagerWithInvalidManagerRoleTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Building originalBuilding = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        BuildingId = buildingId,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+            Guid newManagerId = Guid.NewGuid();
+            context.Set<User>().Add(new Manager { Id = managerId, Name = "John", Lastname = "Doe", Email = "a@a.com" });
+            context.Set<Building>().Add(originalBuilding);
+            context.Set<User>().Add(new Admin { Id = newManagerId, Name = "John1", Lastname = "Doe1", Email = "b@b.com" });
+            context.SaveChanges();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.ModifyBuildingManager(newManagerId, buildingId));
         }
     }
 }

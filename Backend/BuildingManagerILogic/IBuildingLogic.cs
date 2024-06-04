@@ -6,10 +6,12 @@ namespace BuildingManagerILogic
 {
     public interface IBuildingLogic
     {
-        public Building CreateBuilding(Building building);
-        public Building DeleteBuilding(Guid buildingId);
-        public Guid GetManagerIdBySessionToken(Guid sessionToken);
+        public Building CreateBuilding(Building building, Guid sessionToken);
+        public Building DeleteBuilding(Guid buildingId, Guid sessionToken);
         public Building UpdateBuilding(Building building);
         public List<Building> ListBuildings();
+        public Guid GetConstructionCompanyFromBuildingId(Guid buildingId);
+        public Building GetBuildingById(Guid buildingId);
+        public Guid ModifyBuildingManager(Guid managerId, Guid buildingId);
     }
 }

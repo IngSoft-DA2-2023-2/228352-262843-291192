@@ -11,14 +11,21 @@ namespace BuildingManagerLogic
     public class BuildingLogic : IBuildingLogic
     {
         private IBuildingRepository _buildingRepository;
+        private IConstructionCompanyLogic _constructionCompanyLogic;
+        private IUserLogic _userLogic;
 
-        public BuildingLogic(IBuildingRepository buildingRepository)
+        public BuildingLogic(IBuildingRepository buildingRepository, IConstructionCompanyLogic constructionCompanyLogic, IUserLogic userLogic)
         {
             _buildingRepository = buildingRepository;
+            _constructionCompanyLogic = constructionCompanyLogic;
+            _userLogic = userLogic;
         }
 
-        public Building CreateBuilding(Building building)
+        public Building CreateBuilding(Building building, Guid sessionToken)
         {
+            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
+            Guid companyId = _constructionCompanyLogic.GetCompanyIdFromUserId(userId);
+            building.ConstructionCompanyId = companyId;
             try
             {
                 if (HasDuplicatedApartment(building.Apartments))
@@ -32,7 +39,8 @@ namespace BuildingManagerLogic
                 }
 
                 return _buildingRepository.CreateBuilding(building);
-            }catch(ValueDuplicatedException e)
+            }
+            catch (ValueDuplicatedException e)
             {
                 throw new DuplicatedValueException(e, e.Message);
             }
@@ -59,8 +67,8 @@ namespace BuildingManagerLogic
             {
                 for (int j = i + 1; j < apartments.Count; j++)
                 {
-                    if (apartments[i].Owner.Email == apartments[j].Owner.Email && 
-                        (apartments[i].Owner.Name != apartments[j].Owner.Name || 
+                    if (apartments[i].Owner.Email == apartments[j].Owner.Email &&
+                        (apartments[i].Owner.Name != apartments[j].Owner.Name ||
                         apartments[i].Owner.LastName != apartments[j].Owner.LastName))
                     {
                         return true;
@@ -69,15 +77,16 @@ namespace BuildingManagerLogic
             }
             return false;
         }
-    
-        public Building DeleteBuilding(Guid buildingId)
-        {
-            return _buildingRepository.DeleteBuilding(buildingId);
-        }
 
-        public Guid GetManagerIdBySessionToken(Guid sessionToken)
+        public Building DeleteBuilding(Guid buildingId, Guid sessionToken)
         {
-            return _buildingRepository.GetManagerIdBySessionToken(sessionToken);
+            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
+            Guid companyId = GetConstructionCompanyFromBuildingId(buildingId);
+            if (_constructionCompanyLogic.IsUserAssociatedToCompany(userId, companyId))
+            {
+                return _buildingRepository.DeleteBuilding(buildingId);
+            }
+            else throw new ValueNotFoundException("Building");
         }
 
         public Building UpdateBuilding(Building building)
@@ -105,6 +114,42 @@ namespace BuildingManagerLogic
         public List<Building> ListBuildings()
         {
             return _buildingRepository.ListBuildings();
+        }
+
+        public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)
+        {
+            try
+            {
+                return _buildingRepository.GetConstructionCompanyFromBuildingId(buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
+
+        public Building GetBuildingById(Guid buildingId)
+        {
+            try
+            {
+                return _buildingRepository.GetBuildingById(buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
+
+        public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
+        {
+            try
+            {
+                return _buildingRepository.ModifyBuildingManager(managerId, buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }

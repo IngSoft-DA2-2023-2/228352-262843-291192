@@ -6,11 +6,11 @@ namespace BuildingManagerDomain.Entities
     public class Building
     {
         public Guid Id { get; set; }
-        public Guid ManagerId { get; set; }
+        public Guid? ManagerId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Location { get; set; }
-        public string ConstructionCompany { get; set; }
+        public Guid ConstructionCompanyId { get; set; }
         public decimal? CommonExpenses { get; set; }
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
 
@@ -38,7 +38,7 @@ namespace BuildingManagerDomain.Entities
                    Name == other.Name &&
                    Address == other.Address &&
                    Location == other.Location &&
-                   ConstructionCompany == other.ConstructionCompany &&
+                   ConstructionCompanyId == other.ConstructionCompanyId &&
                    CommonExpenses == other.CommonExpenses &&
                    apartmentsAreEqual;
         }

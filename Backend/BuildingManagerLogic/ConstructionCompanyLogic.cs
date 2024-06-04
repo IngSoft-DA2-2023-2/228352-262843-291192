@@ -10,11 +10,11 @@ namespace BuildingManagerLogic
     public class ConstructionCompanyLogic : IConstructionCompanyLogic
     {
         private readonly IConstructionCompanyRepository _constructionCompanyRepository;
-        private readonly IUserRepository _userRepository;
-        public ConstructionCompanyLogic(IConstructionCompanyRepository constructionCompanyRepository, IUserRepository userRepository)
+        private readonly IUserLogic _userLogic;
+        public ConstructionCompanyLogic(IConstructionCompanyRepository constructionCompanyRepository, IUserLogic userLogic)
         {
             _constructionCompanyRepository = constructionCompanyRepository;
-            _userRepository = userRepository;
+            _userLogic = userLogic;
         }
 
         public void AssociateCompanyToUser(Guid userId, Guid companyId)
@@ -38,7 +38,7 @@ namespace BuildingManagerLogic
             Guid userId;
             try
             {
-                userId = _userRepository.GetUserIdFromSessionToken(sessionToken);
+                userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
             }
             catch (ValueNotFoundException e)
             {
@@ -66,9 +66,14 @@ namespace BuildingManagerLogic
             }
         }
 
+        public bool IsUserAssociatedToCompany(Guid userId, Guid companyId)
+        {
+            return _constructionCompanyRepository.IsUserAssociatedToCompany(userId, companyId);
+        }
+
         public ConstructionCompany ModifyName(Guid id, string name, Guid sessionToken)
         {
-            Guid userId = _userRepository.GetUserIdFromSessionToken(sessionToken);
+            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
             try
             {
                 return _constructionCompanyRepository.ModifyConstructionCompanyName(id, name, userId);

@@ -1,4 +1,4 @@
-﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
 using System;
@@ -7,21 +7,18 @@ using System.Linq;
 
 namespace BuildingManagerLogic
 {
-    public class CategoriesReport : Report
+    public class ApartmentsReport : Report
     {
-        public CategoriesReport(IRequestRepository repository, IBuildingLogic buildingLogic) : base(repository, buildingLogic) { }
+        public ApartmentsReport(IRequestRepository repository, IBuildingLogic buildingLogic) : base(repository, buildingLogic) { }
 
         internal override void SortRequests(Guid? identifier, string filter)
         {
-            if (!string.IsNullOrEmpty(filter))
-            {
-                Requests = Requests.Where(r => r.Category.Name == filter).ToList();
-            }
             foreach (var request in Requests.Where(r => r.BuildingId == identifier))
             {
-                if (SortedRequests.ContainsKey(request.Category.Name))
+                string key = request.ApartmentFloor + "-" + request.ApartmentNumber;
+                if (SortedRequests.ContainsKey(key))
                 {
-                    SortedRequests[request.Category.Name].Add(request);
+                    SortedRequests[key].Add(request);
                 }
                 else
                 {
@@ -29,7 +26,7 @@ namespace BuildingManagerLogic
                     {
                         request
                     };
-                    SortedRequests[request.Category.Name] = newList;
+                    SortedRequests[key] = newList;
                 }
             }
         }

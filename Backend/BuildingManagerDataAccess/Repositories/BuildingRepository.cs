@@ -1,4 +1,5 @@
 ﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -96,16 +97,6 @@ namespace BuildingManagerDataAccess.Repositories
             return building;
         }
 
-        public Guid GetManagerIdBySessionToken(Guid sessionToken)
-        {
-            if (!_context.Set<User>().Any(u => u.SessionToken == sessionToken))
-            {
-                throw new ValueNotFoundException("Session token");
-            }
-
-            return _context.Set<User>().FirstOrDefault(u => u.SessionToken == sessionToken)!.Id;
-        }
-
         public Building UpdateBuilding(Building newBuilding)
         {
             if (_context.Set<Building>().Any(b => b.Name == newBuilding.Name && b.Id != newBuilding.Id))
@@ -125,7 +116,7 @@ namespace BuildingManagerDataAccess.Repositories
             buildToUpdate.Name = newBuilding.Name;
             buildToUpdate.Address = newBuilding.Address;
             buildToUpdate.Location = newBuilding.Location;
-            buildToUpdate.ConstructionCompany = newBuilding.ConstructionCompany;
+            buildToUpdate.ConstructionCompanyId = newBuilding.ConstructionCompanyId;
             buildToUpdate.CommonExpenses = newBuilding.CommonExpenses;
 
             List<Apartment> apartmentsInDB = buildToUpdate.Apartments;
@@ -193,6 +184,50 @@ namespace BuildingManagerDataAccess.Repositories
         public List<Building> ListBuildings()
         {
             return _context.Set<Building>().ToList();
+        }
+
+        public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)
+        {
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
+            {
+                throw new ValueNotFoundException("Building");
+            }
+            return _context.Set<Building>().Find(buildingId)!.ConstructionCompanyId;
+        }
+
+        public Building GetBuildingById(Guid buildingId)
+        {
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
+            {
+                throw new ValueNotFoundException("Building");
+            }
+            try
+            {
+                return _context.Set<Building>()
+                                                  .Include(b => b.Apartments)
+                                                      .ThenInclude(a => a.Owner)
+                                                  .FirstOrDefault(b => b.Id == buildingId);
+            }
+            catch(Exception e)
+            {
+                throw new ValueNotFoundException("Building");
+            }
+        }
+
+        public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
+        {
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
+            {
+                throw new ValueNotFoundException("Building");
+            }
+            if (!_context.Set<User>().Any(m => m.Id == managerId && m.Role == RoleType.MANAGER))
+            {
+                throw new ValueNotFoundException("Manager");
+            }
+            Building building = _context.Set<Building>().First(b => b.Id == buildingId);
+            building.ManagerId = managerId;
+            _context.SaveChanges();
+            return managerId;
         }
     }
 }

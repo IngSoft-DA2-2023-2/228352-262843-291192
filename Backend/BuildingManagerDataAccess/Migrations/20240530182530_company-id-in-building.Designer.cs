@@ -4,6 +4,7 @@ using BuildingManagerDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagerDataAccess.Migrations
 {
     [DbContext(typeof(BuildingManagerContext))]
-    partial class BuildingManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240530182530_company-id-in-building")]
+    partial class companyidinbuilding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +72,7 @@ namespace BuildingManagerDataAccess.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ManagerId")
+                    b.Property<Guid>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -79,8 +81,6 @@ namespace BuildingManagerDataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ConstructionCompanyId");
-
-                    b.HasIndex("ManagerId");
 
                     b.ToTable("Buildings");
                 });
@@ -305,10 +305,6 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasForeignKey("ConstructionCompanyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("BuildingManagerDomain.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("ManagerId");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Request", b =>

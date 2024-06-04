@@ -7,11 +7,11 @@ namespace BuildingManagerModels.Outer
     public class CreateBuildingResponse
     {
         public Guid Id { get; set; }
-        public Guid ManagerId { get; set; }
+        public Guid? ManagerId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Location { get; set; }
-        public string ConstructionCompany { get; set; }
+        public Guid ConstructionCompanyId { get; set; }
         public decimal? CommonExpenses { get; set; }
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
 
@@ -22,7 +22,7 @@ namespace BuildingManagerModels.Outer
             Name = building.Name;
             Address = building.Address;
             Location = building.Location;
-            ConstructionCompany = building.ConstructionCompany;
+            ConstructionCompanyId = building.ConstructionCompanyId;
             CommonExpenses = building.CommonExpenses;
             Apartments = building.Apartments;
         }
@@ -38,7 +38,7 @@ namespace BuildingManagerModels.Outer
                    Name == other.Name && 
                    Address == other.Address && 
                    Location == other.Location && 
-                   ConstructionCompany == other.ConstructionCompany && 
+                   ConstructionCompanyId == other.ConstructionCompanyId && 
                    CommonExpenses == other.CommonExpenses &&
                    Apartments == other.Apartments;
         }

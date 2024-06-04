@@ -13,8 +13,9 @@ namespace BuildingManagerDomainTest
             int closeRequests = 2;
             int inProgressRequests = 1;
             Guid buildingId = Guid.NewGuid();
+            string buildingName = "Building 1";
 
-            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId);
+            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId, buildingName);
 
             Assert.AreEqual(openRequests, data.OpenRequests);
         }
@@ -26,8 +27,9 @@ namespace BuildingManagerDomainTest
             int closeRequests = 2;
             int inProgressRequests = 1;
             Guid buildingId = Guid.NewGuid();
+            string buildingName = "Building 1";
 
-            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId);
+            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId, buildingName);
 
             Assert.AreEqual(closeRequests, data.CloseRequests);
         }
@@ -39,8 +41,9 @@ namespace BuildingManagerDomainTest
             int closeRequests = 2;
             int inProgressRequests = 1;
             Guid buildingId = Guid.NewGuid();
+            string buildingName = "Building 1";
 
-            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId);
+            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId, buildingName);
 
             Assert.AreEqual(inProgressRequests, data.InProgressRequests);
         }
@@ -52,10 +55,25 @@ namespace BuildingManagerDomainTest
             int closeRequests = 2;
             int inProgressRequests = 1;
             Guid buildingId = Guid.NewGuid();
+            string buildingName = "Building 1";
 
-            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId);
+            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId, buildingName);
 
             Assert.AreEqual(buildingId, data.BuildingId);
+        }
+
+        [TestMethod]
+        public void BuildingsReportDataBuildingNameTest()
+        {
+            int openRequests = 5;
+            int closeRequests = 2;
+            int inProgressRequests = 1;
+            Guid buildingId = Guid.NewGuid();
+            string buildingName = "Building 1";
+
+            BuildingsReportData data = new(openRequests, closeRequests, inProgressRequests, buildingId, buildingName);
+
+            Assert.AreEqual(buildingName, data.BuildingName);
         }
 
         [TestMethod]
@@ -92,8 +110,8 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            BuildingsReportData data1 = new BuildingsReportData(1, 1, 1, new Guid());
-            BuildingsReportData data2 = new BuildingsReportData(2, 1, 1, new Guid());
+            BuildingsReportData data1 = new BuildingsReportData(1, 1, 1, new Guid(), "Building 1");
+            BuildingsReportData data2 = new BuildingsReportData(2, 1, 1, new Guid(), "Building 1");
 
             bool result = data1.Equals(data2);
 

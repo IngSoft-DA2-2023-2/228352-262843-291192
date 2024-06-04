@@ -9,5 +9,6 @@ namespace BuildingManagerILogic
         public ConstructionCompany ModifyName(Guid id, string name, Guid sessionToken);
         public Guid GetCompanyIdFromUserId(Guid userId);
         public void AssociateCompanyToUser(Guid userId, Guid companyId);
+        public bool IsUserAssociatedToCompany(Guid userId, Guid companyId);
     }
 }

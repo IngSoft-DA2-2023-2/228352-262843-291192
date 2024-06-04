@@ -33,7 +33,7 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -53,7 +53,6 @@ namespace BuildingManagerApiTest.Controllers
                 ManagerId = managerId,
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -74,8 +73,7 @@ namespace BuildingManagerApiTest.Controllers
         public void CreateBuilding_Ok()
         {
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
-            mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
-            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
+            mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>(), It.IsAny<Guid>())).Returns(_building);
             BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
 
             var result = buildingController.CreateBuilding(_createBuildingRequest, sessionToken);
@@ -117,34 +115,9 @@ namespace BuildingManagerApiTest.Controllers
                     ManagerId = managerId,
                     Address = "1234 Main St",
                     Location = "City",
-                    ConstructionCompany = "Company",
                     CommonExpenses = 1000
                 };
                 requestWithoutName.Validate();
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
-        }
-
-        [TestMethod]
-        public void CreateBuildingWithoutManagerId()
-        {
-            Exception exception = null;
-            try
-            {
-                var requestWithoutManagerId = new CreateBuildingRequest()
-                {
-                    Name = "Building",
-                    ManagerId = Guid.Empty,
-                    Address = "1234 Main St",
-                    Location = "City",
-                    ConstructionCompany = "Company",
-                    CommonExpenses = 1000
-                };
-                requestWithoutManagerId.Validate();
             }
             catch (Exception ex)
             {
@@ -165,7 +138,6 @@ namespace BuildingManagerApiTest.Controllers
                     ManagerId = managerId,
                     Address = null,
                     Location = "City",
-                    ConstructionCompany = "Company",
                     CommonExpenses = 1000
                 };
                 requestWithoutAddress.Validate();
@@ -189,7 +161,6 @@ namespace BuildingManagerApiTest.Controllers
                     ManagerId = managerId,
                     Address = "1234 Main St",
                     Location = null,
-                    ConstructionCompany = "Company",
                     CommonExpenses = 1000
                 };
                 requestWithoutLocation.Validate();
@@ -213,7 +184,6 @@ namespace BuildingManagerApiTest.Controllers
                     ManagerId = managerId,
                     Address = "1234 Main St",
                     Location = "City",
-                    ConstructionCompany = null,
                     CommonExpenses = 1000
                 };
                 requestWithoutConstructionCompany.Validate();
@@ -237,7 +207,6 @@ namespace BuildingManagerApiTest.Controllers
                     ManagerId = managerId,
                     Address = "1234 Main St",
                     Location = "City",
-                    ConstructionCompany = "Company",
                     CommonExpenses = 0
                 };
                 requestWithoutCommonExpenses.Validate();
@@ -261,7 +230,6 @@ namespace BuildingManagerApiTest.Controllers
                     ManagerId = managerId,
                     Address = "1234 Main St",
                     Location = "City",
-                    ConstructionCompany = "Company",
                     CommonExpenses = 1000,
                     Apartments = null
                 };
@@ -315,7 +283,7 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
 
@@ -326,7 +294,7 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000
             };
 
@@ -357,7 +325,7 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment> { apartment }
             };
@@ -366,8 +334,8 @@ namespace BuildingManagerApiTest.Controllers
             {
                 Name = "Building",
                 Address = "1234 Main St",
+                ManagerId = managerId,
                 Location = "City",
-                ConstructionCompany = "Company",
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment> { apartment }
             };
@@ -375,8 +343,7 @@ namespace BuildingManagerApiTest.Controllers
             CreateBuildingResponse createBuildingWithApartmentResponse = new CreateBuildingResponse(buildingWithApartment);
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
-            mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithApartment);
-            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
+            mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>(), It.IsAny<Guid>())).Returns(buildingWithApartment);
             BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
 
             var result = buildingController.CreateBuilding(createBuildingWithApartmentRequest, sessionToken);
@@ -412,7 +379,7 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
+                ConstructionCompanyId = Guid.NewGuid(),
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment> { apartment }
             };
@@ -420,9 +387,9 @@ namespace BuildingManagerApiTest.Controllers
             CreateBuildingRequest createBuildingWithOwnerApartmentRequest = new CreateBuildingRequest
             {
                 Name = "Building",
+                ManagerId = managerId,
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment> { apartment }
             };
@@ -430,8 +397,7 @@ namespace BuildingManagerApiTest.Controllers
             CreateBuildingResponse createBuildingWithOwnerApartmentResponse = new CreateBuildingResponse(buildingWithOwnerApartment);
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
-            mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(buildingWithOwnerApartment);
-            mockBuildingLogic.Setup(x => x.GetManagerIdBySessionToken(It.IsAny<Guid>())).Returns(managerId);
+            mockBuildingLogic.Setup(x => x.CreateBuilding(It.IsAny<Building>(), It.IsAny<Guid>())).Returns(buildingWithOwnerApartment);
             BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
 
             var result = buildingController.CreateBuilding(createBuildingWithOwnerApartmentRequest, sessionToken);
@@ -446,12 +412,12 @@ namespace BuildingManagerApiTest.Controllers
         public void DeleteBuilding_Ok()
         {
             var mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
-            mockBuildingLogic.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
+            mockBuildingLogic.Setup(x => x.DeleteBuilding(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(_building);
             var buildingController = new BuildingController(mockBuildingLogic.Object);
             OkObjectResult expected = new OkObjectResult(new DeleteBuildingResponse(_building));
             DeleteBuildingResponse expectedObject = expected.Value as DeleteBuildingResponse;
 
-            OkObjectResult result = buildingController.DeleteBuilding(_building.Id) as OkObjectResult;
+            OkObjectResult result = buildingController.DeleteBuilding(_building.Id, sessionToken) as OkObjectResult;
             DeleteBuildingResponse resultObject = result.Value as DeleteBuildingResponse;
 
             mockBuildingLogic.VerifyAll();
@@ -469,7 +435,6 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "Building",
                 Address = "1234 Main St",
                 Location = "City",
-                ConstructionCompany = "Company",
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -510,7 +475,6 @@ namespace BuildingManagerApiTest.Controllers
                 ManagerId = buildingWithFullInformation.ManagerId,
                 Address = "New Building Address",
                 Location = "New City",
-                ConstructionCompany = "New Company",
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -553,7 +517,6 @@ namespace BuildingManagerApiTest.Controllers
                     Name = null,
                     Address = "1234 Main St",
                     Location = "City",
-                    ConstructionCompany = "Company",
                     CommonExpenses = 1000
                 };
                 requestWithoutName.Validate();
@@ -576,7 +539,6 @@ namespace BuildingManagerApiTest.Controllers
                     Name = "Building",
                     Address = null,
                     Location = "City",
-                    ConstructionCompany = "Company",
                     CommonExpenses = 1000
                 };
                 requestWithoutAddress.Validate();
@@ -599,33 +561,9 @@ namespace BuildingManagerApiTest.Controllers
                     Name = "Building",
                     Address = "1234 Main St",
                     Location = null,
-                    ConstructionCompany = "Company",
                     CommonExpenses = 1000
                 };
                 requestWithoutLocation.Validate();
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
-        }
-
-        [TestMethod]
-        public void UpdateBuildingWithoutConstructionCompany()
-        {
-            Exception exception = null;
-            try
-            {
-                var requestWithoutConstructionCompany = new UpdateBuildingRequest()
-                {
-                    Name = "Building",
-                    Address = "1234 Main St",
-                    Location = "City",
-                    ConstructionCompany = null,
-                    CommonExpenses = 1000
-                };
-                requestWithoutConstructionCompany.Validate();
             }
             catch (Exception ex)
             {
@@ -645,7 +583,6 @@ namespace BuildingManagerApiTest.Controllers
                     Name = "Building",
                     Address = "1234 Main St",
                     Location = "City",
-                    ConstructionCompany = "Company",
                     CommonExpenses = 0
                 };
                 requestWithoutCommonExpenses.Validate();
@@ -668,11 +605,75 @@ namespace BuildingManagerApiTest.Controllers
                     Name = "Building",
                     Address = "1234 Main St",
                     Location = "City",
-                    ConstructionCompany = "Company",
                     CommonExpenses = 1000,
                     Apartments = null
                 };
                 requestWithoutApartments.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManager_Ok()
+        {
+            Building building = new Building
+            {
+                Id = Guid.NewGuid(),
+                ManagerId = Guid.NewGuid(),
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    }
+                }
+            };
+            Guid newManagerId = Guid.NewGuid();
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockBuildingLogic.Setup(x => x.ModifyBuildingManager(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(newManagerId);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+
+            UpdateBuildingManagerRequest updateBuildingManagerRequest = new UpdateBuildingManagerRequest
+            {
+                ManagerId = newManagerId,
+            };
+
+            OkObjectResult expected = new OkObjectResult(new UpdateBuildingManagerResponse(newManagerId, building.Id));
+            UpdateBuildingManagerResponse expectedObject = expected.Value as UpdateBuildingManagerResponse;
+
+            OkObjectResult result = buildingController.UpdateBuildingManager(building.Id, updateBuildingManagerRequest) as OkObjectResult;
+            UpdateBuildingManagerResponse resultObject = result.Value as UpdateBuildingManagerResponse;
+
+            mockBuildingLogic.VerifyAll();
+            Assert.AreEqual(expected.StatusCode, result.StatusCode);
+            Assert.AreEqual(expectedObject, resultObject);
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithoutManagerId()
+        {
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+            var requestWithoutManagerId = new UpdateBuildingManagerRequest()
+            {
+            };
+
+            Exception exception = null;
+            try
+            {
+                buildingController.UpdateBuildingManager(Guid.NewGuid(), requestWithoutManagerId);
             }
             catch (Exception ex)
             {

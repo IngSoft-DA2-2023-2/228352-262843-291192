@@ -9,5 +9,6 @@ namespace BuildingManagerIDataAccess
         ConstructionCompany ModifyConstructionCompanyName(Guid constructionCompanyId, string name, Guid userId);
         Guid GetCompanyIdFromUserId(Guid userId);
         void AssociateCompanyToUser(Guid userId, Guid companyId);
+        bool IsUserAssociatedToCompany(Guid userId, Guid companyId);
     }
 }

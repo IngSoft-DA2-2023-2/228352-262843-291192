@@ -54,11 +54,11 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
-        public void BuildingConstructionCompanyTest()
+        public void BuildingConstructionCompanyIdTest()
         {
-            string constructionCompany = "Company 1";
-            Building building = new Building { ConstructionCompany = constructionCompany };
-            Assert.AreEqual(constructionCompany, building.ConstructionCompany);
+            Guid constructionCompanyId = Guid.NewGuid();
+            Building building = new Building { ConstructionCompanyId = constructionCompanyId };
+            Assert.AreEqual(constructionCompanyId, building.ConstructionCompanyId);
         }
 
         [TestMethod]
@@ -91,7 +91,6 @@ namespace BuildingManagerDomainTest
                     Name = null,
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 1000
                 };
             }
@@ -114,7 +113,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = null,
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 1000
                 };
             }
@@ -137,29 +135,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = null,
-                    ConstructionCompany = "Company 1",
-                    CommonExpenses = 1000
-                };
-            } catch (Exception ex)
-            {
-                exception = ex;
-            }
-
-            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
-        }
-
-        [TestMethod]
-        public void CreateBuildingWithoutConstructionCompany()
-        {
-            Exception exception = null;
-            try
-            {
-                var requestWithoutConstructionCompany = new CreateBuildingRequest()
-                {
-                    Name = "Building 1",
-                    Address = "Address 1",
-                    Location = "Location 1",
-                    ConstructionCompany = null,
                     CommonExpenses = 1000
                 };
             } catch (Exception ex)
@@ -181,7 +156,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 0
                 };
             } catch (Exception ex)
@@ -203,7 +177,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = -1000
                 };
             } catch (Exception ex)
@@ -367,7 +340,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -394,7 +366,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -421,7 +392,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -448,7 +418,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -475,7 +444,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -502,7 +470,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -529,7 +496,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -556,7 +522,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -587,7 +552,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -614,7 +578,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -641,7 +604,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -668,7 +630,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -695,7 +656,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {
@@ -722,7 +682,6 @@ namespace BuildingManagerDomainTest
                     Name = "Building 1",
                     Address = "Address 1",
                     Location = "Location 1",
-                    ConstructionCompany = "Company 1",
                     CommonExpenses = 2000,
                     Apartments = new List<Apartment>
                     {

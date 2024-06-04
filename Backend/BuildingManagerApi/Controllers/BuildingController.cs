@@ -20,19 +20,18 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
-        [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult CreateBuilding([FromBody] CreateBuildingRequest buildingRequest, [FromHeader(Name = "Authorization")] Guid managerSessionToken)
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult CreateBuilding([FromBody] CreateBuildingRequest buildingRequest, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            buildingRequest.ManagerId = _buildingLogic.GetManagerIdBySessionToken(managerSessionToken);
-            CreateBuildingResponse createBuildingResponse = new CreateBuildingResponse(_buildingLogic.CreateBuilding(buildingRequest.ToEntity()));
+            CreateBuildingResponse createBuildingResponse = new CreateBuildingResponse(_buildingLogic.CreateBuilding(buildingRequest.ToEntity(), sessionToken));
             return CreatedAtAction(nameof(CreateBuilding), createBuildingResponse);
         }
 
         [HttpDelete("{buildingId}")]
-        [AuthenticationFilter(RoleType.MANAGER)]
-        public IActionResult DeleteBuilding([FromRoute] Guid buildingId)
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult DeleteBuilding([FromRoute] Guid buildingId, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            DeleteBuildingResponse deleteBuildingResponse = new DeleteBuildingResponse(_buildingLogic.DeleteBuilding(buildingId));
+            DeleteBuildingResponse deleteBuildingResponse = new DeleteBuildingResponse(_buildingLogic.DeleteBuilding(buildingId, sessionToken));
             return Ok(deleteBuildingResponse);
         }
 
@@ -51,6 +50,15 @@ namespace BuildingManagerApi.Controllers
         {
             ListBuildingsResponse listBuildingsResponse = new(_buildingLogic.ListBuildings());
             return Ok(listBuildingsResponse);
+        }
+
+        [HttpPut("{buildingId}/managers")]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult UpdateBuildingManager([FromRoute] Guid buildingId, [FromBody] UpdateBuildingManagerRequest updateManagerRequest)
+        {
+            updateManagerRequest.Validate();
+            UpdateBuildingManagerResponse updateBuildingManagerResponse = new UpdateBuildingManagerResponse(_buildingLogic.ModifyBuildingManager(updateManagerRequest.ManagerId, buildingId), buildingId);
+            return Ok(updateBuildingManagerResponse);
         }
     }
 }
