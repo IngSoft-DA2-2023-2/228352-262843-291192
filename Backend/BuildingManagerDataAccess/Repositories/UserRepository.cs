@@ -116,5 +116,10 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueNotFoundException("User not found.");
             }
         }
+
+        public Guid GetMangaerIdFromEmail(string email)
+        {
+            return _context.Set<User>().First(a => a.Email == email).Id;
+        }
     }
 }
