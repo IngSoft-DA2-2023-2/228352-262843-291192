@@ -4,6 +4,7 @@ using System.Linq;
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
+using BuildingManagerILogic;
 
 namespace BuildingManagerLogic
 {
@@ -12,10 +13,12 @@ namespace BuildingManagerLogic
         internal List<Request> Requests = new List<Request>();
         internal Dictionary<string, List<Request>> SortedRequests = new Dictionary<string, List<Request>>();
         private IRequestRepository requestRepository;
+        private IBuildingLogic _buildingLogic;
 
-        public Report(IRequestRepository repository)
+        public Report(IRequestRepository repository, IBuildingLogic buildingLogic)
         {
             requestRepository = repository;
+            _buildingLogic = buildingLogic;
         }
 
         public List<ReportData> GetReport(Guid? identifier, string filter)
@@ -49,8 +52,13 @@ namespace BuildingManagerLogic
                 long totalTime = 0;
                 long averageTime = 0;
                 string name = "";
+                Building building = null;
                 Guid buildingId = Guid.Empty;
                 string categoryName = pair.Value.First().Category.Name;
+                int? apartmentFloor = null;
+                int? apartmentNumber = null;
+                string ownerName = null;
+                string buildingName = null;
 
                 foreach (var request in pair.Value)
                 {
@@ -58,7 +66,19 @@ namespace BuildingManagerLogic
                     {
                         name = request.MaintenanceStaff.Name;
                     }
+                    if (building == null)
+                    {
+                        building = _buildingLogic.GetBuildingById(request.BuildingId);
+                    }
+                    if (ownerName == null && building != null)
+                    {
+                        Owner owner = building.Apartments.First(a => a.Floor == request.ApartmentFloor && a.Number == request.ApartmentNumber).Owner;
+                        ownerName = owner.Name + " " + owner.LastName;
+                    }
                     buildingId = request.BuildingId;
+                    apartmentFloor = request.ApartmentFloor;
+                    apartmentNumber = request.ApartmentNumber;
+                    buildingName = building.Name;
                     if (request.State == RequestState.OPEN)
                     {
                         open++;
@@ -78,7 +98,7 @@ namespace BuildingManagerLogic
                     int convertSecondsToHours = 3600;
                     averageTime = (totalTime / close) / convertSecondsToHours;
                 }
-                datas.Add(new ReportData(open, close, inProgress, (int)averageTime, name, buildingId, categoryName));
+                datas.Add(new ReportData(open, close, inProgress, (int)averageTime, name, buildingId, categoryName, apartmentFloor, apartmentNumber, ownerName, buildingName));
             }
 
             return datas;

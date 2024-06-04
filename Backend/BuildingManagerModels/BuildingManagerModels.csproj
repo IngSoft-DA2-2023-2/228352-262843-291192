@@ -75,6 +75,7 @@
     <Compile Include="Inner\CreateConstructionCompanyAdminRequest.cs" />
     <Compile Include="Inner\UpdateBuildingManagerRequest.cs" />
     <Compile Include="Outer\ConstructionCompanyResponse.cs" />
+    <Compile Include="Outer\ApartmentsReportResponse.cs" />
     <Compile Include="Outer\UpdateBuildingManagerResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

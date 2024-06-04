@@ -1,20 +1,17 @@
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
-using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
-using BuildingManagerILogic.Exceptions;
 using BuildingManagerLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerLogicTest
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class BuildingsReportTest
+    public class ApartmentsReportTest
     {
         [TestMethod]
         public void GetReportSuccessfully()
@@ -40,13 +37,14 @@ namespace BuildingManagerLogicTest
                     }
                 }
             };
+
             List<Request> requests =
             [new Request()
                 {
                     Id = new Guid(),
                     Description = "description",
                     CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = building.Id,
                     ApartmentFloor = 1,
                     ApartmentNumber = 1,
                     State = RequestState.OPEN,
@@ -56,10 +54,9 @@ namespace BuildingManagerLogicTest
                         Role = RoleType.MAINTENANCE,
                         Id = new Guid("11111111-1111-1111-1111-111111111111")
                     },
-                    Category = new Category()
-                    {
-                        Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                        Name = "name"
+                    Category = new Category(){
+                        Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                        Name = "Electricista"
                     }
                 },
                 new Request()
@@ -67,7 +64,7 @@ namespace BuildingManagerLogicTest
                     Id = new Guid(),
                     Description = "description",
                     CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = building.Id,
                     ApartmentFloor = 1,
                     ApartmentNumber = 1,
                     State = RequestState.CLOSE,
@@ -77,10 +74,9 @@ namespace BuildingManagerLogicTest
                         Role = RoleType.MAINTENANCE,
                         Id = new Guid("11111111-1111-1111-1111-111111111111")
                     },
-                    Category = new Category()
-                    {
-                        Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                        Name = "name"
+                    Category = new Category(){
+                        Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                        Name = "Electricista"
                     }
                 },
                 new Request()
@@ -88,7 +84,7 @@ namespace BuildingManagerLogicTest
                     Id = new Guid(),
                     Description = "description",
                     CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = building.Id,
                     ApartmentFloor = 1,
                     ApartmentNumber = 1,
                     State = RequestState.PENDING,
@@ -98,21 +94,20 @@ namespace BuildingManagerLogicTest
                         Role = RoleType.MAINTENANCE,
                         Id = new Guid("11111111-1111-1111-1111-111111111111")
                     },
-                    Category = new Category()
-                    {
-                        Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                        Name = "name"
+                    Category = new Category(){
+                        Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                        Name = "Electricista"
                     }
                 }
             ];
-            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", 1, 1, "name lastName", building.Name)];
+            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", 1, 1, "name lastName", building.Name)];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             var buildingLogicMock = new Mock<IBuildingLogic>(MockBehavior.Strict);
-            requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
+            requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);    
             buildingLogicMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Returns(building);
-            var buildingsReport = new BuildingsReport(requestRepositoryMock.Object, buildingLogicMock.Object);
+            var apartmentsReport = new ApartmentsReport(requestRepositoryMock.Object, buildingLogicMock.Object);
 
-            var result = buildingsReport.GetReport(null, new Guid("11111111-1111-1111-1111-111111111111").ToString());
+            var result = apartmentsReport.GetReport(building.Id, null);
 
             requestRepositoryMock.VerifyAll();
             Assert.AreEqual(data.First(), result.First());

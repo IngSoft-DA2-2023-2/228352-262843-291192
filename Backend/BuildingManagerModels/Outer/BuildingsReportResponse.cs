@@ -16,7 +16,8 @@ namespace BuildingManagerModels.Outer
                     data.OpenRequests,
                     data.CloseRequests,
                     data.InProgressRequests,
-                    data.BuildingId
+                    data.BuildingId, 
+                    data.BuildingName
                     ));
             }
         }
@@ -34,7 +35,8 @@ namespace BuildingManagerModels.Outer
                     if (data.OpenRequests != otherData.OpenRequests ||
                     data.CloseRequests != otherData.CloseRequests ||
                     data.InProgressRequests != otherData.InProgressRequests ||
-                    data.BuildingId != otherData.BuildingId)
+                    data.BuildingId != otherData.BuildingId ||
+                    data.BuildingName != otherData.BuildingName)
                         return false;
                 }
             }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerILogic;
 
 namespace BuildingManagerLogic
 {
     public class BuildingsReport : Report
     {
 
-        public BuildingsReport(IRequestRepository repository) : base(repository) { }
+        public BuildingsReport(IRequestRepository repository, IBuildingLogic buildingLogic) : base(repository, buildingLogic) { }
 
         internal override void SortRequests(Guid? identifier, string filter)
         {

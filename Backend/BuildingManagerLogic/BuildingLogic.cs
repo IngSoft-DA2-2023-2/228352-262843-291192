@@ -128,6 +128,18 @@ namespace BuildingManagerLogic
             }
         }
 
+        public Building GetBuildingById(Guid buildingId)
+        {
+            try
+            {
+                return _buildingRepository.GetBuildingById(buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
+
         public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
         {
             try
