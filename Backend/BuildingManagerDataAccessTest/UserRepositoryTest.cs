@@ -376,6 +376,26 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(user.Id, result);
         }
 
+        [TestMethod]
+        public void GetManagerIdFromEmaiNotFoundTest()
+        {
+            var context = CreateDbContext("GetManagerIdFromEmaiNotFoundTest");
+            var repository = new UserRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.GetMangaerIdFromEmail("nonexistent@example.com");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+            Assert.AreEqual("Manager with email nonexistent@example.com not found.", exception.Message);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

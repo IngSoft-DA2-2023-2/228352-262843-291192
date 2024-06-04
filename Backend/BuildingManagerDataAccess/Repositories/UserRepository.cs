@@ -119,7 +119,14 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid GetMangaerIdFromEmail(string email)
         {
-            return _context.Set<User>().First(a => a.Email == email).Id;
+            try
+            {
+                return _context.Set<User>().First(a => a.Email == email).Id;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Manager with email " + email + " not found.");
+            }
         }
     }
 }
