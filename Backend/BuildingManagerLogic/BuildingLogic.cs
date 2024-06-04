@@ -139,5 +139,17 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
+
+        public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
+        {
+            try
+            {
+                return _buildingRepository.ModifyBuildingManager(managerId, buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
     }
 }

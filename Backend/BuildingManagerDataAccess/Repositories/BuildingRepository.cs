@@ -1,4 +1,5 @@
 ﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -211,6 +212,22 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Building");
             }
+        }
+
+        public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
+        {
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
+            {
+                throw new ValueNotFoundException("Building");
+            }
+            if (!_context.Set<User>().Any(m => m.Id == managerId && m.Role == RoleType.MANAGER))
+            {
+                throw new ValueNotFoundException("Manager");
+            }
+            Building building = _context.Set<Building>().First(b => b.Id == buildingId);
+            building.ManagerId = managerId;
+            _context.SaveChanges();
+            return managerId;
         }
     }
 }
