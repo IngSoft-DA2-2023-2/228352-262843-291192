@@ -121,7 +121,12 @@ namespace BuildingManagerDataAccess.Repositories
         {
             try
             {
-                return _context.Set<User>().First(a => a.Email == email).Id;
+                User user = _context.Set<User>().First(a => a.Email == email);
+                if (user.Role != RoleType.MANAGER)
+                {
+                    throw new ValueNotFoundException("User with email " + email + " is not a manager.");
+                }
+                return user.Id;
             }
             catch (InvalidOperationException)
             {
