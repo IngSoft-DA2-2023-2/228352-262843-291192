@@ -371,7 +371,7 @@ namespace BuildingManagerDataAccessTest
             };
             repository.CreateUser(user);
 
-            var result = repository.GetMangaerIdFromEmail(user.Email);
+            var result = repository.GetManagerIdFromEmail(user.Email);
 
             Assert.AreEqual(user.Id, result);
         }
@@ -385,7 +385,7 @@ namespace BuildingManagerDataAccessTest
             Exception exception = null;
             try
             {
-                repository.GetMangaerIdFromEmail("nonexistent@example.com");
+                repository.GetManagerIdFromEmail("nonexistent@example.com");
             }
             catch (Exception ex)
             {
@@ -415,7 +415,7 @@ namespace BuildingManagerDataAccessTest
             Exception exception = null;
             try
             {
-                repository.GetMangaerIdFromEmail(user.Email);
+                repository.GetManagerIdFromEmail(user.Email);
             }
             catch (Exception ex)
             {

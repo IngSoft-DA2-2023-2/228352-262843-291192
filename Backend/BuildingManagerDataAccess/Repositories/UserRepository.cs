@@ -117,7 +117,7 @@ namespace BuildingManagerDataAccess.Repositories
             }
         }
 
-        public Guid GetMangaerIdFromEmail(string email)
+        public Guid GetManagerIdFromEmail(string email)
         {
             try
             {

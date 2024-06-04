@@ -14,5 +14,6 @@ namespace BuildingManagerIDataAccess
         Guid Login(string email, string password);
         Guid Logout(Guid sessionToken);
         Guid GetUserIdFromSessionToken(Guid sessionToken);
+        Guid GetManagerIdFromEmail(string email)
     }
 }
