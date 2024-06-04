@@ -13,10 +13,12 @@ namespace BuildingManagerLogic
         internal List<Request> Requests = new List<Request>();
         internal Dictionary<string, List<Request>> SortedRequests = new Dictionary<string, List<Request>>();
         private IRequestRepository requestRepository;
+        private IBuildingLogic _buildingLogic;
 
-        public Report(IRequestRepository repository)
+        public Report(IRequestRepository repository, IBuildingLogic buildingLogic)
         {
             requestRepository = repository;
+            _buildingLogic = buildingLogic;
         }
 
         public List<ReportData> GetReport(Guid? identifier, string filter)
@@ -50,6 +52,7 @@ namespace BuildingManagerLogic
                 long totalTime = 0;
                 long averageTime = 0;
                 string name = "";
+                Building building = null;
                 Guid buildingId = Guid.Empty;
                 string categoryName = pair.Value.First().Category.Name;
                 int? apartmentFloor = null;
@@ -61,6 +64,10 @@ namespace BuildingManagerLogic
                     if (request.MaintenanceStaff != null)
                     {
                         name = request.MaintenanceStaff.Name;
+                    }
+                    if (building == null)
+                    {
+                        building = _buildingLogic.GetBuildingById(request.BuildingId);
                     }
                     buildingId = request.BuildingId;
                     apartmentFloor = request.ApartmentFloor;

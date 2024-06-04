@@ -2,6 +2,7 @@ using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
+using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,6 +18,27 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void GetMaintenancesReportSuccessfully()
         {
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                Apartments = new List<Apartment>(){
+                    new Apartment(){
+                        Floor = 1,
+                        Number = 1,
+                        Bathrooms = 1,
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        HasTerrace = false,
+                        Owner = new Owner(){
+                            Name = "name",
+                            LastName = "lastName",
+                            Email = "email@gmail.com",
+                        },
+                        Rooms = 1,
+                    }
+                }
+            };
             List<Request> requests =
             [new Request()
                 {
@@ -83,9 +105,11 @@ namespace BuildingManagerLogicTest
                 }
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            var buildingLogicMock = new Mock<IBuildingLogic>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
+            buildingLogicMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Returns(building);
             List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", 1, 1, null)];
-            var report = new ReportLogic(requestRepositoryMock.Object);
+            var report = new ReportLogic(requestRepositoryMock.Object, buildingLogicMock.Object);
 
             var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "", ReportType.MAINTENANCE);
             requestRepositoryMock.VerifyAll();
@@ -95,6 +119,27 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void GetBuildingsReportSuccessfully()
         {
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                Apartments = new List<Apartment>(){
+                    new Apartment(){
+                        Floor = 1,
+                        Number = 1,
+                        Bathrooms = 1,
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        HasTerrace = false,
+                        Owner = new Owner(){
+                            Name = "name",
+                            LastName = "lastName",
+                            Email = "email@gmail.com",
+                        },
+                        Rooms = 1,
+                    }
+                }
+            };
             List<Request> requests =
             [new Request()
                 {
@@ -161,9 +206,11 @@ namespace BuildingManagerLogicTest
                 }
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            var buildingLogicMock = new Mock<IBuildingLogic>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
+            buildingLogicMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Returns(building);
             List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", 1, 1, null)];
-            var report = new ReportLogic(requestRepositoryMock.Object);
+            var report = new ReportLogic(requestRepositoryMock.Object, buildingLogicMock.Object);
 
             var result = report.GetReport(null, "", ReportType.BUILDINGS);
             requestRepositoryMock.VerifyAll();
@@ -173,6 +220,27 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void GetCategoriesReportSuccessfully()
         {
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                Apartments = new List<Apartment>(){
+                    new Apartment(){
+                        Floor = 1,
+                        Number = 1,
+                        Bathrooms = 1,
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        HasTerrace = false,
+                        Owner = new Owner(){
+                            Name = "name",
+                            LastName = "lastName",
+                            Email = "email@gmail.com",
+                        },
+                        Rooms = 1,
+                    }
+                }
+            };
             List<Request> requests =
             [new Request()
                 {
@@ -236,9 +304,11 @@ namespace BuildingManagerLogicTest
                 }
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            var buildingLogicMock = new Mock<IBuildingLogic>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
+            buildingLogicMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Returns(building);
             List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", 1, 1, null)];
-            var report = new ReportLogic(requestRepositoryMock.Object);
+            var report = new ReportLogic(requestRepositoryMock.Object, buildingLogicMock.Object);
 
             var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", ReportType.CATEGORIES);
             requestRepositoryMock.VerifyAll();
@@ -248,6 +318,27 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void GetCategoriesReportWithoutMaintenanceStaffTesst()
         {
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                Apartments = new List<Apartment>(){
+                    new Apartment(){
+                        Floor = 1,
+                        Number = 1,
+                        Bathrooms = 1,
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        HasTerrace = false,
+                        Owner = new Owner(){
+                            Name = "name",
+                            LastName = "lastName",
+                            Email = "email@gmail.com",
+                        },
+                        Rooms = 1,
+                    }
+                }
+            };
             List<Request> requests =
             [new Request()
                 {
@@ -293,9 +384,11 @@ namespace BuildingManagerLogicTest
                 }
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            var buildingLogicMock = new Mock<IBuildingLogic>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
+            buildingLogicMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Returns(building);
             List<ReportData> data = [new ReportData(1, 1, 1, 0, "", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", 1, 1, null)];
-            var report = new ReportLogic(requestRepositoryMock.Object);
+            var report = new ReportLogic(requestRepositoryMock.Object, buildingLogicMock.Object);
 
             var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", ReportType.CATEGORIES);
             requestRepositoryMock.VerifyAll();
@@ -307,7 +400,8 @@ namespace BuildingManagerLogicTest
         public void GetReportWithInvalidIdentifierTest()
         {
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
-            var report = new ReportLogic(requestRepositoryMock.Object);
+            var buildingLogicMock = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            var report = new ReportLogic(requestRepositoryMock.Object, buildingLogicMock.Object);
             Exception exception = null;
 
             try
@@ -326,6 +420,27 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void GetApartmentsReportSuccessfully()
         {
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                Apartments = new List<Apartment>(){
+                    new Apartment(){
+                        Floor = 1,
+                        Number = 1,
+                        Bathrooms = 1,
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        HasTerrace = false,
+                        Owner = new Owner(){
+                            Name = "name",
+                            LastName = "lastName",
+                            Email = "email@gmail.com",
+                        },
+                        Rooms = 1,
+                    }
+                }
+            };
             List<Request> requests =
             [new Request()
                 {
@@ -389,9 +504,11 @@ namespace BuildingManagerLogicTest
                 }
             ];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
+            var buildingLogicMock = new Mock<IBuildingLogic>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
+            buildingLogicMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Returns(building);
             List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", 1, 1, null)];
-            var report = new ReportLogic(requestRepositoryMock.Object);
+            var report = new ReportLogic(requestRepositoryMock.Object, buildingLogicMock.Object);
 
             var result = report.GetReport(new Guid("11111111-1111-1111-1111-111111111111"), "Electricista", ReportType.APARTMENTS);
             requestRepositoryMock.VerifyAll();
