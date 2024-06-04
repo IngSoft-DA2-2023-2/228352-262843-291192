@@ -7,7 +7,7 @@ namespace BuildingManagerDomain.Entities
     {
         public ReportData(int openRequests, int closeRequests, int inProgressRequests, 
         int averageClosingTime, string maintainerName, Guid buildingId, string categoryName, 
-        int? apartmentFloor, int? apartmentNumber, string ownerName)
+        int? apartmentFloor, int? apartmentNumber, string ownerName, string buildingName)
         {
             OpenRequests = openRequests;
             CloseRequests = closeRequests;
@@ -19,6 +19,7 @@ namespace BuildingManagerDomain.Entities
             ApartmentFloor = apartmentFloor;
             ApartmentNumber = apartmentNumber;
             OwnerName = ownerName;
+            BuildingName = buildingName;
         }
         public int OpenRequests { get; }
         public int CloseRequests { get; }
@@ -30,6 +31,7 @@ namespace BuildingManagerDomain.Entities
         public int? ApartmentFloor { get; set; }
         public int? ApartmentNumber { get; set; }
         public string OwnerName { get; set; }
+        public string BuildingName { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -46,7 +48,8 @@ namespace BuildingManagerDomain.Entities
             CategoryName == other.CategoryName &&
             ApartmentFloor == other.ApartmentFloor &&
             ApartmentNumber == other.ApartmentNumber &&
-            OwnerName == other.OwnerName;
+            OwnerName == other.OwnerName &&
+            BuildingName == other.BuildingName;
         }
     }
 }
