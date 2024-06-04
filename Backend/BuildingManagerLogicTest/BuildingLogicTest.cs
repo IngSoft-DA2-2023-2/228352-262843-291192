@@ -536,5 +536,72 @@ namespace BuildingManagerLogicTest
             Assert.IsNotNull(exception);
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
+
+        [TestMethod]
+        public void UpdateBuildingManagerSuccessfully()
+        {
+            Building building = new Building
+            {
+                Id = _building.Id,
+                ManagerId = _building.ManagerId,
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+            Guid newManagerId = Guid.NewGuid();
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.ModifyBuildingManager(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(newManagerId);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.ModifyBuildingManager(newManagerId, building.Id);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(newManagerId, result);
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithInvalidBuildingIdTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.ModifyBuildingManager(It.IsAny<Guid>(), It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.ModifyBuildingManager(Guid.NewGuid(), Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }

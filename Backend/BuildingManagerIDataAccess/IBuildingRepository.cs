@@ -14,5 +14,6 @@ namespace BuildingManagerIDataAccess
         Building UpdateBuilding(Building building);
         List<Building> ListBuildings();
         Guid GetConstructionCompanyFromBuildingId(Guid buildingId);
+        Guid ModifyBuildingManager(Guid managerId, Guid buildingId);
     }
 }

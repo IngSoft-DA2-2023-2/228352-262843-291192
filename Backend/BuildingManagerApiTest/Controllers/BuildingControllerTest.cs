@@ -125,7 +125,7 @@ namespace BuildingManagerApiTest.Controllers
             }
             Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
-        
+
         [TestMethod]
         public void CreateBuildingWithoutAddress()
         {
@@ -609,6 +609,71 @@ namespace BuildingManagerApiTest.Controllers
                     Apartments = null
                 };
                 requestWithoutApartments.Validate();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManager_Ok()
+        {
+            Building building = new Building
+            {
+                Id = Guid.NewGuid(),
+                ManagerId = Guid.NewGuid(),
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    }
+                }
+            };
+            Guid newManagerId = Guid.NewGuid();
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockBuildingLogic.Setup(x => x.ModifyBuildingManager(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(newManagerId);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+
+            UpdateBuildingManagerRequest updateBuildingManagerRequest = new UpdateBuildingManagerRequest
+            {
+                ManagerId = newManagerId,
+            };
+
+            OkObjectResult expected = new OkObjectResult(new UpdateBuildingManagerResponse(newManagerId, building.Id));
+            UpdateBuildingManagerResponse expectedObject = expected.Value as UpdateBuildingManagerResponse;
+
+            OkObjectResult result = buildingController.UpdateBuildingManager(building.Id, updateBuildingManagerRequest) as OkObjectResult;
+            UpdateBuildingManagerResponse resultObject = result.Value as UpdateBuildingManagerResponse;
+
+            mockBuildingLogic.VerifyAll();
+            Assert.AreEqual(expected.StatusCode, result.StatusCode);
+            Assert.AreEqual(expectedObject, resultObject);
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithoutManagerId()
+        {
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+            var requestWithoutManagerId = new UpdateBuildingManagerRequest()
+            {
+            };
+
+            Exception exception = null;
+            try
+            {
+                buildingController.UpdateBuildingManager(Guid.NewGuid(), requestWithoutManagerId);
             }
             catch (Exception ex)
             {
