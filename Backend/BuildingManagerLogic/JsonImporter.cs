@@ -12,7 +12,7 @@ namespace BuildingManagerLogic
     {
         public string Name => "DefaultJson";
 
-        public List<Building> Import(string path)
+        public List<Building> Import(string path, Guid companyId)
         {
             var jsonContent = File.ReadAllText(path);
 
@@ -23,17 +23,18 @@ namespace BuildingManagerLogic
             };
             var buildingInfos = JsonSerializer.Deserialize<List<BuildingInfo>>(jsonContent, options);
 
-            // Convierte los datos deserializados en objetos de tipo Building
             var buildings = new List<Building>();
             foreach (var buildingInfo in buildingInfos)
             {
+                Guid buildingId = new Guid();
                 var building = new Building
                 {
-                    Id = Guid.NewGuid(),
+                    Id = buildingId,
                     Name = buildingInfo.Nombre,
+                    // falta el manger (email)
                     Address = $"{buildingInfo.Direccion.CallePrincipal} {buildingInfo.Direccion.NumeroPuerta}",
                     Location = $"{buildingInfo.Gps.Latitud}, {buildingInfo.Gps.Longitud}",
-                    ConstructionCompanyId = Guid.NewGuid(), // Debes proporcionar el ID de la compañía de construcción
+                    ConstructionCompanyId = companyId,
                     CommonExpenses = buildingInfo.GastosComunes,
                     Apartments = buildingInfo.Departamentos.Select(dep => new Apartment
                     {
@@ -42,7 +43,7 @@ namespace BuildingManagerLogic
                         Rooms = dep.Habitaciones,
                         Bathrooms = dep.Baños,
                         Owner = new Owner { Email = dep.PropietarioEmail },
-                        BuildingId = null, // Debes establecer esto si deseas registrar la relación con el edificio
+                        BuildingId = buildingId,
                         HasTerrace = dep.ConTerraza
                     }).ToList()
                 };
@@ -55,7 +56,7 @@ namespace BuildingManagerLogic
         {
             public string Nombre { get; set; }
             public Direccion Direccion { get; set; }
-            public string Encargado { get; set; }
+            public Manager Encargado { get; set; }
             public Gps Gps { get; set; }
             public decimal GastosComunes { get; set; }
             public List<Departamento> Departamentos { get; set; }

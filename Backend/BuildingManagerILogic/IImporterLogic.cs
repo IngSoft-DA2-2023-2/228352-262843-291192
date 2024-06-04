@@ -1,12 +1,12 @@
 ﻿using BuildingManagerDomain.Entities;
-using BuildingManagerModels.Outer;
+using System;
 using System.Collections.Generic;
 
 namespace BuildingManagerILogic
 {
     public interface IImporterLogic
     {
-        List<Building> ImportData(string importerName, string path);
+        List<Building> ImportData(string importerName, string path, Guid companyAdminSessionToken);
         List<string> ListImporters();
     }
 }
