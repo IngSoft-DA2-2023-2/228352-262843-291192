@@ -25,9 +25,11 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost("{importerName}")]
-        public IActionResult ImportData([FromRoute] string importerName, [FromBody] string path)
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+
+        public IActionResult ImportData([FromRoute] string importerName, [FromBody] string path, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            ImportBuildingsResponse data = new ImportBuildingsResponse(_importerLogic.ImportData(importerName, path));
+            ImportBuildingsResponse data = new ImportBuildingsResponse(_importerLogic.ImportData(importerName, path, sessionToken));
             return CreatedAtAction(nameof(ImportData), data);
         }
     }

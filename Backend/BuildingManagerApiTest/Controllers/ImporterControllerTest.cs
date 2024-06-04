@@ -50,10 +50,11 @@ namespace BuildingManagerApiTest.Controllers
             };
             var expectedData = new ImportBuildingsResponse(buildings);
             var mockImporterLogic = new Mock<IImporterLogic>(MockBehavior.Strict);
-            mockImporterLogic.Setup(r => r.ImportData(importerName, path)).Returns(buildings);
+            var comanyAdminId = new Guid();
+            mockImporterLogic.Setup(r => r.ImportData(importerName, path, comanyAdminId)).Returns(buildings);
             var importerController = new ImporterController(mockImporterLogic.Object);
 
-            var result = importerController.ImportData(importerName, path) as CreatedAtActionResult;
+            var result = importerController.ImportData(importerName, path, comanyAdminId) as CreatedAtActionResult;
             var resultObject = result.Value as ImportBuildingsResponse;
 
             mockImporterLogic.VerifyAll();
