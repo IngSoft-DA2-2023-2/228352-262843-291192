@@ -58,6 +58,7 @@ namespace BuildingManagerLogic
                 int? apartmentFloor = null;
                 int? apartmentNumber = null;
                 string ownerName = null;
+                string buildingName = null;
 
                 foreach (var request in pair.Value)
                 {
@@ -77,6 +78,7 @@ namespace BuildingManagerLogic
                     buildingId = request.BuildingId;
                     apartmentFloor = request.ApartmentFloor;
                     apartmentNumber = request.ApartmentNumber;
+                    buildingName = building.Name;
                     if (request.State == RequestState.OPEN)
                     {
                         open++;
@@ -96,7 +98,7 @@ namespace BuildingManagerLogic
                     int convertSecondsToHours = 3600;
                     averageTime = (totalTime / close) / convertSecondsToHours;
                 }
-                datas.Add(new ReportData(open, close, inProgress, (int)averageTime, name, buildingId, categoryName, apartmentFloor, apartmentNumber, ownerName));
+                datas.Add(new ReportData(open, close, inProgress, (int)averageTime, name, buildingId, categoryName, apartmentFloor, apartmentNumber, ownerName, buildingName));
             }
 
             return datas;

@@ -20,7 +20,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestInitialize]
         public void Initialize()
         {
-            _data = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", 1, 1, "Jane")];
+            _data = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", 1, 1, "Jane", "Building 1")];
             _reportResponse = new ApartmentsReportResponse(_data);
         }
 
@@ -54,7 +54,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_DifferentTypeObject_ReturnsFalse()
         {
-            ApartmentsReportResponse response = new ApartmentsReportResponse([new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", 1, 101, "Jane")]);
+            ApartmentsReportResponse response = new ApartmentsReportResponse([new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", 1, 101, "Jane", "Building 1")]);
             object other = new object();
 
             bool result = response.Equals(other);
@@ -65,7 +65,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_SameObject_ReturnsTrue()
         {
-            ApartmentsReportResponse response = new ApartmentsReportResponse([new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", 1, 101, "Jane")]);
+            ApartmentsReportResponse response = new ApartmentsReportResponse([new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", 1, 101, "Jane", "Building 1")]);
 
             bool result = response.Equals(response);
 
@@ -75,8 +75,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            List<ReportData> data1 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", 2, 101, "Jane")];
-            List<ReportData> data2 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Plomero", 1, 101, "Jane")];
+            List<ReportData> data1 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Electricista", 2, 101, "Jane", "Building 1")];
+            List<ReportData> data2 = [new ReportData(3, 2, 1, 7, "John", new Guid(), "Plomero", 1, 101, "Jane", "Building 1")];
             ApartmentsReportResponse response1 = new ApartmentsReportResponse(data1);
             ApartmentsReportResponse response2 = new ApartmentsReportResponse(data2);
 
