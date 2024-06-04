@@ -69,6 +69,11 @@ namespace BuildingManagerLogic
                     {
                         building = _buildingLogic.GetBuildingById(request.BuildingId);
                     }
+                    if (ownerName == null && building != null)
+                    {
+                        Owner owner = building.Apartments.First(a => a.Floor == request.ApartmentFloor && a.Number == request.ApartmentNumber).Owner;
+                        ownerName = owner.Name + " " + owner.LastName;
+                    }
                     buildingId = request.BuildingId;
                     apartmentFloor = request.ApartmentFloor;
                     apartmentNumber = request.ApartmentNumber;

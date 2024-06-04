@@ -105,7 +105,7 @@ namespace BuildingManagerLogicTest
                     }
                 }
             ];
-            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", 1, 1, null)];
+            List<ReportData> data = [new ReportData(1, 1, 1, 0, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", 1, 1, "name lastName")];
             var requestRepositoryMock = new Mock<IRequestRepository>(MockBehavior.Strict);
             var buildingLogicMock = new Mock<IBuildingLogic>(MockBehavior.Strict);
             requestRepositoryMock.Setup(x => x.GetRequests()).Returns(requests);
