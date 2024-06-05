@@ -202,5 +202,10 @@ namespace BuildingManagerDataAccess.Repositories
             }
             return _context.Set<Building>().Find(buildingId)!.ConstructionCompanyId;
         }
+
+        public Owner GetOwnerFromEmail(string email)
+        {
+            return _context.Set<Owner>().First(a => a.Email == email);
+        }
     }
 }

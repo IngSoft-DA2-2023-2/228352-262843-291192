@@ -1182,5 +1182,24 @@ namespace BuildingManagerDataAccessTest
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.GetConstructionCompanyFromBuildingId(buildingId));
         }
+
+        [TestMethod]
+        public void GetOwnerFromEmailSuccessfullyTest()
+        {
+            var context = CreateDbContext("GetOwnerFromEmailSuccessfullyTest");
+            var repository = new BuildingRepository(context);
+            var user = new Owner
+            {
+                Name = "John",
+                LastName = "Doe",
+                Email = "abc@example.com",
+            };
+            context.Set<Owner>().Add(user);
+            context.SaveChanges();
+
+            var result = repository.GetOwnerFromEmail(user.Email);
+
+            Assert.AreEqual(user, result);
+        }
     }
 }
