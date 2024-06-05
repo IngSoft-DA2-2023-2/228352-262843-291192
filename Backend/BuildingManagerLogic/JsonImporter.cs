@@ -1,9 +1,9 @@
 ﻿using BuildingManagerDomain.Entities;
+using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 
 namespace BuildingManagerLogic
@@ -12,77 +12,90 @@ namespace BuildingManagerLogic
     {
         public string Name => "DefaultJson";
 
+        private IUserRepository _userRepository;
+        private IBuildingRepository _buildingRepository;
+
+        public JsonImporter(IUserRepository userRepository, IBuildingRepository buildingRepository) 
+        {
+            _userRepository = userRepository;
+            _buildingRepository = buildingRepository;
+        }
+
         public List<Building> Import(string path, Guid companyId)
         {
-            var jsonContent = File.ReadAllText(path);
+            string jsonString = File.ReadAllText(path);
 
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = true
-            };
-            var buildingInfos = JsonSerializer.Deserialize<List<BuildingInfo>>(jsonContent, options);
+            var jsonBuildings = JsonSerializer.Deserialize<List<JsonBuilding>>(jsonString);
 
-            var buildings = new List<Building>();
-            foreach (var buildingInfo in buildingInfos)
+            List<Building> buildings = new List<Building>();
+
+            foreach (var jsonBuilding in jsonBuildings)
             {
-                Guid buildingId = new Guid();
-                var building = new Building
+                Building building = new Building
                 {
-                    Id = buildingId,
-                    Name = buildingInfo.Nombre,
-                    // falta el manger (email)
-                    Address = $"{buildingInfo.Direccion.CallePrincipal} {buildingInfo.Direccion.NumeroPuerta}",
-                    Location = $"{buildingInfo.Gps.Latitud}, {buildingInfo.Gps.Longitud}",
+                    Id = Guid.NewGuid(),
+                    Name = jsonBuilding.Name,
+                    Address = $"({jsonBuilding.Address.MainStreet} {jsonBuilding.Address.DoorNumber}, {jsonBuilding.Address.SecondaryStreet})",
+                    Location = $"({jsonBuilding.Gps.Latitude},{jsonBuilding.Gps.Longitude})",
+                    CommonExpenses = jsonBuilding.CommonExpenses,
                     ConstructionCompanyId = companyId,
-                    CommonExpenses = buildingInfo.GastosComunes,
-                    Apartments = buildingInfo.Departamentos.Select(dep => new Apartment
-                    {
-                        Floor = dep.Piso,
-                        Number = dep.NumeroPuerta,
-                        Rooms = dep.Habitaciones,
-                        Bathrooms = dep.Baños,
-                        Owner = new Owner { Email = dep.PropietarioEmail },
-                        BuildingId = buildingId,
-                        HasTerrace = dep.ConTerraza
-                    }).ToList()
+                    ManagerId = string.IsNullOrEmpty(jsonBuilding.ManagerEmail) ? (Guid?)null : _userRepository.GetManagerIdFromEmail(jsonBuilding.ManagerEmail),
+                    Apartments = new List<Apartment>()
                 };
+
+                foreach (var jsonApartment in jsonBuilding.Apartments)
+                {
+                    Owner owner = _buildingRepository.GetOwnerFromEmail(jsonApartment.OwnerEmail);
+                    Apartment apartment = new Apartment
+                    {
+                        Floor = jsonApartment.Floor,
+                        Number = jsonApartment.DoorNumber,
+                        Rooms = jsonApartment.Rooms,
+                        Bathrooms = jsonApartment.Bathrooms,
+                        HasTerrace = jsonApartment.HasTerrace,
+                        Owner = owner
+                    };
+
+                    building.Apartments.Add(apartment);
+                }
+
                 buildings.Add(building);
             }
 
             return buildings;
         }
-        private class BuildingInfo
+
+        public class JsonBuilding
         {
-            public string Nombre { get; set; }
-            public Direccion Direccion { get; set; }
-            public Manager Encargado { get; set; }
-            public Gps Gps { get; set; }
-            public decimal GastosComunes { get; set; }
-            public List<Departamento> Departamentos { get; set; }
+            public string Name { get; set; }
+            public JsonAddress Address { get; set; }
+            public string ManagerEmail { get; set; }
+            public JsonGps Gps { get; set; }
+            public decimal CommonExpenses { get; set; }
+            public List<JsonApartment> Apartments { get; set; }
         }
 
-        private class Direccion
+        public class JsonAddress
         {
-            public string CallePrincipal { get; set; }
-            public int NumeroPuerta { get; set; }
-            public string CalleSecundaria { get; set; }
+            public string MainStreet { get; set; }
+            public int DoorNumber { get; set; }
+            public string SecondaryStreet { get; set; }
         }
 
-        private class Gps
+        public class JsonGps
         {
-            public decimal Latitud { get; set; }
-            public decimal Longitud { get; set; }
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
         }
 
-        private class Departamento
+        public class JsonApartment
         {
-            public int Piso { get; set; }
-            public int NumeroPuerta { get; set; }
-            public int Habitaciones { get; set; }
-            public bool ConTerraza { get; set; }
-            public int Baños { get; set; }
-            public string PropietarioEmail { get; set; }
+            public int Floor { get; set; }
+            public int DoorNumber { get; set; }
+            public int Rooms { get; set; }
+            public bool HasTerrace { get; set; }
+            public int Bathrooms { get; set; }
+            public string OwnerEmail { get; set; }
         }
     }
 }
