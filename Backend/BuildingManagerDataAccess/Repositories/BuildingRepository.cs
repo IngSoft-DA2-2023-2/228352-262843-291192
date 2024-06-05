@@ -205,7 +205,14 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Owner GetOwnerFromEmail(string email)
         {
-            return _context.Set<Owner>().First(a => a.Email == email);
+            try
+            {
+                return _context.Set<Owner>().First(a => a.Email == email);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Owner with email " + email + " not found.");
+            }
         }
     }
 }

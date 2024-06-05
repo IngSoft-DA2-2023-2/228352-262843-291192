@@ -1201,5 +1201,25 @@ namespace BuildingManagerDataAccessTest
 
             Assert.AreEqual(user, result);
         }
+
+        [TestMethod]
+        public void GetOwnerFromEmailNotFoundTest()
+        {
+            var context = CreateDbContext("GetOwnerFromEmailNotFoundTest");
+            var repository = new BuildingRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.GetOwnerFromEmail("nonexistent@example.com");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+            Assert.AreEqual("Owner with email nonexistent@example.com not found.", exception.Message);
+        }
     }
 }
