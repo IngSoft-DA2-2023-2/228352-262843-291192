@@ -30,12 +30,14 @@ namespace BuildingManagerApi
             }
 
             //CORS
-            app.UseCors(builder => builder
-                           .AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader());
+            app.UseCors(
+                builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
