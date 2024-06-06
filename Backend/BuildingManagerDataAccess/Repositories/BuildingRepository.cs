@@ -188,7 +188,7 @@ namespace BuildingManagerDataAccess.Repositories
             foreach (Building building in buildingsInDB)
             {
                 string managerName = _context.Set<User>().FirstOrDefault(u => u.Id == building.ManagerId)?.Name ?? "";
-                BuildingResponse buildingResponse = new BuildingResponse(building.Name, building.Location, managerName);
+                BuildingResponse buildingResponse = new BuildingResponse(building.Name, building.Address, managerName);
                 buildings.Add(buildingResponse);
             }
             return buildings;
