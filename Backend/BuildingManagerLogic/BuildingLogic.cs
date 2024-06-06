@@ -111,7 +111,7 @@ namespace BuildingManagerLogic
             }
         }
 
-        public List<Building> ListBuildings()
+        public List<BuildingResponse> ListBuildings()
         {
             return _buildingRepository.ListBuildings();
         }

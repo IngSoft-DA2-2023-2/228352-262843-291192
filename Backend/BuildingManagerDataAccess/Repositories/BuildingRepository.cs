@@ -181,9 +181,17 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<Building>().Find(newBuilding.Id)!;
         }
 
-        public List<Building> ListBuildings()
+        public List<BuildingResponse> ListBuildings()
         {
-            return _context.Set<Building>().ToList();
+            List<BuildingResponse> buildings = new List<BuildingResponse>();
+            List<Building> buildingsInDB = _context.Set<Building>().ToList();
+            foreach (Building building in buildingsInDB)
+            {
+                string managerName = _context.Set<User>().FirstOrDefault(u => u.Id == building.ManagerId)?.Name ?? "";
+                BuildingResponse buildingResponse = new BuildingResponse(building.Name, building.Location, managerName);
+                buildings.Add(buildingResponse);
+            }
+            return buildings;
         }
 
         public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)

@@ -61,7 +61,8 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void ListBuildingsSuccessfully()
         {
-            var buildingsList = new List<Building> { _building };
+            BuildingResponse buildingResponse = new BuildingResponse(_building.Name, _building.Address, _building.ManagerId.ToString());
+            var buildingsList = new List<BuildingResponse> { buildingResponse };
             var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);

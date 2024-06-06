@@ -9,7 +9,7 @@ namespace BuildingManagerIDataAccess
         Building CreateBuilding(Building building);
         Building DeleteBuilding(Guid buildingId);
         Building UpdateBuilding(Building building);
-        List<Building> ListBuildings();
+        List<BuildingResponse> ListBuildings();
         Guid GetConstructionCompanyFromBuildingId(Guid buildingId);
         Building GetBuildingById(Guid buildingId);
         Guid ModifyBuildingManager(Guid managerId, Guid buildingId);

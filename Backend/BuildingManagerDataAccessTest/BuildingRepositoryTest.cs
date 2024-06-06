@@ -93,7 +93,9 @@ namespace BuildingManagerDataAccessTest
 
             var result = repository.ListBuildings();
 
-            Assert.AreEqual(building, result.First());
+            BuildingResponse buildingResponse = new BuildingResponse(building.Name, building.Location, "");
+
+            Assert.AreEqual(buildingResponse, result.First());
         }
 
         [TestMethod]

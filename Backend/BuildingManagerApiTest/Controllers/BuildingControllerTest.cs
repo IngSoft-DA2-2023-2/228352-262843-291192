@@ -87,7 +87,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void ListBuildings_Ok()
         {
-            List<Building> buildings = [_building];
+            BuildingResponse buildingResponse = new BuildingResponse(_building.Name, _building.Address, "manager name");
+            List<BuildingResponse> buildings = [buildingResponse];
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
             mockBuildingLogic.Setup(x => x.ListBuildings()).Returns(buildings);
