@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="font-bold text-2xl	text-center border-y-4">Detalles del edificio</h1>
+      <div class="card">
+        <div class="card-header">
+          <h4>{{ building.name }}</h4>
+        </div>
+        <div class="card-body">
+          <p><strong>Ubicación:</strong> {{ building.address }}</p>
+          <p><strong>Lugar:</strong> {{ building.location }}</p>
+          <p><strong>Gastos comunes:</strong> {{ building.commonExpenses }}</p>
+          <p><strong>Manager:</strong> {{ building.manager }}</p>
+          <p><strong>Companía de construcción:</strong> {{ building.constructionCompany }}</p>
+          <p><strong>Apartamentos:</strong></p>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Piso</th>
+                <th>Número</th>
+                <th>Cant. baños</th>
+                <th>Tiene terraza</th>
+                <th>Dueño</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let apartment of building.apartments">
+                <td>Apartamento de: {{ apartment.owner.name }}</td>
+                <td>{{ apartment.floor }}</td>
+                <td>{{ apartment.number }}</td>
+                <td>{{ apartment.bathrooms }}</td>
+                <td>{{ apartment.hasTerrace ? 'Sí' : 'No' }}</td>
+                <td>{{ apartment.owner.name }}  {{ apartment.owner.lastName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

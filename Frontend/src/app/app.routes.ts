@@ -6,12 +6,14 @@ import { authRedirectGuard } from './guards/auth-redirect.guard';
 import { NgModule } from '@angular/core';
 import { BuildingsComponent } from './components/buildings/buildings.component';
 import { ManagerComponent } from './components/manager/manager.component';
+import { BuildingDetailComponent } from './components/building-detail/building-detail.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authRedirectGuard], pathMatch: 'full'},
   { path: 'manager', component: ManagerComponent, canActivate: [authGuard], children: [
     { path: 'home', component: HomeComponent, pathMatch: 'full'},
     { path: 'buildings', component: BuildingsComponent, pathMatch: 'full'},
+    { path: 'buildings/:id', component: BuildingDetailComponent},
   ]},
   { path: '**', redirectTo: '/login' }
 ];

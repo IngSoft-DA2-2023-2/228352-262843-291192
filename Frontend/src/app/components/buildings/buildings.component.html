@@ -9,6 +9,7 @@
             <th>Nombre</th>
             <th>Ubicación</th>
             <th>Manager</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody>
@@ -16,6 +17,9 @@
             <td>{{ building.name }}</td>
             <td>{{ building.address }}</td>
             <td>{{ building.manager }}</td>
+            <td>
+              <a [routerLink]="['/manager/buildings', building.name]" class="btn btn-primary">Modificar</a>
+            </td>
           </tr>
         </tbody>
       </table>
