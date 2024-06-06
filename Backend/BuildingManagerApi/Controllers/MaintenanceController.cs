@@ -29,6 +29,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpGet]
+        [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult GetMaintainers()
         {
             MaintainersResponse maintainerResponse = new(_userLogic.GetMaintenanceStaff());
