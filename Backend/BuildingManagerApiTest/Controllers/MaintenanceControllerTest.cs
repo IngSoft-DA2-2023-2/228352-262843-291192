@@ -1,5 +1,6 @@
 ﻿using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.CustomExceptions;
@@ -29,7 +30,7 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "John",
                 Lastname = "Doe",
                 Email = "john@abc.com",
-                Password = "pass123"
+                Password = "pass123",
             };
             _createMaintenanceStaffRequest = new CreateMaintenanceStaffRequest
             {

@@ -355,6 +355,28 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
+        [TestMethod]
+        public void GetMaintaninersTest()
+        {
+            var context = CreateDbContext("GetMaintaninersTest");
+            var repository = new UserRepository(context);
+            var maintenance = new MaintenanceStaff
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456",
+                Role = RoleType.MAINTENANCE,
+            };
+            repository.CreateUser(maintenance);
+            List<MaintenanceStaff> expected = [maintenance];
+
+            var result = repository.GetMaintenanceStaff();
+
+            Assert.AreEqual(expected.First(), result.First());
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

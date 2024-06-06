@@ -119,7 +119,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public List<MaintenanceStaff> GetMaintenanceStaff()
         {
-            throw new NotImplementedException();
+            return _context.Set<MaintenanceStaff>().Where(a => a.Role == RoleType.MAINTENANCE).ToList();
         }
     }
 }
