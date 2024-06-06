@@ -347,7 +347,7 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
-        public void GetManagerBuildingFromInvalidManagerIdTest()
+        public void GetManagerBuildingsFromInvalidManagerIdTest()
         {
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);

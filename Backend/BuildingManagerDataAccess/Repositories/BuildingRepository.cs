@@ -232,7 +232,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public List<Building> GetManagerBuildings(Guid managerId)
         {
-            throw new NotImplementedException();
+            return _context.Set<Building>().Where(b => b.ManagerId == managerId).ToList();
         }
     }
 }
