@@ -229,5 +229,10 @@ namespace BuildingManagerDataAccess.Repositories
             _context.SaveChanges();
             return managerId;
         }
+
+        public List<Building> GetManagerBuildings(Guid managerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

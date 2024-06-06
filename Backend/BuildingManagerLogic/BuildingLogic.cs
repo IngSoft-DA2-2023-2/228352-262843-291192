@@ -154,7 +154,7 @@ namespace BuildingManagerLogic
 
         public List<Building> GetManagerBuildings(Guid managerId)
         {
-            throw new NotImplementedException();
+            return _buildingRepository.GetManagerBuildings(managerId);
         }
     }
 }
