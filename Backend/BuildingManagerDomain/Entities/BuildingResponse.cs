@@ -8,12 +8,14 @@ namespace BuildingManagerDomain.Entities
 {
     public class BuildingResponse
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Manager { get; set; }
 
-        public BuildingResponse(string name, string address, string manager)
+        public BuildingResponse(Guid id, string name, string address, string manager)
         {
+            Id = id;
             Name = name;
             Address = address;
             Manager = manager;
@@ -21,13 +23,11 @@ namespace BuildingManagerDomain.Entities
 
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType())
-                return false;
-
             var other = (BuildingResponse)obj;
-            return Name == other.Name &&
-            Address == other.Address &&
-            Manager == other.Manager;
+            return Id == other.Id &&
+                   Name == other.Name &&
+                   Address == other.Address &&
+                   Manager == other.Manager;
         }
     }
 }

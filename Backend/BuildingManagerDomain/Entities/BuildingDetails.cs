@@ -8,21 +8,30 @@ namespace BuildingManagerDomain.Entities
 {
     public class BuildingDetails
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Location { get; set; }
         public decimal? CommonExpenses { get; set; }
+        public Guid? ManagerId { get; set; }
         public string Manager { get; set; }
+        public Guid ConstructionCompanyId { get; set; }
         public string ConstructionCompany { get; set; }
         public List<Apartment> Apartments { get; set; } = new List<Apartment>();
 
-        public BuildingDetails(string name, string address, string location, decimal commonExpenses, string manager, string constructionCompany, List<Apartment> apartments)
+        public BuildingDetails(Guid id, string name, string address, string location, 
+                                decimal commonExpenses, Guid managerId, string manager, 
+                                Guid constructionCompanyId, string constructionCompany, 
+                                List<Apartment> apartments)
         {
+            Id = id;
             Name = name;
             Address = address;
             Location = location;
             CommonExpenses = commonExpenses;
+            ManagerId = managerId;
             Manager = manager;
+            ConstructionCompanyId = constructionCompanyId;
             ConstructionCompany = constructionCompany;
             Apartments = apartments;
         }
@@ -46,11 +55,14 @@ namespace BuildingManagerDomain.Entities
                     }
                 }
             }
-            return Name == other.Name &&
+            return Id == other.Id &&
+                   Name == other.Name &&
                    Address == other.Address &&
                    Location == other.Location &&
                    CommonExpenses == other.CommonExpenses &&
+                   ManagerId == other.ManagerId &&
                    Manager == other.Manager &&
+                   ConstructionCompanyId == other.ConstructionCompanyId &&
                    ConstructionCompany == other.ConstructionCompany &&
                    apartmentsAreEqual;
         }

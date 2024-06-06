@@ -61,7 +61,7 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void ListBuildingsSuccessfully()
         {
-            BuildingResponse buildingResponse = new BuildingResponse(_building.Name, _building.Address, _building.ManagerId.ToString());
+            BuildingResponse buildingResponse = new BuildingResponse(_building.Id, _building.Name, _building.Address, _building.ManagerId.ToString());
             var buildingsList = new List<BuildingResponse> { buildingResponse };
             var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
@@ -647,7 +647,7 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void GetBuildingDetailsByNameTest()
         {
-            BuildingDetails buildingDetails = new BuildingDetails(_building.Name, _building.Address, _building.Location, (decimal)_building.CommonExpenses,"Manager name", "ConstructionCompany name", _building.Apartments);
+            BuildingDetails buildingDetails = new BuildingDetails(_building.Id, _building.Name, _building.Address, _building.Location, (decimal)_building.CommonExpenses, (Guid)_building.ManagerId, "Manager name", _building.ConstructionCompanyId, "ConstructionCompany name", _building.Apartments);
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
             var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);

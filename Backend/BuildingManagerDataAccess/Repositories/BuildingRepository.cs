@@ -188,7 +188,7 @@ namespace BuildingManagerDataAccess.Repositories
             foreach (Building building in buildingsInDB)
             {
                 string managerName = _context.Set<User>().FirstOrDefault(u => u.Id == building.ManagerId)?.Name ?? "";
-                BuildingResponse buildingResponse = new BuildingResponse(building.Name, building.Address, managerName);
+                BuildingResponse buildingResponse = new BuildingResponse(building.Id, building.Name, building.Address, managerName);
                 buildings.Add(buildingResponse);
             }
             return buildings;
@@ -252,9 +252,9 @@ namespace BuildingManagerDataAccess.Repositories
             ConstructionCompany constructionCompany = _context.Set<ConstructionCompany>().First(cc => cc.Id == building.ConstructionCompanyId);
             if(manager != null)
             {
-                   return new BuildingDetails(building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, manager.Name, constructionCompany.Name, building.Apartments);
+                   return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, (Guid)building.ManagerId, manager.Name, building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
             }
-            return new BuildingDetails(building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, "", constructionCompany.Name, building.Apartments);
+            return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, Guid.Empty, "", building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
         }
     }
 }

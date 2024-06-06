@@ -87,7 +87,7 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void ListBuildings_Ok()
         {
-            BuildingResponse buildingResponse = new BuildingResponse(_building.Name, _building.Address, "manager name");
+            BuildingResponse buildingResponse = new BuildingResponse(_building.Id, _building.Name, _building.Address, "manager name");
             List<BuildingResponse> buildings = [buildingResponse];
 
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
@@ -707,8 +707,8 @@ namespace BuildingManagerApiTest.Controllers
                     }
                 }
             };
-            BuildingDetails buildingDetails = new BuildingDetails(building.Name, building.Address, building.Location, 
-                                                                  2000, "managerName", 
+            BuildingDetails buildingDetails = new BuildingDetails(building.Id, building.Name, building.Address, building.Location, 
+                                                                  2000, (Guid)building.ManagerId, "managerName", building.ConstructionCompanyId,
                                                                   "constructionCompanyName", building.Apartments);
             BuildingDetailsResponse buildingDetailsResponse = new BuildingDetailsResponse(buildingDetails);
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);

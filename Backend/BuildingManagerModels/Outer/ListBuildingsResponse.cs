@@ -13,6 +13,7 @@ namespace BuildingManagerModels.Outer
             foreach (var building in buildings)
             {
                 Buildings.Add(new BuildingResponse(
+                    building.Id,
                     building.Name,
                     building.Address,
                     building.Manager
@@ -31,7 +32,9 @@ namespace BuildingManagerModels.Outer
                 foreach (var otherBuilding in other.Buildings)
                 {
                     if (building.Name != otherBuilding.Name ||
-                    building.Address != otherBuilding.Address || building.Manager != otherBuilding.Manager)
+                    building.Address != otherBuilding.Address || 
+                    building.Manager != otherBuilding.Manager ||
+                    building.Id != otherBuilding.Id)
                         return false;
                 }
             }
