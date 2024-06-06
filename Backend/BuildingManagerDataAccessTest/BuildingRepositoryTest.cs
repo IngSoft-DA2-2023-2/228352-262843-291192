@@ -1205,7 +1205,7 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(building, result);
         }
 
-         [TestMethod]
+        [TestMethod]
         public void GetBuildingFromBuildingIdWithInvalidBuildingIdTest()
         {
             var context = CreateDbContext("GetBuildingFromBuildingIdWithInvalidBuildingIdTest");
@@ -1423,6 +1423,16 @@ namespace BuildingManagerDataAccessTest
             List<Building> result = repository.GetManagerBuildings(managerId);
 
             Assert.AreEqual(buildings.First(), result.First());
+        }
+
+        [TestMethod]
+        public void GetManagerBuildingsWithInvalidManagerIdTest()
+        {
+            var context = CreateDbContext("GetManagerBuildingsWithInvalidManagerIdTest");
+            var repository = new BuildingRepository(context);
+            Guid managerId = Guid.NewGuid();
+
+            Assert.ThrowsException<ValueNotFoundException>(() => repository.GetManagerBuildings(managerId));
         }
     }
 }
