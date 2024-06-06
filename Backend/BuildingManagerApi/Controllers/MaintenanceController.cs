@@ -27,5 +27,12 @@ namespace BuildingManagerApi.Controllers
             CreateMaintenanceStaffResponse createMaintenanceStaffResponse = new CreateMaintenanceStaffResponse(_userLogic.CreateUser(maintenanceStaffRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateMaintenanceStaff), createMaintenanceStaffResponse);
         }
+
+        [HttpGet]
+        public IActionResult GetMaintainers()
+        {
+            MaintainersResponse maintainerResponse = new(_userLogic.GetMaintenanceStaff());
+            return Ok(maintainerResponse);
+        }
     }
 }

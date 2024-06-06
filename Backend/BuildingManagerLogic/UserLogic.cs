@@ -5,6 +5,7 @@ using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using System;
+using System.Collections.Generic;
 
 namespace BuildingManagerLogic
 {
@@ -42,6 +43,11 @@ namespace BuildingManagerLogic
         public bool ExistsFromSessionToken(Guid sessionToken)
         {
             return _userRepository.ExistsFromSessionToken(sessionToken);
+        }
+
+        public List<MaintenanceStaff> GetMaintenanceStaff()
+        {
+            throw new NotImplementedException();
         }
 
         public Guid GetUserIdFromSessionToken(Guid sessionToken)

@@ -70,6 +70,8 @@
     <Compile Include="Outer\MaintenanceReportResponse.cs" />
     <Compile Include="Outer\BuildingsReportResponse.cs" />
     <Compile Include="Outer\UpdateBuildingResponse.cs" />
+    <Compile Include="Outer\MaintainersResponse.cs" />
+    <Compile Include="Outer\MaintainerData.cs" />
     <Compile Include="Inner\ConstructionCompanyRequest.cs" />
     <Compile Include="Outer\CreateConstructionCompanyAdminResponse.cs" />
     <Compile Include="Inner\CreateConstructionCompanyAdminRequest.cs" />
