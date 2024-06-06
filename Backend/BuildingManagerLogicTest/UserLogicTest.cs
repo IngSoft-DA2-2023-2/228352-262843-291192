@@ -282,5 +282,26 @@ namespace BuildingManagerLogicTest
             userRespositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void GetMaintenanceStaffTest()
+        {
+            List<MaintenanceStaff> maintenanceStaff =
+            [
+                new MaintenanceStaff(){ Id = new Guid(),
+                   Name =  "John",
+                   Lastname = "Doe",
+                  Email=  "mail@mail.com",
+                   Password =  "pass1234"}
+
+             ];
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.GetMaintenanceStaff()).Returns(maintenanceStaff);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.GetMaintenanceStaff();
+
+            Assert.AreEqual(maintenanceStaff, result);
+        }
     }
 }

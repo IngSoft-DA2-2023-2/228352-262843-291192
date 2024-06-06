@@ -47,7 +47,7 @@ namespace BuildingManagerLogic
 
         public List<MaintenanceStaff> GetMaintenanceStaff()
         {
-            throw new NotImplementedException();
+            return _userRepository.GetMaintenanceStaff();
         }
 
         public Guid GetUserIdFromSessionToken(Guid sessionToken)

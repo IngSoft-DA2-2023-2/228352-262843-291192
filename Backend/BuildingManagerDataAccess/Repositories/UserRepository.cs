@@ -116,5 +116,10 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueNotFoundException("User not found.");
             }
         }
+
+        public List<MaintenanceStaff> GetMaintenanceStaff()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
