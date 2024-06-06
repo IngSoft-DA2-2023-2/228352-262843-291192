@@ -1,12 +1,12 @@
 <div class="flex flex-row">
-    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+    <select class="py-2 px-2 form-select form-select-lg" aria-label=".form-select-lg example"
         (change)="onReportTypeChange($event)">
         <option value='0' selected>Agrupados por edificio</option>
         <option value='1'>Agrupados por mantenimiento</option>
         <option value='2'>Agrupados por apartamento</option>
     </select>
     <!-- TODO: Filters -->
-    <button type="button" class="ml-2 btn btn-outline-dark" (click)="getReport()">Aceptar</button>
+    <button type="button" class="ml-2 btn btn-outline-dark" (click)="getReport()">Generar</button>
 </div>
 <div class="mt-5">
     <div [ngSwitch]="reportType">
