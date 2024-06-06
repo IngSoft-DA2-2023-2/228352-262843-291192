@@ -81,6 +81,14 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void BuildingManagerTest()
+        {
+            string manager = "Manager 1";
+            Building building = new Building { Manager = manager };
+            Assert.AreEqual(manager, building.Manager);
+        }
+
+        [TestMethod]
         public void CreateBuildingWithoutName()
         {
             Exception exception = null;

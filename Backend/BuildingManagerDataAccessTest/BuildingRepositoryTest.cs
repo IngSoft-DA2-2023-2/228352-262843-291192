@@ -19,6 +19,7 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 ManagerId = Guid.NewGuid(),
+                Manager = "ManagerName",
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
@@ -66,6 +67,7 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 ManagerId = Guid.NewGuid(),
+                Manager = "ManagerName",
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
@@ -380,6 +382,7 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = buildingId,
                 ManagerId = managerId,
+                Manager = "ManagerName 1",
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
@@ -441,6 +444,7 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = buildingId,
                 ManagerId = managerId,
+                Manager = "ManagerName 2",
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",

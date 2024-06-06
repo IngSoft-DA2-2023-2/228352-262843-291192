@@ -14,7 +14,8 @@ namespace BuildingManagerModels.Outer
             {
                 Buildings.Add(new ListBuildingData(
                     building.Name,
-                    building.Address
+                    building.Address,
+                    building.Manager
                     ));
             }
         }

@@ -11,8 +11,9 @@ namespace BuildingManagerDomainTest
         {
             string name = "test";
             string address = "address";
+            string manager = "manager";
 
-            ListBuildingData data = new(name, address);
+            ListBuildingData data = new(name, address, manager);
 
             Assert.AreEqual(name, data.Name);
         }
@@ -22,8 +23,9 @@ namespace BuildingManagerDomainTest
         {
             string name = "test";
             string address = "address";
+            string manager = "manager";
 
-            ListBuildingData data = new(name, address);
+            ListBuildingData data = new(name, address, manager);
 
             Assert.AreEqual(address, data.Address);
         }
@@ -62,8 +64,8 @@ namespace BuildingManagerDomainTest
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            ListBuildingData data1 = new ListBuildingData("test1", "address1");
-            ListBuildingData data2 = new ListBuildingData("test2", "address1");
+            ListBuildingData data1 = new ListBuildingData("test1", "address1", "00000000-0000-0000-0000-000000000001");
+            ListBuildingData data2 = new ListBuildingData("test2", "address1", "00000000-0000-0000-0000-000000000001");
 
             bool result = data1.Equals(data2);
 
