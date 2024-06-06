@@ -5,15 +5,13 @@ namespace BuildingManagerDomain.Entities
 {
     public struct ListBuildingData
     {
-        public ListBuildingData(string name, string address, string manager)
+        public ListBuildingData(string name, string address)
         {
             Name = name;
             Address = address;
-            Manager = manager;
         }
         public string Name { get; }
         public string Address { get; }
-        public string Manager { get; }
 
         public override bool Equals(object obj)
         {
@@ -22,7 +20,7 @@ namespace BuildingManagerDomain.Entities
 
             var other = (ListBuildingData)obj;
             return Name == other.Name &&
-            Address == other.Address && Manager == other.Manager;
+            Address == other.Address;
         }
     }
 }

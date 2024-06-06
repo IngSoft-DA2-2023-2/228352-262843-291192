@@ -70,9 +70,6 @@ namespace BuildingManagerDataAccess.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Manager")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 

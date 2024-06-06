@@ -27,7 +27,6 @@ namespace BuildingManagerLogicTest
             {
                 Id = new Guid(),
                 ManagerId = new Guid(),
-                Manager = "ManagerName",
                 Name = "Building 1",
                 Address = "Address",
                 Location = "City",
