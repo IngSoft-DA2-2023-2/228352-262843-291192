@@ -1,0 +1,76 @@
+<div class="flex flex-row">
+    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+        (change)="onReportTypeChange($event)">
+        <option value='0' selected>Agrupados por edificio</option>
+        <option value='1'>Agrupados por mantenimiento</option>
+        <option value='2'>Agrupados por apartamento</option>
+    </select>
+    <!-- TODO: Filters -->
+    <button type="button" class="ml-2 btn btn-outline-dark" (click)="getReport()">Aceptar</button>
+</div>
+<div class="mt-5">
+    <div [ngSwitch]="reportType">
+        <div *ngSwitchCase="'0'">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Edificio</th>
+                        <th scope="col">Solicitudes abiertas</th>
+                        <th scope="col">Solicitudes cerradas</th>
+                        <th scope="col">Solicitudes en proceso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of buildingsReport?.datas">
+                        <th scope="row">{{ data.buildingName }}</th>
+                        <td>{{ data.openRequests }}</td>
+                        <td>{{ data.closeRequests }}</td>
+                        <td>{{ data.inProgressRequests }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngSwitchCase="'1'">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Persona de mantenimiento</th>
+                        <th scope="col">Solicitudes abiertas</th>
+                        <th scope="col">Solicitudes cerradas</th>
+                        <th scope="col">Solicitudes en proceso</th>
+                        <th scope="col">Tiempo promedio de cierre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of maintenancesReport?.datas">
+                        <th scope="row">{{ data.maintainerName }}</th>
+                        <td>{{ data.openRequests }}</td>
+                        <td>{{ data.closeRequests }}</td>
+                        <td>{{ data.inProgressRequests }}</td>
+                        <td>{{ data.averageClosingTime }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngSwitchCase="'2'">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Apartamento - dueño</th>
+                        <th scope="col">Solicitudes abiertas</th>
+                        <th scope="col">Solicitudes cerradas</th>
+                        <th scope="col">Solicitudes en proceso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of apartmentsReport?.data">
+                        <th scope="row">{{ data.apartmentNumber }} - {{ data.apartmentFloor }} {{ data.ownerName}}</th>
+                        <td>{{ data.openRequests }}</td>
+                        <td>{{ data.closeRequests }}</td>
+                        <td>{{ data.inProgressRequests }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
