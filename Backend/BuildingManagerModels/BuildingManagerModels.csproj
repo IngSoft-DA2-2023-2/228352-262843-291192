@@ -79,6 +79,8 @@
     <Compile Include="Outer\ConstructionCompanyResponse.cs" />
     <Compile Include="Outer\ApartmentsReportResponse.cs" />
     <Compile Include="Outer\UpdateBuildingManagerResponse.cs" />
+    <Compile Include="Outer\ManagerBuildingsResponse.cs" />
+    <Compile Include="Outer\ManagerBuildingData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

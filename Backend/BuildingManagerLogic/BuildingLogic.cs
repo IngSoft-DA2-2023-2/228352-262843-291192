@@ -151,5 +151,10 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
+
+        public List<Building> GetManagerBuildings(Guid managerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
