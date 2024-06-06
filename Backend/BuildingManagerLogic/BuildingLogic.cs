@@ -154,7 +154,14 @@ namespace BuildingManagerLogic
 
         public List<Building> GetManagerBuildings(Guid managerId)
         {
-            return _buildingRepository.GetManagerBuildings(managerId);
+            try
+            {
+                return _buildingRepository.GetManagerBuildings(managerId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }
