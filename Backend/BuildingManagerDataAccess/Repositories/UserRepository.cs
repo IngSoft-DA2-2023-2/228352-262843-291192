@@ -116,5 +116,10 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueNotFoundException("User not found.");
             }
         }
+
+        public List<Manager> GetManagers()
+        {
+            return _context.Set<Manager>().Where(u => u.Role == RoleType.MANAGER).ToList();
+        }
     }
 }

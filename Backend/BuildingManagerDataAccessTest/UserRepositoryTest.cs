@@ -355,6 +355,32 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
+        [TestMethod]
+        public void GetManagersTest()
+        {
+            var context = CreateDbContext("GetManagersTest");
+            var repository = new UserRepository(context);
+            var manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "admin@gmail.com"
+            };
+            repository.CreateUser(manager);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = ""
+            };
+            repository.CreateUser(admin);
+
+            var result = repository.GetManagers();
+            Assert.AreEqual(1, result.Count);
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

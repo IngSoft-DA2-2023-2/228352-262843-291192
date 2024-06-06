@@ -5,6 +5,7 @@ using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using System;
+using System.Collections.Generic;
 
 namespace BuildingManagerLogic
 {
@@ -90,6 +91,11 @@ namespace BuildingManagerLogic
             {
                 throw new NotFoundException(e, e.Message);
             }
+        }
+
+        public List<Manager> GetManagers()
+        {
+            return _userRepository.GetManagers();
         }
     }
 }

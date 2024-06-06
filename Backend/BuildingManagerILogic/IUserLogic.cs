@@ -1,6 +1,7 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace BuildingManagerILogic
 {
@@ -13,5 +14,6 @@ namespace BuildingManagerILogic
         public Guid Login(string email, string password);
         public Guid Logout(Guid sessionToken);
         public Guid GetUserIdFromSessionToken(Guid sessionToken);
+        public List<Manager> GetManagers();
     }
 }

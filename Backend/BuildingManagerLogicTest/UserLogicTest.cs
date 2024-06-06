@@ -282,5 +282,26 @@ namespace BuildingManagerLogicTest
             userRespositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void GetManagersTest()
+        {
+            var managers = new List<Manager>();
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.GetManagers()).Returns(managers);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                userLogic.GetManagers();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            userRespositoryMock.VerifyAll();
+            Assert.AreEqual(managers, userLogic.GetManagers());
+        }
     }
 }
