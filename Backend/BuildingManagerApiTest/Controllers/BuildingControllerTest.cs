@@ -682,5 +682,46 @@ namespace BuildingManagerApiTest.Controllers
             }
             Assert.IsInstanceOfType(exception, typeof(InvalidArgumentException));
         }
+
+        [TestMethod]
+        public void GetBuildingDetailsByNameTest()
+        {
+            Building building = new Building
+            {
+                Id = Guid.NewGuid(),
+                ManagerId = Guid.NewGuid(),
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true
+                    }
+                }
+            };
+            BuildingDetails buildingDetails = new BuildingDetails(building.Name, building.Address, building.Location, 
+                                                                  2000, "managerName", 
+                                                                  "constructionCompanyName", building.Apartments);
+            BuildingDetailsResponse buildingDetailsResponse = new BuildingDetailsResponse(buildingDetails);
+            Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockBuildingLogic.Setup(x => x.GetBuildingDetailsByName(It.IsAny<string>())).Returns(buildingDetails);
+            BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
+
+            var result = buildingController.GetBuildingDetailsByName(building.Name);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as BuildingDetailsResponse;
+            Assert.IsNotNull(content);
+            Assert.AreEqual(buildingDetailsResponse, content);
+
+            mockBuildingLogic.VerifyAll();
+        }
     }
 }

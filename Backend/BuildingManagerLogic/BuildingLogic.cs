@@ -151,5 +151,17 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
+
+        public BuildingDetails GetBuildingDetailsByName(string buildingName)
+        {
+            try
+            {
+                return _buildingRepository.GetBuildingDetailsByName(buildingName);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
     }
 }

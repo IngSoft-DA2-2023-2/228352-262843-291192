@@ -643,5 +643,21 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void GetBuildingDetailsByNameTest()
+        {
+            BuildingDetails buildingDetails = new BuildingDetails(_building.Name, _building.Address, _building.Location, (decimal)_building.CommonExpenses,"Manager name", "ConstructionCompany name", _building.Apartments);
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetBuildingDetailsByName(It.IsAny<string>())).Returns(buildingDetails);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.GetBuildingDetailsByName(_building.Name);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(buildingDetails, result);
+        }
     }
 }

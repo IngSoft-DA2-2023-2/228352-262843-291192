@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BuildingDetails.cs" />
     <Compile Include="Entities\BuildingResponse.cs" />
     <Compile Include="Entities\CategoriesReportData.cs" />
     <Compile Include="Entities\InvitationAnswer.cs" />

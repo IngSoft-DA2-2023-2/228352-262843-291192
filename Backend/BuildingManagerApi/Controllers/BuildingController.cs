@@ -60,5 +60,13 @@ namespace BuildingManagerApi.Controllers
             UpdateBuildingManagerResponse updateBuildingManagerResponse = new UpdateBuildingManagerResponse(_buildingLogic.ModifyBuildingManager(updateManagerRequest.ManagerId, buildingId), buildingId);
             return Ok(updateBuildingManagerResponse);
         }
+
+        [HttpGet("{buildingName}")]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult GetBuildingDetailsByName([FromRoute] string buildingName)
+        {
+            BuildingDetailsResponse getBuildingByNameResponse = new BuildingDetailsResponse(_buildingLogic.GetBuildingDetailsByName(buildingName));
+            return Ok(getBuildingByNameResponse);
+        }
     }
 }

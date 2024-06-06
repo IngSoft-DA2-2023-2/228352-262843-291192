@@ -1357,5 +1357,50 @@ namespace BuildingManagerDataAccessTest
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.ModifyBuildingManager(newManagerId, buildingId));
         }
+
+        [TestMethod]
+        public void GetBuildingDetailsByName()
+        {
+            var context = CreateDbContext("GetBuildingDetailsByName");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Guid constructionCompanyId = Guid.NewGuid();
+            Building originalBuilding = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = constructionCompanyId,
+                CommonExpenses = 1000
+            };
+            Manager manager = new Manager
+            {
+                Id = managerId,
+                Name = "John",
+                Lastname = "Doe",
+                Email = ""
+            };
+            ConstructionCompany company = new ConstructionCompany
+            {
+                Id = constructionCompanyId,
+                Name = "Company 1"
+            };
+            context.Set<Building>().Add(originalBuilding);
+            context.Set<User>().Add(manager);
+            context.Set<ConstructionCompany>().Add(company);
+            context.SaveChanges();
+
+            BuildingDetails result = repository.GetBuildingDetailsByName("Building 1");
+
+            Assert.AreEqual(originalBuilding.Name, result.Name);
+            Assert.AreEqual(originalBuilding.Address, result.Address);
+            Assert.AreEqual(originalBuilding.Location, result.Location);
+            Assert.AreEqual(originalBuilding.CommonExpenses, result.CommonExpenses);
+            Assert.AreEqual("John", result.Manager);
+            Assert.AreEqual("Company 1", result.ConstructionCompany);
+        }
     }
 }
