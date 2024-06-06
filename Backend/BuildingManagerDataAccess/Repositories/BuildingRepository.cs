@@ -216,18 +216,16 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
         {
-            User user = _context.Set<User>().FirstOrDefault(m => m.Id == managerId && m.Role == RoleType.MANAGER);
             if (!_context.Set<Building>().Any(b => b.Id == buildingId))
             {
                 throw new ValueNotFoundException("Building");
             }
-            if (user == null)
+            if (!_context.Set<User>().Any(m => m.Id == managerId && m.Role == RoleType.MANAGER))
             {
                 throw new ValueNotFoundException("Manager");
             }
             Building building = _context.Set<Building>().First(b => b.Id == buildingId);
-            building.ManagerId = user.Id;
-            building.Manager = user.Name;
+            building.ManagerId = managerId;
             _context.SaveChanges();
             return managerId;
         }

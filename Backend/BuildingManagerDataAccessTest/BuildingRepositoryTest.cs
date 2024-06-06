@@ -1230,7 +1230,6 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = buildingId,
                 ManagerId = managerId,
-                Manager = "John",
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
@@ -1256,17 +1255,15 @@ namespace BuildingManagerDataAccessTest
                 }
             };
             Guid newManagerId = Guid.NewGuid();
-            string newManagerName = "Jhon1";
             context.Set<User>().Add(new Manager { Id = managerId, Name = "John", Lastname = "Doe", Email = "a@a.com" });
             context.Set<Building>().Add(originalBuilding);
-            context.Set<User>().Add(new Manager { Id = newManagerId, Name = newManagerName, Lastname = "Doe1", Email = "b@b.com" });
+            context.Set<User>().Add(new Manager { Id = newManagerId, Name = "John1", Lastname = "Doe1", Email = "b@b.com" });
             context.SaveChanges();
 
             repository.ModifyBuildingManager(newManagerId, buildingId);
             var result = context.Set<Building>().Find(originalBuilding.Id);
 
             Assert.AreEqual(newManagerId, result.ManagerId);
-            Assert.AreEqual(newManagerName, result.Manager);
         }
 
         [TestMethod]
