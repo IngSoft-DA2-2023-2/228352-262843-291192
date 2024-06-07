@@ -36,7 +36,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPut("{buildingId}")]
-        [AuthenticationFilter(RoleType.MANAGER)]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult UpdateBuilding([FromRoute] Guid buildingId, [FromBody] UpdateBuildingRequest buildingRequest)
         {
             buildingRequest.Id = buildingId;
