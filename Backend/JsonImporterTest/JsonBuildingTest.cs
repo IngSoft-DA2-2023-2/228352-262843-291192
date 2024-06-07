@@ -36,5 +36,13 @@ namespace JsonImporterTest
             JsonBuilding building = new JsonBuilding { Location = location };
             Assert.AreEqual(location, building.Location);
         }
+
+        [TestMethod]
+        public void BuildingCommonExpensesTest()
+        {
+            long expenses = 5000;
+            JsonBuilding building = new JsonBuilding { CommonExpenses = expenses };
+            Assert.AreEqual(expenses, building.CommonExpenses);
+        }
     }
 }
