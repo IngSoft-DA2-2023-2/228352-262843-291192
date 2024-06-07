@@ -101,6 +101,10 @@
       <Project>{6BB93EB8-4315-4575-BBA0-069B6C6531D3}</Project>
       <Name>BuildingManagerILogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BuildingManagerIImporters\BuildingManagerIImporters.csproj">
+      <Project>{1FCB56F4-0369-4F0B-BC59-81107793FF1F}</Project>
+      <Name>BuildingManagerIImporter</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

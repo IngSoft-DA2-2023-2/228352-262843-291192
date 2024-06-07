@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerDataAccessTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerDataAccess", "BuildingManagerDataAccess\BuildingManagerDataAccess.csproj", "{466ADB50-56FD-4400-8B1D-7826041212E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerServiceFactory", "BuildingManagerServiceFactory\BuildingManagerServiceFactory.csproj", "{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerServiceFactory", "BuildingManagerServiceFactory\BuildingManagerServiceFactory.csproj", "{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerIImporters", "BuildingManagerIImporters\BuildingManagerIImporters.csproj", "{7709C663-C38E-41D3-8F41-A50CD82918CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7709C663-C38E-41D3-8F41-A50CD82918CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7709C663-C38E-41D3-8F41-A50CD82918CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7709C663-C38E-41D3-8F41-A50CD82918CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7709C663-C38E-41D3-8F41-A50CD82918CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
