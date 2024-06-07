@@ -1,4 +1,4 @@
-﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
 using System;
@@ -29,6 +29,10 @@ namespace BuildingManagerLogic
         public List<string> ListImporters()
         {
             return Importers.Select(i => i.Name).ToList();
+        }
+        public void RegisterImporter(IImporter importer)
+        {
+            Importers.Add(importer);
         }
     }
 }
