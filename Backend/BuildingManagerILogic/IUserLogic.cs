@@ -11,7 +11,7 @@ namespace BuildingManagerILogic
         public bool ExistsFromSessionToken(Guid sessionToken);
         public RoleType RoleFromSessionToken(Guid sessionToken);
         public User DeleteUser(Guid userId, RoleType role);
-        public Guid Login(string email, string password);
+        public User Login(string email, string password);
         public Guid Logout(Guid sessionToken);
         public Guid GetUserIdFromSessionToken(Guid sessionToken);
         public List<MaintenanceStaff> GetMaintenanceStaff();

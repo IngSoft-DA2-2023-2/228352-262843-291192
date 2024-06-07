@@ -67,7 +67,7 @@ namespace BuildingManagerDataAccess.Repositories
             return user;
         }
 
-        public Guid Login(string email, string password)
+        public User Login(string email, string password)
         {
             User user;
             try
@@ -83,7 +83,7 @@ namespace BuildingManagerDataAccess.Repositories
             user.SessionToken = newSessionToken;
             _context.SaveChanges();
 
-            return newSessionToken;
+            return user;
         }
 
         public Guid Logout(Guid sessionToken)
