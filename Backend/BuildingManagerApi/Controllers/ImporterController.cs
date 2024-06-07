@@ -20,16 +20,15 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult GetImporters()
         {
-            ListImportersResponse importers = new ListImportersResponse(_importerLogic.ListImporters());
+            ListImportersResponse importers = new ListImportersResponse(_importerLogic.ListImportersNames());
             return Ok(importers);
         }
 
         [HttpPost("{importerName}")]
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
-
-        public IActionResult ImportData([FromRoute] string importerName, [FromBody] string path, [FromHeader(Name = "Authorization")] Guid sessionToken)
+        public IActionResult ImportData([FromRoute] string importerName, [FromBody] string data, [FromHeader(Name = "Authorization")] Guid sessionToken)
         {
-            ImportBuildingsResponse data = new ImportBuildingsResponse(_importerLogic.ImportData(importerName, path, sessionToken));
+            ImportBuildingsResponse data = new ImportBuildingsResponse(_importerLogic.ImportData(importerName, data, sessionToken));
             return CreatedAtAction(nameof(ImportData), data);
         }
     }

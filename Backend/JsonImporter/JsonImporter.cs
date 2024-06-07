@@ -9,26 +9,27 @@ namespace JsonImporter
 
         public JsonImporter() { }
 
-        public List<Building> Import(string data, Guid companyId)
+        public List<ImporterBuilding> Import(string data, Guid companyId)
         {
-            List<Building> buildings = new List<Building>();
+            List<ImporterBuilding> buildings = new List<ImporterBuilding>();
             List<JsonBuilding> jsonBuildings = JsonSerializer.Deserialize<List<JsonBuilding>>(data);
 
             foreach (JsonBuilding buildingData in jsonBuildings)
             {
-                Building building = new Building
+                ImporterBuilding building = new ImporterBuilding
                 {
                     Name = buildingData.nombre,
                     Address = $"({buildingData.direccion.calle_principal} {buildingData.direccion.numero_puerta}, {buildingData.direccion.calle_secundaria})",
                     Location = $"({buildingData.gps.latitud},{buildingData.gps.longitud})",
                     CommonExpenses = buildingData.gastos_comunes,
                     Manager = buildingData.encargado,
-                    Apartments = new List<Apartment>()
+                    Apartments = new List<ImporterApartment>()
                 };
 
-                foreach (var apartmentData in buildingData.departamentos  )
+                foreach (var apartmentData in buildingData.departamentos)
                 {
-                    Apartment apartment = new Apartment{
+                    ImporterApartment apartment = new ImporterApartment
+                    {
                         OwnerEmail = apartmentData.propietarioEmail,
                         Floor = apartmentData.piso,
                         Number = apartmentData.numero_puerta,

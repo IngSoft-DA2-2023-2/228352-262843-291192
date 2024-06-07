@@ -1,61 +1,88 @@
-﻿// using BuildingManagerDomain.Entities;
-// using BuildingManagerIDataAccess;
-// using BuildingManagerILogic;
-// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Reflection;
+﻿using BuildingManagerDomain.Entities;
+using BuildingManagerIDataAccess;
+using BuildingManagerIDataAccess.Exceptions;
+using BuildingManagerIImporter;
+using BuildingManagerILogic;
+using BuildingManagerILogic.Exceptions;
+using System.Reflection;
 
-// namespace BuildingManagerLogic
-// {
-//     public class ImporterLogic : IImporterLogic
-//     {
-//         public readonly List<IImporter> Importers;
-//         private readonly IUserLogic _userLogic;
-//         private readonly IConstructionCompanyRepository _companyRepository;
-//         public ImporterLogic(IUserLogic userLogic, IConstructionCompanyRepository companyRepository) 
-//         {
-//             Importers = new List<IImporter>();
-//             _userLogic = userLogic;
-//             _companyRepository = companyRepository;
-//         }
-//         public List<Building> ImportData(string importerName, string path, Guid companyAdminSessionToken)
-//         {
-//             Guid contrstructionCompanyAdminId = _userLogic.GetUserIdFromSessionToken(companyAdminSessionToken);
-//             Guid companyId = _companyRepository.GetCompanyIdFromUserId(contrstructionCompanyAdminId);
-//             IImporter importer = Importers.Find(i => i.Name.Equals(importerName));
-//             return importer.Import(path, companyId);
-//         }
+namespace BuildingManagerLogic
+{
+    public class ImporterLogic : IImporterLogic
+    {
+        private readonly IUserLogic _userLogic;
+        private readonly IConstructionCompanyRepository _companyRepository;
+        private List<IImporter> Importers = new List<IImporter>();
+        public ImporterLogic(IUserLogic userLogic, IConstructionCompanyRepository companyRepository)
+        {
+            _userLogic = userLogic;
+            _companyRepository = companyRepository;
+        }
+        public List<ImporterBuilding> ImportData(string importerName, string data, Guid companyAdminSessionToken)
+        {
+            Guid contrstructionCompanyAdminId = _userLogic.GetUserIdFromSessionToken(companyAdminSessionToken);
+            Guid companyId = _companyRepository.GetCompanyIdFromUserId(contrstructionCompanyAdminId);
+            List<IImporter> importers = ListImporters();
+            if (importers.Any(i => i.Name.Equals(importerName)) == false)
+            {
+                throw new NotFoundException(new ValueNotFoundException("Importer not found"), "Importer not found");
+            }
+            IImporter importer = importers.Find(i => i.Name.Equals(importerName));
+            List<ImporterBuilding> buildings = importer.Import(data, companyId);
+            List<Building> buildingsToCreate = new List<Building>();
+            foreach (ImporterBuilding building in buildings)
+            {
+                Guid buildingId = Guid.NewGuid();
+                foreach (ImporterApartment apartment in building.Apartments)
+                {
+                    Apartment a = new Apartment()
+                    {
+                        Floor = apartment.Floor,
+                        Number = apartment.Number,
+                        Bathrooms = apartment.Bathrooms,
+                        HasTerrace = apartment.HasTerrace,
+                        Rooms = apartment.Rooms,
+                        BuildingId = buildingId,
+                        Owner = apartment.Owner,
+                    };
 
-//         public List<string> ListImporters()
-//         {
-//             return Importers.Select(i => i.Name).ToList();
-//         }
+                }
+            }
 
-//         public void LoadImportersFromAssembly(string assemblyPath, IUserRepository userRepository, IBuildingRepository buildingRepository)
-//         {
-//             Assembly assembly = Assembly.LoadFrom(assemblyPath);
-//             var importerTypes = assembly.GetTypes().Where(t => typeof(IImporter).IsAssignableFrom(t) && !t.IsInterface);
 
-//             foreach (var type in importerTypes)
-//             {
-//                 if (type.GetConstructor(new Type[] { typeof(IUserRepository), typeof(IBuildingRepository) }) != null)
-//                 {
-//                     var constructor = type.GetConstructor(new Type[] { typeof(IUserRepository), typeof(IBuildingRepository) });
-//                     IImporter importer = (IImporter)constructor.Invoke(new object[] { userRepository, buildingRepository });
-//                     RegisterImporter(importer);
-//                 }
-//             }
-//         }
+            return importer.Import(data, companyId);
+        }
 
-//         private void RegisterImporter(IImporter importer)
-//         {
-//             if (Importers.Any(i => i.Name == importer.Name))
-//             {
-//                 throw new Exception($"Importer with name {importer.Name} is already registered.");
-//             }
-//             Importers.Add(importer);
-//         }
+        public List<IImporter> ListImporters()
+        {
+            string[] files = Directory.GetFiles("./Importers", "*.dll");
+            List<IImporter> Importers = new List<IImporter>();
 
-//     }
-// }
+            foreach (string file in files)
+            {
+                Assembly assembly = Assembly.LoadFrom(file);
+
+                foreach (Type type in assembly.GetTypes())
+                {
+                    if (Activator.CreateInstance(type) is IImporter importer)
+                    {
+                        Importers.Add(importer);
+                    }
+                }
+            }
+            this.Importers = Importers;
+            return Importers;
+        }
+
+        public List<string> ListImportersNames()
+        {
+            List<IImporter> importers = ListImporters();
+            List<string> importersNames = new List<string>();
+            foreach (IImporter importer in importers)
+            {
+                importersNames.Add(importer.Name);
+            }
+            return importersNames;
+        }
+    }
+}

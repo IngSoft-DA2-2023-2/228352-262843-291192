@@ -9,7 +9,7 @@ namespace JsonImporterTest
         public void ApartmentFloorTest()
         {
             int floor = 2;
-            Apartment apartment = new Apartment { Floor = floor };
+            ImporterApartment apartment = new ImporterApartment { Floor = floor };
             Assert.AreEqual(floor, apartment.Floor);
         }
 
@@ -17,7 +17,7 @@ namespace JsonImporterTest
         public void ApartmentNumberTest()
         {
             int number = 1;
-            Apartment apartment = new Apartment { Number = number };
+            ImporterApartment apartment = new ImporterApartment { Number = number };
             Assert.AreEqual(number, apartment.Number);
         }
 
@@ -25,7 +25,7 @@ namespace JsonImporterTest
         public void ApartmentRoomsTest()
         {
             int rooms = 4;
-            Apartment apartment = new Apartment { Rooms = rooms };
+            ImporterApartment apartment = new ImporterApartment { Rooms = rooms };
             Assert.AreEqual(rooms, apartment.Rooms);
         }
 
@@ -33,7 +33,7 @@ namespace JsonImporterTest
         public void ApartmentHasTerraceTest()
         {
             bool hasTerrace = true;
-            Apartment apartment = new Apartment { HasTerrace = hasTerrace };
+            ImporterApartment apartment = new ImporterApartment { HasTerrace = hasTerrace };
             Assert.AreEqual(hasTerrace, apartment.HasTerrace);
         }
 
@@ -41,7 +41,7 @@ namespace JsonImporterTest
         public void ApartmentBathroomsTest()
         {
             int bathrooms = 3;
-            Apartment apartment = new Apartment { Bathrooms = bathrooms };
+            ImporterApartment apartment = new ImporterApartment { Bathrooms = bathrooms };
             Assert.AreEqual(bathrooms, apartment.Bathrooms);
         }
 
@@ -49,7 +49,7 @@ namespace JsonImporterTest
         public void ApartmentOwnerEmailTest()
         {
             string owner = "some@mail.com";
-            Apartment apartment = new Apartment { OwnerEmail = owner };
+            ImporterApartment apartment = new ImporterApartment { OwnerEmail = owner };
             Assert.AreEqual(owner, apartment.OwnerEmail);
         }
     }

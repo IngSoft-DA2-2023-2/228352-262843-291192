@@ -1,6 +1,6 @@
 namespace BuildingManagerIImporter
 {
-    public class Apartment
+    public class ImporterApartment
     {
         public int Floor { get; set; }
         public int Number { get; set; }
