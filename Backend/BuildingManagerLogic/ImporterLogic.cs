@@ -43,7 +43,7 @@ namespace BuildingManagerLogic
                         HasTerrace = apartment.HasTerrace,
                         Rooms = apartment.Rooms,
                         BuildingId = buildingId,
-                        Owner = apartment.Owner,
+                        // Owner = apartment.Owner,
                     };
 
                 }

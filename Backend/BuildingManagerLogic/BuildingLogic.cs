@@ -167,11 +167,16 @@ namespace BuildingManagerLogic
             try
             {
                 return _buildingRepository.GetManagerBuildings(managerId);
-                }
+            }
             catch (ValueNotFoundException e)
             {
                 throw new NotFoundException(e, e.Message);
             }
+        }
+
+        public Owner GetOwnerFromEmail(string email)
+        {
+            return _buildingRepository.GetOwnerFromEmail(email);
         }
     }
 }
