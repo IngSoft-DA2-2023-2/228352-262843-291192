@@ -17,11 +17,6 @@ export class UserService {
   }
 
   public getMaintenanceStaff(): Observable<Maintainers> | null {
-    let sessionToken = localStorage.getItem('sessionToken');
-    if (sessionToken != null) {
-      let token = JSON.parse(sessionToken);
-      let headers = new HttpHeaders().set('Authorization', token);
-      return this.http.get<Maintainers>(`${environment.apiUrl}/maintenances`, { headers: headers });
-    } else return null
+    return this.http.get<Maintainers>(`${environment.apiUrl}/maintenances`);
   }
 }
