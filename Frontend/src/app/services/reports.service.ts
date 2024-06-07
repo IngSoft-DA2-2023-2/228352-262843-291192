@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { BuildingsReport } from '../models/BuildingsReport';
 import { MaintenancesReport } from '../models/MaintenancesReport';
 import { ApartmentsReport } from '../models/ApartmentsReport';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +13,25 @@ import { ApartmentsReport } from '../models/ApartmentsReport';
 export class ReportsService {
 
   constructor(private http: HttpClient) { }
-  public getBuildingsReport(): Observable<BuildingsReport> | null {
+  public getBuildingsReport(filter: string): Observable<BuildingsReport> | null {
     let sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken != null) {
       let token = JSON.parse(sessionToken);
       let headers = new HttpHeaders().set('Authorization', token.token);
+      let params = new HttpParams().set('buildingId', filter);
 
-      return this.http.get<BuildingsReport>(`${environment.apiUrl}/reports`, { headers: headers });
+      return this.http.get<BuildingsReport>(`${environment.apiUrl}/reports`, { headers: headers, params: params } );
     } else return null;
   }
 
-  public getMaintenanceReport(buildingId: string): Observable<MaintenancesReport> | null {
+  public getMaintenanceReport(buildingId: string, filter: string): Observable<MaintenancesReport> | null {
     let sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken != null) {
       let token = JSON.parse(sessionToken);
       let headers = new HttpHeaders().set('Authorization', token.token);
+      let params = new HttpParams().set('maintainerName', filter);
 
-      return this.http.get<MaintenancesReport>(`${environment.apiUrl}/reports/${buildingId}/maintenances`, { headers: headers });
+      return this.http.get<MaintenancesReport>(`${environment.apiUrl}/reports/${buildingId}/maintenances`, { headers: headers, params: params});
     } else return null;
   }
 

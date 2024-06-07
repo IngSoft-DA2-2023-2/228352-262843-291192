@@ -3,9 +3,9 @@ export interface MaintenancesReport{
 }
 
 export interface MaintenancesReportData{
-    openRequests: string,
-    closeRequests: string, 
+    openRequests: number,
+    closeRequests: number, 
     inProgressRequests: number,
     averageClosingTime: number,
-    maintainerName: number,
+    maintainerName: string,
 }
