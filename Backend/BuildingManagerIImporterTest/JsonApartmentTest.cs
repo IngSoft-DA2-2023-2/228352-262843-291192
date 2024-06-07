@@ -1,4 +1,4 @@
-using JsonImporter;
+using BuildingManagerIImporter;
 
 namespace JsonImporterTest
 {
@@ -9,7 +9,7 @@ namespace JsonImporterTest
         public void ApartmentFloorTest()
         {
             int floor = 2;
-            JsonApartment apartment = new JsonApartment { Floor = floor };
+            Apartment apartment = new Apartment { Floor = floor };
             Assert.AreEqual(floor, apartment.Floor);
         }
 
@@ -17,7 +17,7 @@ namespace JsonImporterTest
         public void ApartmentNumberTest()
         {
             int number = 1;
-            JsonApartment apartment = new JsonApartment { Number = number };
+            Apartment apartment = new Apartment { Number = number };
             Assert.AreEqual(number, apartment.Number);
         }
 
@@ -25,7 +25,7 @@ namespace JsonImporterTest
         public void ApartmentRoomsTest()
         {
             int rooms = 4;
-            JsonApartment apartment = new JsonApartment { Rooms = rooms };
+            Apartment apartment = new Apartment { Rooms = rooms };
             Assert.AreEqual(rooms, apartment.Rooms);
         }
 
@@ -33,7 +33,7 @@ namespace JsonImporterTest
         public void ApartmentHasTerraceTest()
         {
             bool hasTerrace = true;
-            JsonApartment apartment = new JsonApartment { HasTerrace = hasTerrace };
+            Apartment apartment = new Apartment { HasTerrace = hasTerrace };
             Assert.AreEqual(hasTerrace, apartment.HasTerrace);
         }
 
@@ -41,7 +41,7 @@ namespace JsonImporterTest
         public void ApartmentBathroomsTest()
         {
             int bathrooms = 3;
-            JsonApartment apartment = new JsonApartment { Bathrooms = bathrooms };
+            Apartment apartment = new Apartment { Bathrooms = bathrooms };
             Assert.AreEqual(bathrooms, apartment.Bathrooms);
         }
 
@@ -49,7 +49,7 @@ namespace JsonImporterTest
         public void ApartmentOwnerEmailTest()
         {
             string owner = "some@mail.com";
-            JsonApartment apartment = new JsonApartment { OwnerEmail = owner };
+            Apartment apartment = new Apartment { OwnerEmail = owner };
             Assert.AreEqual(owner, apartment.OwnerEmail);
         }
     }

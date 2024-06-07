@@ -1,8 +1,7 @@
-﻿using BuildingManagerDomain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace BuildingManagerIImporters
+namespace BuildingManagerIImporter
 {
     public interface IImporter
     {

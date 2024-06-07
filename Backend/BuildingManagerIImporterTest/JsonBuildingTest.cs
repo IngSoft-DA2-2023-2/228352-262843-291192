@@ -1,4 +1,4 @@
-using JsonImporter;
+using BuildingManagerIImporter;
 
 namespace JsonImporterTest
 {
@@ -9,7 +9,7 @@ namespace JsonImporterTest
         public void BuildingNameTest()
         {
             string name = "some building name";
-            JsonBuilding building = new JsonBuilding { Name = name };
+            Building building = new Building { Name = name };
             Assert.AreEqual(name, building.Name);
         }
 
@@ -17,7 +17,7 @@ namespace JsonImporterTest
         public void BuildingAddressTest()
         {
             string address = "some address";
-            JsonBuilding building = new JsonBuilding { Address = address };
+            Building building = new Building { Address = address };
             Assert.AreEqual(address, building.Address);
         }
 
@@ -25,7 +25,7 @@ namespace JsonImporterTest
         public void BuildingManagerTest()
         {
             string manager = "some manager";
-            JsonBuilding building = new JsonBuilding { Manager = manager };
+            Building building = new Building { Manager = manager };
             Assert.AreEqual(manager, building.Manager);
         }
 
@@ -33,7 +33,7 @@ namespace JsonImporterTest
         public void BuildingLocationTest()
         {
             string location = "some location";
-            JsonBuilding building = new JsonBuilding { Location = location };
+            Building building = new Building { Location = location };
             Assert.AreEqual(location, building.Location);
         }
 
@@ -41,15 +41,15 @@ namespace JsonImporterTest
         public void BuildingCommonExpensesTest()
         {
             long expenses = 5000;
-            JsonBuilding building = new JsonBuilding { CommonExpenses = expenses };
+            Building building = new Building { CommonExpenses = expenses };
             Assert.AreEqual(expenses, building.CommonExpenses);
         }
 
         [TestMethod]
         public void BuildingApartmentsTest()
         {
-            List<JsonApartment> apartments = new List<JsonApartment>(){ 
-                new JsonApartment() {
+            List<Apartment> apartments = new List<Apartment>(){ 
+                new Apartment() {
                     Floor = 2,
                     Number = 1,
                     Rooms = 4,
@@ -57,7 +57,7 @@ namespace JsonImporterTest
                     Bathrooms = 3,
                     OwnerEmail = "some@mail.com"
                  }, 
-                new JsonApartment() { 
+                new Apartment() { 
                     Floor = 3,
                     Number = 2,
                     Rooms = 3,
@@ -66,7 +66,7 @@ namespace JsonImporterTest
                     OwnerEmail = "some@mail2.com"
                 } 
                 };
-            JsonBuilding building = new JsonBuilding { Apartments = apartments };
+            Building building = new Building { Apartments = apartments };
             Assert.AreEqual(apartments, building.Apartments);
         }
     }

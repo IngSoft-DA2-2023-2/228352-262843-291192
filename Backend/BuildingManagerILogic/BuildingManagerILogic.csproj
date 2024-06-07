@@ -49,6 +49,7 @@
     <Compile Include="IUserLogic.cs" />
     <Compile Include="ICategoryLogic.cs" />
     <Compile Include="IRequestLogic.cs" />
+    <Compile Include="IImporterLogic.cs" />
     <Compile Include="IBuildingLogic.cs" />
     <Compile Include="IInvitationLogic.cs" />
     <Compile Include="IReportLogic.cs" />

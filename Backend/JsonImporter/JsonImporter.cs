@@ -1,92 +1,80 @@
-﻿// using System;
-// using System.Collections.Generic;
-// using System.IO;
-// using BuildingManagerDomain.Entities;
-// using BuildingManagerIImporters;
+﻿using System.Text.Json;
+using BuildingManagerIImporter;
 
-// namespace BuildingManagerLogic
-// {
-//     public class JsonImporter : IImporter
-//     {
-//         public string Name => "DefaultJson";
+namespace JsonImporter
+{
+    public class JsonImporter : IImporter
+    {
+        public string Name => "DefaultJson";
 
-//         public JsonImporter() {}
+        public JsonImporter() { }
 
-//         public List<Building> Import(string data, Guid companyId)
-//         {
-//             string jsonString = File.ReadAllText(data);
+        public List<Building> Import(string data, Guid companyId)
+        {
+            List<Building> buildings = new List<Building>();
+            List<JsonBuilding> jsonBuildings = JsonSerializer.Deserialize<List<JsonBuilding>>(data);
 
-//             var jsonBuildings = JsonSerializer.Deserialize<List<JsonBuilding>>(jsonString);
+            foreach (JsonBuilding buildingData in jsonBuildings)
+            {
+                Building building = new Building
+                {
+                    Name = buildingData.nombre,
+                    Address = $"({buildingData.direccion.calle_principal} {buildingData.direccion.numero_puerta}, {buildingData.direccion.calle_secundaria})",
+                    Location = $"({buildingData.gps.latitud},{buildingData.gps.longitud})",
+                    CommonExpenses = buildingData.gastos_comunes,
+                    Manager = buildingData.encargado,
+                    Apartments = new List<Apartment>()
+                };
 
-//             List<Building> buildings = new List<Building>();
+                foreach (var apartmentData in buildingData.departamentos  )
+                {
+                    Apartment apartment = new Apartment{
+                        OwnerEmail = apartmentData.propietarioEmail,
+                        Floor = apartmentData.piso,
+                        Number = apartmentData.numero_puerta,
+                        Rooms = apartmentData.habitaciones,
+                        Bathrooms = apartmentData.baños,
+                        HasTerrace = apartmentData.conTerraza
+                    };
+                    building.Apartments.Add(apartment);
+                }
 
-//             foreach (var jsonBuilding in jsonBuildings)
-//             {
-//                 Building building = new Building
-//                 {
-//                     Id = Guid.NewGuid(),
-//                     Name = jsonBuilding.Name,
-//                     Address = $"({jsonBuilding.Address.MainStreet} {jsonBuilding.Address.DoorNumber}, {jsonBuilding.Address.SecondaryStreet})",
-//                     Location = $"({jsonBuilding.Gps.Latitude},{jsonBuilding.Gps.Longitude})",
-//                     CommonExpenses = jsonBuilding.CommonExpenses,
-//                     ConstructionCompanyId = companyId,
-//                     ManagerId = string.IsNullOrEmpty(jsonBuilding.ManagerEmail) ? (Guid?)null : _userRepository.GetManagerIdFromEmail(jsonBuilding.ManagerEmail),
-//                     Apartments = new List<Apartment>()
-//                 };
+                buildings.Add(building);
+            }
+            return buildings;
+        }
 
-//                 foreach (var jsonApartment in jsonBuilding.Apartments)
-//                 {
-//                     Owner owner = _buildingRepository.GetOwnerFromEmail(jsonApartment.OwnerEmail);
-//                     Apartment apartment = new Apartment
-//                     {
-//                         Floor = jsonApartment.Floor,
-//                         Number = jsonApartment.DoorNumber,
-//                         Rooms = jsonApartment.Rooms,
-//                         Bathrooms = jsonApartment.Bathrooms,
-//                         HasTerrace = jsonApartment.HasTerrace,
-//                         Owner = owner
-//                     };
+        private class JsonBuilding
+        {
+            public string nombre { get; set; }
+            public JsonAddress direccion { get; set; }
+            public string encargado { get; set; }
+            public JsonGps gps { get; set; }
+            public long gastos_comunes { get; set; }
+            public List<JsonApartment> departamentos { get; set; }
+        }
 
-//                     building.Apartments.Add(apartment);
-//                 }
+        private class JsonAddress
+        {
+            public string calle_principal { get; set; }
+            public int numero_puerta { get; set; }
+            public string calle_secundaria { get; set; }
+        }
 
-//                 buildings.Add(building);
-//             }
+        private class JsonGps
+        {
+            public double latitud { get; set; }
+            public double longitud { get; set; }
+        }
 
-//             return buildings;
-//         }
-
-//         private class JsonBuilding
-//         {
-//             public string Name { get; set; }
-//             public JsonAddress Address { get; set; }
-//             public string ManagerEmail { get; set; }
-//             public JsonGps Gps { get; set; }
-//             public decimal CommonExpenses { get; set; }
-//             public List<JsonApartment> Apartments { get; set; }
-//         }
-
-//         private class JsonAddress
-//         {
-//             public string MainStreet { get; set; }
-//             public int DoorNumber { get; set; }
-//             public string SecondaryStreet { get; set; }
-//         }
-
-//         private class JsonGps
-//         {
-//             public double Latitude { get; set; }
-//             public double Longitude { get; set; }
-//         }
-
-//         private class JsonApartment
-//         {
-//             public int Floor { get; set; }
-//             public int DoorNumber { get; set; }
-//             public int Rooms { get; set; }
-//             public bool HasTerrace { get; set; }
-//             public int Bathrooms { get; set; }
-//             public string OwnerEmail { get; set; }
-//         }
-//     }
-// }
+        private class JsonApartment
+        {
+            public int piso { get; set; }
+            public int numero_puerta { get; set; }
+            public int habitaciones { get; set; }
+            public bool conTerraza { get; set; }
+            public int baños { get; set; }
+            public string propietarioEmail { get; set; }
+        }
+    }
+}
