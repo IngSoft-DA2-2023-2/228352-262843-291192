@@ -44,5 +44,13 @@ namespace JsonImporterTest
             JsonApartment apartment = new JsonApartment { Bathrooms = bathrooms };
             Assert.AreEqual(bathrooms, apartment.Bathrooms);
         }
+
+        [TestMethod]
+        public void ApartmentOwnerEmailTest()
+        {
+            string owner = "some@mail.com";
+            JsonApartment apartment = new JsonApartment { OwnerEmail = owner };
+            Assert.AreEqual(owner, apartment.OwnerEmail);
+        }
     }
 }
