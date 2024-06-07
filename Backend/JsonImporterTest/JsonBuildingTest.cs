@@ -28,5 +28,13 @@ namespace JsonImporterTest
             JsonBuilding building = new JsonBuilding { Manager = manager };
             Assert.AreEqual(manager, building.Manager);
         }
+
+        [TestMethod]
+        public void BuildingLocationTest()
+        {
+            string location = "some location";
+            JsonBuilding building = new JsonBuilding { Location = location };
+            Assert.AreEqual(location, building.Location);
+        }
     }
 }
