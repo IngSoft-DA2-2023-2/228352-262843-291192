@@ -32,6 +32,10 @@ namespace BuildingManagerLogic
         }
         public void RegisterImporter(IImporter importer)
         {
+            if (Importers.Any(i => i.Name == importer.Name))
+            {
+                throw new Exception($"Importer with name {importer.Name} is already registered.");
+            }
             Importers.Add(importer);
         }
     }
