@@ -1,94 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3654A562-BE01-4AB7-BC5E-A669DD1518AB}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BuildingManagerModels</RootNamespace>
-    <AssemblyName>BuildingManagerModels</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>5</WarningLevel>
-    <LangVersion>preview</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>preview</LangVersion>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\BuildingManagerDomain\BuildingManagerDomain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CustomExceptions\InvalidArgumentException.cs" />
-    <Compile Include="Inner\RespondInvitationRequest.cs" />
-    <Compile Include="Inner\CreateMaintenanceStaffRequest.cs" />
-    <Compile Include="Inner\CreateAdminRequest.cs" />
-    <Compile Include="Inner\CreateCategoryRequest.cs" />
-    <Compile Include="Inner\ModifyInvitationRequest.cs" />
-    <Compile Include="Inner\UpdateBuildingRequest.cs" />
-    <Compile Include="Outer\BuildingDetailsResponse.cs" />
-    <Compile Include="Outer\CategoriesReportResponse.cs" />
-    <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
-    <Compile Include="Outer\CreateAdminResponse.cs" />
-    <Compile Include="Outer\RespondInvitationResponse.cs" />
-    <Compile Include="Outer\DeleteBuildingResponse.cs" />
-    <Compile Include="Outer\LogoutResponse.cs" />
-    <Compile Include="Outer\ManagerResponse.cs" />
-    <Compile Include="Outer\CreateCategoryResponse.cs" />
-    <Compile Include="Inner\CreateBuildingRequest.cs" />
-    <Compile Include="Outer\CreateBuildingResponse.cs" />
-    <Compile Include="Inner\CreateInvitationRequest.cs" />
-    <Compile Include="Inner\CreateRequestRequest.cs" />
-    <Compile Include="Inner\LoginRequest.cs" />
-    <Compile Include="Outer\InvitationResponse.cs" />
-    <Compile Include="Outer\LoginResponse.cs" />
-    <Compile Include="Outer\RequestResponse.cs" />
-    <Compile Include="Outer\ListBuildingsResponse.cs" />
-    <Compile Include="Outer\MaintenanceReportResponse.cs" />
-    <Compile Include="Outer\BuildingsReportResponse.cs" />
-    <Compile Include="Outer\UpdateBuildingResponse.cs" />
-    <Compile Include="Outer\MaintainersResponse.cs" />
-    <Compile Include="Outer\MaintainerData.cs" />
-    <Compile Include="Inner\ConstructionCompanyRequest.cs" />
-    <Compile Include="Outer\CreateConstructionCompanyAdminResponse.cs" />
-    <Compile Include="Inner\CreateConstructionCompanyAdminRequest.cs" />
-    <Compile Include="Inner\UpdateBuildingManagerRequest.cs" />
-    <Compile Include="Outer\ConstructionCompanyResponse.cs" />
-    <Compile Include="Outer\ApartmentsReportResponse.cs" />
-    <Compile Include="Outer\UpdateBuildingManagerResponse.cs" />
-    <Compile Include="Outer\ManagerBuildingsResponse.cs" />
-    <Compile Include="Outer\ManagerBuildingData.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BuildingManagerDomain\BuildingManagerDomain.csproj">
-      <Project>{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}</Project>
-      <Name>BuildingManagerDomain</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>
