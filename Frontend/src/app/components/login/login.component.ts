@@ -41,7 +41,7 @@ export class LoginComponent {
         if (error.status === 500) {
           Swal.fire('Error', 'Error al iniciar sesión, comuníquese con el administrador', 'error');
         } else {
-          Swal.fire('Error', error.error.errorMessage);
+          Swal.fire('Error', 'Correo o contraseña incorrecta', 'error');
         }
       }
     );

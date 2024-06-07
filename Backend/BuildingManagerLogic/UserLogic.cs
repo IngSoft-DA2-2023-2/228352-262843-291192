@@ -97,5 +97,10 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
+
+        public List<Manager> GetManagers()
+        {
+            return _userRepository.GetManagers();
+        }
     }
 }

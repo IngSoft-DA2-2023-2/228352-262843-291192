@@ -1,1 +1,26 @@
-<p>buildings works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="font-bold text-2xl	text-center border-y-4">Edificios</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Ubicación</th>
+            <th>Manager</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let building of buildings">
+            <td>{{ building.name }}</td>
+            <td>{{ building.address }}</td>
+            <td>{{ building.manager }}</td>
+            <td>
+              <a onclick="buildingName=building.name" [routerLink]="['/manager/buildings', building.id]" class="btn btn-primary">Modificar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -35,7 +35,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPut("{buildingId}")]
-        [AuthenticationFilter(RoleType.MANAGER)]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult UpdateBuilding([FromRoute] Guid buildingId, [FromBody] UpdateBuildingRequest buildingRequest)
         {
             buildingRequest.Id = buildingId;
@@ -58,6 +58,14 @@ namespace BuildingManagerApi.Controllers
             updateManagerRequest.Validate();
             UpdateBuildingManagerResponse updateBuildingManagerResponse = new UpdateBuildingManagerResponse(_buildingLogic.ModifyBuildingManager(updateManagerRequest.ManagerId, buildingId), buildingId);
             return Ok(updateBuildingManagerResponse);
+        }
+
+        [HttpGet("{buildingId}")]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult GetBuildingDetails([FromRoute] Guid buildingId)
+        {
+            BuildingDetailsResponse getBuildingByNameResponse = new BuildingDetailsResponse(_buildingLogic.GetBuildingDetails(buildingId));
+            return Ok(getBuildingByNameResponse);
         }
     }
 }

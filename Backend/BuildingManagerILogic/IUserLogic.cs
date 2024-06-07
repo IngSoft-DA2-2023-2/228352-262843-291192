@@ -14,6 +14,7 @@ namespace BuildingManagerILogic
         public User Login(string email, string password);
         public Guid Logout(Guid sessionToken);
         public Guid GetUserIdFromSessionToken(Guid sessionToken);
+        public List<Manager> GetManagers();
         public List<MaintenanceStaff> GetMaintenanceStaff();
     }
 }

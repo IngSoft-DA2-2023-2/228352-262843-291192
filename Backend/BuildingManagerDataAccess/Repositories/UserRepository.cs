@@ -117,6 +117,11 @@ namespace BuildingManagerDataAccess.Repositories
             }
         }
 
+        public List<Manager> GetManagers()
+        {
+            return _context.Set<Manager>().Where(u => u.Role == RoleType.MANAGER).ToList();
+        }
+        
         public List<MaintenanceStaff> GetMaintenanceStaff()
         {
             return _context.Set<MaintenanceStaff>().Where(a => a.Role == RoleType.MAINTENANCE).ToList();

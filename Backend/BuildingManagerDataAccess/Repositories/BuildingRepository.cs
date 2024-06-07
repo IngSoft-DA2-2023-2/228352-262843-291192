@@ -116,7 +116,6 @@ namespace BuildingManagerDataAccess.Repositories
             buildToUpdate.Name = newBuilding.Name;
             buildToUpdate.Address = newBuilding.Address;
             buildToUpdate.Location = newBuilding.Location;
-            buildToUpdate.ConstructionCompanyId = newBuilding.ConstructionCompanyId;
             buildToUpdate.CommonExpenses = newBuilding.CommonExpenses;
 
             List<Apartment> apartmentsInDB = buildToUpdate.Apartments;
@@ -181,9 +180,17 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<Building>().Find(newBuilding.Id)!;
         }
 
-        public List<Building> ListBuildings()
+        public List<BuildingResponse> ListBuildings()
         {
-            return _context.Set<Building>().ToList();
+            List<BuildingResponse> buildings = new List<BuildingResponse>();
+            List<Building> buildingsInDB = _context.Set<Building>().ToList();
+            foreach (Building building in buildingsInDB)
+            {
+                string managerName = _context.Set<User>().FirstOrDefault(u => u.Id == building.ManagerId)?.Name ?? "";
+                BuildingResponse buildingResponse = new BuildingResponse(building.Id, building.Name, building.Address, managerName);
+                buildings.Add(buildingResponse);
+            }
+            return buildings;
         }
 
         public Guid GetConstructionCompanyFromBuildingId(Guid buildingId)
@@ -228,6 +235,25 @@ namespace BuildingManagerDataAccess.Repositories
             building.ManagerId = managerId;
             _context.SaveChanges();
             return managerId;
+        }
+
+        public BuildingDetails GetBuildingDetails(Guid buildingId)
+        {
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
+            {
+                throw new ValueNotFoundException("Building");
+            }
+            Building building = _context.Set<Building>()
+                                        .Include(b => b.Apartments)
+                                            .ThenInclude(a => a.Owner)
+                                        .First(b => b.Id == buildingId);
+            Manager manager = _context.Set<User>().First(u => u.Id == building.ManagerId) as Manager;
+            ConstructionCompany constructionCompany = _context.Set<ConstructionCompany>().First(cc => cc.Id == building.ConstructionCompanyId);
+            if (manager != null)
+            {
+                return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, (Guid)building.ManagerId, manager.Name, building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
+            }
+            return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, Guid.Empty, "", building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
         }
 
         public List<Building> GetManagerBuildings(Guid managerId)

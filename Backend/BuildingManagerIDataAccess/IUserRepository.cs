@@ -15,6 +15,7 @@ namespace BuildingManagerIDataAccess
         User Login(string email, string password);
         Guid Logout(Guid sessionToken);
         Guid GetUserIdFromSessionToken(Guid sessionToken);
+        List<Manager> GetManagers();
         List<MaintenanceStaff> GetMaintenanceStaff();
     }
 }

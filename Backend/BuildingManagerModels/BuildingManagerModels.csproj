@@ -50,6 +50,7 @@
     <Compile Include="Inner\CreateCategoryRequest.cs" />
     <Compile Include="Inner\ModifyInvitationRequest.cs" />
     <Compile Include="Inner\UpdateBuildingRequest.cs" />
+    <Compile Include="Outer\BuildingDetailsResponse.cs" />
     <Compile Include="Outer\CategoriesReportResponse.cs" />
     <Compile Include="Outer\CreateMaintenanceStaffResponse.cs" />
     <Compile Include="Outer\CreateAdminResponse.cs" />

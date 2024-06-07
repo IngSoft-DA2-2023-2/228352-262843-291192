@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BuildingDetails.cs" />
+    <Compile Include="Entities\BuildingResponse.cs" />
     <Compile Include="Entities\CategoriesReportData.cs" />
     <Compile Include="Entities\InvitationAnswer.cs" />
     <Compile Include="Entities\Invitation.cs" />
+    <Compile Include="Entities\ListManagersResponse.cs" />
     <Compile Include="Entities\Manager.cs" />
     <Compile Include="Entities\MaintenanceStaff.cs" />
     <Compile Include="Entities\Admin.cs" />
