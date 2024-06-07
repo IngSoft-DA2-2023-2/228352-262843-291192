@@ -1,8 +1,5 @@
-export interface Maintainers{
-    maintainers: MaintainerStaff[]
-}
+import { BasicMaintainerStaff } from "./MaintenanceStaff";
 
-export interface MaintainerStaff{
-    id: string,
-    name: string
+export interface Maintainers{
+    maintainers: BasicMaintainerStaff[]
 }

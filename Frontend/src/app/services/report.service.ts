@@ -5,14 +5,14 @@ import { environment } from '../../environments/environment';
 import { BuildingsReport } from '../models/BuildingsReport';
 import { MaintenancesReport } from '../models/MaintenancesReport';
 import { ApartmentsReport } from '../models/ApartmentsReport';
-import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReportsService {
+export class ReportService {
 
   constructor(private http: HttpClient) { }
+  
   public getBuildingsReport(filter: string): Observable<BuildingsReport> | null {
     let sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken != null) {

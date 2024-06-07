@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportsService } from '../../services/reports.service';
+import { ReportService } from '../../services/report.service';
 import { Router } from '@angular/router';
 import { BuildingsReport } from '../../models/BuildingsReport';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ import { Maintainers } from '../../models/Maintainers';
   styleUrl: './reports.component.css',
   imports: [FormsModule, HttpClientModule, NgFor, NgSwitchCase, NgSwitch, NgIf],
   standalone: true,
-  providers: [ReportsService, BuildingService, UserService]
+  providers: [ReportService, BuildingService, UserService]
 })
 export class ReportsComponent implements OnInit {
   buildingsReport: BuildingsReport | undefined;
@@ -35,7 +35,7 @@ export class ReportsComponent implements OnInit {
   maintainers: Maintainers | undefined;
   errors: string = "";
 
-  constructor(public reportService: ReportsService, public routerServices: Router, public buildingsService: BuildingService, public userService: UserService) { }
+  constructor(public reportService: ReportService, public routerServices: Router, public buildingsService: BuildingService, public userService: UserService) { }
 
   ngOnInit(): void {
     let managerConnected = localStorage.getItem('connectedUser');
