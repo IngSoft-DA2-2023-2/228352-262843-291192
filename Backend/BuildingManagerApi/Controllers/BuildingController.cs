@@ -61,7 +61,7 @@ namespace BuildingManagerApi.Controllers
             return Ok(updateBuildingManagerResponse);
         }
 
-        [HttpGet("{buildingName}")]
+        [HttpGet("{buildingId}")]
         [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
         public IActionResult GetBuildingDetails([FromRoute] Guid buildingId)
         {
