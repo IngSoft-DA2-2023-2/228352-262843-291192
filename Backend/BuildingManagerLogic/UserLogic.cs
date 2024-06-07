@@ -45,6 +45,11 @@ namespace BuildingManagerLogic
             return _userRepository.ExistsFromSessionToken(sessionToken);
         }
 
+        public List<MaintenanceStaff> GetMaintenanceStaff()
+        {
+            return _userRepository.GetMaintenanceStaff();
+        }
+
         public Guid GetUserIdFromSessionToken(Guid sessionToken)
         {
             try
@@ -57,7 +62,7 @@ namespace BuildingManagerLogic
             }
         }
 
-        public Guid Login(string email, string password)
+        public User Login(string email, string password)
         {
             try
             {

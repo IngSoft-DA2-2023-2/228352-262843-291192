@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { BuildingsComponent } from './components/buildings/buildings.component';
 import { ManagerComponent } from './components/manager/manager.component';
 import { BuildingDetailComponent } from './components/building-detail/building-detail.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authRedirectGuard], pathMatch: 'full'},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent, pathMatch: 'full'},
     { path: 'buildings', component: BuildingsComponent, pathMatch: 'full'},
     { path: 'buildings/:id', component: BuildingDetailComponent},
+    { path: 'reports', component: ReportsComponent, pathMatch: 'full'},
   ]},
   { path: '**', redirectTo: '/login' }
 ];

@@ -1,6 +1,5 @@
 ﻿using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
-using BuildingManagerLogic;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using BuildingManagerApi.Filters;

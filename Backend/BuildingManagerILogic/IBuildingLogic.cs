@@ -14,5 +14,6 @@ namespace BuildingManagerILogic
         public Building GetBuildingById(Guid buildingId);
         public Guid ModifyBuildingManager(Guid managerId, Guid buildingId);
         public BuildingDetails GetBuildingDetails(Guid buildingId);
+        public List<Building> GetManagerBuildings(Guid managerId);
     }
 }

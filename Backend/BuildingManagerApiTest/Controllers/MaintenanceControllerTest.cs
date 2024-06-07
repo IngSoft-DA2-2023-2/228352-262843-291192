@@ -1,5 +1,6 @@
 ﻿using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerModels.CustomExceptions;
@@ -29,7 +30,7 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "John",
                 Lastname = "Doe",
                 Email = "john@abc.com",
-                Password = "pass123"
+                Password = "pass123",
             };
             _createMaintenanceStaffRequest = new CreateMaintenanceStaffRequest
             {
@@ -55,6 +56,25 @@ namespace BuildingManagerApiTest.Controllers
             mockMaintenanceLogic.VerifyAll();
             Assert.AreEqual(_createMaintenanceStaffResponse, content);
         }
+
+        [TestMethod]
+        public void GetMaintainers_OK()
+        {
+            List<MaintenanceStaff> maintenances = new List<MaintenanceStaff> { _maintenaceStaff };
+            var mockMaintenanceLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            mockMaintenanceLogic.Setup(x => x.GetMaintenanceStaff()).Returns(maintenances);
+            var maintenanceController = new MaintenanceController(mockMaintenanceLogic.Object);
+            OkObjectResult expected = new OkObjectResult(new MaintainersResponse(maintenances));
+            MaintainersResponse expectedObject = expected.Value as MaintainersResponse;
+
+            OkObjectResult result = maintenanceController.GetMaintainers() as OkObjectResult;
+            MaintainersResponse resultObject = result.Value as MaintainersResponse;
+
+            mockMaintenanceLogic.VerifyAll();
+            Assert.AreEqual(result.StatusCode, expected.StatusCode);
+            Assert.AreEqual(expectedObject, resultObject);
+        }
+
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
@@ -82,6 +102,36 @@ namespace BuildingManagerApiTest.Controllers
                 Email = "jane@abc.com",
                 Password = "pass456"
             });
+            Assert.IsFalse(response1.Equals(response2));
+        }
+
+        [TestMethod]
+        public void MaintainersResponseEquals_NullObject_ReturnsFalse()
+        {
+            var response = new MaintainersResponse([_maintenaceStaff]);
+            Assert.IsFalse(response.Equals(null));
+        }
+
+        [TestMethod]
+        public void MaintainersResponseEquals_ObjectOfDifferentType_ReturnsFalse()
+        {
+            var response = new MaintainersResponse([_maintenaceStaff]);
+            var differentTypeObject = new object();
+            Assert.IsFalse(response.Equals(differentTypeObject));
+        }
+
+        [TestMethod]
+        public void MaintainersResponseEquals_ObjectWithDifferentAttributes_ReturnsFalse()
+        {
+            var response1 = new MaintainersResponse([_maintenaceStaff]);
+            var response2 = new MaintainersResponse([new MaintenanceStaff
+            {
+                Id = new Guid(),
+                Name = "Jane",
+                Lastname = "Doe",
+                Email = "jane@abc.com",
+                Password = "pass456"
+            }]);
             Assert.IsFalse(response1.Equals(response2));
         }
     }
