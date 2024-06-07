@@ -1,6 +1,7 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace BuildingManagerIDataAccess
 {
@@ -11,8 +12,9 @@ namespace BuildingManagerIDataAccess
         bool EmailExists(string email);
         RoleType RoleFromSessionToken(Guid sessionToken);
         User DeleteUser(Guid userId, RoleType role);
-        Guid Login(string email, string password);
+        User Login(string email, string password);
         Guid Logout(Guid sessionToken);
         Guid GetUserIdFromSessionToken(Guid sessionToken);
+        List<MaintenanceStaff> GetMaintenanceStaff();
     }
 }

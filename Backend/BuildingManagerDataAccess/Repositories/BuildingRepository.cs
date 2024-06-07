@@ -208,7 +208,7 @@ namespace BuildingManagerDataAccess.Repositories
                                                       .ThenInclude(a => a.Owner)
                                                   .FirstOrDefault(b => b.Id == buildingId);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new ValueNotFoundException("Building");
             }
@@ -228,6 +228,15 @@ namespace BuildingManagerDataAccess.Repositories
             building.ManagerId = managerId;
             _context.SaveChanges();
             return managerId;
+        }
+
+        public List<Building> GetManagerBuildings(Guid managerId)
+        {
+            if (!_context.Set<User>().Any(u => u.Id == managerId && u.Role == RoleType.MANAGER))
+            {
+                throw new ValueNotFoundException("Manager");
+            }
+            return _context.Set<Building>().Where(b => b.ManagerId == managerId).ToList();
         }
     }
 }

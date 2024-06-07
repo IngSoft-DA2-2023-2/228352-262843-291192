@@ -26,7 +26,7 @@ namespace BuildingManagerLogicTest
             _building = new Building()
             {
                 Id = new Guid(),
-                ManagerId = new Guid(),
+                ManagerId = Guid.NewGuid(),
                 Name = "Building 1",
                 Address = "Address",
                 Location = "City",
@@ -320,6 +320,46 @@ namespace BuildingManagerLogicTest
             try
             {
                 buildingLogic.GetBuildingById(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void GetManagerBuildingsTest()
+        {
+            List<Building> buildings = [_building];
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetManagerBuildings(It.IsAny<Guid>())).Returns(buildings);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.GetManagerBuildings(_building.ManagerId ?? Guid.NewGuid());
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(buildings, result);
+        }
+
+        [TestMethod]
+        public void GetManagerBuildingsFromInvalidManagerIdTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetManagerBuildings(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.GetManagerBuildings(new Guid());
             }
             catch (Exception ex)
             {

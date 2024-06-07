@@ -1,0 +1,6 @@
+export enum UserRole {
+    ADMIN,
+    MAINTENANCE,
+    MANAGER,
+    CONSTRUCTIONCOMPANYADMIN
+}

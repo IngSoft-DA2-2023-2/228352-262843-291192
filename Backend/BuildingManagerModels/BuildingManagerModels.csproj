@@ -70,6 +70,8 @@
     <Compile Include="Outer\MaintenanceReportResponse.cs" />
     <Compile Include="Outer\BuildingsReportResponse.cs" />
     <Compile Include="Outer\UpdateBuildingResponse.cs" />
+    <Compile Include="Outer\MaintainersResponse.cs" />
+    <Compile Include="Outer\MaintainerData.cs" />
     <Compile Include="Inner\ConstructionCompanyRequest.cs" />
     <Compile Include="Outer\CreateConstructionCompanyAdminResponse.cs" />
     <Compile Include="Inner\CreateConstructionCompanyAdminRequest.cs" />
@@ -77,6 +79,8 @@
     <Compile Include="Outer\ConstructionCompanyResponse.cs" />
     <Compile Include="Outer\ApartmentsReportResponse.cs" />
     <Compile Include="Outer\UpdateBuildingManagerResponse.cs" />
+    <Compile Include="Outer\ManagerBuildingsResponse.cs" />
+    <Compile Include="Outer\ManagerBuildingData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,22 @@
+import { UserRole } from "./UserRole";
+
 export class User {
 
   constructor(
-    public sessionToken: string
+    public token: string,
+    public userId: string,
+    public role: UserRole,
+    public email: string,
+    public name: string,
+    public lastname: string,
   ){}
 }
 
 export interface Usuario {
-  sessionToken: string;
+  token: string;
+  userId: string;
+  role: UserRole;
+  email: string;
+  name: string;
+  lastname: string;
 }

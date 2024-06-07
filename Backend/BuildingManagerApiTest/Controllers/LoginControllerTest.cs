@@ -1,4 +1,5 @@
 using BuildingManagerApi.Controllers;
+using BuildingManagerDomain.Entities;
 using BuildingManagerILogic;
 using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
@@ -14,20 +15,29 @@ namespace BuildingManagerApiTest.Controllers
     {
         private LoginRequest _loginRequest;
         private LoginResponse _loginResponse;
-        Guid token;
+        User user;
 
         [TestInitialize]
         public void Initialize()
         {
-            token = new Guid("11111111-1111-1111-1111-111111111111");
+            Guid token = new Guid("11111111-1111-1111-1111-111111111111");
+            user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "john@abc.com",
+                Password = "pass123",
+                SessionToken = token
+            };
             _loginRequest = new LoginRequest("a@abc.com", "somepassword");
-            _loginResponse = new LoginResponse(token);
+            _loginResponse = new LoginResponse(user);
         }
         [TestMethod]
         public void Login_Ok()
         {
             var mockUserLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-            mockUserLogic.Setup(x => x.Login(It.IsAny<string>(), It.IsAny<string>())).Returns(token);
+            mockUserLogic.Setup(x => x.Login(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
             var LoginController = new LoginController(mockUserLogic.Object);
 
             var result = LoginController.Login(_loginRequest);
@@ -77,7 +87,16 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
-            LoginResponse response = new LoginResponse(new Guid());
+            User user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "john@abc.com",
+                Password = "pass123",
+                SessionToken = Guid.NewGuid()
+            };
+            LoginResponse response = new LoginResponse(user);
 
             bool result = response.Equals(null);
 
@@ -87,7 +106,16 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_DifferentTypeObject_ReturnsFalse()
         {
-            LoginResponse response = new LoginResponse(new Guid());
+            User user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "john@abc.com",
+                Password = "pass123",
+                SessionToken = Guid.NewGuid()
+            };
+            LoginResponse response = new LoginResponse(user);
             object other = new object();
 
             bool result = response.Equals(other);
@@ -98,7 +126,16 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_SameObject_ReturnsTrue()
         {
-            LoginResponse response = new LoginResponse(new Guid());
+            User user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "john@abc.com",
+                Password = "pass123",
+                SessionToken = Guid.NewGuid()
+            };
+            LoginResponse response = new LoginResponse(user);
 
             bool result = response.Equals(response);
 
@@ -108,11 +145,28 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_AtLeastOneFieldDifferent_ReturnsFalse()
         {
-            Guid token1 = new Guid("11111111-1111-1111-1111-111111111111");
-            Guid token2 = new Guid("22222222-2222-2222-2222-222222222222");
+            User user1 = new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "john@abc.com",
+                Password = "pass123",
+                SessionToken = Guid.NewGuid()
+            };
 
-            LoginResponse response1 = new LoginResponse(token1);
-            LoginResponse response2 = new LoginResponse(token2);
+            User user2 = new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = "John1",
+                Lastname = "Doe",
+                Email = "john@abc.com",
+                Password = "pass123",
+                SessionToken = Guid.NewGuid()
+            };
+
+            LoginResponse response1 = new LoginResponse(user1);
+            LoginResponse response2 = new LoginResponse(user2);
 
             bool result = response1.Equals(response2);
 
