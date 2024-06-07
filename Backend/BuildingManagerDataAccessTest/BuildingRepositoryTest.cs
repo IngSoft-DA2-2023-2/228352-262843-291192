@@ -1256,9 +1256,9 @@ namespace BuildingManagerDataAccessTest
                 }
             };
             Guid newManagerId = Guid.NewGuid();
-            context.Set<User>().Add(new Manager { Id = managerId, Name = "John", Lastname = "Doe", Email = "a@a.com" });
+            context.Set<User>().Add(new Manager { Id = managerId, Name = "John", Lastname = "Doe", Email = "a@a.com", Password = "pass" });
             context.Set<Building>().Add(originalBuilding);
-            context.Set<User>().Add(new Manager { Id = newManagerId, Name = "John1", Lastname = "Doe1", Email = "b@b.com" });
+            context.Set<User>().Add(new Manager { Id = newManagerId, Name = "John1", Lastname = "Doe1", Email = "b@b.com", Password = "pass" });
             context.SaveChanges();
 
             repository.ModifyBuildingManager(newManagerId, buildingId);
@@ -1353,9 +1353,9 @@ namespace BuildingManagerDataAccessTest
                 }
             };
             Guid newManagerId = Guid.NewGuid();
-            context.Set<User>().Add(new Manager { Id = managerId, Name = "John", Lastname = "Doe", Email = "a@a.com" });
+            context.Set<User>().Add(new Manager { Id = managerId, Name = "John", Lastname = "Doe", Email = "a@a.com", Password = "pass" });
             context.Set<Building>().Add(originalBuilding);
-            context.Set<User>().Add(new Admin { Id = newManagerId, Name = "John1", Lastname = "Doe1", Email = "b@b.com" });
+            context.Set<User>().Add(new Admin { Id = newManagerId, Name = "John1", Lastname = "Doe1", Email = "b@b.com", Password = "pass" });
             context.SaveChanges();
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.ModifyBuildingManager(newManagerId, buildingId));
@@ -1384,7 +1384,8 @@ namespace BuildingManagerDataAccessTest
                 Id = managerId,
                 Name = "John",
                 Lastname = "Doe",
-                Email = ""
+                Email = "",
+                Password = "",
             };
             ConstructionCompany company = new ConstructionCompany
             {
