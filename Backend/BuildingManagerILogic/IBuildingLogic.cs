@@ -1,6 +1,4 @@
 ﻿using BuildingManagerDomain.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace BuildingManagerILogic
 {

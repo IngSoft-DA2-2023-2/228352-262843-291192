@@ -1,7 +1,5 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerModels.CustomExceptions;
-using System;
-using System.Collections.Generic;
 
 namespace BuildingManagerModels.Inner
 {

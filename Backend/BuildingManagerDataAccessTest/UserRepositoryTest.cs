@@ -364,7 +364,8 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Name = "John",
                 Lastname = "Doe",
-                Email = "admin@gmail.com"
+                Email = "admin@gmail.com",
+                Password = "123456",
             };
             repository.CreateUser(manager);
             var admin = new Admin
@@ -372,7 +373,8 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Name = "John",
                 Lastname = "Doe",
-                Email = ""
+                Email = "",
+                Password = "123456"
             };
             repository.CreateUser(admin);
 
@@ -387,6 +389,8 @@ namespace BuildingManagerDataAccessTest
             var repository = new UserRepository(context);
             var maintenance = new MaintenanceStaff
             {
+                Name = "John",
+                Lastname = "Doe",
                 Email = "abc@example.com",
                 Password = "123456",
                 Role = RoleType.MAINTENANCE,
