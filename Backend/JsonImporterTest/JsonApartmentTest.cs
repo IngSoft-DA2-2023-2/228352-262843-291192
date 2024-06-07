@@ -28,5 +28,13 @@ namespace JsonImporterTest
             JsonApartment apartment = new JsonApartment { Rooms = rooms };
             Assert.AreEqual(rooms, apartment.Rooms);
         }
+
+        [TestMethod]
+        public void ApartmentHasTerraceTest()
+        {
+            bool hasTerrace = true;
+            JsonApartment apartment = new JsonApartment { HasTerrace = hasTerrace };
+            Assert.AreEqual(hasTerrace, apartment.HasTerrace);
+        }
     }
 }
