@@ -10,6 +10,5 @@ namespace JsonImporter
         public string Manager { get; set; }
         public string Location { get; set; }
         public long CommonExpenses { get; set; }
-
     }
 }

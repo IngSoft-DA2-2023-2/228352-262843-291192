@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="JsonImporter.cs" />
     <Compile Include="JsonBuilding.cs" />
+    <Compile Include="JsonApartment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
