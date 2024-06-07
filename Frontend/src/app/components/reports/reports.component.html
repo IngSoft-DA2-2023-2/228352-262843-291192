@@ -8,7 +8,7 @@
     </button>
 
     <div class="px-2">
-        <select class="py-2 form-select form-select-lg" aria-label=".form-select-lg example"
+        <select class="py-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
             (change)="onReportTypeChange($event)">
             <option value='0' selected>Agrupados por edificio</option>
             <option value='1'>Agrupados por mantenimiento</option>
@@ -16,7 +16,7 @@
         </select>
     </div>
     <div class="px-2">
-        <select *ngIf="reportType === '1' || reportType === '2' " class="py-2 form-select form-select-lg" aria-label=".form-select-lg example"
+        <select *ngIf="reportType === '1' || reportType === '2' " class="py-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
             (change)="onBuildingIdChange($event)">
             <option value='' selected>Seleccione una opcion</option>
             <option *ngFor="let building of buildings?.buildings" [value]="building?.id">{{building.name}}</option>
@@ -30,7 +30,7 @@
     <div *ngSwitchCase="'0'">
         <div *ngIf="openFilters" class="flex flex-row my-2 items-center">
             <h3>Filtrar por edificio: </h3>
-            <select class="ml-2 py-2 px-2 form-select form-select-lg" aria-label=".form-select-lg example"
+            <select class="ml-2 py-2 px-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
                 (change)="onFilterChange($event)">
                 <option value='' selected>Todos</option>
                 <option *ngFor="let building of buildings?.buildings" [value]="building?.id">{{building.name}}</option>
@@ -58,7 +58,7 @@
     <div *ngSwitchCase="'1'">
         <div *ngIf="openFilters" class="flex flex-row my-2 items-center">
             <h3>Filtrar por persona de mantenimiento: </h3>
-            <select class="ml-2 py-2 px-2 form-select form-select-lg" aria-label=".form-select-lg example"
+            <select class="ml-2 py-2 px-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
                 (change)="onFilterChange($event)">
                 <option value='' selected>Todos</option>
                 <option *ngFor="let maintainer of maintainers?.maintainers" [value]="maintainer?.name">
