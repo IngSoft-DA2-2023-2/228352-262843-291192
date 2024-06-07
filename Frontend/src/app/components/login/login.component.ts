@@ -32,7 +32,8 @@ export class LoginComponent {
     this.userService.login(this.email, this.password).subscribe(
       (user: User) => {
         Swal.close();
-        localStorage.setItem('sessionToken', JSON.stringify(user));
+        localStorage.setItem('sessionToken', JSON.stringify(user.token));
+        localStorage.setItem('connectedUser', JSON.stringify(user));
         this.routerServices.navigate(['/manager/home']);
       },
       (error: HttpErrorResponse) => {

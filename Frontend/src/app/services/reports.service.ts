@@ -17,7 +17,7 @@ export class ReportsService {
     let sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken != null) {
       let token = JSON.parse(sessionToken);
-      let headers = new HttpHeaders().set('Authorization', token.token);
+      let headers = new HttpHeaders().set('Authorization', token);
       let params = new HttpParams().set('buildingId', filter);
 
       return this.http.get<BuildingsReport>(`${environment.apiUrl}/reports`, { headers: headers, params: params } );
@@ -28,7 +28,7 @@ export class ReportsService {
     let sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken != null) {
       let token = JSON.parse(sessionToken);
-      let headers = new HttpHeaders().set('Authorization', token.token);
+      let headers = new HttpHeaders().set('Authorization', token);
       let params = new HttpParams().set('maintainerName', filter);
 
       return this.http.get<MaintenancesReport>(`${environment.apiUrl}/reports/${buildingId}/maintenances`, { headers: headers, params: params});
@@ -39,7 +39,7 @@ export class ReportsService {
     let sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken != null) {
       let token = JSON.parse(sessionToken);
-      let headers = new HttpHeaders().set('Authorization', token.token);
+      let headers = new HttpHeaders().set('Authorization', token);
 
       return this.http.get<ApartmentsReport>(`${environment.apiUrl}/reports/${buildingId}/apartments`, { headers: headers });
     } else return null;

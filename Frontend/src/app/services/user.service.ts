@@ -20,7 +20,7 @@ export class UserService {
     let sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken != null) {
       let token = JSON.parse(sessionToken);
-      let headers = new HttpHeaders().set('Authorization', token.token);
+      let headers = new HttpHeaders().set('Authorization', token);
       return this.http.get<Maintainers>(`${environment.apiUrl}/maintenances`, { headers: headers });
     } else return null
   }

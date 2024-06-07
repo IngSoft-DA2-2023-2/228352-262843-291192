@@ -38,7 +38,16 @@ export class ReportsComponent implements OnInit {
   constructor(public reportService: ReportsService, public routerServices: Router, public buildingsService: BuildingService, public userService: UserService) { }
 
   ngOnInit(): void {
-    this.managerId = "DB799944-4183-472D-65B5-08DC68BCD3DF";
+    let managerConnected = localStorage.getItem('connectedUser');
+    if (managerConnected == null) {
+      //TODO: Redirect to login
+      // this.routerServices.navigate(['/login']);
+    }
+    else {
+      let managerConnectedJson =  JSON.parse(managerConnected);
+      this.managerId = managerConnectedJson.userId;
+    }
+
     var buildingsObservable: Observable<ManagerBuildings> | null = this.buildingsService.getManagerBuildings(this.managerId);
     if (buildingsObservable != null) {
       buildingsObservable.subscribe(buildings => {
@@ -99,6 +108,7 @@ export class ReportsComponent implements OnInit {
   }
 
   onReportTypeChange(event: Event) {
+    this.errors = "";
     const selectElement = event.target as HTMLSelectElement;
     this.reportType = selectElement.value;
   }
