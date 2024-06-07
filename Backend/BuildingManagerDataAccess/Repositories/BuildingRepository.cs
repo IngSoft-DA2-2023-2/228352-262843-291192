@@ -249,11 +249,13 @@ namespace BuildingManagerDataAccess.Repositories
                                         .First(b => b.Id == buildingId);
             Manager manager = _context.Set<User>().First(u => u.Id == building.ManagerId) as Manager;
             ConstructionCompany constructionCompany = _context.Set<ConstructionCompany>().First(cc => cc.Id == building.ConstructionCompanyId);
-            if(manager != null)
+            if (manager != null)
             {
-                   return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, (Guid)building.ManagerId, manager.Name, building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
+                return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, (Guid)building.ManagerId, manager.Name, building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
             }
             return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, Guid.Empty, "", building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
+        }
+
         public List<Building> GetManagerBuildings(Guid managerId)
         {
             if (!_context.Set<User>().Any(u => u.Id == managerId && u.Role == RoleType.MANAGER))

@@ -1426,11 +1426,15 @@ namespace BuildingManagerDataAccessTest
                 Email = "test@test.com",
                 Password = "Somepass",
                 Role = RoleType.CONSTRUCTIONCOMPANYADMIN,
-				Name = "Jane",
+            };
+            Manager manager = new Manager
+            {
+                Id = managerId,
+                Name = "Jane",
                 Lastname = "",
                 Email = "test@manager.com",
                 Password = "Somepass",
-                Role = RoleType.MANAGER,
+                Role = RoleType.MANAGER
             };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(user);
