@@ -1,9 +1,10 @@
-using BuildingManagerDomain.Entities;
+﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace BuildingManagerLogic
 {
@@ -30,6 +31,23 @@ namespace BuildingManagerLogic
         {
             return Importers.Select(i => i.Name).ToList();
         }
+
+        public void LoadImportersFromAssembly(string assemblyPath, IUserRepository userRepository, IBuildingRepository buildingRepository)
+        {
+            Assembly assembly = Assembly.LoadFrom(assemblyPath);
+            var importerTypes = assembly.GetTypes().Where(t => typeof(IImporter).IsAssignableFrom(t) && !t.IsInterface);
+
+            foreach (var type in importerTypes)
+            {
+                if (type.GetConstructor(new Type[] { typeof(IUserRepository), typeof(IBuildingRepository) }) != null)
+                {
+                    var constructor = type.GetConstructor(new Type[] { typeof(IUserRepository), typeof(IBuildingRepository) });
+                    IImporter importer = (IImporter)constructor.Invoke(new object[] { userRepository, buildingRepository });
+                    RegisterImporter(importer);
+                }
+            }
+        }
+
         public void RegisterImporter(IImporter importer)
         {
             if (Importers.Any(i => i.Name == importer.Name))
@@ -38,5 +56,6 @@ namespace BuildingManagerLogic
             }
             Importers.Add(importer);
         }
+
     }
 }
