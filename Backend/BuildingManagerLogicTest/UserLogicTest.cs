@@ -94,14 +94,24 @@ namespace BuildingManagerLogicTest
             string email = "test@test.com";
             string password = "somepassword";
             Guid token = new("12345678-1234-1234-1234-123456789012");
+            User user = new()
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = email,
+                Password = password,
+                Role = RoleType.ADMIN,
+                SessionToken = token
+            };
             var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
-            userRespositoryMock.Setup(x => x.Login(It.IsAny<string>(), It.IsAny<string>())).Returns(token);
+            userRespositoryMock.Setup(x => x.Login(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
             var userLogic = new UserLogic(userRespositoryMock.Object);
 
             var result = userLogic.Login(email, password);
 
             userRespositoryMock.VerifyAll();
-            Assert.AreEqual(token, result);
+            Assert.AreEqual(user, result);
         }
 
         [TestMethod]
@@ -281,6 +291,48 @@ namespace BuildingManagerLogicTest
 
             userRespositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void GetManagersTest()
+        {
+            var managers = new List<Manager>();
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.GetManagers()).Returns(managers);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+            Exception exception = null;
+
+            try
+            {
+                userLogic.GetManagers();
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            userRespositoryMock.VerifyAll();
+            Assert.AreEqual(managers, userLogic.GetManagers());
+        }
+
+        [TestMethod]
+        public void GetMaintenanceStaffTest()
+        {
+            List<MaintenanceStaff> maintenanceStaff =
+            [
+                new MaintenanceStaff(){ Id = new Guid(),
+                   Name =  "John",
+                   Lastname = "Doe",
+                  Email=  "mail@mail.com",
+                   Password =  "pass1234"}
+
+             ];
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.GetMaintenanceStaff()).Returns(maintenanceStaff);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.GetMaintenanceStaff();
+
+            Assert.AreEqual(maintenanceStaff, result);
         }
     }
 }

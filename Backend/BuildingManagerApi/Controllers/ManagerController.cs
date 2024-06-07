@@ -11,10 +11,12 @@ namespace BuildingManagerApi.Controllers
     public class ManagerController : ControllerBase
     {
         private readonly IUserLogic _userLogic;
+        private readonly IBuildingLogic _buildingLogic;
 
-        public ManagerController(IUserLogic userLogic)
+        public ManagerController(IUserLogic userLogic, IBuildingLogic buildingLogic)
         {
             _userLogic = userLogic;
+            _buildingLogic = buildingLogic;
         }
 
         [HttpDelete("{id}")]
@@ -23,6 +25,14 @@ namespace BuildingManagerApi.Controllers
         {
             ManagerResponse deleteManagerResponse = new(_userLogic.DeleteUser(id, RoleType.MANAGER));
             return Ok(deleteManagerResponse);
+        }
+
+        [HttpGet("{id}/buildings")]
+        [AuthenticationFilter(RoleType.MANAGER)]
+        public IActionResult GetManagerBuildings([FromRoute] Guid id)
+        {
+            ManagerBuildingsResponse managerBuildingsResponse = new(_buildingLogic.GetManagerBuildings(id));
+            return Ok(managerBuildingsResponse);
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using BuildingManagerDomain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuildingManagerIDataAccess
 {
@@ -11,10 +8,13 @@ namespace BuildingManagerIDataAccess
     {
         Building CreateBuilding(Building building);
         Building DeleteBuilding(Guid buildingId);
-        Guid GetUserIdBySessionToken(Guid sessionToken);
         Building UpdateBuilding(Building building);
-        List<Building> ListBuildings();
+        List<BuildingResponse> ListBuildings();
         Guid GetConstructionCompanyFromBuildingId(Guid buildingId);
         Owner GetOwnerFromEmail(string email);
+        Building GetBuildingById(Guid buildingId);
+        Guid ModifyBuildingManager(Guid managerId, Guid buildingId);
+        BuildingDetails GetBuildingDetails(Guid buildingId);
+        List<Building> GetManagerBuildings(Guid managerId);
     }
 }

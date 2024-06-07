@@ -26,7 +26,7 @@ namespace BuildingManagerLogicTest
             _building = new Building()
             {
                 Id = new Guid(),
-                ManagerId = new Guid(),
+                ManagerId = Guid.NewGuid(),
                 Name = "Building 1",
                 Address = "Address",
                 Location = "City",
@@ -43,11 +43,12 @@ namespace BuildingManagerLogicTest
         public void CreateBuildingSuccessfully()
         {
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
             buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
 
             var result = buildingLogic.CreateBuilding(_building, sessionToken);
 
@@ -60,14 +61,16 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void ListBuildingsSuccessfully()
         {
-            var buildingsList = new List<Building> { _building };
+            BuildingResponse buildingResponse = new BuildingResponse(_building.Id, _building.Name, _building.Address, _building.ManagerId.ToString());
+            var buildingsList = new List<BuildingResponse> { buildingResponse };
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Returns(_building);
             buildingRespositoryMock.Setup(x => x.ListBuildings()).Returns(buildingsList);
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
             constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
             buildingLogic.CreateBuilding(_building, sessionToken);
 
             var result = buildingLogic.ListBuildings();
@@ -83,10 +86,11 @@ namespace BuildingManagerLogicTest
         {
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
             buildingRespositoryMock.Setup(x => x.CreateBuilding(It.IsAny<Building>())).Throws(new ValueDuplicatedException(""));
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
             Exception exception = null;
             try
             {
@@ -145,10 +149,11 @@ namespace BuildingManagerLogicTest
                 }
             };
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
             Exception exception = null;
 
             try
@@ -167,10 +172,11 @@ namespace BuildingManagerLogicTest
         public void CreateBuildingWithApartmentWithSameOwnerEmailTest()
         {
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
             Exception exception = null;
 
             Building buildingWithSameOwnerEmail = new Building()
@@ -233,11 +239,12 @@ namespace BuildingManagerLogicTest
         {
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             constructionCompanyLogicMock.Setup(x => x.IsUserAssociatedToCompany(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(true);
             buildingRespositoryMock.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Returns(_building);
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
             buildingRespositoryMock.Setup(x => x.GetConstructionCompanyFromBuildingId(It.IsAny<Guid>())).Returns(companyId);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
 
             var result = buildingLogic.DeleteBuilding(_building.Id, sessionToken);
 
@@ -246,26 +253,13 @@ namespace BuildingManagerLogicTest
         }
 
         [TestMethod]
-        public void GetUserIdBySessionTokenTest()
-        {
-            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
-            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
-
-            var result = buildingLogic.GetUserIdBySessionToken(sessionToken);
-
-            buildingRespositoryMock.VerifyAll();
-            Assert.AreEqual(userId, result);
-        }
-
-        [TestMethod]
         public void GetConstructionCompanyIdFromBuildingIdTest()
         {
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             buildingRespositoryMock.Setup(x => x.GetConstructionCompanyFromBuildingId(It.IsAny<Guid>())).Returns(companyId);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
 
             var result = buildingLogic.GetConstructionCompanyFromBuildingId(_building.Id);
 
@@ -278,14 +272,95 @@ namespace BuildingManagerLogicTest
         {
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             buildingRespositoryMock.Setup(x => x.GetConstructionCompanyFromBuildingId(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
 
             Exception exception = null;
 
             try
             {
                 buildingLogic.GetConstructionCompanyFromBuildingId(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void GetBuildingFromBuildingIdTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Returns(_building);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.GetBuildingById(_building.Id);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(_building, result);
+        }
+
+        [TestMethod]
+        public void GetBuildingFromInvalidBuildingIdTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetBuildingById(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.GetBuildingById(new Guid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void GetManagerBuildingsTest()
+        {
+            List<Building> buildings = [_building];
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetManagerBuildings(It.IsAny<Guid>())).Returns(buildings);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.GetManagerBuildings(_building.ManagerId ?? Guid.NewGuid());
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(buildings, result);
+        }
+
+        [TestMethod]
+        public void GetManagerBuildingsFromInvalidManagerIdTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetManagerBuildings(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.GetManagerBuildings(new Guid());
             }
             catch (Exception ex)
             {
@@ -356,8 +431,9 @@ namespace BuildingManagerLogicTest
             };
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             buildingRespositoryMock.Setup(x => x.UpdateBuilding(It.IsAny<Building>())).Returns(buildingUpdated);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
 
             var result = buildingLogic.UpdateBuilding(buildingUpdated);
 
@@ -424,8 +500,9 @@ namespace BuildingManagerLogicTest
                 }
             };
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
             Exception exception = null;
 
             try
@@ -500,7 +577,8 @@ namespace BuildingManagerLogicTest
             };
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
             Exception exception = null;
 
             try
@@ -520,11 +598,12 @@ namespace BuildingManagerLogicTest
         {
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
             constructionCompanyLogicMock.Setup(x => x.IsUserAssociatedToCompany(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(false);
             buildingRespositoryMock.Setup(x => x.DeleteBuilding(It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
-            buildingRespositoryMock.Setup(x => x.GetUserIdBySessionToken(It.IsAny<Guid>())).Returns(userId);
             buildingRespositoryMock.Setup(x => x.GetConstructionCompanyFromBuildingId(It.IsAny<Guid>())).Returns(companyId);
-            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
             Exception exception = null;
             try
             {
@@ -536,6 +615,89 @@ namespace BuildingManagerLogicTest
             }
             Assert.IsNotNull(exception);
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerSuccessfully()
+        {
+            Building building = new Building
+            {
+                Id = _building.Id,
+                ManagerId = _building.ManagerId,
+                Name = "Building",
+                Address = "1234 Main St",
+                Location = "City",
+                ConstructionCompanyId = Guid.NewGuid(),
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = new Owner
+                        {
+                            Name = "John",
+                            LastName = "Doe",
+                            Email = "jhon@gmail.com"
+                        }
+                    }
+                }
+            };
+            Guid newManagerId = Guid.NewGuid();
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.ModifyBuildingManager(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(newManagerId);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.ModifyBuildingManager(newManagerId, building.Id);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(newManagerId, result);
+        }
+
+        [TestMethod]
+        public void UpdateBuildingManagerWithInvalidBuildingIdTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.ModifyBuildingManager(It.IsAny<Guid>(), It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.ModifyBuildingManager(Guid.NewGuid(), Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void GetBuildingDetailsByNameTest()
+        {
+            BuildingDetails buildingDetails = new BuildingDetails(_building.Id, _building.Name, _building.Address, _building.Location, (decimal)_building.CommonExpenses, (Guid)_building.ManagerId, "Manager name", _building.ConstructionCompanyId, "ConstructionCompany name", _building.Apartments);
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetBuildingDetails(It.IsAny<Guid>())).Returns(buildingDetails);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.GetBuildingDetails(_building.Id);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(buildingDetails, result);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace BuildingManagerDataAccess.Repositories
             return user;
         }
 
-        public Guid Login(string email, string password)
+        public User Login(string email, string password)
         {
             User user;
             try
@@ -83,7 +83,7 @@ namespace BuildingManagerDataAccess.Repositories
             user.SessionToken = newSessionToken;
             _context.SaveChanges();
 
-            return newSessionToken;
+            return user;
         }
 
         public Guid Logout(Guid sessionToken)
@@ -132,6 +132,16 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Manager with email " + email + " not found.");
             }
+        }
+
+        public List<Manager> GetManagers()
+        {
+            return _context.Set<Manager>().Where(u => u.Role == RoleType.MANAGER).ToList();
+        }
+        
+        public List<MaintenanceStaff> GetMaintenanceStaff()
+        {
+            return _context.Set<MaintenanceStaff>().Where(a => a.Role == RoleType.MAINTENANCE).ToList();
         }
     }
 }

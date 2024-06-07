@@ -3,8 +3,6 @@ using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
-using System;
-using System.Collections.Generic;
 
 namespace BuildingManagerLogic
 {
@@ -12,16 +10,18 @@ namespace BuildingManagerLogic
     {
         private IBuildingRepository _buildingRepository;
         private IConstructionCompanyLogic _constructionCompanyLogic;
+        private IUserLogic _userLogic;
 
-        public BuildingLogic(IBuildingRepository buildingRepository, IConstructionCompanyLogic constructionCompanyLogic)
+        public BuildingLogic(IBuildingRepository buildingRepository, IConstructionCompanyLogic constructionCompanyLogic, IUserLogic userLogic)
         {
             _buildingRepository = buildingRepository;
             _constructionCompanyLogic = constructionCompanyLogic;
+            _userLogic = userLogic;
         }
 
         public Building CreateBuilding(Building building, Guid sessionToken)
         {
-            Guid userId = GetUserIdBySessionToken(sessionToken);
+            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
             Guid companyId = _constructionCompanyLogic.GetCompanyIdFromUserId(userId);
             building.ConstructionCompanyId = companyId;
             try
@@ -78,18 +78,13 @@ namespace BuildingManagerLogic
 
         public Building DeleteBuilding(Guid buildingId, Guid sessionToken)
         {
-            Guid userId = GetUserIdBySessionToken(sessionToken);
+            Guid userId = _userLogic.GetUserIdFromSessionToken(sessionToken);
             Guid companyId = GetConstructionCompanyFromBuildingId(buildingId);
             if (_constructionCompanyLogic.IsUserAssociatedToCompany(userId, companyId))
             {
                 return _buildingRepository.DeleteBuilding(buildingId);
             }
             else throw new ValueNotFoundException("Building");
-        }
-
-        public Guid GetUserIdBySessionToken(Guid sessionToken)
-        {
-            return _buildingRepository.GetUserIdBySessionToken(sessionToken);
         }
 
         public Building UpdateBuilding(Building building)
@@ -114,7 +109,7 @@ namespace BuildingManagerLogic
             }
         }
 
-        public List<Building> ListBuildings()
+        public List<BuildingResponse> ListBuildings()
         {
             return _buildingRepository.ListBuildings();
         }
@@ -125,6 +120,54 @@ namespace BuildingManagerLogic
             {
                 return _buildingRepository.GetConstructionCompanyFromBuildingId(buildingId);
             }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
+
+        public Building GetBuildingById(Guid buildingId)
+        {
+            try
+            {
+                return _buildingRepository.GetBuildingById(buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
+
+        public Guid ModifyBuildingManager(Guid managerId, Guid buildingId)
+        {
+            try
+            {
+                return _buildingRepository.ModifyBuildingManager(managerId, buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
+
+        public BuildingDetails GetBuildingDetails(Guid buildingId)
+        {
+            try
+            {
+                return _buildingRepository.GetBuildingDetails(buildingId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
+
+        public List<Building> GetManagerBuildings(Guid managerId)
+        {
+            try
+            {
+                return _buildingRepository.GetManagerBuildings(managerId);
+                }
             catch (ValueNotFoundException e)
             {
                 throw new NotFoundException(e, e.Message);

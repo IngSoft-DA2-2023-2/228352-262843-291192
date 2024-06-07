@@ -1,0 +1,29 @@
+<div class="flex flex-col h-full bg-customBlack text-white w-64">
+  <div class="flex items-center justify-center h-16 border-b border-gray-700">
+    <span class="text-2xl font-semibold">Building Manager</span>
+  </div>
+  <nav class="flex-1 overflow-y-auto">
+    <ul class="py-4 space-y-2">
+      <li>
+        <a routerLink="/manager/home" routerLinkActive="active" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer no-underline hover:underline">
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/manager/buildings" routerLinkActive="active" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer no-underline">
+          <span>Edificios</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/manager/reports" routerLinkActive="active" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer no-underline">
+          <span>Reportes</span>
+        </a>
+      </li>
+      <li>
+        <a (click)="logout()" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer no-underline">
+          <span>Salir</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -95,9 +95,8 @@ namespace BuildingManagerDataAccessTest
                 Password = "123456",
             };
             repository.CreateUser(admin);
-            Guid token = repository.Login(admin.Email, admin.Password);
-
-            var result = repository.ExistsFromSessionToken(token);
+            User user = repository.Login(admin.Email, admin.Password);
+            var result = repository.ExistsFromSessionToken(user.SessionToken.Value);
 
             Assert.IsTrue(result);
         }
@@ -136,9 +135,9 @@ namespace BuildingManagerDataAccessTest
                 Password = "123456",
             };
             repository.CreateUser(admin);
-            Guid token = repository.Login(admin.Email, admin.Password);
+            User user = repository.Login(admin.Email, admin.Password);
 
-            var result = repository.RoleFromSessionToken(token);
+            var result = repository.RoleFromSessionToken(user.SessionToken.Value);
 
             Assert.AreEqual(RoleType.ADMIN, result);
         }
@@ -246,11 +245,11 @@ namespace BuildingManagerDataAccessTest
             };
             repository.CreateUser(admin);
 
-            Guid token = repository.Login(admin.Email, admin.Password);
+            User user = repository.Login(admin.Email, admin.Password);
 
             var result = context.Set<User>().Find(admin.Id);
 
-            Assert.AreEqual(token, result.SessionToken);
+            Assert.AreEqual(user.SessionToken, result.SessionToken);
         }
 
         [TestMethod]
@@ -287,8 +286,8 @@ namespace BuildingManagerDataAccessTest
             };
             repository.CreateUser(admin);
 
-            Guid loginToken = repository.Login(admin.Email, admin.Password);
-            Guid logoutToken = repository.Logout(loginToken);
+            Guid? loginToken = repository.Login(admin.Email, admin.Password).SessionToken;
+            Guid logoutToken = repository.Logout(loginToken.Value);
 
             var result = context.Set<User>().Find(admin.Id).SessionToken;
 
@@ -329,7 +328,7 @@ namespace BuildingManagerDataAccessTest
                 Password = "123456",
             };
             repository.CreateUser(admin);
-            Guid token = repository.Login(admin.Email, admin.Password);
+            Guid token = repository.Login(admin.Email, admin.Password).SessionToken.Value;
 
             var result = repository.GetUserIdFromSessionToken(token);
 
@@ -424,6 +423,55 @@ namespace BuildingManagerDataAccessTest
 
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
             Assert.AreEqual("User with email abc@example.com is not a manager.", exception.Message);
+        }
+
+        [TestMethod]
+        public void GetManagersTest()
+        {
+            var context = CreateDbContext("GetManagersTest");
+            var repository = new UserRepository(context);
+            var manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "admin@gmail.com",
+                Password = "123456",
+            };
+            repository.CreateUser(manager);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "",
+                Password = "123456"
+            };
+            repository.CreateUser(admin);
+
+            var result = repository.GetManagers();
+            Assert.AreEqual(1, result.Count);
+        }
+
+        [TestMethod]
+        public void GetMaintaninersTest()
+        {
+            var context = CreateDbContext("GetMaintaninersTest");
+            var repository = new UserRepository(context);
+            var maintenance = new MaintenanceStaff
+            {
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456",
+                Role = RoleType.MAINTENANCE,
+            };
+            repository.CreateUser(maintenance);
+            List<MaintenanceStaff> expected = [maintenance];
+
+            var result = repository.GetMaintenanceStaff();
+
+            Assert.AreEqual(expected.First(), result.First());
         }
 
         private DbContext CreateDbContext(string name)

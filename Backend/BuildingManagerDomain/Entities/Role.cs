@@ -1,5 +1,4 @@
-﻿using BuildingManagerDomain.Enum;
-using System;
+﻿using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerDomain.Entities
 {

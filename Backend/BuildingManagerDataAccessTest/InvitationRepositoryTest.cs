@@ -256,6 +256,7 @@ namespace BuildingManagerDataAccessTest
             var invitation = new Invitation
             {
                 Id = Guid.NewGuid(),
+                Name = "Peter",
                 Email = "peter@abc.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(2).ToUnixTimeSeconds(),
                 Status = InvitationStatus.PENDING
@@ -270,6 +271,7 @@ namespace BuildingManagerDataAccessTest
             var expectedInvitation = new Invitation
             {
                 Id = invitationAnswer.InvitationId,
+                Name = invitation.Name,
                 Email = invitationAnswer.Email,
                 Status = invitationAnswer.Status,
                 Deadline = invitation.Deadline,
@@ -288,6 +290,7 @@ namespace BuildingManagerDataAccessTest
             var invitation = new Invitation
             {
                 Id = Guid.NewGuid(),
+                Name = "John",
                 Email = "john@abc.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds(),
                 Status = InvitationStatus.PENDING
@@ -303,6 +306,7 @@ namespace BuildingManagerDataAccessTest
             var expectedInvitation = new Invitation
             {
                 Id = invitationAnswer.InvitationId,
+                Name = invitation.Name,
                 Email = invitationAnswer.Email,
                 Status = invitationAnswer.Status,
                 Deadline = invitation.Deadline,
@@ -347,6 +351,7 @@ namespace BuildingManagerDataAccessTest
             var invitation = new Invitation
             {
                 Id = Guid.NewGuid(),
+                Name = "John",
                 Email = "john@abc.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds(),
                 Status = InvitationStatus.PENDING

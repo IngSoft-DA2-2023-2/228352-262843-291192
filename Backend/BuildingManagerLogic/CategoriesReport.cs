@@ -1,5 +1,6 @@
 ﻿using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess;
+using BuildingManagerILogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace BuildingManagerLogic
 {
     public class CategoriesReport : Report
     {
-        public CategoriesReport(IRequestRepository repository) : base(repository) { }
+        public CategoriesReport(IRequestRepository repository, IBuildingLogic buildingLogic) : base(repository, buildingLogic) { }
 
         internal override void SortRequests(Guid? identifier, string filter)
         {

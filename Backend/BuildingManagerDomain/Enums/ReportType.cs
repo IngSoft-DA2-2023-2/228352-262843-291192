@@ -5,5 +5,6 @@ namespace BuildingManagerDomain.Enums
         BUILDINGS,
         MAINTENANCE,
         CATEGORIES,
+        APARTMENTS,
     }
 }
