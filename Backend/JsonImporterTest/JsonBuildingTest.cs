@@ -44,5 +44,30 @@ namespace JsonImporterTest
             JsonBuilding building = new JsonBuilding { CommonExpenses = expenses };
             Assert.AreEqual(expenses, building.CommonExpenses);
         }
+
+        [TestMethod]
+        public void BuildingApartmentsTest()
+        {
+            List<JsonApartment> apartments = new List<JsonApartment>(){ 
+                new JsonApartment() {
+                    Floor = 2,
+                    Number = 1,
+                    Rooms = 4,
+                    HasTerrace = true,
+                    Bathrooms = 3,
+                    OwnerEmail = "some@mail.com"
+                 }, 
+                new JsonApartment() { 
+                    Floor = 3,
+                    Number = 2,
+                    Rooms = 3,
+                    HasTerrace = false,
+                    Bathrooms = 2,
+                    OwnerEmail = "some@mail2.com"
+                } 
+                };
+            JsonBuilding building = new JsonBuilding { Apartments = apartments };
+            Assert.AreEqual(apartments, building.Apartments);
+        }
     }
 }
