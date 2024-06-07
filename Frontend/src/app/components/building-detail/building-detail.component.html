@@ -1,22 +1,24 @@
 <div class="container">
-  <div class="row">
+  <h1 class="font-bold text-2xl	text-center border-y-4">Detalles del edificio</h1>
+  <div class="overflow-auto row">
     <div class="col-md-12">
-      <h1 class="font-bold text-2xl	text-center border-y-4">Detalles del edificio</h1>
       <div class="card">
-        <div class="card-header">
-          <h4>{{ building.name }}</h4>
+        <div class="card-header flex flex-row justify-between">
+          <h4 class="content-center font-bold">{{ building.name }}</h4>
+          <button class="btn btn-primary" (click)="openEditBuildingModal()">Editar</button>
+
         </div>
-        <div class="card-body">
+        <div class="overflow-auto card-body">
           <p><strong>Ubicación:</strong> {{ building.address }}</p>
           <p><strong>Lugar:</strong> {{ building.location }}</p>
           <p><strong>Gastos comunes:</strong> {{ building.commonExpenses }}</p>
           <p><strong>Manager:</strong> {{ building.manager }}</p>
           <p><strong>Companía de construcción:</strong> {{ building.constructionCompany }}</p>
           <p><strong>Apartamentos:</strong></p>
-          <table class="table table-striped">
+          <table class="table table-striped table-auto">
             <thead>
               <tr>
-                <th>Nombre</th>
+                <th>Apartamento</th>
                 <th>Piso</th>
                 <th>Número</th>
                 <th>Cant. baños</th>
@@ -25,8 +27,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let apartment of building.apartments">
-                <td>Apartamento de: {{ apartment.owner.name }}</td>
+              <tr *ngFor="let apartment of building.apartments; let i = index">
+                <td>Apartamento {{ i + 1 }}</td>
                 <td>{{ apartment.floor }}</td>
                 <td>{{ apartment.number }}</td>
                 <td>{{ apartment.bathrooms }}</td>
@@ -39,3 +41,92 @@
       </div>
     </div>
   </div>
+
+
+<div class="modal fade" id="editBuildingModal" tabindex="-1" aria-labelledby="editBuildingModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" style="max-width: 90%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editBuildingModalLabel">Editar Edificio</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editBuildingForm" (ngSubmit)="onSubmit()">
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-4">Datos del Edificio</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input type="text" id="name" class="form-control" formControlName="name">
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label">Dirección</label>
+                <input type="text" id="address" class="form-control" formControlName="address">
+              </div>
+              <div class="mb-3">
+                <label for="location" class="form-label">Lugar</label>
+                <input type="text" id="location" class="form-control" formControlName="location">
+              </div>
+              <div class="mb-3">
+                <label for="commonExpenses" class="form-label">Gastos comunes</label>
+                <input type="number" id="commonExpenses" class="form-control" formControlName="commonExpenses">
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-4">Apartamentos</h3>
+            <div formArrayName="apartments">
+              <div *ngFor="let apartment of building.apartments; let i = index" [formGroupName]="i" class="border p-4 mb-4 rounded-lg">
+                <h4 class="text-lg font-semibold mb-4">Apartamento {{ i + 1 }}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="mb-3">
+                    <label for="number" class="form-label">Número</label>
+                    <input type="number" id="number" class="form-control" formControlName="number">
+                  </div>
+                  <div class="mb-3">
+                    <label for="floor" class="form-label">Piso</label>
+                    <input type="number" id="floor" class="form-control" formControlName="floor">
+                  </div>
+                  <div class="mb-3">
+                    <label for="rooms" class="form-label">Habitaciones</label>
+                    <input type="number" id="rooms" class="form-control" formControlName="rooms">
+                  </div>
+                  <div class="mb-3">
+                    <label for="bathrooms" class="form-label">Baños</label>
+                    <input type="number" id="bathrooms" class="form-control" formControlName="bathrooms">
+                  </div>
+                  <div class="mb-3 flex items-center">
+                    <label for="hasTerrace" class="form-label mr-2">Tiene Terraza</label>
+                    <input type="checkbox" id="hasTerrace" class="form-checkbox h-5 w-5 text-indigo-600" formControlName="hasTerrace">
+                  </div>
+                </div>
+
+                <div formGroupName="owner">
+                  <h5 class="text-lg font-semibold mt-4 mb-2">Dueño</h5>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nombre</label>
+                      <input type="text" id="name" class="form-control" formControlName="name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="lastName" class="form-label">Apellido</label>
+                      <input type="text" id="lastName" class="form-control" formControlName="lastName">
+                    </div>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" id="email" class="form-control" formControlName="email">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

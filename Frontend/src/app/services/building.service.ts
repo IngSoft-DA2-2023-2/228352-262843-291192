@@ -15,7 +15,11 @@ export class BuildingService {
     return this.http.get<Building[]>(`${environment.apiUrl}/buildings`);
   }
 
-  public getBuildingDetails(name: string): Observable<BuildingDetails> {
-    return this.http.get<BuildingDetails>(`${environment.apiUrl}/buildings/${name}`);
+  public getBuildingDetails(id: string): Observable<BuildingDetails> {
+    return this.http.get<BuildingDetails>(`${environment.apiUrl}/buildings/${id}`);
+  }
+
+  public updateBuilding(id: string, building: BuildingDetails): Observable<BuildingDetails> {
+    return this.http.put<BuildingDetails>(`${environment.apiUrl}/buildings/${id}`, building);
   }
 }

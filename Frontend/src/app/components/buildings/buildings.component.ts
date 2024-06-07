@@ -9,11 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
   selector: 'app-buildings',
   standalone: true,
   templateUrl: './buildings.component.html',
+  template: ` <building-detail [childMessage]="buildingName"></building-detail> `,
   styleUrl: './buildings.component.css',
   imports: [CommonModule, RouterModule, HttpClientModule],
   providers: [BuildingService]
 })
 export class BuildingsComponent {
+  buildingName: string = '';
   buildings: Building[] = []
 
   constructor(public buildingService: BuildingService) { 

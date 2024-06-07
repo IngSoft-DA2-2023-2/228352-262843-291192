@@ -1,4 +1,3 @@
-<!-- Acá se va a mostrar la lista de edificios del sistema -->
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -18,7 +17,7 @@
             <td>{{ building.address }}</td>
             <td>{{ building.manager }}</td>
             <td>
-              <a [routerLink]="['/manager/buildings', building.name]" class="btn btn-primary">Modificar</a>
+              <a onclick="buildingName=building.name" [routerLink]="['/manager/buildings', building.id]" class="btn btn-primary">Modificar</a>
             </td>
           </tr>
         </tbody>
