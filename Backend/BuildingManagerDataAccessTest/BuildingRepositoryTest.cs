@@ -378,6 +378,7 @@ namespace BuildingManagerDataAccessTest
             var repository = new BuildingRepository(context);
             Guid buildingId = Guid.NewGuid();
             Guid managerId = Guid.NewGuid();
+            Guid constructionCompanyId = Guid.NewGuid();
             Building originalBuilding = new Building
             {
                 Id = buildingId,
@@ -385,7 +386,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompanyId = Guid.NewGuid(),
+                ConstructionCompanyId = constructionCompanyId,
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -446,7 +447,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompanyId = Guid.NewGuid(),
+                ConstructionCompanyId = constructionCompanyId,
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
@@ -511,6 +512,7 @@ namespace BuildingManagerDataAccessTest
             var repository = new BuildingRepository(context);
             Guid buildingId = Guid.NewGuid();
             Guid managerId = Guid.NewGuid();
+            Guid constructionCompanyId = Guid.NewGuid();
             Building originalBuilding = new Building
             {
                 Id = buildingId,
@@ -518,7 +520,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 1",
                 Address = "Address 1",
                 Location = "Location 1",
-                ConstructionCompanyId = Guid.NewGuid(),
+                ConstructionCompanyId = constructionCompanyId,
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -572,6 +574,7 @@ namespace BuildingManagerDataAccessTest
 
             Guid buildingBId = Guid.NewGuid();
             Guid managerBId = Guid.NewGuid();
+            Guid constructionCompanyBId = Guid.NewGuid();
             Building originalBuilding2 = new Building
             {
                 Id = buildingBId,
@@ -579,7 +582,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building B",
                 Address = "Address B",
                 Location = "Location B",
-                ConstructionCompanyId = Guid.NewGuid(),
+                ConstructionCompanyId = constructionCompanyBId,
                 CommonExpenses = 1000,
                 Apartments = new List<Apartment>
                 {
@@ -641,7 +644,7 @@ namespace BuildingManagerDataAccessTest
                 Name = "Building 2",
                 Address = "Address 2",
                 Location = "Location 2",
-                ConstructionCompanyId = Guid.NewGuid(),
+                ConstructionCompanyId = constructionCompanyId,
                 CommonExpenses = 2000,
                 Apartments = new List<Apartment>
                 {
