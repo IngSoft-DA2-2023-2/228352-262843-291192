@@ -65,7 +65,7 @@ namespace BuildingManagerLogic
             return buildings;
         }
 
-        public class JsonBuilding
+        private class JsonBuilding
         {
             public string Name { get; set; }
             public JsonAddress Address { get; set; }
@@ -75,20 +75,20 @@ namespace BuildingManagerLogic
             public List<JsonApartment> Apartments { get; set; }
         }
 
-        public class JsonAddress
+        private class JsonAddress
         {
             public string MainStreet { get; set; }
             public int DoorNumber { get; set; }
             public string SecondaryStreet { get; set; }
         }
 
-        public class JsonGps
+        private class JsonGps
         {
             public double Latitude { get; set; }
             public double Longitude { get; set; }
         }
 
-        public class JsonApartment
+        private class JsonApartment
         {
             public int Floor { get; set; }
             public int DoorNumber { get; set; }
