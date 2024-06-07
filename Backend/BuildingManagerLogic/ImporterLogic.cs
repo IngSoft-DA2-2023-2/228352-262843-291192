@@ -48,7 +48,7 @@ namespace BuildingManagerLogic
             }
         }
 
-        public void RegisterImporter(IImporter importer)
+        private void RegisterImporter(IImporter importer)
         {
             if (Importers.Any(i => i.Name == importer.Name))
             {
