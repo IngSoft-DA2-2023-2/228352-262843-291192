@@ -473,7 +473,6 @@ namespace BuildingManagerApiTest.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = "New Building Name",
-                ManagerId = buildingWithFullInformation.ManagerId,
                 Address = "New Building Address",
                 Location = "New City",
                 CommonExpenses = 1000,
