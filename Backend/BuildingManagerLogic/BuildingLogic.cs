@@ -152,11 +152,11 @@ namespace BuildingManagerLogic
             }
         }
 
-        public BuildingDetails GetBuildingDetailsByName(string buildingName)
+        public BuildingDetails GetBuildingDetails(Guid buildingId)
         {
             try
             {
-                return _buildingRepository.GetBuildingDetailsByName(buildingName);
+                return _buildingRepository.GetBuildingDetails(buildingId);
             }
             catch (ValueNotFoundException e)
             {

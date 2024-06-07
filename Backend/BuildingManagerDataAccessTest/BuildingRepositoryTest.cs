@@ -1393,7 +1393,7 @@ namespace BuildingManagerDataAccessTest
             context.Set<ConstructionCompany>().Add(company);
             context.SaveChanges();
 
-            BuildingDetails result = repository.GetBuildingDetailsByName("Building 1");
+            BuildingDetails result = repository.GetBuildingDetails(buildingId);
 
             Assert.AreEqual(originalBuilding.Name, result.Name);
             Assert.AreEqual(originalBuilding.Address, result.Address);

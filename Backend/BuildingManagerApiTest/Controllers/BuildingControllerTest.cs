@@ -712,10 +712,10 @@ namespace BuildingManagerApiTest.Controllers
                                                                   "constructionCompanyName", building.Apartments);
             BuildingDetailsResponse buildingDetailsResponse = new BuildingDetailsResponse(buildingDetails);
             Mock<IBuildingLogic> mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
-            mockBuildingLogic.Setup(x => x.GetBuildingDetailsByName(It.IsAny<string>())).Returns(buildingDetails);
+            mockBuildingLogic.Setup(x => x.GetBuildingDetails(It.IsAny<Guid>())).Returns(buildingDetails);
             BuildingController buildingController = new BuildingController(mockBuildingLogic.Object);
 
-            var result = buildingController.GetBuildingDetailsByName(building.Name);
+            var result = buildingController.GetBuildingDetails(building.Id);
             var okObjectResult = result as OkObjectResult;
             var content = okObjectResult.Value as BuildingDetailsResponse;
             Assert.IsNotNull(content);

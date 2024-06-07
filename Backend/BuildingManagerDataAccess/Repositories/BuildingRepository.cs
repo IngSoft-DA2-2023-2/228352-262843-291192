@@ -238,16 +238,16 @@ namespace BuildingManagerDataAccess.Repositories
             return managerId;
         }
 
-        public BuildingDetails GetBuildingDetailsByName(string buildingName)
+        public BuildingDetails GetBuildingDetails(Guid buildingId)
         {
-            if (!_context.Set<Building>().Any(b => b.Name == buildingName))
+            if (!_context.Set<Building>().Any(b => b.Id == buildingId))
             {
                 throw new ValueNotFoundException("Building");
             }
             Building building = _context.Set<Building>()
                                         .Include(b => b.Apartments)
                                             .ThenInclude(a => a.Owner)
-                                        .First(b => b.Name == buildingName);
+                                        .First(b => b.Id == buildingId);
             Manager manager = _context.Set<User>().First(u => u.Id == building.ManagerId) as Manager;
             ConstructionCompany constructionCompany = _context.Set<ConstructionCompany>().First(cc => cc.Id == building.ConstructionCompanyId);
             if(manager != null)

@@ -651,10 +651,10 @@ namespace BuildingManagerLogicTest
             var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
             var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
             var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-            buildingRespositoryMock.Setup(x => x.GetBuildingDetailsByName(It.IsAny<string>())).Returns(buildingDetails);
+            buildingRespositoryMock.Setup(x => x.GetBuildingDetails(It.IsAny<Guid>())).Returns(buildingDetails);
             var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
 
-            var result = buildingLogic.GetBuildingDetailsByName(_building.Name);
+            var result = buildingLogic.GetBuildingDetails(_building.Id);
 
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(buildingDetails, result);
