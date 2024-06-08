@@ -10,7 +10,7 @@ export interface ManagerRequest {
     managerId: string,
     apartmentFloor: string,
     apartmentNumber: string,
-    maintenanceStaffName: string,
+    maintainerStaffName: string,
     attendedAt: number,
     completedAt: number,
     cost: number,

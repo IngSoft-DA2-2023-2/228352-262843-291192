@@ -30,6 +30,9 @@ export class RequestsComponent {
   chosenMaintainer: string = "";
   chosenRequest: ManagerRequest | undefined;
   error: string = "";
+  modal: bootstrap.Modal | undefined;
+  filter: string = "";
+  openFilters: boolean = false;
 
   ngOnInit(): void {
     var requestsObservable: Observable<ListRequests> | null = this.requestService.getManagerRequests();
@@ -62,8 +65,9 @@ export class RequestsComponent {
     const modalElement = document.getElementById('assignOpenRequestModal');
     if (modalElement) {
       this.chosenRequest = this.openRequests.find(request => request.id == id);
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
+      this.chosenMaintainer = this.chosenRequest?.maintainerStaffId !== '00000000-0000-0000-0000-000000000000' && this.chosenRequest?.maintainerStaffId != null ? this.chosenRequest?.maintainerStaffId : "";
+      this.modal = new bootstrap.Modal(modalElement);
+      this.modal.show();
     }
   }
 
@@ -79,25 +83,33 @@ export class RequestsComponent {
   }
 
   onAssignSave(): void {
-    if (this.chosenRequest != null && this.chosenMaintainer != "") {
+    if (this.chosenRequest != null && this.chosenMaintainer !== "") {
       this.error = "";
       var requestsObservable: Observable<ManagerRequest> | null = this.requestService.assignRequest(this.chosenRequest.id, this.chosenMaintainer);
       if (requestsObservable != null) {
         requestsObservable.subscribe(request => {
-          this.openRequests = this.openRequests.filter(request => request.id != this.chosenRequest?.id);
-          this.pendingRequests.push(request);
-          this.chosenRequest = undefined;
-          this.chosenMaintainer = "";
-          const modalElement = document.getElementById('assignOpenRequestModal');
-          if (modalElement) {
-            const modal = new bootstrap.Modal(modalElement);
-            modal.dispose();
+          var oldRequest: ManagerRequest | undefined = this.openRequests.find(request => request.id == this.chosenRequest?.id);
+          if (oldRequest == null) {
+            this.error = "Error al asignar la solicitud";
+          } else {
+            oldRequest.maintainerStaffId = request.maintainerStaffId;
+            oldRequest.maintainerStaffName = request.maintainerStaffName;
+            this.modal?.hide();
+            this.onCloseAssignOpenRequestModal();
           }
-          this.onCloseAssignOpenRequestModal();
         });
       }
     } else {
       this.error = "Seleccione una persona de mantenimiento";
     }
+  }
+
+  onFilterChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.filter = selectElement.value;
+  }
+
+  changeFilters() {
+    this.openFilters = !this.openFilters;
   }
 }

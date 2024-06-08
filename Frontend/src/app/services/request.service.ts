@@ -17,6 +17,7 @@ export class RequestService {
     }
 
     public assignRequest(id: string, maintainerId: string): Observable<ManagerRequest> | null {
-        return this.http.put<ManagerRequest>(`${environment.apiUrl}/requests/${id}`, maintainerId);
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.put<ManagerRequest>(`${environment.apiUrl}/requests/${id}`, JSON.stringify(maintainerId), { headers });
     }
 }
