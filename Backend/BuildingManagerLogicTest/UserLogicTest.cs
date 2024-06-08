@@ -334,5 +334,26 @@ namespace BuildingManagerLogicTest
 
             Assert.AreEqual(maintenanceStaff, result);
         }
+
+        [TestMethod]
+        public void GetUserIdFromManagerEmailTest()
+        {
+            Manager manager = new Manager()
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "mail@mail.com",
+                Password = "pass1234",
+                Role = RoleType.MANAGER
+            };
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.GetManagerIdFromEmail(It.IsAny<string>())).Returns(manager.Id);
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            var result = userLogic.GetManagerIdFromEmail(manager.Email);
+
+            Assert.AreEqual(manager.Id, result);
+        }
     }
 }

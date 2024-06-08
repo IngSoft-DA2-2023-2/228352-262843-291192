@@ -12,11 +12,13 @@ namespace BuildingManagerLogic
     {
         private readonly IUserLogic _userLogic;
         private readonly IConstructionCompanyRepository _companyRepository;
+        private readonly IBuildingLogic _buildingLogic;
         private List<IImporter> Importers = new List<IImporter>();
-        public ImporterLogic(IUserLogic userLogic, IConstructionCompanyRepository companyRepository)
+        public ImporterLogic(IUserLogic userLogic, IConstructionCompanyRepository companyRepository, IBuildingLogic buildingLogic)
         {
             _userLogic = userLogic;
             _companyRepository = companyRepository;
+            _buildingLogic = buildingLogic;
         }
         public List<ImporterBuilding> ImportData(string importerName, string data, Guid companyAdminSessionToken)
         {
@@ -33,8 +35,10 @@ namespace BuildingManagerLogic
             foreach (ImporterBuilding building in buildings)
             {
                 Guid buildingId = Guid.NewGuid();
+                List<Apartment> apartments = new List<Apartment>();
                 foreach (ImporterApartment apartment in building.Apartments)
                 {
+                    Owner owner = _buildingLogic.GetOwnerFromEmail(apartment.OwnerEmail);
                     Apartment a = new Apartment()
                     {
                         Floor = apartment.Floor,
@@ -43,10 +47,20 @@ namespace BuildingManagerLogic
                         HasTerrace = apartment.HasTerrace,
                         Rooms = apartment.Rooms,
                         BuildingId = buildingId,
-                        // Owner = apartment.Owner,
+                        Owner = owner,
                     };
-
+                    apartments.Add(a);
                 }
+
+                Building b = new Building()
+                {
+                    Id = buildingId,
+                    Address = building.Address,
+                    Apartments = apartments,
+                    ConstructionCompanyId = companyId,
+                    // ManagerId = building.Manager,
+                    Name = building.Name,
+                };
             }
 
 

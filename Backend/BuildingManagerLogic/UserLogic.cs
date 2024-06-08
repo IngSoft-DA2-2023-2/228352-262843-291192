@@ -102,5 +102,10 @@ namespace BuildingManagerLogic
         {
             return _userRepository.GetManagers();
         }
+
+        public Guid GetManagerIdFromEmail(string email)
+        {
+            return _userRepository.GetManagerIdFromEmail(email);
+        }
     }
 }
