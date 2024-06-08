@@ -424,9 +424,38 @@ namespace BuildingManagerDataAccessTest
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
             var categoryRepository = new CategoryRepository(context);
+            var buildingRepository = new BuildingRepository(context);
             Guid managerId = Guid.NewGuid();
             Guid managerSessionToken = Guid.NewGuid();
             Guid managerSessionToken2 = Guid.NewGuid();
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                ManagerId = managerId,
+                ConstructionCompanyId = new Guid("11111111-1111-1111-1111-111111111111"),
+                CommonExpenses = 100,
+                Location = "location",
+                Apartments = [
+                    new Apartment
+                    {
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Floor = 1,
+                        Number = 1,
+                        Owner = new Owner
+                        {
+                            Name = "name",
+                            LastName = "lastname",
+                            Email = "some@mail.com"
+                        },
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Rooms = 1
+                    }
+                ]
+            };
+            buildingRepository.CreateBuilding(building);
             MaintenanceStaff maintenanceStaff = new MaintenanceStaff
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
@@ -447,7 +476,8 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Description = "description",
                 CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                BuildingId = building.Id,
+                Building = building,
                 ApartmentFloor = 1,
                 ApartmentNumber = 1,
                 State = RequestState.OPEN,
@@ -460,7 +490,8 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Description = "description2",
                 CategoryId = new Guid("11111111-1111-1111-1111-111111111112"),
-                BuildingId = new Guid("11111111-1111-1111-1111-111111111112"),
+                BuildingId = building.Id,
+                Building = building,
                 ApartmentFloor = 1,
                 ApartmentNumber = 1,
                 State = RequestState.OPEN,

@@ -119,11 +119,11 @@ namespace BuildingManagerDataAccess.Repositories
             Guid managerId = manager.Id;
             if (!string.IsNullOrEmpty(category))
             {
-                return _context.Set<Request>().Where(r => r.ManagerId == managerId && r.Category.Name == category).Include(r => r.Category).Include(r => r.MaintenanceStaff).ToList();
+                return _context.Set<Request>().Where(r => r.ManagerId == managerId && r.Category.Name == category).Include(r => r.Category).Include(r => r.MaintenanceStaff).Include(r => r.Building).ToList();
             }
             else
             {
-                return _context.Set<Request>().Where(r => r.ManagerId == managerId).Include(r => r.Category).Include(r => r.MaintenanceStaff).ToList();
+                return _context.Set<Request>().Where(r => r.ManagerId == managerId).Include(r => r.Category).Include(r => r.MaintenanceStaff).Include(r => r.Building).ToList();
             }
         }
     }
