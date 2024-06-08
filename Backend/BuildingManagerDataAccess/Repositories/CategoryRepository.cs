@@ -25,7 +25,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public List<Category> ListCategories()
         {
-            throw new NotImplementedException();
+            return _context.Set<Category>().ToList();
         }
     }
 }
