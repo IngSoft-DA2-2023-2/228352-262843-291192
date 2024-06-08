@@ -258,18 +258,17 @@ namespace BuildingManagerApiTest.Controllers
                 AttendedAt = 1714544162,
                 Building = _building
             };
-            var requestResponse = new RequestResponse(request);
+            var requestsResponse = new ListRequestResponse(new List<Request> { request });
             var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
             mockRequestLogic.Setup(x => x.GetAssignedRequests(It.IsAny<Guid>())).Returns(new List<Request> { request });
             var requestController = new RequestController(mockRequestLogic.Object);
 
             var result = requestController.GetAssignedRequests((Guid)request.MaintainerStaffId);
             var okObjectResult = result as OkObjectResult;
-            var content = okObjectResult.Value as List<Request>;
+            var content = okObjectResult.Value as ListRequestResponse;
 
             mockRequestLogic.VerifyAll();
-            Assert.AreEqual(1, content.Count);
-            Assert.AreEqual(request, content[0]);
+            Assert.AreEqual(requestsResponse, content);
         }
 
         [TestMethod]
@@ -319,18 +318,17 @@ namespace BuildingManagerApiTest.Controllers
                 },
                 Building = building
             };
-            var requestResponse = new RequestResponse(request);
+            var requestsResponse = new ListRequestResponse([request]);
             var mockRequestLogic = new Mock<IRequestLogic>(MockBehavior.Strict);
             mockRequestLogic.Setup(x => x.GetRequestsByManager(It.IsAny<Guid>(), It.IsAny<string>())).Returns(new List<Request> { request });
             var requestController = new RequestController(mockRequestLogic.Object);
 
             var result = requestController.GetRequestsByManager(request.BuildingId, "Electricista");
             var okObjectResult = result as OkObjectResult;
-            var content = okObjectResult.Value as List<Request>;
+            var content = okObjectResult.Value as ListRequestResponse;
 
             mockRequestLogic.VerifyAll();
-            Assert.AreEqual(1, content.Count);
-            Assert.AreEqual(request, content[0]);
+            Assert.AreEqual(requestsResponse, content);
         }
     }
 }
