@@ -1,0 +1,93 @@
+<div class="flex flex-row items-center justify-between">
+  <h1 class="h3">Solicitudes</h1>
+  <div class="px-2">
+      <select class="py-2 border rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
+          (change)="onRequestsViewChange($event)">
+          <option value='0' selected>Abiertas</option>
+          <option value='1'>En proceso</option>
+          <option value='2'>Cerradas</option>
+      </select>
+</div>
+</div>
+
+<table *ngIf="requestsView == '0'" class="table overflow-auto mt-2">
+  <thead class="thead-light">
+      <tr>
+          <th scope="col">Apartamento</th>
+          <th scope="col">Edificio</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Mantenimiento</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let request of openRequests">
+          <th scope="row">{{ request.apartmentNumber }} - {{ request.apartmentFloor }}</th>
+          <td>{{ request.buildingName }}</td>
+          <td>{{ request.description }}</td>
+          <td>{{ request.categoryName }}</td>
+          <td>{{ request.maintainerStaffName }}</td>
+          <td>{{ request.state == 0 ? 'Abierta' : request.state == 1 ? 'En proceso' : 'Cerrada' }}</td>
+          <td>
+              <button *ngIf="request.state == 0" (click)="onAttendanceRequest(request)" class="btn btn-primary">Atender</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+<table *ngIf="requestsView == '1'" class="table overflow-auto mt-2">
+  <thead class="thead-light">
+      <tr>
+          <th scope="col">Apartamento</th>
+          <th scope="col">Edificio</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Mantenimiento</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha inicio</th>
+          <th scope="col">Acción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let request of pendingRequests">
+          <th scope="row">{{ request.apartmentNumber }} - {{ request.apartmentFloor }}</th>
+          <td>{{ request.buildingName }}</td>
+          <td>{{ request.description }}</td>
+          <td>{{ request.categoryName }}</td>
+          <td>{{ request.maintainerStaffName }}</td>
+          <td>{{ request.state == 0 ? 'Abierta' : request.state == 1 ? 'En proceso' : 'Cerrada' }}</td>
+          <td>{{ request.attendedAt * 1000 | date:'short' }}</td>
+          <td>
+              <button *ngIf="request.state == 1" (click)="onCloseRequest(request)" class="btn btn-primary">Cerrar</button>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+<table *ngIf="requestsView == '2'" class="table overflow-auto mt-2">
+  <thead class="thead-light">
+      <tr>
+          <th scope="col">Apartamento</th>
+          <th scope="col">Edificio</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Mantenimiento</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha cerrado</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let request of closedRequests">
+          <th scope="row">{{ request.apartmentNumber }} - {{ request.apartmentFloor }}</th>
+          <td>{{ request.buildingName }}</td>
+          <td>{{ request.description }}</td>
+          <td>{{ request.categoryName }}</td>
+          <td>{{ request.maintainerStaffName }}</td>
+          <td>{{ request.state == 0 ? 'Abierta' : request.state == 1 ? 'En proceso' : 'Cerrada' }}</td>
+          <td>{{ request.completedAt * 1000 | date:'short' }}</td>
+      </tr>
+  </tbody>
+</table>
+
