@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BuildingManagerDataAccess.Migrations
 {
-    [ExcludeFromCodeCoverage]
     public partial class createadmintable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

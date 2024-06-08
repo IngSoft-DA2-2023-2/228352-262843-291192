@@ -7,7 +7,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerApi.Filters
 {
-    [ExcludeFromCodeCoverage]
     public class CustomExceptionFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext context)

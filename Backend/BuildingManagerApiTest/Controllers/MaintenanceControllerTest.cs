@@ -14,7 +14,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerApiTest.Controllers
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class MaintenanceControllerTest
     {
         private MaintenanceStaff _maintenaceStaff;

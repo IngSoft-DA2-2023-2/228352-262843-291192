@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace BuildingManagerDomainTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class CategoryTest
     {
         [TestMethod]

@@ -5,7 +5,6 @@ using System.Reflection.Metadata;
 
 namespace BuildingManagerDataAccess.Context
 {
-    [ExcludeFromCodeCoverage]
     public class BuildingManagerContext : DbContext
     {
         public DbSet<User> Users { get; set; }
