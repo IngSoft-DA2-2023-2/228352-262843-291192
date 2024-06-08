@@ -427,6 +427,21 @@ namespace BuildingManagerDataAccessTest
             Guid managerId = Guid.NewGuid();
             Guid managerSessionToken = Guid.NewGuid();
             Guid managerSessionToken2 = Guid.NewGuid();
+            MaintenanceStaff maintenanceStaff = new MaintenanceStaff
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Lastname = "some",
+                Email = "some@mail.com",
+                Role = RoleType.MAINTENANCE,
+                Password = "password",
+                SessionToken = Guid.NewGuid(),
+            };
+            Category category = new Category
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
+            };
             List<Request> requests = [new Request
             {
                 Id = Guid.NewGuid(),
@@ -436,9 +451,10 @@ namespace BuildingManagerDataAccessTest
                 ApartmentFloor = 1,
                 ApartmentNumber = 1,
                 State = RequestState.OPEN,
-                MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111111"),
-                ManagerId = managerId
-
+                MaintainerStaffId = maintenanceStaff.Id,
+                ManagerId = managerId,
+                Category = category,
+                MaintenanceStaff = maintenanceStaff
             },
             new Request {
                 Id = Guid.NewGuid(),
@@ -448,10 +464,12 @@ namespace BuildingManagerDataAccessTest
                 ApartmentFloor = 1,
                 ApartmentNumber = 1,
                 State = RequestState.OPEN,
-                MaintainerStaffId = new Guid("11111111-1111-1111-1111-111111111112"),
-                ManagerId = Guid.NewGuid()
+                MaintainerStaffId = maintenanceStaff.Id,
+                ManagerId = Guid.NewGuid(),
+                Category = category,
+                MaintenanceStaff = maintenanceStaff
             }];
-            
+
             userRepository.CreateUser(new Manager
             {
                 Id = managerId,
@@ -470,11 +488,8 @@ namespace BuildingManagerDataAccessTest
                 Email = "manager@gmail.com",
                 Password = "password"
             });
-            categoryRepository.CreateCategory(new Category
-            {
-                Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                Name = "name"
-            });
+            userRepository.CreateUser(maintenanceStaff);
+            categoryRepository.CreateCategory(category);
             repository.CreateRequest(requests[0], managerSessionToken);
             repository.CreateRequest(requests[1], managerSessionToken2);
 

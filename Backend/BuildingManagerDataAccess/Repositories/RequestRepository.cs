@@ -29,7 +29,7 @@ namespace BuildingManagerDataAccess.Repositories
             }
         }
 
-        public Request AttendRequest(Guid id , Guid maintainerStaffId)
+        public Request AttendRequest(Guid id, Guid maintainerStaffId)
         {
             try
             {
@@ -43,11 +43,11 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException(e.Message);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new ValueNotFoundException("Request not found.");
             }
-            
+
         }
 
         public Request CompleteRequest(Guid id, int cost)
@@ -89,10 +89,11 @@ namespace BuildingManagerDataAccess.Repositories
         {
             Guid maintainerStaffId = Guid.Empty;
             try
-            { 
+            {
                 MaintenanceStaff maintenanceStaff = _context.Set<MaintenanceStaff>().First(i => i.SessionToken == sessionToken);
                 maintainerStaffId = maintenanceStaff.Id;
-            }catch(InvalidOperationException)
+            }
+            catch (InvalidOperationException)
             {
                 throw new ValueNotFoundException("User not found.");
             }
@@ -118,11 +119,11 @@ namespace BuildingManagerDataAccess.Repositories
             Guid managerId = manager.Id;
             if (!string.IsNullOrEmpty(category))
             {
-                return _context.Set<Request>().Where(r => r.ManagerId == managerId && r.Category.Name == category).ToList();
+                return _context.Set<Request>().Where(r => r.ManagerId == managerId && r.Category.Name == category).Include(r => r.Category).Include(r => r.MaintenanceStaff).ToList();
             }
             else
             {
-                return _context.Set<Request>().Where(r => r.ManagerId == managerId).ToList();
+                return _context.Set<Request>().Where(r => r.ManagerId == managerId).Include(r => r.Category).Include(r => r.MaintenanceStaff).ToList();
             }
         }
     }
