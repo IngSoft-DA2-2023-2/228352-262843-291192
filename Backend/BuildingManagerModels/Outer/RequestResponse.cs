@@ -15,6 +15,12 @@ namespace BuildingManagerModels.Outer
         public Guid ManagerId { get; set; }
         public int ApartmentFloor { get; set; }
         public int ApartmentNumber { get; set; }
+        public long AttendedAt { get; set; }
+        public long CompletedAt { get; set; }
+        public int Cost { get; set; }
+        public Guid MaintainerStaffId { get; set; }
+        public string MaintainerStaffName { get; set; }
+        public string CategoryName { get; set; }
 
         public RequestResponse(Request request)
         {
@@ -27,6 +33,11 @@ namespace BuildingManagerModels.Outer
             ApartmentNumber = request.ApartmentNumber;
             State = request.State;
             BuildingName = request.Building?.Name ?? "";
+            AttendedAt = request.AttendedAt;
+            CompletedAt = request.CompletedAt;
+            Cost = request.Cost;
+            MaintainerStaffId = request.MaintainerStaffId ?? Guid.Empty;
+            MaintainerStaffName = request.MaintenanceStaff?.Name ?? "";
         }
 
         public override bool Equals(object obj)
@@ -43,7 +54,12 @@ namespace BuildingManagerModels.Outer
             State == other.State &&
             ApartmentFloor == other.ApartmentFloor &&
             ApartmentNumber == other.ApartmentNumber &&
-            BuildingName == other.BuildingName;
+            BuildingName == other.BuildingName &&
+            AttendedAt == other.AttendedAt &&
+            CompletedAt == other.CompletedAt &&
+            Cost == other.Cost &&
+            MaintainerStaffId == other.MaintainerStaffId &&
+            MaintainerStaffName == other.MaintainerStaffName;
         }
     }
 }
