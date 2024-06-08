@@ -91,6 +91,14 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void RequestBuildingTest()
+        {
+            Building building = new();
+            Request request = new() { Building = building };
+            Assert.AreEqual(building, request.Building);
+        }
+
+        [TestMethod]
         public void RequestWithoutDescription()
         {
             Exception exception = null;
