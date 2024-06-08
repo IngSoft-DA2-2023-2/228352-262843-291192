@@ -8,29 +8,39 @@
 
   <nav class="flex-1 overflow-y-auto">
     <ul class="py-4 space-y-2">
+
       <li>
         <a routerLink="/manager/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
            class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
           <span>Inicio</span>
         </a>
       </li>
-      <li>
+
+      <li *ngIf="user.role == 3">
         <a routerLink="/manager/buildings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
            class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
           <span>Edificios</span>
         </a>
       </li>
-      <li>
+
+      <li *ngIf="user.role == 2">
         <a routerLink="/manager/reports" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
            class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
           <span>Reportes</span>
         </a>
       </li>
 
-      <li>
+      <li  *ngIf="user.role == 2">
         <a routerLink="/manager/requests" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
            class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
           <span>Solicitudes</span>
+        </a>
+      </li>
+
+      <li  *ngIf="user.role == 1">
+        <a routerLink="/manager/maintenance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+           class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
+          <span>Mantenimiento</span>
         </a>
       </li>
 
@@ -39,10 +49,11 @@
           <span>Salir</span>
         </a>
       </li>
+
     </ul>
   </nav>
   <div class="flex flex-col items-center mb-8">
-    <img routerLink="/manager/home" class="w-1/2 justify-self-center cursor-pointer" src="../../../assets/img/edificio-blanco.png" alt="Logo">
+    <img routerLink="/manager/home" class="w-1/2 justify-self-center cursor-pointer" src="../../../assets/img/edificio-azul.png" alt="Logo">
     <p class="text-xl font-semibold">Building Manager</p>
   </div>
 </div>
