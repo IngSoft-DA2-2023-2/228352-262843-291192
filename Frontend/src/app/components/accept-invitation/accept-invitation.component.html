@@ -1,17 +1,39 @@
 <div class="flex h-screen">
+  <div class="hover:bg-slate-300 w-fit h-fit rounded-md absolute top-6 left-6 ">
+    <a routerLink="login" class="flex items-center gap-x-2 p-2 ">
+      <svg
+        class="w-5 h-5 rtl:rotate-180"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+        />
+      </svg>
+      <span>Go back</span>
+    </a>
+  </div>
+
   <div class="flex-1 p-6 bg-gray-100">
-    <div class="space-y-10 divide-y divide-gray-900/10">
+    <div
+      class="flex flex-col items-center space-y-10 divide-y divide-gray-900/10"
+    >
       <div class="flex flex-col items-center gap-y-4 mt-6">
         <h2 class="font-semibold leading-7 text-gray-900 text-4xl">
           Aceptar invitación pendiente
         </h2>
         <p class="mt-1 text-sm leading-6 text-gray-600">
-            Ingresa tus datos para aceptar la invitación.
+          Ingresa tus datos para aceptar la invitación.
         </p>
       </div>
 
       <form
-        class="flex flex-col justify-center bg-white w-2/4 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl"
+        class="flex flex-col bg-white w-2/4 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl"
       >
         <div class="flex px-4 py-6 sm:p-8 justify-center">
           <div class="flex flex-col gap-y-8 w-4/5">
@@ -67,11 +89,10 @@
                 />
               </div>
             </div>
-
           </div>
         </div>
         <div
-          class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8"
+          class="flex items-center justify-center gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8"
         >
           <button
             type="submit"
