@@ -11,7 +11,6 @@ namespace BuildingManagerDomain.Entities
         public Guid CategoryId { get; set; }
         public Guid? MaintainerStaffId { get; set; }
         public Guid BuildingId { get; set; }
-        public string BuildingName { get; set; }
         public Guid ManagerId { get; set; }
         public int ApartmentFloor { get; set; }
         public int ApartmentNumber { get; set; }
