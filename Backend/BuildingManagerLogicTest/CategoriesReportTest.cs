@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 namespace BuildingManagerLogicTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class CategoriesReportTest
     {
         [TestMethod]

@@ -1,0 +1,146 @@
+<div class="flex flex -row">
+    <!-- <button class="mr-2" (click)="changeFilters()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+        </svg>
+    </button> -->
+    <h1 class="h3">Solicitudes</h1>
+    <div class="px-2">
+        <select class="py-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
+            (change)="onRequestsViewChange($event)">
+            <option value='0' selected>Abiertas</option>
+            <option value='1'>En proceso</option>
+            <option value='2'>Cerradas</option>
+        </select>
+    </div>
+</div>
+<!-- <div *ngIf="openFilters" class="flex flex-row my-3 items-center">
+    <h3>Filtrar por categoria: </h3>
+    <select class="ml-2 py-2 px-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
+        (change)="onFilterChange($event)">
+        <option value='' selected>Todos</option>
+        <option *ngFor="let building of buildings?.buildings" [value]="building?.id">{{building.name}}</option>
+    </select>
+</div> -->
+<table *ngIf="requestsView == '0'" class="table mt-2">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Apartamento</th>
+            <th scope="col">Edificio</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Mantenimiento</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let request of openRequests">
+            <th scope="row">{{ request.apartmentNumber }} - {{ request.apartmentFloor }}</th>
+            <td>{{ request.buildingName }}</td>
+            <td>{{ request.description }}</td>
+            <td>{{ request.categoryName }}</td>
+            <td>
+                {{ request.maintainerStaffName && request.maintainerStaffName !== '' ?
+                request.maintainerStaffName : '-' }}
+            </td>
+            <td>
+                <button type="button" (click)="openAssignOpenRequestModal(request.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                    </svg>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table *ngIf="requestsView == '1'" class="table mt-2">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Apartamento</th>
+            <th scope="col">Edificio</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Mantenimiento</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let request of pendingRequests">
+            <th scope="row">{{ request.apartmentNumber }} - {{ request.apartmentFloor }}</th>
+            <td>{{ request.buildingName }}</td>
+            <td>{{ request.description }}</td>
+            <td>{{ request.categoryName }}</td>
+            <td>{{ request.maintainerStaffName }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table *ngIf="requestsView == '2'" class="table mt-2">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Apartamento</th>
+            <th scope="col">Edificio</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Mantenimiento</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Atendida</th>
+            <th scope="col">Cerrada</th>
+            <th scope="col">Costo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let request of closeRequests">
+            <th scope="row">{{ request.apartmentNumber }} - {{ request.apartmentFloor }}</th>
+            <td>{{ request.buildingName }}</td>
+            <td>{{ request.description }}</td>
+            <td>{{ request.categoryName }}</td>
+            <td>{{ request.maintainerStaffName }}</td>
+            <td>{{ request.state }}</td>
+            <td>{{ request.attendedAt }}</td>
+            <td>{{ request.completedAt }}</td>
+            <td>{{ request.cost }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="assignOpenRequestModal" tabindex="-1" aria-labelledby="assignOpenRequestModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl" style="max-width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignOpenRequestModalLabel">Asignar solicitud</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onCloseAssignOpenRequestModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="flex flex-row justify-between mt-2 mb-4">
+                    <div class="flex flex-col">
+                        <h1>{{ chosenRequest?.apartmentNumber }} - {{ chosenRequest?.apartmentFloor }}</h1>
+                        <h1>{{chosenRequest?.description}}</h1>
+                    </div>
+                    <select class="ml-2 py-2 px-3 border border-black rounded-md form-select form-select-lg"
+                        aria-label=".form-select-lg example" [(ngModel)]="chosenMaintainer"
+                        (change)="onMaintainerChange($event)">
+                        <option *ngFor="let maintainer of maintainers?.maintainers" [value]="maintainer?.id">
+                            {{maintainer.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="flex flex-row justify-between items-center">
+                    <h1 class="text-red-700">{{error}}</h1>
+                    <button type="button" class="btn btn-primary" (click)="onAssignSave()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

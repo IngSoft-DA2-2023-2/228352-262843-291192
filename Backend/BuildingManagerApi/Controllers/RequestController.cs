@@ -45,7 +45,7 @@ namespace BuildingManagerApi.Controllers
 
         [HttpPut("{id}/completed")]
         [AuthenticationFilter(RoleType.MAINTENANCE)]
-        public IActionResult CompleteRequest([FromRoute] Guid id, [FromBody]int cost)
+        public IActionResult CompleteRequest([FromRoute] Guid id, [FromBody] int cost)
         {
             RequestResponse updateRequestResponse = new(_requestLogic.CompleteRequest(id, cost));
             return Ok(updateRequestResponse);
@@ -56,7 +56,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.MAINTENANCE)]
         public IActionResult GetAssignedRequests([FromHeader(Name = "Authorization")] Guid managerSessionToken)
         {
-            var assignedRequests = _requestLogic.GetAssignedRequests(managerSessionToken);
+            ListRequestResponse assignedRequests = new(_requestLogic.GetAssignedRequests(managerSessionToken));
             return Ok(assignedRequests);
         }
 
@@ -65,7 +65,7 @@ namespace BuildingManagerApi.Controllers
         [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult GetRequestsByManager([FromHeader(Name = "Authorization")] Guid managerSessionToken, [FromQuery] string? category)
         {
-            var requestsByManager = _requestLogic.GetRequestsByManager(managerSessionToken, category);
+            ListRequestResponse requestsByManager = new(_requestLogic.GetRequestsByManager(managerSessionToken, category));
             return Ok(requestsByManager);
         }
     }

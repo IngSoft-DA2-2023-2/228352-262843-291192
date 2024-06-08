@@ -8,7 +8,6 @@ using BuildingManagerModels.CustomExceptions;
 namespace BuildingManagerDomainTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class RequestTest
     {
         [TestMethod]
@@ -82,13 +81,21 @@ namespace BuildingManagerDomainTest
             Request request = new() { MaintenanceStaff = maintainer };
             Assert.AreEqual(maintainer, request.MaintenanceStaff);
         }
-        
+
         [TestMethod]
         public void RequestCategoryTest()
         {
             Category category = new();
             Request request = new() { Category = category };
             Assert.AreEqual(category, request.Category);
+        }
+
+        [TestMethod]
+        public void RequestBuildingTest()
+        {
+            Building building = new();
+            Request request = new() { Building = building };
+            Assert.AreEqual(building, request.Building);
         }
 
         [TestMethod]

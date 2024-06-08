@@ -8,7 +8,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerDataAccessTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class CategoryRepositoryTest
     {
         [TestMethod]

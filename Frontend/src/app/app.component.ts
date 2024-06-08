@@ -8,11 +8,13 @@ import { CommonModule } from '@angular/common';
 import { ManagerComponent } from './components/manager/manager.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportsComponent } from './components/reports/reports.component';
+import { RequestsComponent } from './components/requests/requests.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, LoginComponent, ManagerComponent, HomeComponent, SidebarComponent, HttpClientModule, ReportsComponent],
+  imports: [RouterOutlet, CommonModule, LoginComponent, ManagerComponent, HomeComponent, 
+    SidebarComponent, HttpClientModule, ReportsComponent, RequestsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

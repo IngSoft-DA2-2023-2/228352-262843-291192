@@ -12,7 +12,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerLogicTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ReportLogicTest
     {
         [TestMethod]

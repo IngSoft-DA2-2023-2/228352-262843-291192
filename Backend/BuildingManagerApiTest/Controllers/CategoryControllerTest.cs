@@ -13,7 +13,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerApiTest.Controllers
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class CategoryControllerTest
     {
         [TestMethod]
