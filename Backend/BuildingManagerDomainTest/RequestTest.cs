@@ -28,6 +28,14 @@ namespace BuildingManagerDomainTest
         }
 
         [TestMethod]
+        public void RequestBuildingNameTest()
+        {
+            string buildingName = "some name";
+            Request request = new() { BuildingName = buildingName };
+            Assert.AreEqual(buildingName, request.BuildingName);
+        }
+
+        [TestMethod]
         public void RequestStateTest()
         {
             RequestState state = RequestState.OPEN;
@@ -82,7 +90,7 @@ namespace BuildingManagerDomainTest
             Request request = new() { MaintenanceStaff = maintainer };
             Assert.AreEqual(maintainer, request.MaintenanceStaff);
         }
-        
+
         [TestMethod]
         public void RequestCategoryTest()
         {
