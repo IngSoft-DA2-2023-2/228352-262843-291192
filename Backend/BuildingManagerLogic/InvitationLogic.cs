@@ -5,6 +5,7 @@ using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
 using System;
 using BuildingManagerLogic.Helpers;
+using BuildingManagerDomain.Enums;
 
 namespace BuildingManagerLogic
 {
@@ -21,6 +22,10 @@ namespace BuildingManagerLogic
         {
             try
             {
+                if(invitation.Role != RoleType.MANAGER && invitation.Role != RoleType.CONSTRUCTIONCOMPANYADMIN)
+                {
+                    throw new ArgumentException("role");
+                }
                 if (_userRepository.EmailExists(invitation.Email))
                 {
                     ValueDuplicatedException e = new ValueDuplicatedException("Email");

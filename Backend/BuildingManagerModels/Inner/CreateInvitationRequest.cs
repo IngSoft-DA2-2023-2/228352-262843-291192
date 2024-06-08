@@ -11,6 +11,7 @@ namespace BuildingManagerModels.Inner
         public string Email { get; set; }
         public string Name { get; set; }
         public long Deadline { get; set; }
+        public RoleType Role { get; set; }
         public Invitation ToEntity()
         {
             Validate();
@@ -20,6 +21,7 @@ namespace BuildingManagerModels.Inner
                 Name = this.Name,
                 Deadline = this.Deadline,
                 Status = InvitationStatus.PENDING,
+                Role = this.Role
             };
         }
 
@@ -41,6 +43,10 @@ namespace BuildingManagerModels.Inner
             if (today >= Deadline)
             {
                 throw new InvalidArgumentException("deadline");
+            }
+            if(Role != RoleType.MANAGER && Role != RoleType.CONSTRUCTIONCOMPANYADMIN)
+            {
+                throw new InvalidArgumentException("role");
             }
         }
 
