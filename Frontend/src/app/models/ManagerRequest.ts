@@ -1,5 +1,3 @@
-import { Category } from "./Category";
-import { MaintenanceStaff } from "./MaintenanceStaff";
 import { RequestState } from "./RequestState";
 
 export interface ManagerRequest {
@@ -12,10 +10,11 @@ export interface ManagerRequest {
     managerId: string,
     apartmentFloor: string,
     apartmentNumber: string,
-    maintenanceStaff: MaintenanceStaff,
-    category: Category,
+    maintenanceStaffName: string,
     attendedAt: number,
     completedAt: number,
-    cost: number 
+    cost: number,
+    buildingName: string,
+    categoryName: string,
 }
 
