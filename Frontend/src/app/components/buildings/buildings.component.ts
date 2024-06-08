@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { Building } from '../../models/Building';
 import { BuildingService } from '../../services/building.service';
 import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-buildings',
@@ -31,5 +32,30 @@ export class BuildingsComponent {
         console.log('Error al obtener edificios:', error);
       }
     );
+  }
+
+  openDeleteBuildingModal(buildingId: string): void {
+    Swal.fire({
+      title: '¿Estás seguro de que quieres eliminar este edificio?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.buildingService.deleteBuilding(buildingId).subscribe(
+          () => {
+            this.buildings = this.buildings.filter(building => building.id !== buildingId);
+            Swal.fire('¡Eliminado!', 'El edificio ha sido eliminado correctamente.', 'success');
+          },
+          (error: any) => {
+            console.error('Error al eliminar el edificio:', error);
+            Swal.fire('Error', 'Hubo un error al intentar eliminar el edificio.', 'error');
+          }
+        );
+      }
+    });
   }
 }
