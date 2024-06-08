@@ -129,16 +129,13 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("AssignStaffTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            var buildingRepository = new BuildingRepository(context);
             Guid managerSessionToken = Guid.NewGuid();
-            var request = new Request
+            Category category = new Category
             {
-                Id = Guid.NewGuid(),
-                Description = "description",
-                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
-                ApartmentFloor = 1,
-                ApartmentNumber = 1,
-                State = RequestState.OPEN
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
             };
             var staff = new User
             {
@@ -158,10 +155,51 @@ namespace BuildingManagerDataAccessTest
                 Email = "manager@gmail.com",
                 Password = "password"
             };
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                ManagerId = manager.Id,
+                ConstructionCompanyId = new Guid("11111111-1111-1111-1111-111111111111"),
+                CommonExpenses = 100,
+                Location = "location",
+                Apartments = [
+                    new Apartment
+                    {
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Floor = 1,
+                        Number = 1,
+                        Owner = new Owner
+                        {
+                            Name = "name",
+                            LastName = "lastname",
+                            Email = "some@mail.com"
+                        },
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Rooms = 1
+                    }
+                ]
+            };
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = category.Id,
+                BuildingId = building.Id,
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                ManagerId = manager.Id,
+                Building = building,
+                Category = category
+            };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
+            categoryRepository.CreateCategory(category);
+            buildingRepository.CreateBuilding(building);
             repository.CreateRequest(request, managerSessionToken);
-
             var result = repository.AssignStaff(request.Id, staff.Id);
 
             Assert.AreEqual(staff.Id, result.MaintainerStaffId);
@@ -201,16 +239,13 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("AttendRequestTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            var buildingRepository = new BuildingRepository(context);
             Guid managerSessionToken = Guid.NewGuid();
-            var request = new Request
+            Category category = new Category
             {
-                Id = Guid.NewGuid(),
-                Description = "description",
-                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
-                ApartmentFloor = 1,
-                ApartmentNumber = 1,
-                State = RequestState.OPEN
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
             };
             var staff = new User
             {
@@ -230,8 +265,51 @@ namespace BuildingManagerDataAccessTest
                 Email = "manager@gmail.com",
                 Password = "password"
             };
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                ManagerId = manager.Id,
+                ConstructionCompanyId = new Guid("11111111-1111-1111-1111-111111111111"),
+                CommonExpenses = 100,
+                Location = "location",
+                Apartments = [
+                    new Apartment
+                    {
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Floor = 1,
+                        Number = 1,
+                        Owner = new Owner
+                        {
+                            Name = "name",
+                            LastName = "lastname",
+                            Email = "some@mail.com"
+                        },
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Rooms = 1
+                    }
+                ]
+            };
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = category.Id,
+                BuildingId = building.Id,
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                ManagerId = manager.Id,
+                Building = building,
+                Category = category,
+                MaintainerStaffId = staff.Id
+            };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
+            categoryRepository.CreateCategory(category);
+            buildingRepository.CreateBuilding(building);
             repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.AttendRequest(request.Id, staff.Id);
@@ -283,16 +361,13 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("AttendRequestAttendAtNowTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            var buildingRepository = new BuildingRepository(context);
             Guid managerSessionToken = Guid.NewGuid();
-            var request = new Request
+            Category category = new Category
             {
-                Id = Guid.NewGuid(),
-                Description = "description",
-                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
-                ApartmentFloor = 1,
-                ApartmentNumber = 1,
-                State = RequestState.OPEN
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
             };
             var staff = new User
             {
@@ -312,8 +387,51 @@ namespace BuildingManagerDataAccessTest
                 Email = "manager@gmail.com",
                 Password = "password"
             };
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                ManagerId = manager.Id,
+                ConstructionCompanyId = new Guid("11111111-1111-1111-1111-111111111111"),
+                CommonExpenses = 100,
+                Location = "location",
+                Apartments = [
+                    new Apartment
+                    {
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Floor = 1,
+                        Number = 1,
+                        Owner = new Owner
+                        {
+                            Name = "name",
+                            LastName = "lastname",
+                            Email = "some@mail.com"
+                        },
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Rooms = 1
+                    }
+                ]
+            };
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = category.Id,
+                BuildingId = building.Id,
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                ManagerId = manager.Id,
+                Building = building,
+                Category = category,
+                MaintainerStaffId = staff.Id
+            };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
+            categoryRepository.CreateCategory(category);
+            buildingRepository.CreateBuilding(building);
             repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.AttendRequest(request.Id, staff.Id);
@@ -327,18 +445,14 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("CompleteRequestTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            var buildingRepository = new BuildingRepository(context);
             Guid managerSessionToken = Guid.NewGuid();
-            var request = new Request
+            Category category = new Category
             {
-                Id = Guid.NewGuid(),
-                Description = "description",
-                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
-                ApartmentFloor = 1,
-                ApartmentNumber = 1,
-                State = RequestState.ATTENDING
-            };
-            var staff = new User
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
+            }; var staff = new User
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
@@ -356,8 +470,48 @@ namespace BuildingManagerDataAccessTest
                 Email = "manager@gmail.com",
                 Password = "password"
             };
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                ManagerId = manager.Id,
+                ConstructionCompanyId = new Guid("11111111-1111-1111-1111-111111111111"),
+                CommonExpenses = 100,
+                Location = "location",
+                Apartments = [
+                    new Apartment
+                    {
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Floor = 1,
+                        Number = 1,
+                        Owner = new Owner
+                        {
+                            Name = "name",
+                            LastName = "lastname",
+                            Email = "some@mail.com"
+                        },
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Rooms = 1
+                    }
+                ]
+            };
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = category.Id,
+                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.ATTENDING,
+                MaintainerStaffId = staff.Id,
+            };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
+            categoryRepository.CreateCategory(category);
+            buildingRepository.CreateBuilding(building);
             repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.CompleteRequest(request.Id, 100);
@@ -410,16 +564,13 @@ namespace BuildingManagerDataAccessTest
             var context = CreateDbContext("CompleteRequestCompletedAtNowTest");
             var repository = new RequestRepository(context);
             var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            var buildingRepository = new BuildingRepository(context);
             Guid managerSessionToken = Guid.NewGuid();
-            var request = new Request
+            Category category = new Category
             {
-                Id = Guid.NewGuid(),
-                Description = "description",
-                CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
-                BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
-                ApartmentFloor = 1,
-                ApartmentNumber = 1,
-                State = RequestState.ATTENDING
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
             };
             var staff = new User
             {
@@ -439,8 +590,47 @@ namespace BuildingManagerDataAccessTest
                 Email = "manager@gmail.com",
                 Password = "password"
             };
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                ManagerId = manager.Id,
+                ConstructionCompanyId = new Guid("11111111-1111-1111-1111-111111111111"),
+                CommonExpenses = 100,
+                Location = "location",
+                Apartments = [
+                    new Apartment
+                    {
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Floor = 1,
+                        Number = 1,
+                        Owner = new Owner
+                        {
+                            Name = "name",
+                            LastName = "lastname",
+                            Email = "some@mail.com"
+                        },
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Rooms = 1
+                    }
+                ]
+            };
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = category.Id,
+                BuildingId = building.Id,
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.ATTENDING,
+            };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
+            categoryRepository.CreateCategory(category);
+            buildingRepository.CreateBuilding(building);
             repository.CreateRequest(request, managerSessionToken);
 
             var result = repository.CompleteRequest(request.Id, 100);

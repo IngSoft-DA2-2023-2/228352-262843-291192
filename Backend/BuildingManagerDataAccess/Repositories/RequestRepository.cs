@@ -18,9 +18,10 @@ namespace BuildingManagerDataAccess.Repositories
         {
             try
             {
-                Request request = _context.Set<Request>().Find(id);
+                Request request = _context.Set<Request>().Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
                 request.MaintainerStaffId = maintenanceStaffId;
                 _context.SaveChanges();
+                request = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
                 return request;
             }
             catch (Exception)
@@ -33,7 +34,7 @@ namespace BuildingManagerDataAccess.Repositories
         {
             try
             {
-                Request request = _context.Set<Request>().First(r => r.Id == id);
+                Request request = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
                 request.State = RequestState.ATTENDING;
                 request.AttendedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
                 _context.SaveChanges();
@@ -54,7 +55,7 @@ namespace BuildingManagerDataAccess.Repositories
         {
             try
             {
-                Request request = _context.Set<Request>().Find(id);
+                Request request = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
                 request.State = RequestState.CLOSE;
                 request.CompletedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
                 request.Cost = cost;
@@ -97,7 +98,7 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("User not found.");
             }
-            return _context.Set<Request>().Where(r => r.MaintainerStaffId == maintainerStaffId).ToList();
+            return _context.Set<Request>().Where(r => r.MaintainerStaffId == maintainerStaffId).Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).ToList();
         }
 
         public List<Request> GetRequests()

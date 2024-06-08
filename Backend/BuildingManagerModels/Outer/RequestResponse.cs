@@ -38,6 +38,7 @@ namespace BuildingManagerModels.Outer
             Cost = request.Cost;
             MaintainerStaffId = request.MaintainerStaffId ?? Guid.Empty;
             MaintainerStaffName = request.MaintenanceStaff?.Name ?? "";
+            CategoryName = request.Category?.Name ?? "";
         }
 
         public override bool Equals(object obj)
