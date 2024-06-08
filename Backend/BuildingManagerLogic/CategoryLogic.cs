@@ -28,7 +28,7 @@ namespace BuildingManagerLogic
 
         public List<Category> ListCategories()
         {
-            throw new NotImplementedException();
+            return _categoryRepository.ListCategories();
         }
     }
 }

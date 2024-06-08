@@ -22,5 +22,10 @@ namespace BuildingManagerDataAccess.Repositories
             _context.SaveChanges();
             return category;
         }
+
+        public List<Category> ListCategories()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
