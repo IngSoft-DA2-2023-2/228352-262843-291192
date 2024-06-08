@@ -355,5 +355,28 @@ namespace BuildingManagerLogicTest
 
             Assert.AreEqual(manager.Id, result);
         }
+
+        [TestMethod]
+        public void GetManagerIdFromInvalidEmailTest()
+        {
+            var userRespositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRespositoryMock.Setup(x => x.GetManagerIdFromEmail(It.IsAny<string>())).Throws(new ValueNotFoundException(""));
+            var userLogic = new UserLogic(userRespositoryMock.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                userLogic.GetManagerIdFromEmail("some@mail.com");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            userRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
     }
 }
