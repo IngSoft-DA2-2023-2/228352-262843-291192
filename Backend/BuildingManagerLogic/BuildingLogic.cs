@@ -176,7 +176,14 @@ namespace BuildingManagerLogic
 
         public Owner GetOwnerFromEmail(string email)
         {
-            return _buildingRepository.GetOwnerFromEmail(email);
+            try
+            {
+                return _buildingRepository.GetOwnerFromEmail(email);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
     }
 }

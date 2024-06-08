@@ -734,5 +734,29 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(owner, result);
         }
+
+        [TestMethod]
+        public void GetOwnerFromInvalidEmailTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetOwnerFromEmail(It.IsAny<string>())).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.GetOwnerFromEmail("some@mail.com");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }
