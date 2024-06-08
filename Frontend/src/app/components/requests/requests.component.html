@@ -79,7 +79,7 @@
             <td>{{ request.description }}</td>
             <td>{{ request.categoryName }}</td>
             <td>{{ request.maintainerStaffName }}</td>
-            <td>{{ request.attendedAt | date:'short' }}</td>
+            <td>{{ request.attendedAt * 1000 | date:'short' }}</td>
         </tr>
     </tbody>
 </table>
@@ -104,8 +104,8 @@
             <td>{{ request.description }}</td>
             <td>{{ request.categoryName }}</td>
             <td>{{ request.maintainerStaffName }}</td>
-            <td>{{ request.attendedAt | date:'short' }}</td>
-            <td>{{ request.completedAt | date:'short' }}</td>
+            <td>{{ request.attendedAt * 1000 | date:'short' }}</td>
+            <td>{{ request.completedAt * 1000 | date:'short' }}</td>
             <td>{{ request.cost }}</td>
         </tr>
     </tbody>

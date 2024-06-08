@@ -30,7 +30,8 @@ export class ReportsComponent implements OnInit {
   buildingId: string = "";
   managerId: string = "";
   buildings: ManagerBuildings | undefined;
-  filter: string = "";
+  buildingFilter: string = "";
+  maintainerFilter: string = "";
   openFilters: boolean = false;
   maintainers: Maintainers | undefined;
   errors: string = "";
@@ -44,7 +45,7 @@ export class ReportsComponent implements OnInit {
       // this.routerServices.navigate(['/login']);
     }
     else {
-      let managerConnectedJson =  JSON.parse(managerConnected);
+      let managerConnectedJson = JSON.parse(managerConnected);
       this.managerId = managerConnectedJson.userId;
     }
 
@@ -69,7 +70,7 @@ export class ReportsComponent implements OnInit {
     switch (this.reportType) {
       case "0":
         var buildingsReportsObservable: Observable<BuildingsReport> | null = null;
-        buildingsReportsObservable = this.reportService.getBuildingsReport(this.filter);
+        buildingsReportsObservable = this.reportService.getBuildingsReport(this.buildingFilter);
         if (buildingsReportsObservable != null) {
           buildingsReportsObservable.subscribe(report => {
             this.buildingsReport = report;
@@ -80,7 +81,7 @@ export class ReportsComponent implements OnInit {
         var maintenancesReportsObservable: Observable<MaintenancesReport> | null = null;
         if (this.buildingId !== "") {
           this.errors = "";
-          maintenancesReportsObservable = this.reportService.getMaintenanceReport(this.buildingId, this.filter);
+          maintenancesReportsObservable = this.reportService.getMaintenanceReport(this.buildingId, this.maintainerFilter);
           if (maintenancesReportsObservable != null) {
             maintenancesReportsObservable.subscribe(report => {
               this.maintenancesReport = report;
@@ -118,9 +119,14 @@ export class ReportsComponent implements OnInit {
     this.buildingId = selectElement.value;
   }
 
-  onFilterChange(event: Event) {
+  onBuildingFilterChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    this.filter = selectElement.value;
+    this.buildingFilter = selectElement.value;
+  }
+
+  onMaintainerFilterChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.maintainerFilter = selectElement.value;
   }
 
   changeFilters() {
