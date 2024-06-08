@@ -1,29 +1,34 @@
-﻿using System.Text.Json;
-using BuildingManagerIImporter;
+﻿using BuildingManagerIImporter;
 using BuildingManagerIImporter.Exceptions;
+using System.Xml.Serialization;
+using System.IO;
 
-namespace JsonImporter
+namespace XmlImporter
 {
-    public class JsonImporter : IImporter
+    public class XmlImporter : IImporter
     {
-        public string Name => "DefaultJson";
+        public string Name => "DefaultXml";
 
-        public JsonImporter() { }
+        public XmlImporter() { }
 
         public List<ImporterBuilding> Import(string data, Guid companyId)
         {
+            XmlSerializer serializer = new XmlSerializer(typeof(XmlImporterBuilding));
             List<ImporterBuilding> buildings = new List<ImporterBuilding>();
-            JsonImporterBuilding jsonBuildings;
+            XmlImporterBuilding xmlBuildings;
             try
             {
-                jsonBuildings = JsonSerializer.Deserialize<JsonImporterBuilding>(data);
+                using (StringReader reader = new StringReader(data))
+                {
+                    xmlBuildings = (XmlImporterBuilding)serializer.Deserialize(reader);
+                }
             }
             catch (Exception e)
             {
                 throw new NotCorrectImporterException(e, "Error while parsing the JSON data");
             }
 
-            foreach (JsonBuilding buildingData in jsonBuildings.edificios)
+            foreach (XmlBuilding buildingData in xmlBuildings.edificios.building)
             {
                 ImporterBuilding building = new ImporterBuilding
                 {
@@ -54,34 +59,38 @@ namespace JsonImporter
             return buildings;
         }
 
-        private class JsonImporterBuilding
+        public class XmlImporterBuilding
         {
-            public List<JsonBuilding> edificios { get; set; }
+            public XmlBuildings edificios { get; set; }
         }
-        private class JsonBuilding
+        public class XmlBuildings
+        {
+            public List<XmlBuilding> building { get; set; }
+        }
+        public class XmlBuilding
         {
             public string nombre { get; set; }
-            public JsonAddress direccion { get; set; }
+            public XmlAddress direccion { get; set; }
             public string encargado { get; set; }
-            public JsonGps gps { get; set; }
+            public XmlGps gps { get; set; }
             public long gastos_comunes { get; set; }
-            public List<JsonApartment> departamentos { get; set; }
+            public List<XmlApartment> departamentos { get; set; }
         }
 
-        private class JsonAddress
+        public class XmlAddress
         {
             public string calle_principal { get; set; }
             public int numero_puerta { get; set; }
             public string calle_secundaria { get; set; }
         }
 
-        private class JsonGps
+        public class XmlGps
         {
             public double latitud { get; set; }
             public double longitud { get; set; }
         }
 
-        private class JsonApartment
+        public class XmlApartment
         {
             public int piso { get; set; }
             public int numero_puerta { get; set; }

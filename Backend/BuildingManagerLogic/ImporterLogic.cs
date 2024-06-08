@@ -1,7 +1,7 @@
 ﻿using BuildingManagerDomain.Entities;
-using BuildingManagerIDataAccess;
 using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerIImporter;
+using BuildingManagerIImporter.Exceptions;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using System.Reflection;
@@ -11,26 +11,34 @@ namespace BuildingManagerLogic
     public class ImporterLogic : IImporterLogic
     {
         private readonly IUserLogic _userLogic;
-        private readonly IConstructionCompanyRepository _companyRepository;
+        private readonly IConstructionCompanyLogic _companyLogic;
         private readonly IBuildingLogic _buildingLogic;
         private List<IImporter> Importers = new List<IImporter>();
-        public ImporterLogic(IUserLogic userLogic, IConstructionCompanyRepository companyRepository, IBuildingLogic buildingLogic)
+        public ImporterLogic(IUserLogic userLogic, IConstructionCompanyLogic companyLogic, IBuildingLogic buildingLogic)
         {
             _userLogic = userLogic;
-            _companyRepository = companyRepository;
+            _companyLogic = companyLogic;
             _buildingLogic = buildingLogic;
         }
-        public List<ImporterBuilding> ImportData(string importerName, string data, Guid companyAdminSessionToken)
+        public List<Building> ImportData(string importerName, string data, Guid companyAdminSessionToken)
         {
-            Guid contrstructionCompanyAdminId = _userLogic.GetUserIdFromSessionToken(companyAdminSessionToken);
-            Guid companyId = _companyRepository.GetCompanyIdFromUserId(contrstructionCompanyAdminId);
+            Guid constructionCompanyAdminId = _userLogic.GetUserIdFromSessionToken(companyAdminSessionToken);
+            Guid companyId = _companyLogic.GetCompanyIdFromUserId(constructionCompanyAdminId);
             List<IImporter> importers = ListImporters();
             if (importers.Any(i => i.Name.Equals(importerName)) == false)
             {
                 throw new NotFoundException(new ValueNotFoundException("Importer not found"), "Importer not found");
             }
             IImporter importer = importers.Find(i => i.Name.Equals(importerName));
-            List<ImporterBuilding> buildings = importer.Import(data, companyId);
+            List<ImporterBuilding> buildings;
+            try
+            {
+                buildings = importer.Import(data, companyId);
+            }
+            catch (NotCorrectImporterException e)
+            {
+                throw new NotFoundException(e, "Error while importing the data");
+            }
             List<Building> buildingsToCreate = new List<Building>();
             foreach (ImporterBuilding building in buildings)
             {
@@ -51,20 +59,24 @@ namespace BuildingManagerLogic
                     };
                     apartments.Add(a);
                 }
-
+                Guid managerId = _userLogic.GetManagerIdFromEmail(building.Manager);
                 Building b = new Building()
                 {
                     Id = buildingId,
                     Address = building.Address,
                     Apartments = apartments,
                     ConstructionCompanyId = companyId,
-                    // ManagerId = building.Manager,
+                    ManagerId = managerId,
                     Name = building.Name,
+                    Location = building.Location,
+                    CommonExpenses = building.CommonExpenses,
                 };
+
+                _buildingLogic.CreateBuilding(b, companyAdminSessionToken);
+                buildingsToCreate.Add(b);
             }
 
-
-            return importer.Import(data, companyId);
+            return buildingsToCreate;
         }
 
         public List<IImporter> ListImporters()
