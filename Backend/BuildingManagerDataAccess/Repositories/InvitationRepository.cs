@@ -16,6 +16,10 @@ namespace BuildingManagerDataAccess.Repositories
         }
         public Invitation CreateInvitation(Invitation invitation)
         {
+            if(invitation.Role != RoleType.MANAGER && invitation.Role != RoleType.CONSTRUCTIONCOMPANYADMIN)
+            {
+                throw new InvalidOperationException("Role not allowed");
+            }
             if (_context.Set<Invitation>().Any(i => i.Email == invitation.Email))
             {
                 throw new ValueDuplicatedException("Email");
