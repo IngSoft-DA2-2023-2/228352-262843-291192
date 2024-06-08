@@ -23,7 +23,8 @@ namespace BuildingManagerLogicTest
                 Id = new Guid(),
                 Name = "John",
                 Email = "john@abc.com",
-                Deadline = 1745039332
+                Deadline = 1745039332,
+                Role = RoleType.MANAGER
             };
         }
 
@@ -42,6 +43,78 @@ namespace BuildingManagerLogicTest
 
             invitationRepositoryMock.VerifyAll();
             Assert.AreEqual(_invitation, result);
+        }
+
+        [TestMethod]
+        public void CreateInvitationSuccessfullyWithCCAdminRoleTypeTest()
+        {
+            Invitation invitation = new Invitation()
+            {
+                Id = new Guid(),
+                Name = "John",
+                Email = "john@abc.com",
+                Deadline = 1745039332,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Returns(invitation);
+
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+
+            var result = invitationLogic.CreateInvitation(_invitation);
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.AreEqual(invitation, result);
+        }
+
+        [TestMethod]
+        public void CreateInvitationWithAdminRoleTypeTest()
+        {
+            Invitation invitation = new Invitation()
+            {
+                Id = new Guid(),
+                Name = "John",
+                Email = "john@abc.com",
+                Deadline = 1745039332,
+                Role = RoleType.ADMIN
+            };
+
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Returns(invitation);
+
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+
+            Assert.ThrowsException<ArgumentException>(() => invitationLogic.CreateInvitation(invitation));
+        }
+
+        [TestMethod]
+        public void CreateInvitationWithMaintenanceRoleTypeTest()
+        {
+            Invitation invitation = new Invitation()
+            {
+                Id = new Guid(),
+                Name = "John",
+                Email = "john@abc.com",
+                Deadline = 1745039332,
+                Role = RoleType.MAINTENANCE
+            };
+
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+            usersRepositoryMock.Setup(x => x.EmailExists(It.IsAny<string>())).Returns(false);
+            invitationRepositoryMock.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Returns(invitation);
+
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+
+            Assert.ThrowsException<ArgumentException>(() => invitationLogic.CreateInvitation(invitation));
         }
 
         [TestMethod]
