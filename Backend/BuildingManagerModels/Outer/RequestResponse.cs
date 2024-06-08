@@ -11,6 +11,7 @@ namespace BuildingManagerModels.Outer
         public Guid CategoryId { get; set; }
         public RequestState State { get; set; }
         public Guid BuildingId { get; set; }
+        public string BuildingName { get; set; }
         public Guid ManagerId { get; set; }
         public int ApartmentFloor { get; set; }
         public int ApartmentNumber { get; set; }
@@ -25,6 +26,7 @@ namespace BuildingManagerModels.Outer
             ApartmentFloor = request.ApartmentFloor;
             ApartmentNumber = request.ApartmentNumber;
             State = request.State;
+            BuildingName = request.Building?.Name ?? "";
         }
 
         public override bool Equals(object obj)
@@ -40,7 +42,8 @@ namespace BuildingManagerModels.Outer
             ManagerId == other.ManagerId &&
             State == other.State &&
             ApartmentFloor == other.ApartmentFloor &&
-            ApartmentNumber == other.ApartmentNumber;
+            ApartmentNumber == other.ApartmentNumber &&
+            BuildingName == other.BuildingName;
         }
     }
 }
