@@ -6,7 +6,11 @@ import { authRedirectGuard } from './guards/auth-redirect.guard';
 import { NgModule } from '@angular/core';
 import { BuildingsComponent } from './components/buildings/buildings.component';
 import { ManagerComponent } from './components/manager/manager.component';
+import { BuildingDetailComponent } from './components/building-detail/building-detail.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { CreateBuildingComponent } from './components/create-building/create-building.component';
+import { constructionCompanyAdminRoleGuard } from './guards/construction-company-admin-role.guard';
+import { managerRoleGuard } from './guards/manager-role.guard';
 import { RequestsComponent } from './components/requests/requests.component';
 
 export const routes: Routes = [
@@ -14,9 +18,11 @@ export const routes: Routes = [
   {
     path: 'manager', component: ManagerComponent, canActivate: [authGuard], children: [
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
-      { path: 'buildings', component: BuildingsComponent, pathMatch: 'full' },
-      { path: 'reports', component: ReportsComponent, pathMatch: 'full' },
-      { path: 'requests', component: RequestsComponent, pathMatch: 'full' },
+      { path: 'buildings', component: BuildingsComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' },
+      { path: 'buildings/create', component: CreateBuildingComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' },
+      { path: 'buildings/:id', component: BuildingDetailComponent, canActivate: [constructionCompanyAdminRoleGuard] },
+      { path: 'reports', component: ReportsComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
+      { path: 'requests', component: RequestsComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
     ]
   },
   { path: '**', redirectTo: '/login' }

@@ -5,16 +5,18 @@ namespace BuildingManagerModels.Outer
 {
     public class ListBuildingsResponse
     {
-        public List<ListBuildingData> Buildings { get; set; }
+        public List<BuildingResponse> Buildings { get; set; }
 
-        public ListBuildingsResponse(List<Building> buildings)
+        public ListBuildingsResponse(List<BuildingResponse> buildings)
         {
-            Buildings = new List<ListBuildingData>();
+            Buildings = new List<BuildingResponse>();
             foreach (var building in buildings)
             {
-                Buildings.Add(new ListBuildingData(
+                Buildings.Add(new BuildingResponse(
+                    building.Id,
                     building.Name,
-                    building.Address
+                    building.Address,
+                    building.Manager
                     ));
             }
         }
@@ -30,7 +32,9 @@ namespace BuildingManagerModels.Outer
                 foreach (var otherBuilding in other.Buildings)
                 {
                     if (building.Name != otherBuilding.Name ||
-                    building.Address != otherBuilding.Address)
+                    building.Address != otherBuilding.Address || 
+                    building.Manager != otherBuilding.Manager ||
+                    building.Id != otherBuilding.Id)
                         return false;
                 }
             }

@@ -355,13 +355,40 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void GetManagersTest()
+        {
+            var context = CreateDbContext("GetManagersTest");
+            var repository = new UserRepository(context);
+            var manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "admin@gmail.com",
+                Password = "123456",
+            };
+            repository.CreateUser(manager);
+            var admin = new Admin
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "",
+                Password = "123456"
+            };
+            repository.CreateUser(admin);
+
+            var result = repository.GetManagers();
+            Assert.AreEqual(1, result.Count);
+        }
+
+        [TestMethod]
         public void GetMaintaninersTest()
         {
             var context = CreateDbContext("GetMaintaninersTest");
             var repository = new UserRepository(context);
             var maintenance = new MaintenanceStaff
             {
-                Id = Guid.NewGuid(),
                 Name = "John",
                 Lastname = "Doe",
                 Email = "abc@example.com",

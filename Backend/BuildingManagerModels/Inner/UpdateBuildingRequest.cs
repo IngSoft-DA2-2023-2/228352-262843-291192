@@ -11,8 +11,6 @@ namespace BuildingManagerModels.Inner
 
         public string Name { get; set; }
 
-        public Guid? ManagerId { get; set; }
-
         public string Address { get; set; }
 
         public string Location { get; set; }
@@ -28,7 +26,6 @@ namespace BuildingManagerModels.Inner
             {
                 Id = this.Id,
                 Name = this.Name,
-                ManagerId = this.ManagerId,
                 Address = this.Address,
                 Location = this.Location,
                 CommonExpenses = this.CommonExpenses,

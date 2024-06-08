@@ -34,7 +34,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken,
-                Email = "manager@gmail.com"
+                Email = "manager@gmail.com",
+                Password = "password"
             });
             repository.CreateRequest(request, managerSessionToken);
             var result = context.Set<Request>().Find(request.Id);
@@ -65,6 +66,9 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
                 Role = RoleType.MAINTENANCE
             });
             userRepository.CreateUser(new Manager
@@ -73,7 +77,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken,
-                Email = "manager@gmail.com"
+                Email = "manager@gmail.com",
+                Password = "password"
             });
             categoryRepository.CreateCategory(new Category
             {
@@ -108,6 +113,9 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
                 Role = RoleType.MAINTENANCE
             };
             Manager manager = new Manager
@@ -116,7 +124,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "manager",
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken,
-                Email = "manager@gmail.com"
+                Email = "manager@gmail.com",
+                Password = "password"
             };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
@@ -176,6 +185,9 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
                 Role = RoleType.MAINTENANCE
             };
             Manager manager = new Manager
@@ -184,7 +196,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "manager",
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken,
-                Email = "manager@gmail.com"
+                Email = "manager@gmail.com",
+                Password = "password"
             };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
@@ -205,6 +218,9 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
                 Role = RoleType.MAINTENANCE
             };
             var request = new Request
@@ -251,6 +267,9 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
                 Role = RoleType.MAINTENANCE
             };
             Manager manager = new Manager
@@ -259,7 +278,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "manager",
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken,
-                Email = "manager@gmail.com"
+                Email = "manager@gmail.com",
+                Password = "password"
             };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
@@ -291,6 +311,9 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
                 Role = RoleType.MAINTENANCE
             };
             Manager manager = new Manager
@@ -299,7 +322,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "manager",
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken,
-                Email = "manager@gmail.com"
+                Email = "manager@gmail.com",
+                Password = "password"
             };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
@@ -321,6 +345,9 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
                 Role = RoleType.MAINTENANCE
             };
             var request = new Request
@@ -367,6 +394,9 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
                 Role = RoleType.MAINTENANCE
             };
             Manager manager = new Manager
@@ -375,7 +405,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "manager",
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken,
-                Email = "manager@gmail.com"
+                Email = "manager@gmail.com",
+                Password = "password"
             };
             userRepository.CreateUser(manager);
             userRepository.CreateUser(staff);
@@ -425,8 +456,10 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = managerId,
                 Name = "name",
+                Email = "email@mail.com",
                 Role = RoleType.MANAGER,
-                SessionToken = managerSessionToken
+                SessionToken = managerSessionToken,
+                Password = "password"
             });
             userRepository.CreateUser(new Manager
             {
@@ -434,7 +467,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "name",
                 Role = RoleType.MANAGER,
                 SessionToken = managerSessionToken2,
-                Email = "manager@gmail.com"
+                Email = "manager@gmail.com",
+                Password = "password"
             });
             categoryRepository.CreateCategory(new Category
             {
@@ -488,8 +522,10 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = managerId,
                 Name = "name",
+                Email = "email@mail.com",
                 Role = RoleType.MANAGER,
-                SessionToken = managerSessionToken
+                SessionToken = managerSessionToken,
+                Password = "password"
             });
             categoryRepository.CreateCategory(new Category
             {

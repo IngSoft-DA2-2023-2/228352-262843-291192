@@ -199,6 +199,7 @@ namespace BuildingManagerDataAccessTest
             };
             ConstructionCompanyAdmin user = new()
             {
+                Name = "name",
                 Id = Guid.NewGuid(),
                 Email = "email",
                 Password = "password"
@@ -243,10 +244,10 @@ namespace BuildingManagerDataAccessTest
                 Id = Guid.NewGuid(),
                 Name = "company 1"
             };
-            repositoryUser.CreateUser(new ConstructionCompanyAdmin { Id = userId, Email = "email", Password = "password" });
+            repositoryUser.CreateUser(new ConstructionCompanyAdmin { Name = "user1", Id = userId, Email = "email", Password = "password" });
             repository.CreateConstructionCompany(constructionCompany, userId);
             var userId2 = Guid.NewGuid();
-            repositoryUser.CreateUser(new ConstructionCompanyAdmin { Id = userId2, Email = "email2", Password = "password2" });
+            repositoryUser.CreateUser(new ConstructionCompanyAdmin { Name = "user2", Id = userId2, Email = "email2", Password = "password2" });
 
             repository.AssociateCompanyToUser(userId2, constructionCompany.Id);
             var companyAdminAssociationResult = context.Set<CompanyAdminAssociation>().Find(userId2, constructionCompany.Id);
@@ -341,6 +342,7 @@ namespace BuildingManagerDataAccessTest
             };
             ConstructionCompanyAdmin user = new()
             {
+                Name = "name",
                 Id = Guid.NewGuid(),
                 Email = "email",
                 Password = "password"
