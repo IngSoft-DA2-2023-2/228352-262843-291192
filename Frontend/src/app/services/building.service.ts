@@ -27,6 +27,10 @@ export class BuildingService {
   public createBuilding(building: BuildingDetails): Observable<BuildingDetails> {
     return this.http.post<BuildingDetails>(`${environment.apiUrl}/buildings`, building);
   }
+
+  public deleteBuilding(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/buildings/${id}`);
+  }
   
   public getManagerBuildings(managerId: string): Observable<ManagerBuildings> | null {
     let sessionToken = localStorage.getItem('sessionToken');

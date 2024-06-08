@@ -4,6 +4,7 @@ using BuildingManagerDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagerDataAccess.Migrations
 {
     [DbContext(typeof(BuildingManagerContext))]
-    partial class BuildingManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240608180807_InvitationWithRole")]
+    partial class InvitationWithRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,7 +334,7 @@ namespace BuildingManagerDataAccess.Migrations
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Request", b =>
                 {
-                    b.HasOne("BuildingManagerDomain.Entities.Building", "Building")
+                    b.HasOne("BuildingManagerDomain.Entities.Building", null)
                         .WithMany()
                         .HasForeignKey("BuildingId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -360,8 +362,6 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasForeignKey("BuildingId", "ApartmentFloor", "ApartmentNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Building");
 
                     b.Navigation("Category");
 

@@ -19,8 +19,9 @@
             <td>{{ building.name }}</td>
             <td>{{ building.address }}</td>
             <td>{{ building.manager }}</td>
-            <td>
+            <td class="flex space-x-4">
               <a onclick="buildingName=building.name" [routerLink]="['/manager/buildings', building.id]" class="btn btn-primary">Modificar</a>
+              <a><button (click)="openDeleteBuildingModal(building.id)" class="btn btn-danger">Eliminar</button></a>
             </td>
           </tr>
         </tbody>
