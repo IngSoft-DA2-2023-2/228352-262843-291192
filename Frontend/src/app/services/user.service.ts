@@ -19,4 +19,8 @@ export class UserService {
   public getMaintenanceStaff(): Observable<Maintainers> | null {
     return this.http.get<Maintainers>(`${environment.apiUrl}/maintenances`);
   }
+
+  public getManagers(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.apiUrl}/users/managers`);
+  }
 }

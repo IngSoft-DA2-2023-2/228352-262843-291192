@@ -23,6 +23,10 @@ export class BuildingService {
   public updateBuilding(id: string, building: BuildingDetails): Observable<BuildingDetails> {
     return this.http.put<BuildingDetails>(`${environment.apiUrl}/buildings/${id}`, building);
   }
+
+  public createBuilding(building: BuildingDetails): Observable<BuildingDetails> {
+    return this.http.post<BuildingDetails>(`${environment.apiUrl}/buildings`, building);
+  }
   
   public getManagerBuildings(managerId: string): Observable<ManagerBuildings> | null {
     let sessionToken = localStorage.getItem('sessionToken');
