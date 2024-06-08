@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ManagerRequest } from '../models/ManagerRequest';
@@ -12,8 +12,9 @@ export class RequestService {
 
     constructor(private http: HttpClient) { }
 
-    public getManagerRequests(): Observable<ListRequests> | null {
-        return this.http.get<ListRequests>(`${environment.apiUrl}/requests/manager`);
+    public getManagerRequests(filter: string): Observable<ListRequests> | null {
+        let params = new HttpParams().set('category', filter);
+        return this.http.get<ListRequests>(`${environment.apiUrl}/requests/manager`, { params: params });
     }
 
     public assignRequest(id: string, maintainerId: string): Observable<ManagerRequest> | null {

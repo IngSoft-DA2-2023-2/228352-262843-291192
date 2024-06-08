@@ -4,24 +4,27 @@ import { RequestService } from '../../services/request.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ManagerRequest } from '../../models/ManagerRequest';
 import { RequestState } from '../../models/RequestState';
 import * as bootstrap from 'bootstrap';
 import { Maintainers } from '../../models/Maintainers';
 import { UserService } from '../../services/user.service';
 import { ListRequests } from '../../models/ListRequests';
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../models/Category';
 
 @Component({
   selector: 'app-requests',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, NgFor, NgIf],
+  imports: [FormsModule, HttpClientModule, NgFor, NgIf, CommonModule],
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.css',
-  providers: [RequestService, UserService]
+  providers: [RequestService, UserService, CategoryService]
 })
 export class RequestsComponent {
-  constructor(public requestService: RequestService, public routerServices: Router, public userService: UserService) { }
+  constructor(public requestService: RequestService, public routerServices: Router,
+    public userService: UserService, public categoryService: CategoryService) { }
   openRequests: ManagerRequest[] = [];
   closeRequests: ManagerRequest[] = [];
   pendingRequests: ManagerRequest[] = [];
@@ -33,9 +36,10 @@ export class RequestsComponent {
   modal: bootstrap.Modal | undefined;
   filter: string = "";
   openFilters: boolean = false;
+  categories: Category[] = [];
 
   ngOnInit(): void {
-    var requestsObservable: Observable<ListRequests> | null = this.requestService.getManagerRequests();
+    var requestsObservable: Observable<ListRequests> | null = this.requestService.getManagerRequests(this.filter);
     if (requestsObservable != null) {
       requestsObservable.subscribe(requests => {
         for (var request of requests.requests) {
@@ -52,6 +56,13 @@ export class RequestsComponent {
     if (usersObservable != null) {
       usersObservable.subscribe(maintainers => {
         this.maintainers = maintainers;
+      });
+    }
+
+    var categoriesObservable: Observable<Category[]> | null = this.categoryService.getCategories();
+    if (categoriesObservable != null) {
+      categoriesObservable.subscribe(categories => {
+        this.categories = categories;
       });
     }
   }
@@ -109,7 +120,25 @@ export class RequestsComponent {
     this.filter = selectElement.value;
   }
 
-  changeFilters() {
+  openCloseFilters() {
     this.openFilters = !this.openFilters;
+  }
+
+  filterRequests() {
+    var requestsObservable: Observable<ListRequests> | null = this.requestService.getManagerRequests(this.filter);
+    if (requestsObservable != null) {
+      requestsObservable.subscribe(requests => {
+        this.openRequests = [];
+        this.closeRequests = [];
+        this.pendingRequests = [];
+        for (var request of requests.requests) {
+          if (request.state == RequestState.OPEN) {
+            this.openRequests.push(request);
+          } else if (request.state == RequestState.CLOSE) {
+            this.closeRequests.push(request);
+          } else this.pendingRequests.push(request);
+        }
+      });
+    }
   }
 }
