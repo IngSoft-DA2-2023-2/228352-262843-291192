@@ -24,12 +24,12 @@ namespace BuildingManagerApi.Controllers
             return Ok(importers);
         }
 
-        // [HttpPost("{importerName}")]
-        // [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
-        // public IActionResult ImportData([FromRoute] string importerName, [FromBody] string data, [FromHeader(Name = "Authorization")] Guid sessionToken)
-        // {
-        //     ImportBuildingsResponse data = new ImportBuildingsResponse(_importerLogic.ImportData(importerName, data, sessionToken));
-        //     return CreatedAtAction(nameof(ImportData), data);
-        // }
+        [HttpPost("{importerName}")]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult ImportData([FromRoute] string importerName, [FromBody] string buildingsData, [FromHeader(Name = "Authorization")] Guid sessionToken)
+        {
+            ImportBuildingsResponse data = new ImportBuildingsResponse(_importerLogic.ImportData(importerName, buildingsData, sessionToken));
+            return CreatedAtAction(nameof(ImportData), data);
+        }
     }
 }
