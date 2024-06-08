@@ -102,7 +102,7 @@ namespace BuildingManagerDataAccess.Repositories
 
         public List<Request> GetRequests()
         {
-            return _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).ToList();
+            return _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).ToList();
         }
 
         public List<Request> GetRequestsByManager(Guid managerSessionToken, string? category)
