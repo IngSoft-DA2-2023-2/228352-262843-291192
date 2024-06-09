@@ -19,7 +19,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpGet("managers")]
-        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN, RoleType.ADMIN)]
         public IActionResult ListManagerUsers()
         {
             ListManagersResponse listManagersResponse = new(_userLogic.GetManagers());
