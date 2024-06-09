@@ -595,28 +595,49 @@ namespace BuildingManagerDataAccessTest
             context.Set<Invitation>().Add(invitation);
             context.SaveChanges();
 
-            var result = repository.GetInvitationByEmail("john@abc.com");
+            var result = repository.GetAllInvitations("john@abc.com");
 
-            Assert.AreEqual(invitation.Email, result.Email);
+            Assert.AreEqual(invitation.Email, result[0].Email);
         }
 
         [TestMethod]
-        public void GetInvitationByEmail_ThrowsValueNotFoundException_Failure()
+        public void GetAllInvitations_WithNullEmail_ReturnsAllInvitations()
         {
-            var context = CreateDbContext("GetInvitationByEmail_ThrowsValueNotFoundException_Failure");
+            var context = CreateDbContext("GetAllInvitations_WithNullEmail_ReturnsAllInvitations");
             var repository = new InvitationRepository(context);
 
-            Exception exception = null;
-            try
-            {
-                repository.GetInvitationByEmail("notfound@abc.com");
-            }
-            catch(Exception ex)
-            {
-                exception = ex;
-            }
 
-            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+            var invitations = repository.GetAllInvitations(null);
+
+            Assert.AreEqual(context.Set<Invitation>().Count(), invitations.Count);
+        }
+
+        [TestMethod]
+        public void GetAllInvitations_WithValidEmail_ReturnsMatchingInvitations()
+        {
+            var context = CreateDbContext("GetAllInvitations_WithValidEmail_ReturnsMatchingInvitations");
+            var repository = new InvitationRepository(context);
+
+
+            string testEmail = "test@test.com";
+            var expectedInvitations = context.Set<Invitation>().Where(i => i.Email == testEmail).ToList();
+            var invitations = repository.GetAllInvitations(testEmail);
+
+            Assert.AreEqual(expectedInvitations.Count, invitations.Count);
+            CollectionAssert.AreEquivalent(expectedInvitations, invitations);
+        }
+
+        [TestMethod]
+        public void GetAllInvitations_WithNonexistentEmail_ReturnsEmptyList()
+        {
+            var context = CreateDbContext("GetAllInvitations_WithNonexistentEmail_ReturnsEmptyList");
+            var repository = new InvitationRepository(context);
+
+
+            string nonexistentEmail = "no-reply@unknown.com";
+            var invitations = repository.GetAllInvitations(nonexistentEmail);
+
+            Assert.AreEqual(0, invitations.Count);
         }
 
         private DbContext CreateDbContext(string name)

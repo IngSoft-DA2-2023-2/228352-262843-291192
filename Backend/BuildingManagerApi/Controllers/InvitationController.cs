@@ -45,8 +45,8 @@ namespace BuildingManagerApi.Controllers
         [HttpGet]
         public IActionResult GetAllInvitations([FromQuery] string? email)
         {
-            ListInvitationsResponse modifyInvitationResponse = new(_invitationLogic.GetAllInvitations(email));
-            return Ok(modifyInvitationResponse);
+            ListInvitationsResponse listInvitationsResponse = new(_invitationLogic.GetAllInvitations(email));
+            return Ok(listInvitationsResponse);
         }
 
         [HttpPost("{id}/response")]

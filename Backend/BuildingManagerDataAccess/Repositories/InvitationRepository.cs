@@ -106,15 +106,19 @@ namespace BuildingManagerDataAccess.Repositories
             _context.SaveChanges();
             return invitation;
         }
-        public Invitation GetInvitationByEmail(string email)
+
+        public List<Invitation> GetAllInvitations(string email)
         {
-            Invitation invitation = _context.Set<Invitation>().FirstOrDefault(i => i.Email == email);
-            if (invitation == null)
+            IQueryable<Invitation> query = _context.Set<Invitation>();
+            if (email != null)
             {
-                throw new ValueNotFoundException("Invitation not found.");
+                query = query.Where(invitation => invitation.Email == email);
             }
-            return invitation;
+            return query.ToList();
         }
+
+
+
         private static void ThrowExceptionIfIsAccepted(Invitation invitation)
         {
             if (invitation.Status == InvitationStatus.ACCEPTED)
@@ -137,11 +141,6 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new InvalidOperationException("New deadline must be greater than the current deadline.");
             }
-        }
-
-        public List<Invitation> GetAllInvitations(string email)
-        {
-            throw new NotImplementedException();
         }
     }
 }
