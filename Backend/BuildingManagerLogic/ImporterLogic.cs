@@ -82,10 +82,15 @@ namespace BuildingManagerLogic
                     {
                         throw new DuplicatedValueException(new ValueDuplicatedException("Duplicated buildings"), "Duplicated buildings");
                     }
+                    if (_buildingLogic.CheckIfBuildingExists(b))
+                    {
+                        throw new DuplicatedValueException(new ValueDuplicatedException("Building already exists"), "Building already exists");
+                    }
                 }
             }
             foreach (Building b in buildingsToCreate)
             {
+
                 _buildingLogic.CreateBuilding(b, companyAdminSessionToken);
             }
 
