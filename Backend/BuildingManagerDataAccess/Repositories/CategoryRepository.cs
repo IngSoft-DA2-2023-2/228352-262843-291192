@@ -12,6 +12,12 @@ namespace BuildingManagerDataAccess.Repositories
         {
             _context = context;
         }
+
+        public Category AssignParent(Guid id, Guid parentId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Category CreateCategory(Category category)
         {
             if (_context.Set<Category>().Any(a => a.Name == category.Name))

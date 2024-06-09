@@ -69,5 +69,28 @@ namespace BuildingManagerLogicTest
 
             Assert.AreEqual(categories, result);
         }
+
+        [TestMethod]
+        public void AssignParentTest()
+        {
+            Category category2 = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Category2"
+            };
+            Category category1 = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Category1",
+                ParentId = category2.Id
+            };
+            var categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            categoryRepositoryMock.Setup(x => x.AssignParent(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(category1);
+            var categoryLogic = new CategoryLogic(categoryRepositoryMock.Object);
+
+            var result = categoryLogic.AssignParent(category1.Id, category2.Id);
+
+            Assert.AreEqual(category1, result);
+        }
     }
 }

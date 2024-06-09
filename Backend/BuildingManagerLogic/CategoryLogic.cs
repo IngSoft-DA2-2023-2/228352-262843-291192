@@ -16,7 +16,7 @@ namespace BuildingManagerLogic
 
         public Category AssignParent(Guid id, Guid parentId)
         {
-            throw new NotImplementedException();
+            return _categoryRepository.AssignParent(id, parentId);
         }
 
         public Category CreateCategory(Category category)
