@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ManagerRequest } from '../models/ManagerRequest';
 import { ListRequests } from '../models/ListRequests';
+import { CreateRequest } from '../models/CreateRequest';
 
 @Injectable({
     providedIn: 'root'
@@ -20,5 +21,9 @@ export class RequestService {
     public assignRequest(id: string, maintainerId: string): Observable<ManagerRequest> | null {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this.http.put<ManagerRequest>(`${environment.apiUrl}/requests/${id}`, JSON.stringify(maintainerId), { headers });
+    }
+
+    public createRequest(newRequest: CreateRequest): Observable<ManagerRequest> | null {
+        return this.http.post<ManagerRequest>(`${environment.apiUrl}/requests`, newRequest);
     }
 }

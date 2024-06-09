@@ -16,6 +16,7 @@ import { Category } from '../../models/Category';
 import { Building } from '../../models/Building';
 import { ManagerBuilding, ManagerBuildings } from '../../models/ManagerBuilding';
 import { BuildingService } from '../../services/building.service';
+import { CreateRequest } from '../../models/CreateRequest';
 
 @Component({
   selector: 'app-requests',
@@ -174,8 +175,47 @@ export class RequestsComponent {
     }
   }
 
-  onSubmit(): void {
+  closeNewRequestModal() {
+    this.newRequestForm = this.fb.group({
+      description: [''],
+      categoryId: [''],
+      buildingId: [''],
+      apartmentNumber: [''],
+      apartmentFloor: ['']
+    });
+  }
 
+  onSubmit(): void {
+    this.error = "";
+    if (this.newRequestForm.value.description != "" && this.newRequestForm.value.categoryId != "" &&
+      this.newRequestForm.value.buildingId != "" && this.newRequestForm.value.apartmentNumber != "" &&
+      this.newRequestForm.value.apartmentFloor != "") {
+      const sessionData = localStorage.getItem('connectedUser');
+      const managerId = sessionData ? JSON.parse(sessionData).userId : null;
+      if (managerId != null && this.selectedBuilding != null) {
+        const newRequest: CreateRequest = this.newRequestForm.value;
+        newRequest.managerId = managerId;
+        newRequest.buildingId = this.selectedBuilding.id;
+        var requestsObservable: Observable<ManagerRequest> | null = this.requestService.createRequest(newRequest);
+        if (requestsObservable != null) {
+          requestsObservable.subscribe(
+            response => {
+              this.openRequests.push(response);
+              const modalElement = document.getElementById('newRequestModal');
+              if (modalElement) {
+                const modal = bootstrap.Modal.getInstance(modalElement);
+                modal?.hide();
+              }
+            }
+          );
+        }
+      } else {
+        this.error = "Error al crear la solicitud";
+      }
+    }
+    else {
+      this.error = "Error al crear la solicitud";
+    }
   }
 
   onNewRequestBuildingChange(event: Event) {
