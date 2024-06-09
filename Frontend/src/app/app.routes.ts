@@ -33,7 +33,7 @@ export const routes: Routes = [
       { path: 'requests', component: RequestsComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
       { path: 'maintenance', component: MaintenanceComponent, canActivate: [maintenanceRoleGuard], pathMatch: 'full' },
       { path: 'constructioncomany', component: ConstructionCompanyComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' },
-      { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' }
+      { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
       { path: 'categories', component: CategoriesComponent, canActivate: [adminRoleGuard], pathMatch: 'full' },
     ]
   },
