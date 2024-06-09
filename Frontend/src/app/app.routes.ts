@@ -13,12 +13,12 @@ import { constructionCompanyAdminRoleGuard } from './guards/construction-company
 import { managerRoleGuard } from './guards/manager-role.guard';
 import { adminRoleGuard } from './guards/admin-role.guard';
 import { InviteComponent } from './components/invite/invite.component';
-import { AcceptInvitationComponent } from './components/accept-invitation/accept-invitation.component';
+import { InvitationResponseComponent } from './components/invitation-response/invitation-response.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authRedirectGuard], pathMatch: 'full'},
   { path: 'invite', component: InviteComponent, canActivate: [adminRoleGuard], pathMatch: 'full'},
-  { path: 'accept-invitation', component: AcceptInvitationComponent, pathMatch: 'full'},
+  { path: 'invitation-response', component: InvitationResponseComponent, pathMatch: 'full'},
   { path: 'manager', component: ManagerComponent, canActivate: [authGuard], children: [
     { path: 'home', component: HomeComponent, pathMatch: 'full'},
     { path: 'buildings', component: BuildingsComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full'},

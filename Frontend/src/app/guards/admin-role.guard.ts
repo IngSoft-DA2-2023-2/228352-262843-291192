@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
-import { UserRole } from '../models/UserRole';
+import { UserRole } from '../enums/UserRole';
 import { User } from '../models/User';
 
 export const adminRoleGuard: CanActivateFn = (route, state) => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { UserRole } from '../../models/UserRole';
+import { UserRole } from '../../enums/UserRole';
 import { User } from '../../models/User';
 import { NgIf } from '@angular/common';
 

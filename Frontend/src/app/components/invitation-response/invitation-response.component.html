@@ -1,6 +1,6 @@
 <div class="flex h-screen">
-  <div class="hover:bg-slate-300 w-fit h-fit rounded-md absolute top-6 left-6 ">
-    <a routerLink="login" class="flex items-center gap-x-2 p-2 ">
+  <div class="hover:bg-slate-300 w-fit h-fit rounded-md absolute top-6 left-6">
+    <a routerLink="login" class="flex items-center gap-x-2 p-2">
       <svg
         class="w-5 h-5 rtl:rotate-180"
         xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +15,7 @@
           d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
         />
       </svg>
-      <span>Go back</span>
+      <span>Volver al inicio</span>
     </a>
   </div>
 
@@ -23,7 +23,7 @@
     <div
       class="flex flex-col items-center space-y-10 divide-y divide-gray-900/10"
     >
-      <div class="flex flex-col items-center gap-y-4 mt-6">
+      <div class="flex flex-col items-center gap-y-2 mt-6">
         <h2 class="font-semibold leading-7 text-gray-900 text-4xl">
           Aceptar invitación pendiente
         </h2>
@@ -33,6 +33,8 @@
       </div>
 
       <form
+        [formGroup]="acceptForm"
+        (ngSubmit)="onAccept()"
         class="flex flex-col bg-white w-2/4 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl"
       >
         <div class="flex px-4 py-6 sm:p-8 justify-center">
@@ -63,6 +65,7 @@
                 </div>
                 <input
                   type="email"
+                  formControlName="email"
                   name="email"
                   id="email"
                   required
@@ -81,6 +84,7 @@
               <div class="mt-2">
                 <input
                   type="password"
+                  formControlName="password"
                   name="password"
                   id="password"
                   placeholder="********"
@@ -92,13 +96,71 @@
           </div>
         </div>
         <div
-          class="flex items-center justify-center gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8"
+          class="flex flex-col items-center gap-1 justify-center gap-x-6 border-t border-gray-900/10 px-4 py-3 sm:px-8"
         >
           <button
             type="submit"
             class="rounded-md bg-[#009FFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Crear cuenta
+          </button>
+        </div>
+      </form>
+      <p class="mt-6 text-base border-b italic leading-6 text-gray-600">
+        Si no quieres unirte a la plataforma o crees que se trata de un error...
+      </p>
+      <form
+        [formGroup]="declineForm"
+        (ngSubmit)="onDecline()"
+        class="flex flex-col bg-white w-2/4 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl"
+      >
+        <div class="flex px-4 py-6 sm:p-8 justify-center">
+          <div class="flex flex-col gap-y-8 w-4/5">
+            <div class="w-full">
+              <label
+                for="declineEmail"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >Correo electronico</label
+              >
+              <div class="relative mt-2 rounded-md shadow-sm">
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+                >
+                  <svg
+                    class="h-5 w-5 text-gray-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"
+                    />
+                    <path
+                      d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="email"
+                  formControlName="email"
+                  name="email"
+                  id="declineEmail"
+                  required
+                  class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="correo@ejemplo.com"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex flex-col items-center gap-1 justify-center gap-x-6 border-t border-gray-900/10 px-4 py-3 sm:px-8"
+        >
+          <button
+            type="submit"
+            class="rounded-md bg-red-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Rechazar invitación
           </button>
         </div>
       </form>
