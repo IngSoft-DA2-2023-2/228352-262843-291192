@@ -356,6 +356,107 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void AttendRequestTest_RequestFromAnotherUser()
+        {
+            var context = CreateDbContext("AttendRequestTest_RequestFromAnotherUser");
+            var repository = new RequestRepository(context);
+            var userRepository = new UserRepository(context);
+            var categoryRepository = new CategoryRepository(context);
+            var buildingRepository = new BuildingRepository(context);
+            Guid managerSessionToken = Guid.NewGuid();
+            Category category = new Category
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name"
+            };
+            var staff = new MaintenanceStaff
+            {
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Lastname = "lastname",
+                Email = "email@mail.com",
+                Password = "password",
+                Role = RoleType.MAINTENANCE
+            };
+            var staff2 = new MaintenanceStaff
+            {
+                Id = Guid.NewGuid(),
+                Name = "name2",
+                Lastname = "lastname2",
+                Email = "email2@mail.com",
+                Password = "password",
+                Role = RoleType.MAINTENANCE
+            };
+            Manager manager = new Manager
+            {
+                Id = Guid.NewGuid(),
+                Name = "manager",
+                Role = RoleType.MANAGER,
+                SessionToken = managerSessionToken,
+                Email = "manager@gmail.com",
+                Password = "password"
+            };
+            Building building = new Building
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "name",
+                Address = "address",
+                ManagerId = manager.Id,
+                ConstructionCompanyId = new Guid("11111111-1111-1111-1111-111111111111"),
+                CommonExpenses = 100,
+                Location = "location",
+                Apartments = [
+                    new Apartment
+                    {
+                        BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Floor = 1,
+                        Number = 1,
+                        Owner = new Owner
+                        {
+                            Name = "name",
+                            LastName = "lastname",
+                            Email = "some@mail.com"
+                        },
+                        Bathrooms = 1,
+                        HasTerrace = true,
+                        Rooms = 1
+                    }
+                ]
+            };
+            var request = new Request
+            {
+                Id = Guid.NewGuid(),
+                Description = "description",
+                CategoryId = category.Id,
+                BuildingId = building.Id,
+                ApartmentFloor = 1,
+                ApartmentNumber = 1,
+                State = RequestState.OPEN,
+                ManagerId = manager.Id,
+                Building = building,
+                Category = category,
+                MaintainerStaffId = staff.Id
+            };
+            userRepository.CreateUser(manager);
+            userRepository.CreateUser(staff);
+            userRepository.CreateUser(staff2);
+            categoryRepository.CreateCategory(category);
+            buildingRepository.CreateBuilding(building);
+            repository.CreateRequest(request, managerSessionToken);
+
+            Exception exception = null;
+            try
+            {
+                repository.AttendRequest(request.Id, staff2.Id);
+            }
+            catch (ValueNotFoundException ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
+        [TestMethod]
         public void AttendRequestAttendAtNowTest()
         {
             var context = CreateDbContext("AttendRequestAttendAtNowTest");
