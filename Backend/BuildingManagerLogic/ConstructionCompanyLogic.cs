@@ -99,5 +99,17 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
+
+        public List<BuildingResponse> GetCompanyBuildings(Guid companyId)
+        {
+            try
+            {
+                return _constructionCompanyRepository.GetCompanyBuildings(companyId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
     }
 }

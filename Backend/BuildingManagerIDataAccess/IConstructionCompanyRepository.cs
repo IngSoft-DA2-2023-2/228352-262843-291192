@@ -11,5 +11,6 @@ namespace BuildingManagerIDataAccess
         void AssociateCompanyToUser(Guid userId, Guid companyId);
         bool IsUserAssociatedToCompany(Guid userId, Guid companyId);
         ConstructionCompany GetConstructionCompany(Guid companyId);
+        List<BuildingResponse> GetCompanyBuildings(Guid companyId);
     }
 }

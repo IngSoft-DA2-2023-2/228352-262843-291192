@@ -60,5 +60,25 @@ namespace BuildingManagerLogicTest
             constructionCompanyLogicMock.VerifyAll();
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void GetBuildingsFromCCAdminSuccessfully()
+        {
+            var userId = Guid.NewGuid();
+            var sessionToken = Guid.NewGuid();
+            var companyId = Guid.NewGuid();
+            var userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            userLogicMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(userId);
+            constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
+            constructionCompanyLogicMock.Setup(x => x.GetCompanyBuildings(It.IsAny<Guid>())).Returns(new List<BuildingResponse>());
+            var constructionCompanyAdminLogic = new ConstructionCompanyAdminLogic(constructionCompanyLogicMock.Object, userLogicMock.Object);
+
+            var result = constructionCompanyAdminLogic.GetBuildingsFromCCAdmin(userId, sessionToken);
+
+            userLogicMock.VerifyAll();
+            constructionCompanyLogicMock.VerifyAll();
+            Assert.IsNotNull(result);
+        }
     }
 }

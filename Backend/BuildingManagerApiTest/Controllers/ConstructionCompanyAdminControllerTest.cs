@@ -69,6 +69,21 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
+        public void GetBuildingsFromCCAdmin_Ok()
+        {
+            var mockConstructionCompanyAdminLogic = new Mock<IConstructionCompanyAdminLogic>(MockBehavior.Strict);
+            mockConstructionCompanyAdminLogic.Setup(x => x.GetBuildingsFromCCAdmin(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(new List<BuildingResponse>());
+            var constructionCompanyAdminController = new ConstructionCompanyAdminController(mockConstructionCompanyAdminLogic.Object);
+
+            var result = constructionCompanyAdminController.GetBuildingsFromCCAdmin(Guid.NewGuid(), Guid.NewGuid());
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as ListBuildingsResponse;
+
+            mockConstructionCompanyAdminLogic.VerifyAll();
+            Assert.IsNotNull(content);
+        }
+
+        [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
             var response = new CreateConstructionCompanyAdminResponse(_constructionCompanyAdmin);
