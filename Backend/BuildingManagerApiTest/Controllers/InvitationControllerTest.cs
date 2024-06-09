@@ -302,15 +302,15 @@ namespace BuildingManagerApiTest.Controllers
         {
             var email = "john@abc.com";
             var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
-            mockInvitationLogic.Setup(x => x.InvitationByEmail(email)).Returns(_invitation);
+            mockInvitationLogic.Setup(x => x.GetAllInvitations(email)).Returns(new List<Invitation> { _invitation });
             var invitationController = new InvitationController(mockInvitationLogic.Object);
 
-            var result = invitationController.InvitationByEmail(email);
+            var result = invitationController.GetAllInvitations(email);
             var okObjectResult = result as OkObjectResult;
-            var content = okObjectResult.Value as InvitationResponse;
+            var content = okObjectResult.Value as ListInvitationsResponse;
 
             mockInvitationLogic.VerifyAll();
-            Assert.AreEqual(content, new InvitationResponse(_invitation));
+            Assert.AreEqual(content, new ListInvitationsResponse(new List<Invitation> { _invitation }));
         }
 
         [TestMethod]
@@ -336,10 +336,10 @@ namespace BuildingManagerApiTest.Controllers
             };
             var  invitations = new List<Invitation> { invitation1, invitation2 };
             var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
-            mockInvitationLogic.Setup(x => x.GetAllInvitations()).Returns(invitations);
+            mockInvitationLogic.Setup(x => x.GetAllInvitations(null)).Returns(invitations);
             var invitationController = new InvitationController(mockInvitationLogic.Object);
 
-            var result = invitationController.GetAllInvitations();
+            var result = invitationController.GetAllInvitations(null);
             var okObjectResult = result as OkObjectResult;
             var content = okObjectResult.Value as ListInvitationsResponse;
             

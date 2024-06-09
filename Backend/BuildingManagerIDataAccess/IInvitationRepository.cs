@@ -10,6 +10,6 @@ namespace BuildingManagerIDataAccess
         Invitation DeleteInvitation(Guid id);
         Invitation ModifyInvitation(Guid id, long newDeadline);
         Invitation RespondInvitation(InvitationAnswer invitationAnswer);
-        Invitation GetInvitationByEmail(string email);
+        List<Invitation> GetAllInvitations(string email);
     }
 }
