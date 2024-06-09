@@ -55,6 +55,18 @@ namespace BuildingManagerLogic
             }
         }
 
+        public Invitation InvitationByEmail(string email)
+        {
+            try
+            {
+                return _invitationRepository.GetInvitationByEmail(email);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
+
         public Invitation ModifyInvitation(Guid id, long newDeadline)
         {
             try
@@ -76,7 +88,12 @@ namespace BuildingManagerLogic
             try
             {
                 Invitation invitation = _invitationRepository.RespondInvitation(invitationAnswer);
-                User manager = _userRepository.CreateUser(UserFromInvitation.Create(invitationAnswer, invitation.Name));
+                User manager = null;
+                if (invitation.Status == InvitationStatus.ACCEPTED)
+                {
+                    manager = _userRepository.CreateUser(UserFromInvitation.Create(invitationAnswer, invitation.Name));
+
+                } 
                 return InvitationResponder.CreateAnswer(manager, invitation);
             }
             catch (ValueNotFoundException e)

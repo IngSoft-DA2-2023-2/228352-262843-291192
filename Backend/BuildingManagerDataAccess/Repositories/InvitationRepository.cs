@@ -73,7 +73,8 @@ namespace BuildingManagerDataAccess.Repositories
         public Invitation RespondInvitation(InvitationAnswer invitationAnswer)
         {
             Invitation invitation = _context.Set<Invitation>().FirstOrDefault(i => i.Email == invitationAnswer.Email);
-            if(invitation == null)
+
+            if (invitation == null)
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
@@ -82,6 +83,16 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new InvalidOperationException("Invitation expired.");
             }
             invitation.Status = invitationAnswer.Status;
+            _context.SaveChanges();
+            return invitation;
+        }
+        public Invitation GetInvitationByEmail(string email)
+        {
+            Invitation invitation = _context.Set<Invitation>().FirstOrDefault(i => i.Email == email);
+            if (invitation == null)
+            {
+                throw new ValueNotFoundException("Invitation not found.");
+            }
             return invitation;
         }
         private static void ThrowExceptionIfIsAccepted(Invitation invitation)
