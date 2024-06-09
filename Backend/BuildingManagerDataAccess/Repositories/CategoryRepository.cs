@@ -26,6 +26,7 @@ namespace BuildingManagerDataAccess.Repositories
             Category category = _context.Set<Category>().First(c => c.Id == id);
             category.ParentId = parentId;
             _context.SaveChanges();
+            category = _context.Set<Category>().Include(c => c.Parent).First(c => c.Id == id);
             return category;
         }
 
@@ -37,7 +38,7 @@ namespace BuildingManagerDataAccess.Repositories
             }
             _context.Set<Category>().Add(category);
             _context.SaveChanges();
-            return category;
+            return _context.Set<Category>().Include(c => c.Parent).First(c => c.Id == category.Id);
         }
 
         public List<Category> ListCategories()
