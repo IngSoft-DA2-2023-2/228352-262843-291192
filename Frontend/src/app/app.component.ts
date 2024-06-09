@@ -10,12 +10,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReportsComponent } from './components/reports/reports.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { MaintainersComponent } from './components/maintainers/maintainers.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, CommonModule, LoginComponent, ManagerComponent, HomeComponent,
-    SidebarComponent, HttpClientModule, ReportsComponent, RequestsComponent, MaintainersComponent],
+    SidebarComponent, HttpClientModule, ReportsComponent, RequestsComponent, MaintainersComponent, CategoriesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

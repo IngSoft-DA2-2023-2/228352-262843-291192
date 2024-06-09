@@ -6,10 +6,10 @@ export const adminRoleGuard: CanActivateFn = (route, state) => {
   const role = connectedUser.role;
   const adminRole = UserRole.ADMIN;
 
-  if (role && role == adminRole) {
+  if (role != null && role == adminRole) {
     return true;
   }
-  
+
   window.location.href = '/manager/home';
   return false;
 };

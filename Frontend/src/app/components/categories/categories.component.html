@@ -1,0 +1,72 @@
+<div class="flex flex-row items-center justify-between">
+    <h1 class="h3 mr-5">Categorias</h1>
+    <!-- <button (click)="openNewMaintainerModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="size-8">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+    </button> -->
+</div>
+<table class="table mt-2">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Padre</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let category of categories">
+            <th scope="row">{{ category.name }}</th>
+            <td>{{ category.parentId }}</td>
+            <td>
+                <button type="button" (click)="openAssignParentModal(category.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                    </svg>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="assignParentModal" tabindex="-1" aria-labelledby="assignParentModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl" style="max-width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignParentModalLabel">Vincular categorias</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="closeAssignParentModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="flex flex-row mb-4">
+                    <h1 class="font-semibold">Categoria hijo:</h1>
+                    <h1 class="ml-2">{{chosenCategory?.name}}</h1>
+                </div>
+                <label for="parentCategory" class="font-semibold form-label">Categoria padre</label>
+                <select id="parentCategory" class="ml-2 py-2 px-3 border rounded-md form-select form-select-lg"
+                    aria-label=".form-select-lg example" [(ngModel)]="parentCategory"
+                    (change)="onParentCategoryChange($event)">
+                    <ng-container *ngFor="let category of categories">
+                        <option [value]="category?.id" *ngIf="category?.id !== chosenCategory?.id">
+                            {{category.name}}
+                        </option>
+                    </ng-container>
+                </select>
+                <div class="flex justify-between items-center mt-2">
+                    <h1 class="text-red-700">{{error}}</h1>
+                    <button type="button" class="btn btn-primary" (click)="assignParent()">Vincular</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

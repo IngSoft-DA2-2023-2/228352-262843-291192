@@ -1,4 +1,5 @@
-export interface Category{
+export interface Category {
     id: string,
-    name: string
+    name: string,
+    parentId: string
 }
