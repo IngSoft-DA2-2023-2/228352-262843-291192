@@ -7,7 +7,6 @@ using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerApiTest.Controllers
 {
@@ -50,6 +49,21 @@ namespace BuildingManagerApiTest.Controllers
 
             mockConstructionCompanyAdminLogic.VerifyAll();
             Assert.AreEqual(_createConstructionCompanyAdminResponse, content);
+        }
+
+        [TestMethod]
+        public void GetConstructionCompanyFromAdmin_Ok()
+        {
+            var mockConstructionCompanyAdminLogic = new Mock<IConstructionCompanyAdminLogic>(MockBehavior.Strict);
+            mockConstructionCompanyAdminLogic.Setup(x => x.GetConstructionCompany(It.IsAny<Guid>())).Returns(new ConstructionCompany());
+            var constructionCompanyAdminController = new ConstructionCompanyAdminController(mockConstructionCompanyAdminLogic.Object);
+
+            var result = constructionCompanyAdminController.GetConstructionCompanyFromAdmin(Guid.NewGuid());
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as ConstructionCompanyResponse;
+
+            mockConstructionCompanyAdminLogic.VerifyAll();
+            Assert.IsNotNull(content);
         }
 
         [TestMethod]
