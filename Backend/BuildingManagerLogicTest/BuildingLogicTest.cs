@@ -758,5 +758,20 @@ namespace BuildingManagerLogicTest
             buildingRespositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void CheckIfBuildingExistsTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.CheckIfBuildingExists(It.IsAny<Building>())).Returns(true);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.CheckIfBuildingExists(_building);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsTrue(result);
+        }
     }
 }

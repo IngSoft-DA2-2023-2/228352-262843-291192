@@ -14,5 +14,6 @@ namespace BuildingManagerILogic
         public BuildingDetails GetBuildingDetails(Guid buildingId);
         public List<Building> GetManagerBuildings(Guid managerId);
         public Owner GetOwnerFromEmail(string email);
+        public bool CheckIfBuildingExists(Building building);
     }
 }

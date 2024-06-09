@@ -185,5 +185,10 @@ namespace BuildingManagerLogic
                 throw new NotFoundException(e, e.Message);
             }
         }
+
+        public bool CheckIfBuildingExists(Building building)
+        {
+            return _buildingRepository.CheckIfBuildingExists(building);
+        }
     }
 }

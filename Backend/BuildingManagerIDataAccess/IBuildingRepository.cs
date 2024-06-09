@@ -16,5 +16,6 @@ namespace BuildingManagerIDataAccess
         Guid ModifyBuildingManager(Guid managerId, Guid buildingId);
         BuildingDetails GetBuildingDetails(Guid buildingId);
         List<Building> GetManagerBuildings(Guid managerId);
+        bool CheckIfBuildingExists(Building building);
     }
 }
