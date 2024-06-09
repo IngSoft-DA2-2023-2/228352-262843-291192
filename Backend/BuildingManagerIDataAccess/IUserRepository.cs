@@ -1,4 +1,4 @@
-﻿using BuildingManagerDomain.Entities;
+using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace BuildingManagerIDataAccess
         User Login(string email, string password);
         Guid Logout(Guid sessionToken);
         Guid GetUserIdFromSessionToken(Guid sessionToken);
+        Guid GetManagerIdFromEmail(string email);
         List<Manager> GetManagers();
         List<MaintenanceStaff> GetMaintenanceStaff();
     }

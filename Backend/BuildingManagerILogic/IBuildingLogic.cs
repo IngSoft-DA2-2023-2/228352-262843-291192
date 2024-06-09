@@ -13,5 +13,7 @@ namespace BuildingManagerILogic
         public Guid ModifyBuildingManager(Guid managerId, Guid buildingId);
         public BuildingDetails GetBuildingDetails(Guid buildingId);
         public List<Building> GetManagerBuildings(Guid managerId);
+        public Owner GetOwnerFromEmail(string email);
+        public bool CheckIfBuildingExists(Building building);
     }
 }

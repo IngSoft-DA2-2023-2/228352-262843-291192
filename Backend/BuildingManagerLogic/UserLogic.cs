@@ -102,5 +102,17 @@ namespace BuildingManagerLogic
         {
             return _userRepository.GetManagers();
         }
+
+        public Guid GetManagerIdFromEmail(string email)
+        {
+            try
+            {
+                return _userRepository.GetManagerIdFromEmail(email);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
     }
 }
