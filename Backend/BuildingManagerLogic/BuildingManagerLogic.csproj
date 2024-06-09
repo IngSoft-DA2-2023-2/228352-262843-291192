@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BuildingManagerIDataAccess\BuildingManagerIDataAccess.csproj" />
     <ProjectReference Include="..\BuildingManagerILogic\BuildingManagerILogic.csproj" />
+    <ProjectReference Include="..\BuildingManagerIImporter\BuildingManagerIImporter.csproj" />
   </ItemGroup>
 
 </Project>

@@ -202,6 +202,18 @@ namespace BuildingManagerDataAccess.Repositories
             return _context.Set<Building>().Find(buildingId)!.ConstructionCompanyId;
         }
 
+        public Owner GetOwnerFromEmail(string email)
+        {
+            try
+            {
+                return _context.Set<Owner>().First(a => a.Email == email);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Owner with email " + email + " not found.");
+            }
+        }
+
         public Building GetBuildingById(Guid buildingId)
         {
             if (!_context.Set<Building>().Any(b => b.Id == buildingId))
@@ -264,6 +276,11 @@ namespace BuildingManagerDataAccess.Repositories
                 throw new ValueNotFoundException("Manager");
             }
             return _context.Set<Building>().Where(b => b.ManagerId == managerId).Include(b => b.Apartments).ToList();
+        }
+
+        public bool CheckIfBuildingExists(Building building)
+        {
+            return _context.Set<Building>().Any(b => b.Name == building.Name || b.Address == building.Address || b.Location == building.Location);
         }
     }
 }

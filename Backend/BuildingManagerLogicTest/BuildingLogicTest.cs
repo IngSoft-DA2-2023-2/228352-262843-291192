@@ -18,10 +18,17 @@ namespace BuildingManagerLogicTest
         private Guid sessionToken;
         private Guid companyId;
         private Guid userId;
+        private Owner owner;
 
         [TestInitialize]
         public void Initialize()
         {
+            owner = new Owner
+            {
+                Name = "John",
+                LastName = "Doe",
+                Email = "owner@email.com",
+            };
             _building = new Building()
             {
                 Id = new Guid(),
@@ -30,7 +37,19 @@ namespace BuildingManagerLogicTest
                 Address = "Address",
                 Location = "City",
                 ConstructionCompanyId = Guid.NewGuid(),
-                CommonExpenses = 1000
+                CommonExpenses = 1000,
+                Apartments = new List<Apartment>
+                {
+                    new Apartment
+                    {
+                        Floor = 1,
+                        Number = 1,
+                        Rooms = 3,
+                        Bathrooms = 2,
+                        HasTerrace = true,
+                        Owner = owner
+                    }
+                }
             };
 
             sessionToken = Guid.NewGuid();
@@ -697,6 +716,61 @@ namespace BuildingManagerLogicTest
 
             buildingRespositoryMock.VerifyAll();
             Assert.AreEqual(buildingDetails, result);
+        }
+
+        [TestMethod]
+        public void GetOwnerByEmailTest()
+        {
+            List<Building> buildings = [_building];
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetOwnerFromEmail(It.IsAny<string>())).Returns(owner);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.GetOwnerFromEmail(_building.Apartments[0].Owner.Email);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.AreEqual(owner, result);
+        }
+
+        [TestMethod]
+        public void GetOwnerFromInvalidEmailTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.GetOwnerFromEmail(It.IsAny<string>())).Throws(new ValueNotFoundException(""));
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            Exception exception = null;
+
+            try
+            {
+                buildingLogic.GetOwnerFromEmail("some@mail.com");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
+
+        [TestMethod]
+        public void CheckIfBuildingExistsTest()
+        {
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            var buildingRespositoryMock = new Mock<IBuildingRepository>(MockBehavior.Strict);
+            var userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            buildingRespositoryMock.Setup(x => x.CheckIfBuildingExists(It.IsAny<Building>())).Returns(true);
+            var buildingLogic = new BuildingLogic(buildingRespositoryMock.Object, constructionCompanyLogicMock.Object, userLogic.Object);
+
+            var result = buildingLogic.CheckIfBuildingExists(_building);
+
+            buildingRespositoryMock.VerifyAll();
+            Assert.IsTrue(result);
         }
     }
 }

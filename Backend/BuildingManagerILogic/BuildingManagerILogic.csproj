@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BuildingManagerDomain\BuildingManagerDomain.csproj" />
+    <ProjectReference Include="..\BuildingManagerIImporter\BuildingManagerIImporter.csproj" />
   </ItemGroup>
+  
 
 </Project>

@@ -117,6 +117,23 @@ namespace BuildingManagerDataAccess.Repositories
             }
         }
 
+        public Guid GetManagerIdFromEmail(string email)
+        {
+            try
+            {
+                User user = _context.Set<User>().First(a => a.Email == email);
+                if (user.Role != RoleType.MANAGER)
+                {
+                    throw new ValueNotFoundException("User with email " + email + " is not a manager.");
+                }
+                return user.Id;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("Manager with email " + email + " not found.");
+            }
+        }
+
         public List<Manager> GetManagers()
         {
             return _context.Set<Manager>().Where(u => u.Role == RoleType.MANAGER).ToList();

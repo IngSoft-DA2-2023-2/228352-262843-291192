@@ -354,6 +354,77 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void GetManagerIdFromEmailSuccessfullyTest()
+        {
+            var context = CreateDbContext("GetManagerIdFromEmailSuccessfullyTest");
+            var repository = new UserRepository(context);
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456",
+                Role = RoleType.MANAGER
+            };
+            repository.CreateUser(user);
+
+            var result = repository.GetManagerIdFromEmail(user.Email);
+
+            Assert.AreEqual(user.Id, result);
+        }
+
+        [TestMethod]
+        public void GetManagerIdFromEmaiNotFoundTest()
+        {
+            var context = CreateDbContext("GetManagerIdFromEmaiNotFoundTest");
+            var repository = new UserRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.GetManagerIdFromEmail("nonexistent@example.com");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+            Assert.AreEqual("Manager with email nonexistent@example.com not found.", exception.Message);
+        }
+
+        [TestMethod]
+        public void GetUserFromEmailIsNotManagerTest()
+        {
+            var context = CreateDbContext("GetUserFromEmailIsNotManagerTest");
+            var repository = new UserRepository(context);
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Lastname = "Doe",
+                Email = "abc@example.com",
+                Password = "123456",
+                Role = RoleType.MAINTENANCE
+            };
+            repository.CreateUser(user);
+
+            Exception exception = null;
+            try
+            {
+                repository.GetManagerIdFromEmail(user.Email);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+            Assert.AreEqual("User with email abc@example.com is not a manager.", exception.Message);
+        }
+
+        [TestMethod]
         public void GetManagersTest()
         {
             var context = CreateDbContext("GetManagersTest");

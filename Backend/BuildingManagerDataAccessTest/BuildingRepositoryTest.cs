@@ -1154,6 +1154,45 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void GetOwnerFromEmailSuccessfullyTest()
+        {
+            var context = CreateDbContext("GetOwnerFromEmailSuccessfullyTest");
+            var repository = new BuildingRepository(context);
+            var user = new Owner
+            {
+                Name = "John",
+                LastName = "Doe",
+                Email = "abc@example.com",
+            };
+            context.Set<Owner>().Add(user);
+            context.SaveChanges();
+
+            var result = repository.GetOwnerFromEmail(user.Email);
+
+            Assert.AreEqual(user, result);
+        }
+
+        [TestMethod]
+        public void GetOwnerFromEmailNotFoundTest()
+        {
+            var context = CreateDbContext("GetOwnerFromEmailNotFoundTest");
+            var repository = new BuildingRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.GetOwnerFromEmail("nonexistent@example.com");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+            Assert.AreEqual("Owner with email nonexistent@example.com not found.", exception.Message);
+        }
+
+        [TestMethod]
         public void GetBuildingFromBuildingIdTest()
         {
             var context = CreateDbContext("GetBuildingFromBuildingIdTest");
@@ -1520,6 +1559,47 @@ namespace BuildingManagerDataAccessTest
             Guid managerId = Guid.NewGuid();
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.GetManagerBuildings(managerId));
+        }
+
+        [TestMethod]
+        public void CheckIdBuildingExistsTest()
+        {
+            var context = CreateDbContext("CheckIdBuildingExistsTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Guid constructionCompanyId = Guid.NewGuid();
+            Building building = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = constructionCompanyId,
+                CommonExpenses = 1000
+            };
+            Manager manager = new Manager
+            {
+                Id = managerId,
+                Name = "John",
+                Lastname = "Doe",
+                Email = "",
+                Password = "",
+            };
+            ConstructionCompany company = new ConstructionCompany
+            {
+                Id = constructionCompanyId,
+                Name = "Company 1"
+            };
+            context.Set<Building>().Add(building);
+            context.Set<User>().Add(manager);
+            context.Set<ConstructionCompany>().Add(company);
+            context.SaveChanges();
+
+            bool result = repository.CheckIfBuildingExists(building);
+
+            Assert.IsTrue(result);
         }
     }
 }

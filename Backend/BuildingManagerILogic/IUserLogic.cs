@@ -16,5 +16,6 @@ namespace BuildingManagerILogic
         public Guid GetUserIdFromSessionToken(Guid sessionToken);
         public List<Manager> GetManagers();
         public List<MaintenanceStaff> GetMaintenanceStaff();
+        public Guid GetManagerIdFromEmail(string email);
     }
 }
