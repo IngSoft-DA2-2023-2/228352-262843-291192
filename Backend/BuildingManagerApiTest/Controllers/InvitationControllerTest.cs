@@ -296,5 +296,21 @@ namespace BuildingManagerApiTest.Controllers
 
             Assert.AreNotEqual(response1, response2);
         }
-    }
+
+        [TestMethod]
+        public void InvitationByEmail_Ok()
+        {
+            var email = "john@abc.com";
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.InvitationByEmail(email)).Returns(_invitation);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+
+            var result = invitationController.InvitationByEmail(email);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as InvitationResponse;
+
+            mockInvitationLogic.VerifyAll();
+            Assert.AreEqual(content, new InvitationResponse(_invitation));
+        }
+       }
 }

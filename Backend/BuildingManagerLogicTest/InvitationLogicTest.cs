@@ -414,5 +414,38 @@ namespace BuildingManagerLogicTest
             invitationRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(NotFoundException));
         }
+
+        [TestMethod]
+        public void InvitationByEmail_ReturnsInvitation_Success()
+        {
+            var email = "john@abc.com";
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            invitationRepositoryMock.Setup(x => x.GetInvitationByEmail(email)).Returns(_invitation);
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
+
+            var result = invitationLogic.InvitationByEmail(email);
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.AreEqual(_invitation, result);
+        }
+
+        [TestMethod]
+        public void InvitationByEmail_ThrowsNotFoundException_Failure()
+        {
+            var email = "notfound@abc.com";
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            invitationRepositoryMock.Setup(x => x.GetInvitationByEmail(email)).Throws(new ValueNotFoundException("Invitation not found."));
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
+
+            Exception exception = null;
+            try
+            {
+                invitationLogic.InvitationByEmail(email);
+            }
+            catch (Exception ex) { exception = ex; }
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }

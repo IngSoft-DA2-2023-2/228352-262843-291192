@@ -48,5 +48,12 @@ namespace BuildingManagerApi.Controllers
             RespondInvitationResponse acceptInvitationResponse = new RespondInvitationResponse(_invitationLogic.RespondInvitation(respondInvitationRequest.ToEntity(id)));
             return Ok(acceptInvitationResponse);
         }
+
+        [HttpGet]
+        public IActionResult InvitationByEmail([FromQuery] string email)
+        {
+            InvitationResponse invitation = new InvitationResponse(_invitationLogic.InvitationByEmail(email));
+            return Ok(invitation);
+        }
     }
 }
