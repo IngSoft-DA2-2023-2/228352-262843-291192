@@ -163,20 +163,17 @@ namespace BuildingManagerDataAccessTest
             {
                 Id = category1Id,
                 Name = "Category 1",
-                Children = []
             };
 
             var category2 = new Category
             {
                 Id = category2Id,
                 Name = "Category 2",
-                Children = [],
             };
             var category3 = new Category
             {
                 Id = category3Id,
                 Name = "Category 3",
-                Children = [],
             };
 
             repository.CreateCategory(category1);

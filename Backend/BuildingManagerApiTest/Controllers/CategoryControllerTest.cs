@@ -22,7 +22,6 @@ namespace BuildingManagerApiTest.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = "Test",
-                Children = []
             };
             var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mockCategoryLogic.Setup(x => x.CreateCategory(It.IsAny<Category>())).Returns(category);
@@ -43,7 +42,6 @@ namespace BuildingManagerApiTest.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = "Test",
-                Children = []
             };
             List<Category> categories = new List<Category> { category };
             var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
@@ -67,13 +65,11 @@ namespace BuildingManagerApiTest.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = "Test1",
-                Children = []
             };
             var category2 = new Category
             {
                 Id = Guid.NewGuid(),
                 Name = "Test2",
-                Children = []
             };
             var categoryWithParent = new Category
             {
@@ -81,7 +77,6 @@ namespace BuildingManagerApiTest.Controllers
                 Name = category1.Name,
                 ParentId = category2.Id,
                 Parent = category2,
-                Children = []
             };
             var assignParentResponse = new CategoryResponse(categoryWithParent);
             var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
@@ -99,14 +94,14 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
-            var response = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test", Children = [] });
+            var response = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test" });
             Assert.IsFalse(response.Equals(null));
         }
 
         [TestMethod]
         public void Equals_ObjectOfDifferentType_ReturnsFalse()
         {
-            var response = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test", Children = [] });
+            var response = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test" });
             var differentTypeObject = new object();
             Assert.IsFalse(response.Equals(differentTypeObject));
         }
@@ -114,8 +109,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void Equals_ObjectWithDifferentAttributes_ReturnsFalse()
         {
-            var response1 = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test", Children = [] });
-            var response2 = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test2", Children = [] });
+            var response1 = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test" });
+            var response2 = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test2" });
             Assert.IsFalse(response1.Equals(response2));
         }
 
@@ -129,14 +124,14 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void ListCategoriesEquals_NullObject_ReturnsFalse()
         {
-            var response = new ListCategoriesResponse([new Category { Id = Guid.NewGuid(), Name = "Test", Children = [] }]);
+            var response = new ListCategoriesResponse([new Category { Id = Guid.NewGuid(), Name = "Test" }]);
             Assert.IsFalse(response.Equals(null));
         }
 
         [TestMethod]
         public void ListCategoriesEquals_ObjectOfDifferentType_ReturnsFalse()
         {
-            var response = new ListCategoriesResponse([new Category { Id = Guid.NewGuid(), Name = "Test", Children = [] }]);
+            var response = new ListCategoriesResponse([new Category { Id = Guid.NewGuid(), Name = "Test" }]);
             var differentTypeObject = new object();
             Assert.IsFalse(response.Equals(differentTypeObject));
         }
@@ -144,8 +139,8 @@ namespace BuildingManagerApiTest.Controllers
         [TestMethod]
         public void ListCategoriesEquals_ObjectWithDifferentAttributes_ReturnsFalse()
         {
-            var response1 = new ListCategoriesResponse([new Category { Id = Guid.NewGuid(), Name = "Test", Children = [] }]);
-            var response2 = new ListCategoriesResponse([new Category { Id = Guid.NewGuid(), Name = "Test2", Children = [] }]);
+            var response1 = new ListCategoriesResponse([new Category { Id = Guid.NewGuid(), Name = "Test" }]);
+            var response2 = new ListCategoriesResponse([new Category { Id = Guid.NewGuid(), Name = "Test2" }]);
             Assert.IsFalse(response1.Equals(response2));
         }
 
