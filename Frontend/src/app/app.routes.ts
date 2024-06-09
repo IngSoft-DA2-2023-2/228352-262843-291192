@@ -14,6 +14,7 @@ import { managerRoleGuard } from './guards/manager-role.guard';
 import { RequestsComponent } from './components/requests/requests.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 import { maintenanceRoleGuard } from './guards/maintenance-role.guard';
+import { ConstructionCompanyComponent } from './components/construction-company/construction-company.component';
 import { MaintainersComponent } from './components/maintainers/maintainers.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { adminRoleGuard } from './guards/admin-role.guard';
@@ -31,7 +32,8 @@ export const routes: Routes = [
       { path: 'reports/manager', component: ManagerReportsComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
       { path: 'requests', component: RequestsComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
       { path: 'maintenance', component: MaintenanceComponent, canActivate: [maintenanceRoleGuard], pathMatch: 'full' },
-      { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
+      { path: 'constructioncomany', component: ConstructionCompanyComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' },
+      { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' }
       { path: 'categories', component: CategoriesComponent, canActivate: [adminRoleGuard], pathMatch: 'full' },
     ]
   },

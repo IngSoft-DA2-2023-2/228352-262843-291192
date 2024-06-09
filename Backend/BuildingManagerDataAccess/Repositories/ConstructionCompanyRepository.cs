@@ -93,5 +93,14 @@ namespace BuildingManagerDataAccess.Repositories
 
             return company;
         }
+
+        public ConstructionCompany GetConstructionCompany(Guid companyId)
+        {
+            if (!_context.Set<ConstructionCompany>().Any(a => a.Id == companyId))
+            {
+                throw new ValueNotFoundException("Construction Company");
+            }
+            return _context.Set<ConstructionCompany>().First(i => i.Id == companyId);
+        }
     }
 }

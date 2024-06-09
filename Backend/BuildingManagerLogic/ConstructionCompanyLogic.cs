@@ -87,5 +87,17 @@ namespace BuildingManagerLogic
                 throw new DuplicatedValueException(e, e.Message);
             }
         }
+
+        public ConstructionCompany GetConstructionCompany(Guid companyId)
+        {
+            try
+            {
+                return _constructionCompanyRepository.GetConstructionCompany(companyId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
+        }
     }
 }
