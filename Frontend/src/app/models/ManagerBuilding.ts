@@ -1,8 +1,14 @@
-export interface ManagerBuildings{
+export interface ManagerBuildings {
     buildings: ManagerBuilding[]
 }
 
-export interface ManagerBuilding{
+export interface ManagerBuilding {
     id: string,
-    name: string
+    name: string,
+    apartments: ManagerApartment[]
+}
+
+export interface ManagerApartment {
+    floor: number,
+    number: number
 }

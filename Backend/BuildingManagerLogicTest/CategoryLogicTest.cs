@@ -15,7 +15,8 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void CreateCategorySuccessfully()
         {
-            var category = new Category {
+            var category = new Category
+            {
                 Id = new Guid(),
                 Name = "Category"
             };
@@ -48,6 +49,25 @@ namespace BuildingManagerLogicTest
 
             categoryRepositoryMock.VerifyAll();
             Assert.IsInstanceOfType(exception, typeof(DuplicatedValueException));
+        }
+
+        [TestMethod]
+        public void ListCategoriesTest()
+        {
+            List<Category> categories =
+            [
+                new Category {
+                Id = new Guid(),
+                Name = "Category"
+            }
+             ];
+            var categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            categoryRepositoryMock.Setup(x => x.ListCategories()).Returns(categories);
+            var categoryLogic = new CategoryLogic(categoryRepositoryMock.Object);
+
+            var result = categoryLogic.ListCategories();
+
+            Assert.AreEqual(categories, result);
         }
     }
 }

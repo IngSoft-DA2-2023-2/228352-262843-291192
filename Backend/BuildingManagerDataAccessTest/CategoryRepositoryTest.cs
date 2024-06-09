@@ -51,6 +51,24 @@ namespace BuildingManagerDataAccessTest
 
             Assert.IsInstanceOfType(exception, typeof(ValueDuplicatedException));
         }
+
+        [TestMethod]
+        public void ListCategoriesTest()
+        {
+            var context = CreateDbContext("ListCategoriesTest");
+            var repository = new CategoryRepository(context);
+            var category = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Category 1"
+            };
+            repository.CreateCategory(category);
+            List<Category> expected = [category];
+
+            var result = repository.ListCategories();
+
+            Assert.AreEqual(expected.First(), result.First());
+        }
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
