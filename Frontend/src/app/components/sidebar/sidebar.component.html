@@ -46,7 +46,7 @@
       </li>
 
       <li *ngIf="user.role == 2">
-        <a routerLink="/manager/maintainers" routerLinkActive="active"
+        <a routerLink="/manager/maintainers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
           class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer no-underline">
           <span>Mantenimiento</span>
         </a>
