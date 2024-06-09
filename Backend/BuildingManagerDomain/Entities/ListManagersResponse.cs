@@ -18,6 +18,8 @@ namespace BuildingManagerDomain.Entities
                 Manager newManager = new Manager();
                 newManager.Id = manager.Id;
                 newManager.Name = manager.Name;
+                newManager.Lastname = manager.Lastname;
+                newManager.Email = manager.Email;
 
                 Managers.Add(newManager);
             }
@@ -34,7 +36,9 @@ namespace BuildingManagerDomain.Entities
                 foreach (var otherManager in other.Managers)
                 {
                     if (manager.Name != otherManager.Name ||
-                                           manager.Role != otherManager.Role)
+                        manager.Role != otherManager.Role ||
+                        manager.Lastname != otherManager.Lastname ||
+                        manager.Email != otherManager.Email)
                         return false;
                 }
             }

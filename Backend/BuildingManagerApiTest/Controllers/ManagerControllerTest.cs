@@ -104,6 +104,24 @@ namespace BuildingManagerApiTest.Controllers
             Assert.AreEqual(expectedObject, resultObject);
         }
 
+        [TestMethod]
+        public void ListManagerUsers_OK()
+        {
+            List<Manager> managers = new List<Manager> { _manager };
+            var mockManagerLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            var mockBuildingLogic = new Mock<IBuildingLogic>(MockBehavior.Strict);
+            mockManagerLogic.Setup(x => x.GetManagers()).Returns(managers);
+            var managerController = new ManagerController(mockManagerLogic.Object, mockBuildingLogic.Object);
+            OkObjectResult expected = new OkObjectResult(new ListManagersResponse(managers));
+            ListManagersResponse expectedObject = expected.Value as ListManagersResponse;
+
+            OkObjectResult result = managerController.ListManagerUsers() as OkObjectResult;
+            ListManagersResponse resultObject = result.Value as ListManagersResponse;
+
+            mockManagerLogic.VerifyAll();
+            Assert.AreEqual(result.StatusCode, expected.StatusCode);
+            Assert.AreEqual(expectedObject, resultObject);
+        }
 
         [TestMethod]
         public void Equals_NullObject_ReturnsFalse()

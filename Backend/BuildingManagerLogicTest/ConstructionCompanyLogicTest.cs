@@ -277,5 +277,18 @@ namespace BuildingManagerLogicTest
 
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void GetCompanyBuildingsTest()
+        {
+            Guid companyId = Guid.NewGuid();
+            var constructionCompanyRepositoryMock = new Mock<IConstructionCompanyRepository>(MockBehavior.Strict);
+            constructionCompanyRepositoryMock.Setup(x => x.GetCompanyBuildings(It.IsAny<Guid>())).Returns(new List<BuildingResponse>());
+            var constructionCompanyLogic = new ConstructionCompanyLogic(constructionCompanyRepositoryMock.Object, null);
+
+            var result = constructionCompanyLogic.GetCompanyBuildings(companyId);
+
+            Assert.IsNotNull(result);
+        }
     }
 }

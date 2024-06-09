@@ -8,6 +8,7 @@ import { BuildingDetails } from '../../models/BuildingDetails';
 import { UserService } from '../../services/user.service';
 import { Manager } from '../../models/Manager';
 import Swal from 'sweetalert2';
+import { ManagerService } from '../../services/manager.service';
 
 @Component({
   selector: 'app-create-building',
@@ -22,7 +23,7 @@ export class CreateBuildingComponent implements OnInit {
   managers: Manager[] = [];
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, 
-              private buildingService: BuildingService, private userService: UserService) {
+              private buildingService: BuildingService, private managerService: ManagerService) {
     this.createBuildingForm = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
@@ -38,7 +39,7 @@ export class CreateBuildingComponent implements OnInit {
   }
 
   loadManagers(): void {
-    this.userService.getManagers().subscribe(
+    this.managerService.getManagers().subscribe(
       (response: any) => {
         this.managers = response.managers;
         console.log('Managers cargados:', this.managers);

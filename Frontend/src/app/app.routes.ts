@@ -18,14 +18,14 @@ import { MaintenanceComponent } from './components/maintenance/maintenance.compo
 import { maintenanceRoleGuard } from './guards/maintenance-role.guard';
 import { ConstructionCompanyComponent } from './components/construction-company/construction-company.component';
 import { MaintainersComponent } from './components/maintainers/maintainers.component';
-import { CategoriesComponent } from './components/categories/categories.component';
-import { adminRoleGuard } from './guards/admin-role.guard';
+import { AdministrationComponent } from './components/administration/administration.component';
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
+import { adminRoleGuard } from './guards/admin-role.guard';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [authRedirectGuard], pathMatch: 'full' },
-  { path: 'invite', component: InviteComponent, canActivate: [adminRoleGuard], pathMatch: 'full' },
-  { path: 'invitation-response', component: InvitationResponseComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, canActivate: [authRedirectGuard], pathMatch: 'full'},
+  { path: 'invitation-response', component: InvitationResponseComponent, pathMatch: 'full'},
   {
     path: 'manager', component: ManagerComponent, canActivate: [authGuard], children: [
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -38,6 +38,8 @@ export const routes: Routes = [
       { path: 'maintenance', component: MaintenanceComponent, canActivate: [maintenanceRoleGuard], pathMatch: 'full' },
       { path: 'constructioncomany', component: ConstructionCompanyComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' },
       { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
+      { path: 'invite', component: InviteComponent, canActivate: [adminRoleGuard], pathMatch: 'full'},
+      { path: 'administration', component: AdministrationComponent, pathMatch: 'full'},
       { path: 'categories', component: CategoriesComponent, canActivate: [adminRoleGuard], pathMatch: 'full' },
     ],
   },
