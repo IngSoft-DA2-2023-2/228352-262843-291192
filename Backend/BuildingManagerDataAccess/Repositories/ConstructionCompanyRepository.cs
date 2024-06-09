@@ -93,5 +93,36 @@ namespace BuildingManagerDataAccess.Repositories
 
             return company;
         }
+
+        public ConstructionCompany GetConstructionCompany(Guid companyId)
+        {
+            if (!_context.Set<ConstructionCompany>().Any(a => a.Id == companyId))
+            {
+                throw new ValueNotFoundException("Construction Company");
+            }
+            return _context.Set<ConstructionCompany>().First(i => i.Id == companyId);
+        }
+
+        public List<BuildingResponse> GetCompanyBuildings(Guid companyId)
+        {
+            if (!_context.Set<ConstructionCompany>().Any(a => a.Id == companyId))
+            {
+                throw new ValueNotFoundException("Construction Company");
+            }
+
+            List<Building> buildings = _context.Set<Building>().Where(a => a.ConstructionCompanyId == companyId).ToList();
+            List<BuildingResponse> buildingResponses = new List<BuildingResponse>();
+            foreach (var building in buildings)
+            {
+                string managerName = "";
+                if(_context.Set<User>().Any(a => a.Id == building.ManagerId))
+                {
+                    managerName = _context.Set<User>().First(i => i.Id == building.ManagerId).Name;
+                }
+                BuildingResponse buildingResponse = new BuildingResponse(building.Id, building.Name, building.Address, managerName);
+                buildingResponses.Add(buildingResponse);
+            }
+            return buildingResponses;
+        }
     }
 }

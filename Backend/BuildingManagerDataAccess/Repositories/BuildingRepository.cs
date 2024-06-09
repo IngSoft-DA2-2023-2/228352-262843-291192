@@ -259,10 +259,11 @@ namespace BuildingManagerDataAccess.Repositories
                                         .Include(b => b.Apartments)
                                             .ThenInclude(a => a.Owner)
                                         .First(b => b.Id == buildingId);
-            Manager manager = _context.Set<User>().First(u => u.Id == building.ManagerId) as Manager;
+
             ConstructionCompany constructionCompany = _context.Set<ConstructionCompany>().First(cc => cc.Id == building.ConstructionCompanyId);
-            if (manager != null)
+            if (_context.Set<Manager>().Any(u => u.Id == building.ManagerId))
             {
+                Manager manager = _context.Set<Manager>().First(u => u.Id == building.ManagerId);
                 return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, (Guid)building.ManagerId, manager.Name, building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
             }
             return new BuildingDetails(building.Id, building.Name, building.Address, building.Location, (decimal)building.CommonExpenses, Guid.Empty, "", building.ConstructionCompanyId, constructionCompany.Name, building.Apartments);
@@ -274,7 +275,7 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Manager");
             }
-            return _context.Set<Building>().Where(b => b.ManagerId == managerId).ToList();
+            return _context.Set<Building>().Where(b => b.ManagerId == managerId).Include(b => b.Apartments).ToList();
         }
 
         public bool CheckIfBuildingExists(Building building)

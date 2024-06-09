@@ -6,7 +6,6 @@ using BuildingManagerDomain.Enums;
 namespace BuildingManagerDomainTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ManagerTest
     {
         [TestMethod]

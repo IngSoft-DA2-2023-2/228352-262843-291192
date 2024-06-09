@@ -1,23 +1,18 @@
-﻿using BuildingManagerDomain.Entities;
-using BuildingManagerDomain.Enums;
+﻿using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerApi.Filters
 {
-    [ExcludeFromCodeCoverage]
     public class AuthenticationFilter : Attribute, IAuthorizationFilter
     {
-        private readonly RoleType _requiredRole;
+        private readonly RoleType[] _requiredRoles;
 
-        public AuthenticationFilter(RoleType requiredRole)
+        public AuthenticationFilter(params RoleType[] requiredRoles)
         {
-            _requiredRole = requiredRole;
+            _requiredRoles = requiredRoles;
         }
-
-        public AuthenticationFilter() { }
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
@@ -34,12 +29,14 @@ namespace BuildingManagerApi.Filters
             }
 
             IUserLogic userLogic = context.HttpContext.RequestServices.GetService(typeof(IUserLogic)) as IUserLogic;
-            if (!userLogic.ExistsFromSessionToken(token))
+            if (userLogic == null || !userLogic.ExistsFromSessionToken(token))
             {
                 SetUnauthorizedResult(context, "Invalid Token");
                 return;
             }
-            if (!_requiredRole.Equals(userLogic.RoleFromSessionToken(token)))
+
+            RoleType userRole = userLogic.RoleFromSessionToken(token);
+            if (!_requiredRoles.Contains(userRole))
             {
                 context.Result = new ObjectResult(new { ErrorMessage = "You don't have enough permissions to proceed further" })
                 {

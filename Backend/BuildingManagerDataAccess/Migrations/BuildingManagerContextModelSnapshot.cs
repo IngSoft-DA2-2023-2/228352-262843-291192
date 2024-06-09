@@ -40,6 +40,7 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("OwnerEmail")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("Rooms")
@@ -59,6 +60,7 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("CommonExpenses")
@@ -68,12 +70,14 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -92,9 +96,15 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
@@ -106,6 +116,7 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -123,10 +134,15 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -142,9 +158,11 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Email");
@@ -180,6 +198,7 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("MaintainerStaffId")
@@ -211,15 +230,18 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lastname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
@@ -293,7 +315,8 @@ namespace BuildingManagerDataAccess.Migrations
                     b.HasOne("BuildingManagerDomain.Entities.Owner", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerEmail")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Owner");
                 });
@@ -308,12 +331,22 @@ namespace BuildingManagerDataAccess.Migrations
 
                     b.HasOne("BuildingManagerDomain.Entities.User", null)
                         .WithMany()
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("BuildingManagerDomain.Entities.Category", b =>
+                {
+                    b.HasOne("BuildingManagerDomain.Entities.Category", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Request", b =>
                 {
-                    b.HasOne("BuildingManagerDomain.Entities.Building", null)
+                    b.HasOne("BuildingManagerDomain.Entities.Building", "Building")
                         .WithMany()
                         .HasForeignKey("BuildingId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -341,6 +374,8 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasForeignKey("BuildingId", "ApartmentFloor", "ApartmentNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Building");
 
                     b.Navigation("Category");
 

@@ -16,9 +16,25 @@ namespace BuildingManagerDataAccess.Repositories
         }
         public Invitation CreateInvitation(Invitation invitation)
         {
+            if(invitation.Role != RoleType.MANAGER && invitation.Role != RoleType.CONSTRUCTIONCOMPANYADMIN)
+            {
+                throw new InvalidOperationException("Role not allowed");
+            }
             if (_context.Set<Invitation>().Any(i => i.Email == invitation.Email))
             {
-                throw new ValueDuplicatedException("Email");
+                Invitation invitationInDb = _context.Set<Invitation>().First(i => i.Email == invitation.Email);
+                if(invitationInDb.Status == InvitationStatus.DECLINED)
+                {
+                    invitationInDb.Status = InvitationStatus.PENDING;
+                    invitationInDb.Deadline = invitation.Deadline;
+                    invitationInDb.Name = invitation.Name;
+                    invitationInDb.Role = invitation.Role;
+                    _context.SaveChanges();
+                    return invitationInDb;
+                }
+                else{
+                    throw new ValueDuplicatedException("Email");
+                }
             }
             _context.Set<Invitation>().Add(invitation);
             _context.SaveChanges();
@@ -69,7 +85,8 @@ namespace BuildingManagerDataAccess.Repositories
         public Invitation RespondInvitation(InvitationAnswer invitationAnswer)
         {
             Invitation invitation = _context.Set<Invitation>().FirstOrDefault(i => i.Email == invitationAnswer.Email);
-            if(invitation == null)
+
+            if (invitation == null)
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
@@ -77,7 +94,25 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new InvalidOperationException("Invitation expired.");
             }
+            if(invitation.Status == InvitationStatus.ACCEPTED)
+            {
+                throw new InvalidOperationException("Invitation was accepted.");
+            }
+            if(invitation.Status == InvitationStatus.DECLINED)
+            {
+                throw new InvalidOperationException("Invitation was rejected.");
+            }
             invitation.Status = invitationAnswer.Status;
+            _context.SaveChanges();
+            return invitation;
+        }
+        public Invitation GetInvitationByEmail(string email)
+        {
+            Invitation invitation = _context.Set<Invitation>().FirstOrDefault(i => i.Email == email);
+            if (invitation == null)
+            {
+                throw new ValueNotFoundException("Invitation not found.");
+            }
             return invitation;
         }
         private static void ThrowExceptionIfIsAccepted(Invitation invitation)

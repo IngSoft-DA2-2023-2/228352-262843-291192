@@ -11,7 +11,7 @@ namespace BuildingManagerApi.Controllers
 {
     [ApiController]
     [Route("api/categories")]
-    public class CategoryController: ControllerBase
+    public class CategoryController : ControllerBase
     {
         private readonly ICategoryLogic _categoryLogic;
 
@@ -27,5 +27,21 @@ namespace BuildingManagerApi.Controllers
             CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse(_categoryLogic.CreateCategory(categoryRequest.ToEntity()));
             return CreatedAtAction(nameof(CreateCategory), createCategoryResponse);
         }
+
+        [HttpGet]
+        public IActionResult GetCategories()
+        {
+            ListCategoriesResponse categoriesResponse = new(_categoryLogic.ListCategories());
+            return Ok(categoriesResponse);
+        }
+
+        [HttpPut("{id}")]
+        [AuthenticationFilter(RoleType.ADMIN)]
+        public IActionResult AssignParent([FromRoute] Guid id, [FromBody] Guid parentId)
+        {
+            CategoryResponse assignParentResponse = new(_categoryLogic.AssignParent(id, parentId));
+            return Ok(assignParentResponse);
+        }
+
     }
 }

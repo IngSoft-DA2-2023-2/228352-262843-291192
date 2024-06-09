@@ -3,12 +3,10 @@ using BuildingManagerDataAccess.Repositories;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerDataAccessTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ConstructionCompanyRepositoryTest
     {
         [TestMethod]
@@ -30,6 +28,24 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(constructionCompany, companyResult);
             Assert.AreEqual(constructionCompany.Id, companyAdminAssociationResult.ConstructionCompanyId);
             Assert.AreEqual(sessionToken, companyAdminAssociationResult.ConstructionCompanyAdminId);
+        }
+
+        [TestMethod]
+        public void GetConstructionCompanyTest()
+        {
+            var context = CreateDbContext("GetConstructionCompanyTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            var userId = Guid.NewGuid();
+            repository.CreateConstructionCompany(constructionCompany, userId);
+
+            var result = repository.GetConstructionCompany(constructionCompany.Id);
+
+            Assert.AreEqual(constructionCompany, result);
         }
 
         [TestMethod]
@@ -361,6 +377,48 @@ namespace BuildingManagerDataAccessTest
                 .UseInMemoryDatabase(name)
                 .Options;
             return new BuildingManagerContext(options);
+        }
+
+        [TestMethod]
+        public void GetCompanyBuildingsTest()
+        {
+            var context = CreateDbContext("GetCompanyBuildingsTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            var building = new Building
+            {
+                Id = Guid.NewGuid(),
+                Name = "building 1",
+                Address = "address 1",
+                Location = "location 1",
+                ConstructionCompanyId = constructionCompany.Id
+            };
+            var building2 = new Building
+            {
+                Id = Guid.NewGuid(),
+                Name = "building 2",
+                Address = "address 2",
+                Location = "location 2",
+                ConstructionCompanyId = constructionCompany.Id
+            };
+            context.Set<ConstructionCompany>().Add(constructionCompany);
+            context.Set<Building>().Add(building);
+            context.Set<Building>().Add(building2);
+            context.SaveChanges();
+
+            var result = repository.GetCompanyBuildings(constructionCompany.Id);
+
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(building.Id, result[0].Id);
+            Assert.AreEqual(building.Name, result[0].Name);
+            Assert.AreEqual(building.Address, result[0].Address);
+            Assert.AreEqual(building2.Id, result[1].Id);
+            Assert.AreEqual(building2.Name, result[1].Name);
+            Assert.AreEqual(building2.Address, result[1].Address);
         }
     }
 }

@@ -2,6 +2,7 @@ using BuildingManagerApi.Controllers;
 using BuildingManagerDomain.Entities;
 using BuildingManagerDomain.Enums;
 using BuildingManagerILogic;
+using BuildingManagerModels.CustomExceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
@@ -27,12 +28,14 @@ namespace BuildingManagerApiTest.Controllers
                 Name = "John",
                 Deadline = 1745039332,
                 Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
             _createInvitationRequest = new CreateInvitationRequest
             {
                 Email = "john@abc.com",
                 Name = "John",
-                Deadline = 1745039332
+                Deadline = 1745039332,
+                Role = RoleType.MANAGER
             };
             _createInvitationResponse = new InvitationResponse(_invitation);
 
@@ -51,6 +54,96 @@ namespace BuildingManagerApiTest.Controllers
             mockInvitationLogic.VerifyAll();
             Assert.AreEqual(_createInvitationResponse, content);
             Assert.AreEqual(content.Status, InvitationStatus.PENDING);
+        }
+
+        [TestMethod]
+        public void CreateContstructionCompanyAdminInvitationOk()
+        {
+            Invitation invitation = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            CreateInvitationRequest createInvitationRequest = new CreateInvitationRequest
+            {
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            InvitationResponse createInvitationResponse = new InvitationResponse(invitation);
+
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Returns(invitation);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+
+            var result = invitationController.CreateInvitation(createInvitationRequest);
+            var createdAtActionResult = result as CreatedAtActionResult;
+            var content = createdAtActionResult.Value as InvitationResponse;
+
+            mockInvitationLogic.VerifyAll();
+            Assert.AreEqual(createInvitationResponse, content);
+            Assert.AreEqual(content.Status, InvitationStatus.PENDING);
+        }
+
+        [TestMethod]
+        public void CreateInvitationWithAdminRoleType_ThrowsInvalidArgumentException()
+        {
+            Invitation invitation = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.ADMIN
+            };
+            CreateInvitationRequest createInvitationRequest = new CreateInvitationRequest
+            {
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Role = RoleType.ADMIN
+            };
+            InvitationResponse createInvitationResponse = new InvitationResponse(invitation);
+
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Returns(invitation);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+
+            Assert.ThrowsException<InvalidArgumentException>(() => invitationController.CreateInvitation(createInvitationRequest));
+        }
+
+        [TestMethod]
+        public void CreateInvitationWithMaintenanceRoleType_ThrowsInvalidArgumentException()
+        {
+            Invitation invitation = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MAINTENANCE
+            };
+            CreateInvitationRequest createInvitationRequest = new CreateInvitationRequest
+            {
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Role = RoleType.MAINTENANCE
+            };
+            InvitationResponse createInvitationResponse = new InvitationResponse(invitation);
+
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.CreateInvitation(It.IsAny<Invitation>())).Returns(invitation);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+
+            Assert.ThrowsException<InvalidArgumentException>(() => invitationController.CreateInvitation(createInvitationRequest));
         }
 
         [TestMethod]
@@ -203,5 +296,21 @@ namespace BuildingManagerApiTest.Controllers
 
             Assert.AreNotEqual(response1, response2);
         }
-    }
+
+        [TestMethod]
+        public void InvitationByEmail_Ok()
+        {
+            var email = "john@abc.com";
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.InvitationByEmail(email)).Returns(_invitation);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+
+            var result = invitationController.InvitationByEmail(email);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as InvitationResponse;
+
+            mockInvitationLogic.VerifyAll();
+            Assert.AreEqual(content, new InvitationResponse(_invitation));
+        }
+       }
 }

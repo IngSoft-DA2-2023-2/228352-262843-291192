@@ -17,7 +17,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpGet("{buildingId}/categories")]
-        [AuthenticationFilter(RoleType.MANAGER)]
+        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult GetReport([FromRoute] Guid buildingId, [FromQuery] string? categoryName)
         {
             CategoriesReportResponse categoriesReportResponse = new(_reportLogic.GetReport(buildingId, categoryName, ReportType.CATEGORIES));

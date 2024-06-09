@@ -10,11 +10,14 @@ namespace BuildingManagerDomain.Entities
         public string Name { get; set; }
         public long Deadline { get; set; }
         public InvitationStatus Status { get; set; }
+        public RoleType Role { get; set; }
 
         public override bool Equals(object obj)
         {
             Invitation invitation = (Invitation)obj;
-            return Name == invitation.Name && Email == invitation.Email && Deadline == invitation.Deadline && Status == invitation.Status;
+            return Name == invitation.Name && Email == invitation.Email && 
+                   Deadline == invitation.Deadline && Status == invitation.Status &&
+                   Role == invitation.Role;
         }
     }
 }

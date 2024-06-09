@@ -5,7 +5,6 @@ using System.Reflection.Metadata;
 
 namespace BuildingManagerDataAccess.Context
 {
-    [ExcludeFromCodeCoverage]
     public class BuildingManagerContext : DbContext
     {
         public DbSet<User> Users { get; set; }
@@ -70,7 +69,7 @@ namespace BuildingManagerDataAccess.Context
                         .WithMany()
                         .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Request>()
-                        .HasOne<Building>()
+                        .HasOne<Building>(r => r.Building)
                         .WithMany()
                         .HasForeignKey(r => r.BuildingId)
                         .OnDelete(DeleteBehavior.Restrict);
@@ -83,6 +82,12 @@ namespace BuildingManagerDataAccess.Context
 
             modelBuilder.Entity<CompanyAdminAssociation>()
             .HasKey(c => new { c.ConstructionCompanyAdminId, c.ConstructionCompanyId });
+
+            modelBuilder.Entity<Category>()
+                .HasOne<Category>(c => c.Parent)
+                .WithMany()
+                .HasForeignKey(c => c.ParentId)
+                .IsRequired(false);
 
             modelBuilder.Entity<CompanyAdminAssociation>()
                 .HasOne<User>()
@@ -98,6 +103,7 @@ namespace BuildingManagerDataAccess.Context
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(b => b.ManagerId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .IsRequired(false);
         }
     }

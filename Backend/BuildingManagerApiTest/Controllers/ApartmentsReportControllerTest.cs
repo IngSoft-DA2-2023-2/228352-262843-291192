@@ -11,7 +11,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerApiTest.Controllers
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ApartmentsReportControllerTest
     {
         private List<ReportData> _data;

@@ -1,5 +1,4 @@
 using BuildingManagerDomain.Entities;
-using System.Collections.Generic;
 
 namespace BuildingManagerModels.Outer
 {

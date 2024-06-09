@@ -1,0 +1,89 @@
+<div class="container">
+  <h1 class="font-bold text-2xl text-center border-y-4">Crear Edificio</h1>
+  <form class="overflow-auto" [formGroup]="createBuildingForm" (ngSubmit)="onSubmit()">
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-4">Datos del Edificio</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre <span class="requiredDataForm">*</span></label>
+          <input type="text" id="name" class="form-control" formControlName="name">
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Dirección <span class="requiredDataForm">*</span></label>
+          <input type="text" id="address" class="form-control" formControlName="address">
+        </div>
+        <div class="mb-3">
+          <label for="location" class="form-label">Lugar <span class="requiredDataForm">*</span></label>
+          <input type="text" id="location" class="form-control" formControlName="location">
+        </div>
+        <div class="mb-3">
+          <label for="commonExpenses" class="form-label">Gastos comunes <span class="requiredDataForm">*</span></label>
+          <input type="number" id="commonExpenses" class="form-control" formControlName="commonExpenses">
+        </div>
+        <div class="mb-3">
+          <label for="manager" class="form-label">Administrador</label>
+          <select id="manager" class="form-control" formControlName="managerId">
+            <option value="" disabled>Seleccione un administrador</option>
+            <option *ngFor="let manager of managers" [value]="manager.id">
+              {{ manager.name }} {{ manager.lastname }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-4">Apartamentos <span class="requiredDataForm">*</span></h3>
+      <div formArrayName="apartments">
+        <div *ngFor="let apartment of apartments.controls; let i = index" [formGroupName]="i" class="border p-4 mb-4 rounded-lg">
+          <h4 class="text-lg font-semibold mb-4">Apartamento {{ i + 1 }}</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="mb-3">
+              <label for="number" class="form-label">Número <span class="requiredDataForm">*</span></label>
+              <input type="number" id="number" class="form-control" formControlName="number">
+            </div>
+            <div class="mb-3">
+              <label for="floor" class="form-label">Piso <span class="requiredDataForm">*</span></label>
+              <input type="number" id="floor" class="form-control" formControlName="floor">
+            </div>
+            <div class="mb-3">
+              <label for="rooms" class="form-label">Habitaciones <span class="requiredDataForm">*</span></label>
+              <input type="number" id="rooms" class="form-control" formControlName="rooms">
+            </div>
+            <div class="mb-3">
+              <label for="bathrooms" class="form-label">Baños <span class="requiredDataForm">*</span></label>
+              <input type="number" id="bathrooms" class="form-control" formControlName="bathrooms">
+            </div>
+            <div class="mb-3 flex items-center">
+              <label for="hasTerrace" class="form-label mr-2">Tiene Terraza</label>
+              <input type="checkbox" id="hasTerrace" class="form-checkbox h-5 w-5 text-indigo-600" formControlName="hasTerrace">
+            </div>
+          </div>
+
+          <div formGroupName="owner">
+            <h5 class="text-lg font-semibold mt-4 mb-2">Dueño <span class="requiredDataForm">*</span></h5>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="mb-3">
+                <label for="owner-name" class="form-label">Nombre <span class="requiredDataForm">*</span></label>
+                <input type="text" id="owner-name" class="form-control" formControlName="name">
+              </div>
+              <div class="mb-3">
+                <label for="owner-lastName" class="form-label">Apellido <span class="requiredDataForm">*</span></label>
+                <input type="text" id="owner-lastName" class="form-control" formControlName="lastName">
+              </div>
+              <div class="mb-3">
+                <label for="owner-email" class="form-label">Email <span class="requiredDataForm">*</span></label>
+                <input type="email" id="owner-email" class="form-control" formControlName="email">
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-danger mt-2" (click)="removeApartment(i)">Eliminar Apartamento</button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary mt-4" (click)="addApartment()">Agregar Apartamento</button>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Edificio</button>
+  </form>
+</div>

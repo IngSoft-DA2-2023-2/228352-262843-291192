@@ -11,7 +11,7 @@ import { ManagerBuildings } from '../models/ManagerBuilding';
 })
 export class BuildingService {
   constructor(private http: HttpClient) { }
-  
+
   public getBuildings(): Observable<Building[]> {
     return this.http.get<Building[]>(`${environment.apiUrl}/buildings`);
   }
@@ -23,13 +23,24 @@ export class BuildingService {
   public updateBuilding(id: string, building: BuildingDetails): Observable<BuildingDetails> {
     return this.http.put<BuildingDetails>(`${environment.apiUrl}/buildings/${id}`, building);
   }
-  
-  public getManagerBuildings(managerId: string): Observable<ManagerBuildings> | null {
+
+  public createBuilding(building: BuildingDetails): Observable<BuildingDetails> {
+    return this.http.post<BuildingDetails>(`${environment.apiUrl}/buildings`, building);
+  }
+
+  public deleteBuilding(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/buildings/${id}`);
+  }
+
+  public getManagerBuildings(): Observable<ManagerBuildings> | null {
+    let managerConnected = localStorage.getItem('connectedUser');
+    if (managerConnected == null) return null;
+    let managerConnectedJson = JSON.parse(managerConnected);
     let sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken != null) {
       let token = JSON.parse(sessionToken);
       let headers = new HttpHeaders().set('Authorization', token);
-      return this.http.get<ManagerBuildings>(`${environment.apiUrl}/managers/${managerId}/buildings`, { headers: headers });
+      return this.http.get<ManagerBuildings>(`${environment.apiUrl}/managers/${managerConnectedJson.userId}/buildings`, { headers: headers });
     } else return null
   }
 }

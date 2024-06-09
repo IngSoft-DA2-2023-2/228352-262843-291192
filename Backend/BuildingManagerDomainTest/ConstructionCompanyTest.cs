@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerDomainTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ConstructionCompanyTest
     {
         [TestMethod]

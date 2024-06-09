@@ -21,13 +21,126 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
 
             repository.CreateInvitation(invitation);
             var result = context.Set<Invitation>().Find(invitation.Id);
 
             Assert.AreEqual(invitation, result);
+        }
+
+        [TestMethod]
+        public void CreateInvitationThatAlreadyExistsWithDeclinedStatusTest()
+        {
+            var context = CreateDbContext("CreateInvitationThatAlreadyExistsWithDeclinedStatusTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.DECLINED,
+                Role = RoleType.MANAGER
+            };
+            repository.CreateInvitation(invitation);
+
+            long newDeadline = DateTimeOffset.UtcNow.AddYears(4).ToUnixTimeSeconds();
+            var invitation2 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "José",
+                Email = "test@test.com",
+                Deadline = newDeadline,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            repository.CreateInvitation(invitation2);
+
+            var result = context.Set<Invitation>().Find(invitation.Id);
+            Assert.AreEqual(invitation, result);
+            Assert.AreEqual(newDeadline, result.Deadline);
+            Assert.AreEqual(invitation2.Name, result.Name);
+            Assert.AreEqual(invitation2.Role, result.Role);
+        }
+
+        [TestMethod]
+        public void CreateInvitatioWithCCAdminRoleTypeTest()
+        {
+            var context = CreateDbContext("CreateInvitatioWithCCAdminRoleTypeTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+
+            repository.CreateInvitation(invitation);
+            var result = context.Set<Invitation>().Find(invitation.Id);
+
+            Assert.AreEqual(invitation, result);
+        }
+
+        [TestMethod]
+        public void CreateInvitatioWithAdminRoleTypeThrowExceptionTest()
+        {
+            var context = CreateDbContext("CreateInvitatioWithAdminRoleTypeThrowExceptionTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.ADMIN
+            };
+
+            Exception exception = null;
+            try
+            {
+                repository.CreateInvitation(invitation);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
+        public void CreateInvitatioWithMaintenanceRoleTypeThrowExceptionTest()
+        {
+            var context = CreateDbContext("CreateInvitatioWithAdminRoleTypeThrowExceptionTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MAINTENANCE
+            };
+
+            Exception exception = null;
+            try
+            {
+                repository.CreateInvitation(invitation);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
         }
 
         [TestMethod]
@@ -41,7 +154,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
 
@@ -61,7 +175,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
 
@@ -81,7 +196,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
 
@@ -147,7 +263,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.ACCEPTED
+                Status = InvitationStatus.ACCEPTED,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
 
@@ -175,7 +292,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.ACCEPTED
+                Status = InvitationStatus.ACCEPTED,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
 
@@ -203,7 +321,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
 
@@ -231,7 +350,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "test@test.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(3).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
 
@@ -259,7 +379,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "Peter",
                 Email = "peter@abc.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(2).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
             var invitationAnswer = new InvitationAnswer
@@ -275,6 +396,7 @@ namespace BuildingManagerDataAccessTest
                 Email = invitationAnswer.Email,
                 Status = invitationAnswer.Status,
                 Deadline = invitation.Deadline,
+                Role = invitation.Role
             };
 
             var result = repository.RespondInvitation(invitationAnswer);
@@ -293,7 +415,8 @@ namespace BuildingManagerDataAccessTest
                 Name = "John",
                 Email = "john@abc.com",
                 Deadline = DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
             var invitationAnswer = new InvitationAnswer
@@ -310,6 +433,7 @@ namespace BuildingManagerDataAccessTest
                 Email = invitationAnswer.Email,
                 Status = invitationAnswer.Status,
                 Deadline = invitation.Deadline,
+                Role = invitation.Role
             };
 
             var result = repository.RespondInvitation(invitationAnswer);
@@ -344,17 +468,18 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
-        public void RespondInvitationWithExpiredInvitationTest()
+        public void RespondInvitationWithAcceptedInvitationTest()
         {
-            var context = CreateDbContext("RespondInvitationWithExpiredInvitationTest");
+            var context = CreateDbContext("RespondInvitationWithAcceptedInvitationTest");
             var repository = new InvitationRepository(context);
             var invitation = new Invitation
             {
                 Id = Guid.NewGuid(),
                 Name = "John",
-                Email = "john@abc.com",
-                Deadline = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds(),
-                Status = InvitationStatus.PENDING
+                Email = "jhon@gmail.com",
+                Deadline = DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED,
+                Role = RoleType.MANAGER
             };
             repository.CreateInvitation(invitation);
 
@@ -377,6 +502,121 @@ namespace BuildingManagerDataAccessTest
             }
 
             Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
+        public void RespondInvitationWithRejectedInvitationTest()
+        {
+            var context = CreateDbContext("RespondInvitationWithRejectedInvitationTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "jhon@gmail.com",
+                Deadline = DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds(),
+                Status = InvitationStatus.DECLINED,
+                Role = RoleType.MANAGER
+            };
+            repository.CreateInvitation(invitation);
+
+            var invitationAnswer = new InvitationAnswer
+            {
+                InvitationId = invitation.Id,
+                Email = invitation.Email,
+                Status = InvitationStatus.ACCEPTED,
+                Password = "123456"
+            };
+
+            Exception exception = null;
+            try
+            {
+                repository.RespondInvitation(invitationAnswer);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
+        public void RespondInvitationWithExpiredInvitationTest()
+        {
+            var context = CreateDbContext("RespondInvitationWithExpiredInvitationTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "john@abc.com",
+                Deadline = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
+            };
+            repository.CreateInvitation(invitation);
+
+            var invitationAnswer = new InvitationAnswer
+            {
+                InvitationId = invitation.Id,
+                Email = invitation.Email,
+                Status = InvitationStatus.ACCEPTED,
+                Password = "123456"
+            };
+
+            Exception exception = null;
+            try
+            {
+                repository.RespondInvitation(invitationAnswer);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
+        public void GetInvitationByEmail_ReturnsInvitation_Success()
+        {
+            var context = CreateDbContext("GetInvitationByEmail_ReturnsInvitation_Success");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "john@abc.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
+            };
+            context.Set<Invitation>().Add(invitation);
+            context.SaveChanges();
+
+            var result = repository.GetInvitationByEmail("john@abc.com");
+
+            Assert.AreEqual(invitation.Email, result.Email);
+        }
+
+        [TestMethod]
+        public void GetInvitationByEmail_ThrowsValueNotFoundException_Failure()
+        {
+            var context = CreateDbContext("GetInvitationByEmail_ThrowsValueNotFoundException_Failure");
+            var repository = new InvitationRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.GetInvitationByEmail("notfound@abc.com");
+            }
+            catch(Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
 
         private DbContext CreateDbContext(string name)

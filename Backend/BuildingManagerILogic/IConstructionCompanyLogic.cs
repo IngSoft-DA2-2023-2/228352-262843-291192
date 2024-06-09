@@ -10,5 +10,7 @@ namespace BuildingManagerILogic
         public Guid GetCompanyIdFromUserId(Guid userId);
         public void AssociateCompanyToUser(Guid userId, Guid companyId);
         public bool IsUserAssociatedToCompany(Guid userId, Guid companyId);
+        public ConstructionCompany GetConstructionCompany(Guid companyId);
+        public List<BuildingResponse> GetCompanyBuildings(Guid companyId);
     }
 }
