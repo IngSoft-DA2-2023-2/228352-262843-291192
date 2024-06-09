@@ -19,10 +19,10 @@ import { MaintenanceComponent } from './components/maintenance/maintenance.compo
 import { maintenanceRoleGuard } from './guards/maintenance-role.guard';
 import { ConstructionCompanyComponent } from './components/construction-company/construction-company.component';
 import { MaintainersComponent } from './components/maintainers/maintainers.component';
+import { AdministrationComponent } from './components/administration/administration.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authRedirectGuard], pathMatch: 'full'},
-  { path: 'invite', component: InviteComponent, canActivate: [adminRoleGuard], pathMatch: 'full'},
   { path: 'invitation-response', component: InvitationResponseComponent, pathMatch: 'full'},
   {
     path: 'manager', component: ManagerComponent, canActivate: [authGuard], children: [
@@ -34,7 +34,9 @@ export const routes: Routes = [
       { path: 'requests', component: RequestsComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
       { path: 'maintenance', component: MaintenanceComponent, canActivate: [maintenanceRoleGuard], pathMatch: 'full' },
       { path: 'constructioncomany', component: ConstructionCompanyComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' },
-      { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' }
+      { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
+      { path: 'invite', component: InviteComponent, canActivate: [adminRoleGuard], pathMatch: 'full'},
+      { path: 'administration', component: AdministrationComponent, pathMatch: 'full'}
     ],
   },
   { path: '**', redirectTo: '/login' }

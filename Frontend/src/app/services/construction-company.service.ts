@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../models/User';
 import { ConstructionCompanyAdmin } from '../models/ConstructionCompanyAdmin';
+import { Building } from '../models/Building';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +23,14 @@ export class ConstructionCompanyService {
   }
 
   getConstructionCompanyByUser(): Observable<ConstructionCompany> {
-    return this.http.get<ConstructionCompany>(`${environment.apiUrl}/construction-company-admin`);
+    return this.http.get<ConstructionCompany>(`${environment.apiUrl}/construction-company-admins`);
   }
 
   inviteConstructionCompanyAdmin(ccadmin: ConstructionCompanyAdmin): Observable<User> {
-    console.log('Inviting construction company admin', ccadmin)
-    return this.http.post<User>(`${environment.apiUrl}/construction-company-admin`, ccadmin);
+    return this.http.post<User>(`${environment.apiUrl}/construction-company-admins`, ccadmin);
+  }
+
+  getBuildingsFromCCAdmin(ccadminId: string): Observable<Building[]> {
+    return this.http.get<Building[]>(`${environment.apiUrl}/construction-company-admins/${ccadminId}/buildings`);
   }
 }

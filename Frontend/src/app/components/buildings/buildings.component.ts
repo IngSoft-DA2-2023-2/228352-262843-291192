@@ -5,6 +5,7 @@ import { Building } from '../../models/Building';
 import { BuildingService } from '../../services/building.service';
 import { HttpClientModule } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { ConstructionCompanyService } from '../../services/construction-company.service';
 
 @Component({
   selector: 'app-buildings',
@@ -19,11 +20,14 @@ export class BuildingsComponent {
   buildingName: string = '';
   buildings: Building[] = []
 
-  constructor(public buildingService: BuildingService) { 
-    this.buildingService.getBuildings().subscribe(
+  constructor(public buildingService: BuildingService, public constructionCompanyService: ConstructionCompanyService) {
+    const sessionData = localStorage.getItem('connectedUser');
+    const ccadminId = sessionData ? JSON.parse(sessionData).userId : null;
+    this.constructionCompanyService.getBuildingsFromCCAdmin(ccadminId).subscribe(
       (response: any) => {
         if (response && Array.isArray(response.buildings)) {
           this.buildings = response.buildings;
+          console.log('Edificios obtenidos:', this.buildings);
         } else {
           console.error('Los datos recibidos no son válidos:', response);
         }

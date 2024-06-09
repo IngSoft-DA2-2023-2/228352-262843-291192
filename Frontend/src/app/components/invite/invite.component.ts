@@ -57,7 +57,7 @@ export class InviteComponent {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Ocurrió un error al crear la invitación.',
+            text: error.error.errorMessage || 'Ocurrió un error al crear la invitación.',
             confirmButtonText: 'Aceptar'
           });
         }

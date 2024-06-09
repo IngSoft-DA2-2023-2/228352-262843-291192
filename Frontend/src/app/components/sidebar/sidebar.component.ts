@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class SidebarComponent {
   user: User = {} as User;
   currentRole: UserRole = {} as UserRole;
+  userRole = UserRole;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 

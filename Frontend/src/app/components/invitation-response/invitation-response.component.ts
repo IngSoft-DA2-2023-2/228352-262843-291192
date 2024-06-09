@@ -22,7 +22,7 @@ export class InvitationResponseComponent {
   ) {
     this.acceptForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required]]
     });
 
     this.declineForm = this.fb.group({
