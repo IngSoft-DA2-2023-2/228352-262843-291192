@@ -15,7 +15,10 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Category AssignParent(Guid id, Guid parentId)
         {
-            throw new NotImplementedException();
+            Category category = _context.Set<Category>().First(c => c.Id == id);
+            category.ParentId = parentId;
+            _context.SaveChanges();
+            return category;
         }
 
         public Category CreateCategory(Category category)

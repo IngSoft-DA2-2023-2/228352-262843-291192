@@ -69,6 +69,37 @@ namespace BuildingManagerDataAccessTest
 
             Assert.AreEqual(expected.First(), result.First());
         }
+
+        [TestMethod]
+        public void AssignParentTest()
+        {
+            var context = CreateDbContext("AssignParentTest");
+            var repository = new CategoryRepository(context);
+            var category1 = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Category 1"
+            };
+            var category2 = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Category 2"
+            };
+            var categoryWithParent = new Category
+            {
+                Id = category1.Id,
+                Name = "Category 1",
+                ParentId = category2.Id
+            };
+            repository.CreateCategory(category1);
+            repository.CreateCategory(category2);
+            repository.AssignParent(category1.Id, category2.Id);
+            var result = context.Set<Category>().Find(category1.Id);
+
+            Assert.AreEqual(categoryWithParent.Id, result.Id);
+            Assert.AreEqual(categoryWithParent.Name, result.Name);
+            Assert.AreEqual(categoryWithParent.ParentId, result.ParentId);
+        }
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
