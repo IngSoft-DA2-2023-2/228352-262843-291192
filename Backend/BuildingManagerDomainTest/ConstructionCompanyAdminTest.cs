@@ -8,7 +8,6 @@ using BuildingManagerModels.CustomExceptions;
 namespace BuildingManagerDomainTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ConstructionCompanyAdminTest
     {
         [TestMethod]

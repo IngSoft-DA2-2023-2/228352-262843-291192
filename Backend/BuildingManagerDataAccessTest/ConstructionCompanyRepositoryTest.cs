@@ -3,12 +3,10 @@ using BuildingManagerDataAccess.Repositories;
 using BuildingManagerDomain.Entities;
 using BuildingManagerIDataAccess.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerDataAccessTest
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ConstructionCompanyRepositoryTest
     {
         [TestMethod]
@@ -30,6 +28,24 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(constructionCompany, companyResult);
             Assert.AreEqual(constructionCompany.Id, companyAdminAssociationResult.ConstructionCompanyId);
             Assert.AreEqual(sessionToken, companyAdminAssociationResult.ConstructionCompanyAdminId);
+        }
+
+        [TestMethod]
+        public void GetConstructionCompanyTest()
+        {
+            var context = CreateDbContext("GetConstructionCompanyTest");
+            var repository = new ConstructionCompanyRepository(context);
+            var constructionCompany = new ConstructionCompany
+            {
+                Id = Guid.NewGuid(),
+                Name = "company 1"
+            };
+            var userId = Guid.NewGuid();
+            repository.CreateConstructionCompany(constructionCompany, userId);
+
+            var result = repository.GetConstructionCompany(constructionCompany.Id);
+
+            Assert.AreEqual(constructionCompany, result);
         }
 
         [TestMethod]

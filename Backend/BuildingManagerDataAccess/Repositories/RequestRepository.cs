@@ -18,9 +18,10 @@ namespace BuildingManagerDataAccess.Repositories
         {
             try
             {
-                Request request = _context.Set<Request>().Find(id);
+                Request request = _context.Set<Request>().Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
                 request.MaintainerStaffId = maintenanceStaffId;
                 _context.SaveChanges();
+                request = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
                 return request;
             }
             catch (Exception)
@@ -29,11 +30,15 @@ namespace BuildingManagerDataAccess.Repositories
             }
         }
 
-        public Request AttendRequest(Guid id , Guid maintainerStaffId)
+        public Request AttendRequest(Guid id, Guid maintainerStaffId)
         {
             try
             {
-                Request request = _context.Set<Request>().First(r => r.Id == id);
+                Request request = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
+                if(request.MaintenanceStaff.Id != maintainerStaffId)
+                {
+                    throw new InvalidOperationException("Request not assigned to this staff.");
+                }
                 request.State = RequestState.ATTENDING;
                 request.AttendedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
                 _context.SaveChanges();
@@ -43,18 +48,18 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException(e.Message);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new ValueNotFoundException("Request not found.");
             }
-            
+
         }
 
         public Request CompleteRequest(Guid id, int cost)
         {
             try
             {
-                Request request = _context.Set<Request>().Find(id);
+                Request request = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
                 request.State = RequestState.CLOSE;
                 request.CompletedAt = DateTimeOffset.Now.ToUnixTimeSeconds();
                 request.Cost = cost;
@@ -76,32 +81,34 @@ namespace BuildingManagerDataAccess.Repositories
                 request.ManagerId = manager.Id;
                 _context.Set<Request>().Add(request);
                 _context.SaveChanges();
+                Request newRequest = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == request.Id);
+                return newRequest;
             }
             catch (Exception)
             {
                 throw new ValueNotFoundException("CategoryId or ApartmentNumber with ApartmentFloor in BuildingId not found.");
             }
 
-            return request;
         }
 
         public List<Request> GetAssignedRequests(Guid sessionToken)
         {
             Guid maintainerStaffId = Guid.Empty;
             try
-            { 
+            {
                 MaintenanceStaff maintenanceStaff = _context.Set<MaintenanceStaff>().First(i => i.SessionToken == sessionToken);
                 maintainerStaffId = maintenanceStaff.Id;
-            }catch(InvalidOperationException)
+            }
+            catch (InvalidOperationException)
             {
                 throw new ValueNotFoundException("User not found.");
             }
-            return _context.Set<Request>().Where(r => r.MaintainerStaffId == maintainerStaffId).ToList();
+            return _context.Set<Request>().Where(r => r.MaintainerStaffId == maintainerStaffId).Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).ToList();
         }
 
         public List<Request> GetRequests()
         {
-            return _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).ToList();
+            return _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).ToList();
         }
 
         public List<Request> GetRequestsByManager(Guid managerSessionToken, string? category)
@@ -118,11 +125,11 @@ namespace BuildingManagerDataAccess.Repositories
             Guid managerId = manager.Id;
             if (!string.IsNullOrEmpty(category))
             {
-                return _context.Set<Request>().Where(r => r.ManagerId == managerId && r.Category.Name == category).ToList();
+                return _context.Set<Request>().Where(r => r.ManagerId == managerId && r.Category.Name == category).Include(r => r.Category).Include(r => r.MaintenanceStaff).Include(r => r.Building).ToList();
             }
             else
             {
-                return _context.Set<Request>().Where(r => r.ManagerId == managerId).ToList();
+                return _context.Set<Request>().Where(r => r.ManagerId == managerId).Include(r => r.Category).Include(r => r.MaintenanceStaff).Include(r => r.Building).ToList();
             }
         }
     }

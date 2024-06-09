@@ -5,7 +5,6 @@ using System.Reflection.Metadata;
 
 namespace BuildingManagerDataAccess.Context
 {
-    [ExcludeFromCodeCoverage]
     public class BuildingManagerContext : DbContext
     {
         public DbSet<User> Users { get; set; }
@@ -70,7 +69,7 @@ namespace BuildingManagerDataAccess.Context
                         .WithMany()
                         .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Request>()
-                        .HasOne<Building>()
+                        .HasOne<Building>(r => r.Building)
                         .WithMany()
                         .HasForeignKey(r => r.BuildingId)
                         .OnDelete(DeleteBehavior.Restrict);

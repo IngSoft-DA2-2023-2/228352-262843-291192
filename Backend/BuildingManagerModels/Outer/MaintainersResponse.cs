@@ -27,7 +27,9 @@ namespace BuildingManagerModels.Outer
                 foreach (var otherData in other.Maintainers)
                 {
                     if (data.Name != otherData.Name ||
-                        data.Id != otherData.Id)
+                        data.Id != otherData.Id ||
+                        data.Email != otherData.Email ||
+                        data.Lastname != otherData.Lastname)
                         return false;
                 }
             }

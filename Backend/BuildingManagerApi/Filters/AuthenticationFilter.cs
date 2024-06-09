@@ -7,7 +7,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerApi.Filters
 {
-    [ExcludeFromCodeCoverage]
     public class AuthenticationFilter : Attribute, IAuthorizationFilter
     {
         private readonly RoleType _requiredRole;

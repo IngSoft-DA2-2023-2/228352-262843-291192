@@ -7,12 +7,10 @@ using BuildingManagerModels.Outer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BuildingManagerApiTest.Controllers
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class ConstructionCompanyControllerTest
     {
         [TestMethod]

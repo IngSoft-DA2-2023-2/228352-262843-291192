@@ -1,8 +1,10 @@
-export interface Maintainers{
-    maintainers: MaintainerStaff[]
+export interface Maintainers {
+    maintainers: Maintainer[]
 }
 
-export interface MaintainerStaff{
+export interface Maintainer {
     id: string,
-    name: string
+    email: string,
+    name: string,
+    lastname: string,
 }

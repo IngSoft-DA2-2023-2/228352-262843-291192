@@ -11,7 +11,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace BuildingManagerApiTest.Controllers
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class CategoriesReportControllerTest
     {
         private List<ReportData> _data;

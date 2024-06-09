@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportsService } from '../../services/reports.service';
+import { ReportService } from '../../services/report.service';
 import { Router } from '@angular/router';
 import { BuildingsReport } from '../../models/BuildingsReport';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ import { BuildingService } from '../../services/building.service';
 import { ManagerBuildings } from '../../models/ManagerBuilding';
 import { UserService } from '../../services/user.service';
 import { Maintainers } from '../../models/Maintainers';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reports',
@@ -19,7 +20,7 @@ import { Maintainers } from '../../models/Maintainers';
   styleUrl: './reports.component.css',
   imports: [FormsModule, HttpClientModule, NgFor, NgSwitchCase, NgSwitch, NgIf],
   standalone: true,
-  providers: [ReportsService, BuildingService, UserService]
+  providers: [ReportService, BuildingService, UserService]
 })
 export class ReportsComponent implements OnInit {
   buildingsReport: BuildingsReport | undefined;
@@ -28,38 +29,42 @@ export class ReportsComponent implements OnInit {
 
   reportType: string = '0';
   buildingId: string = "";
-  managerId: string = "";
   buildings: ManagerBuildings | undefined;
-  filter: string = "";
+  buildingFilter: string = "";
+  maintainerFilter: string = "";
   openFilters: boolean = false;
   maintainers: Maintainers | undefined;
   errors: string = "";
 
-  constructor(public reportService: ReportsService, public routerServices: Router, public buildingsService: BuildingService, public userService: UserService) { }
+  constructor(public reportService: ReportService, public routerServices: Router, public buildingsService: BuildingService, public userService: UserService) { }
 
   ngOnInit(): void {
-    let managerConnected = localStorage.getItem('connectedUser');
-    if (managerConnected == null) {
-      //TODO: Redirect to login
-      // this.routerServices.navigate(['/login']);
-    }
-    else {
-      let managerConnectedJson =  JSON.parse(managerConnected);
-      this.managerId = managerConnectedJson.userId;
-    }
-
-    var buildingsObservable: Observable<ManagerBuildings> | null = this.buildingsService.getManagerBuildings(this.managerId);
+    var buildingsObservable: Observable<ManagerBuildings> | null = this.buildingsService.getManagerBuildings();
     if (buildingsObservable != null) {
       buildingsObservable.subscribe(buildings => {
         this.buildings = buildings;
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar los reportes'
+          });
+        });
     }
 
     var usersObservable: Observable<Maintainers> | null = this.userService.getMaintenanceStaff();
     if (usersObservable != null) {
       usersObservable.subscribe(maintainers => {
         this.maintainers = maintainers;
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar los reportes'
+          });
+        });
     }
   }
 
@@ -69,22 +74,36 @@ export class ReportsComponent implements OnInit {
     switch (this.reportType) {
       case "0":
         var buildingsReportsObservable: Observable<BuildingsReport> | null = null;
-        buildingsReportsObservable = this.reportService.getBuildingsReport(this.filter);
+        buildingsReportsObservable = this.reportService.getBuildingsReport(this.buildingFilter);
         if (buildingsReportsObservable != null) {
           buildingsReportsObservable.subscribe(report => {
             this.buildingsReport = report;
-          });
+          },
+            (error: any) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.error.errorMessage || 'Ocurrió un error al cargar el reporte'
+              });
+            });
         }
         break;
       case "1":
         var maintenancesReportsObservable: Observable<MaintenancesReport> | null = null;
         if (this.buildingId !== "") {
           this.errors = "";
-          maintenancesReportsObservable = this.reportService.getMaintenanceReport(this.buildingId, this.filter);
+          maintenancesReportsObservable = this.reportService.getMaintenanceReport(this.buildingId, this.maintainerFilter);
           if (maintenancesReportsObservable != null) {
             maintenancesReportsObservable.subscribe(report => {
               this.maintenancesReport = report;
-            });
+            },
+              (error: any) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: error.error.errorMessage || 'Ocurrió un error al cargar el reporte'
+                });
+              });
           }
         } else {
           this.errors = "Por favor seleccione un edificio";
@@ -98,7 +117,15 @@ export class ReportsComponent implements OnInit {
           if (apartmentsReportsObservable != null) {
             apartmentsReportsObservable.subscribe(report => {
               this.apartmentsReport = report;
-            });
+            },
+              (error: any) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: error.error.errorMessage || 'Ocurrió un error al cargar el reporte'
+                });
+              }
+            );
           }
         } else {
           this.errors = "Por favor seleccione un edificio";
@@ -118,9 +145,14 @@ export class ReportsComponent implements OnInit {
     this.buildingId = selectElement.value;
   }
 
-  onFilterChange(event: Event) {
+  onBuildingFilterChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    this.filter = selectElement.value;
+    this.buildingFilter = selectElement.value;
+  }
+
+  onMaintainerFilterChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.maintainerFilter = selectElement.value;
   }
 
   changeFilters() {

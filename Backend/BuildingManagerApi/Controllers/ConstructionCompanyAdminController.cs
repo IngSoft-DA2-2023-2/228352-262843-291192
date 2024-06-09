@@ -25,5 +25,13 @@ namespace BuildingManagerApi.Controllers
             CreateConstructionCompanyAdminResponse createConstructionCompanyAdminResponse = new CreateConstructionCompanyAdminResponse(_constructionCompanyAdminLogic.CreateConstructionCompanyAdmin(constructionCompanyAdminRequest.ToEntity(), sessionToken));
             return CreatedAtAction(nameof(CreateConstructionCompanyAdmin), createConstructionCompanyAdminResponse);
         }
+
+        [HttpGet]
+        [AuthenticationFilter(RoleType.CONSTRUCTIONCOMPANYADMIN)]
+        public IActionResult GetConstructionCompanyFromAdmin([FromHeader(Name = "Authorization")] Guid sessionToken)
+        {
+            ConstructionCompanyResponse constructionCompanyResponse = new ConstructionCompanyResponse(_constructionCompanyAdminLogic.GetConstructionCompany(sessionToken));
+            return Ok(constructionCompanyResponse);
+        }
     }
 }

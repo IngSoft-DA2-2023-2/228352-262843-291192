@@ -9,9 +9,10 @@ import { ApartmentsReport } from '../models/ApartmentsReport';
 @Injectable({
   providedIn: 'root'
 })
-export class ReportsService {
+export class ReportService {
 
   constructor(private http: HttpClient) { }
+  
   public getBuildingsReport(filter: string): Observable<BuildingsReport> | null {
     let params = new HttpParams().set('buildingId', filter);
     return this.http.get<BuildingsReport>(`${environment.apiUrl}/reports`, { params: params } );

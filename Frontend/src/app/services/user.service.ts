@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../models/User';
-import { Maintainers } from '../models/Maintainers';
+import { Maintainer, Maintainers } from '../models/Maintainers';
+import { CreateMaintainer } from '../models/CreateMaintainer';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class UserService {
 
   public getManagers(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}/users/managers`);
+  }
+
+  public createMaintainer(newMaintainer: CreateMaintainer): Observable<Maintainer> | null {
+    return this.http.post<Maintainer>(`${environment.apiUrl}/maintenances`, newMaintainer);
   }
 }

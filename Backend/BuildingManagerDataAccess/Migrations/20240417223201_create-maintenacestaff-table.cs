@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BuildingManagerDataAccess.Migrations
 {
-    [ExcludeFromCodeCoverage]
     public partial class createmaintenacestafftable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

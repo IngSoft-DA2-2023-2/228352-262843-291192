@@ -332,7 +332,7 @@ namespace BuildingManagerDataAccess.Migrations
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Request", b =>
                 {
-                    b.HasOne("BuildingManagerDomain.Entities.Building", null)
+                    b.HasOne("BuildingManagerDomain.Entities.Building", "Building")
                         .WithMany()
                         .HasForeignKey("BuildingId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -360,6 +360,8 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasForeignKey("BuildingId", "ApartmentFloor", "ApartmentNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Building");
 
                     b.Navigation("Category");
 

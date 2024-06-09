@@ -1,7 +1,12 @@
-a.router-link-active {
-  background-color: #e82b2b;
+.active {
+  color: #009FFF;
+  font-weight: bold;
 }
 
-a {
-  text-decoration: none !important;
+.active:hover {
+  color: #F4F4F4;
+}
+
+a:hover{
+  text-decoration-line: none;
 }

@@ -19,11 +19,16 @@ namespace BuildingManagerLogic
             {
                 return _categoryRepository.CreateCategory(category);
             }
-            catch(ValueDuplicatedException e)
+            catch (ValueDuplicatedException e)
             {
                 throw new DuplicatedValueException(e, e.Message);
             }
-            
+
+        }
+
+        public List<Category> ListCategories()
+        {
+            return _categoryRepository.ListCategories();
         }
     }
 }
