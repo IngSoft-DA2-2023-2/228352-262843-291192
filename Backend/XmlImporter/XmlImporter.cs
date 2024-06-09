@@ -18,7 +18,7 @@ namespace XmlImporter
             XmlImporterBuilding xmlBuildings;
             try
             {
-                using (StringReader reader = new StringReader(data))
+                using (TextReader reader = new StringReader(data))
                 {
                     xmlBuildings = (XmlImporterBuilding)serializer.Deserialize(reader);
                 }
@@ -28,7 +28,7 @@ namespace XmlImporter
                 throw new NotCorrectImporterException(e, "Error while parsing the JSON data");
             }
 
-            foreach (XmlBuilding buildingData in xmlBuildings.edificios.building)
+            foreach (XmlBuilding buildingData in xmlBuildings.edificios)
             {
                 ImporterBuilding building = new ImporterBuilding
                 {
@@ -59,44 +59,72 @@ namespace XmlImporter
             return buildings;
         }
 
+        [XmlRoot]
         public class XmlImporterBuilding
         {
-            public XmlBuildings edificios { get; set; }
-        }
-        public class XmlBuildings
-        {
-            public List<XmlBuilding> building { get; set; }
+            [XmlArray("edificios")]
+            public XmlBuilding[] edificios { get; set; }
         }
         public class XmlBuilding
         {
+            [XmlElement]
             public string nombre { get; set; }
+
+            [XmlElement]
             public XmlAddress direccion { get; set; }
+
+            [XmlElement]
             public string encargado { get; set; }
+
+            [XmlElement]
             public XmlGps gps { get; set; }
+
+            [XmlElement]
             public long gastos_comunes { get; set; }
-            public List<XmlApartment> departamentos { get; set; }
+
+            [XmlArray("departamentos")]
+            public XmlApartment[] departamentos { get; set; }
         }
 
         public class XmlAddress
         {
+            [XmlElement]
             public string calle_principal { get; set; }
+
+            [XmlElement]
             public int numero_puerta { get; set; }
+
+            [XmlElement]
             public string calle_secundaria { get; set; }
         }
 
         public class XmlGps
         {
+            [XmlElement]
             public double latitud { get; set; }
+
+            [XmlElement]
             public double longitud { get; set; }
         }
 
         public class XmlApartment
         {
+            [XmlElement]
             public int piso { get; set; }
+
+            [XmlElement]
             public int numero_puerta { get; set; }
+
+            [XmlElement]
             public int habitaciones { get; set; }
+
+            [XmlElement]
             public bool conTerraza { get; set; }
+
+            [XmlElement]
             public int baños { get; set; }
+
+            [XmlElement]
             public string propietarioEmail { get; set; }
         }
     }

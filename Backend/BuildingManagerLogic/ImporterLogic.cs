@@ -72,8 +72,21 @@ namespace BuildingManagerLogic
                     CommonExpenses = building.CommonExpenses,
                 };
 
-                _buildingLogic.CreateBuilding(b, companyAdminSessionToken);
                 buildingsToCreate.Add(b);
+            }
+            if (buildingsToCreate.Count == buildings.Count)
+            {
+                foreach (Building b in buildingsToCreate)
+                {
+                    if (buildingsToCreate.Any(bc => bc.Id != b.Id && (bc.Name == b.Name || bc.Address == b.Address || bc.Location == b.Location)))
+                    {
+                        throw new DuplicatedValueException(new ValueDuplicatedException("Duplicated buildings"), "Duplicated buildings");
+                    }
+                }
+            }
+            foreach (Building b in buildingsToCreate)
+            {
+                _buildingLogic.CreateBuilding(b, companyAdminSessionToken);
             }
 
             return buildingsToCreate;
