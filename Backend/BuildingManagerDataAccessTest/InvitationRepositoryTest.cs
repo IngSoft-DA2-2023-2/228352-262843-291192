@@ -32,6 +32,41 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void CreateInvitationThatAlreadyExistsWithDeclinedStatusTest()
+        {
+            var context = CreateDbContext("CreateInvitationThatAlreadyExistsWithDeclinedStatusTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "test@test.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.DECLINED,
+                Role = RoleType.MANAGER
+            };
+            repository.CreateInvitation(invitation);
+
+            long newDeadline = DateTimeOffset.UtcNow.AddYears(4).ToUnixTimeSeconds();
+            var invitation2 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "José",
+                Email = "test@test.com",
+                Deadline = newDeadline,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            repository.CreateInvitation(invitation2);
+
+            var result = context.Set<Invitation>().Find(invitation.Id);
+            Assert.AreEqual(invitation, result);
+            Assert.AreEqual(newDeadline, result.Deadline);
+            Assert.AreEqual(invitation2.Name, result.Name);
+            Assert.AreEqual(invitation2.Role, result.Role);
+        }
+
+        [TestMethod]
         public void CreateInvitatioWithCCAdminRoleTypeTest()
         {
             var context = CreateDbContext("CreateInvitatioWithCCAdminRoleTypeTest");

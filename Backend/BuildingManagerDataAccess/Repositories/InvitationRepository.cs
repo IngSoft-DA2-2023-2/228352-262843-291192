@@ -22,7 +22,19 @@ namespace BuildingManagerDataAccess.Repositories
             }
             if (_context.Set<Invitation>().Any(i => i.Email == invitation.Email))
             {
-                throw new ValueDuplicatedException("Email");
+                Invitation invitationInDb = _context.Set<Invitation>().First(i => i.Email == invitation.Email);
+                if(invitationInDb.Status == InvitationStatus.DECLINED)
+                {
+                    invitationInDb.Status = InvitationStatus.PENDING;
+                    invitationInDb.Deadline = invitation.Deadline;
+                    invitationInDb.Name = invitation.Name;
+                    invitationInDb.Role = invitation.Role;
+                    _context.SaveChanges();
+                    return invitationInDb;
+                }
+                else{
+                    throw new ValueDuplicatedException("Email");
+                }
             }
             _context.Set<Invitation>().Add(invitation);
             _context.SaveChanges();
