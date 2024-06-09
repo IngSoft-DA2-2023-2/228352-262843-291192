@@ -15,6 +15,10 @@ namespace BuildingManagerDataAccess.Repositories
 
         public Category AssignParent(Guid id, Guid parentId)
         {
+            if (!_context.Set<Category>().Any(a => a.Id == id))
+            {
+                throw new ValueNotFoundException("Id");
+            }
             Category category = _context.Set<Category>().First(c => c.Id == id);
             category.ParentId = parentId;
             _context.SaveChanges();

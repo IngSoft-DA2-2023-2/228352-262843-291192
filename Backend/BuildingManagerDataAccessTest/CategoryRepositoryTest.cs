@@ -100,6 +100,31 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual(categoryWithParent.Name, result.Name);
             Assert.AreEqual(categoryWithParent.ParentId, result.ParentId);
         }
+
+        [TestMethod]
+        public void AssignParentWithInvalidChildIdTest()
+        {
+            var context = CreateDbContext("AssignParentWithInvalidChildIdTest");
+            var repository = new CategoryRepository(context);
+            var category = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Category 1"
+            };
+            repository.CreateCategory(category);
+
+            Exception exception = null;
+            try
+            {
+                repository.AssignParent(Guid.NewGuid(), category.Id);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
