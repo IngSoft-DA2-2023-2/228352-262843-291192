@@ -10,7 +10,7 @@
     <div class="px-2">
         <select class="py-2 border rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
             (change)="onBuildingIdChange($event)">
-            <option value='' selected>Seleccione una opcion</option>
+            <option value='' selected>Seleccione un edificio</option>
             <option *ngFor="let building of buildings" [value]="building?.id">{{building.name}}</option>
         </select>
     </div>
