@@ -28,7 +28,6 @@ export class ReportsComponent implements OnInit {
 
   reportType: string = '0';
   buildingId: string = "";
-  managerId: string = "";
   buildings: ManagerBuildings | undefined;
   buildingFilter: string = "";
   maintainerFilter: string = "";
@@ -39,17 +38,7 @@ export class ReportsComponent implements OnInit {
   constructor(public reportService: ReportService, public routerServices: Router, public buildingsService: BuildingService, public userService: UserService) { }
 
   ngOnInit(): void {
-    let managerConnected = localStorage.getItem('connectedUser');
-    if (managerConnected == null) {
-      //TODO: Redirect to login
-      // this.routerServices.navigate(['/login']);
-    }
-    else {
-      let managerConnectedJson = JSON.parse(managerConnected);
-      this.managerId = managerConnectedJson.userId;
-    }
-
-    var buildingsObservable: Observable<ManagerBuildings> | null = this.buildingsService.getManagerBuildings(this.managerId);
+    var buildingsObservable: Observable<ManagerBuildings> | null = this.buildingsService.getManagerBuildings();
     if (buildingsObservable != null) {
       buildingsObservable.subscribe(buildings => {
         this.buildings = buildings;

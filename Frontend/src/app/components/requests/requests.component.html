@@ -9,19 +9,28 @@
         </button>
         <h1 class="h3">Solicitudes</h1>
     </div>
-    <div class="px-2">
-        <select class="py-2 border border-black rounded-md form-select form-select-lg"
-            aria-label=".form-select-lg example" (change)="onRequestsViewChange($event)">
-            <option value='0' selected>Abiertas</option>
-            <option value='1'>En proceso</option>
-            <option value='2'>Cerradas</option>
-        </select>
+    <div class="flex flex-row">
+        <div class="px-2">
+            <select class="py-2 border rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
+                (change)="onRequestsViewChange($event)">
+                <option value='0' selected>Abiertas</option>
+                <option value='1'>En proceso</option>
+                <option value='2'>Cerradas</option>
+            </select>
+        </div>
+        <button (click)="openNewRequestModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+        </button>
     </div>
 </div>
 <div *ngIf="openFilters" class="flex flex-row my-3 items-center">
     <h3>Filtrar por categoria: </h3>
-    <select class="ml-2 py-2 px-2 border border-black rounded-md  form-select form-select-lg"
-        aria-label=".form-select-lg example" (change)="onFilterChange($event)" [(ngModel)]="filter">
+    <select class="ml-2 py-2 px-2 border rounded-md  form-select form-select-lg" aria-label=".form-select-lg example"
+        (change)="onFilterChange($event)" [(ngModel)]="filter">
         <option value='' selected>Todos</option>
         <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
     </select>
@@ -131,7 +140,7 @@
                         <h1>{{ chosenRequest?.apartmentNumber }} - {{ chosenRequest?.apartmentFloor }}</h1>
                         <h1>{{chosenRequest?.description}}</h1>
                     </div>
-                    <select class="ml-2 py-2 px-3 border border-black rounded-md form-select form-select-lg"
+                    <select class="ml-2 py-2 px-3 border rounded-md form-select form-select-lg"
                         aria-label=".form-select-lg example" [(ngModel)]="chosenMaintainer"
                         (change)="onMaintainerChange($event)">
                         <option *ngFor="let maintainer of maintainers?.maintainers" [value]="maintainer?.id">
@@ -143,6 +152,62 @@
                     <h1 class="text-red-700">{{error}}</h1>
                     <button type="button" class="btn btn-primary" (click)="onAssignSave()">Guardar</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newRequestModal" tabindex="-1" aria-labelledby="newRequestModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl" style="max-width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newRequestModalLabel">Crear solicitud</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="newRequestForm" (ngSubmit)="onSubmit()">
+                    <div class="flex flex-col">
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripcion</label>
+                            <input type="text" id="description" class="form-control" formControlName="description">
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Categoria</label>
+                            <select class="ml-2 py-2 px-2 border rounded-md form-select form-select-lg"
+                                aria-label=".form-select-lg example" (change)="onFilterChange($event)">
+                                <option *ngFor="let category of categories" [value]="category.name">{{category.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="building" class="form-label">Edificio</label>
+                            <select class="ml-2 py-2 px-2 border rounded-md form-select form-select-lg"
+                                aria-label=".form-select-lg example" (change)="onNewRequestBuildingChange($event)">
+                                <option *ngFor="let building of buildings?.buildings" [value]="building?.id">
+                                    {{building.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label for="apartmentFloor" class="form-label">Piso</label>
+                            <select class="ml-2 py-2 px-2 border rounded-md form-select form-select-lg"
+                                aria-label=".form-select-lg example">
+                                <option *ngFor="let apartment of selectedBuilding" [value]="apartment.">
+                                    {{building.name}}
+                                </option>
+                            </select>
+                        </div> -->
+                        <div class="flex justify-end">
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

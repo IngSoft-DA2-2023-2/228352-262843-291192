@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
@@ -13,18 +13,19 @@ import { UserService } from '../../services/user.service';
 import { ListRequests } from '../../models/ListRequests';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/Category';
+import { Building } from '../../models/Building';
+import { ManagerBuilding, ManagerBuildings } from '../../models/ManagerBuilding';
+import { BuildingService } from '../../services/building.service';
 
 @Component({
   selector: 'app-requests',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, NgFor, NgIf, CommonModule],
+  imports: [FormsModule, HttpClientModule, NgFor, NgIf, CommonModule, ReactiveFormsModule],
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.css',
-  providers: [RequestService, UserService, CategoryService]
+  providers: [RequestService, UserService, CategoryService, BuildingService]
 })
 export class RequestsComponent {
-  constructor(public requestService: RequestService, public routerServices: Router,
-    public userService: UserService, public categoryService: CategoryService) { }
   openRequests: ManagerRequest[] = [];
   closeRequests: ManagerRequest[] = [];
   pendingRequests: ManagerRequest[] = [];
@@ -37,6 +38,22 @@ export class RequestsComponent {
   filter: string = "";
   openFilters: boolean = false;
   categories: Category[] = [];
+  newRequestForm: FormGroup;
+  buildings: ManagerBuildings | undefined;
+  selectedBuilding: ManagerBuilding | undefined;
+
+  constructor(public requestService: RequestService, public routerServices: Router,
+    public userService: UserService, public categoryService: CategoryService, private fb: FormBuilder,
+    public buildingsService: BuildingService) {
+    this.newRequestForm = this.fb.group({
+      description: [''],
+      categoryId: [''],
+      buildingId: [''],
+      apartmentNumber: [''],
+      apartmentFloor: ['']
+    });
+  }
+
 
   ngOnInit(): void {
     var requestsObservable: Observable<ListRequests> | null = this.requestService.getManagerRequests(this.filter);
@@ -63,6 +80,13 @@ export class RequestsComponent {
     if (categoriesObservable != null) {
       categoriesObservable.subscribe(categories => {
         this.categories = categories;
+      });
+    }
+
+    var buildingsObservable: Observable<ManagerBuildings> | null = this.buildingsService.getManagerBuildings();
+    if (buildingsObservable != null) {
+      buildingsObservable.subscribe(buildings => {
+        this.buildings = buildings;
       });
     }
   }
@@ -139,6 +163,26 @@ export class RequestsComponent {
           } else this.pendingRequests.push(request);
         }
       });
+    }
+  }
+
+  openNewRequestModal(): void {
+    const modalElement = document.getElementById('newRequestModal');
+    if (modalElement) {
+      this.modal = new bootstrap.Modal(modalElement);
+      this.modal.show();
+    }
+  }
+
+  onSubmit(): void {
+
+  }
+
+  onNewRequestBuildingChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    var building: ManagerBuilding | undefined = this.buildings?.buildings.find(building => building.id == selectElement.value)
+    if (building != null) {
+      this.selectedBuilding = building;
     }
   }
 }

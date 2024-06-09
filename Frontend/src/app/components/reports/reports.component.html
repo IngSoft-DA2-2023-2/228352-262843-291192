@@ -7,7 +7,7 @@
         </svg>
     </button>
     <h1 class="h3 mr-5">Reportes</h1>
-    <select class="py-2 border border-black rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
+    <select class="py-2 border rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
         (change)="onReportTypeChange($event)">
         <option value='0' selected>Agrupados por edificio</option>
         <option value='1'>Agrupados por mantenimiento</option>
@@ -15,7 +15,7 @@
     </select>
     <div class="px-2">
         <select *ngIf="reportType === '1' || reportType === '2' "
-            class="py-2 border border-black rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
+            class="py-2 border rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
             (change)="onBuildingIdChange($event)">
             <option value='' selected>Seleccione una opcion</option>
             <option *ngFor="let building of buildings?.buildings" [value]="building?.id">{{building.name}}</option>
@@ -29,7 +29,7 @@
     <div *ngSwitchCase="'0'">
         <div *ngIf="openFilters" class="flex flex-row my-2 items-center">
             <h3>Filtrar por edificio: </h3>
-            <select class="ml-2 py-2 px-2 border border-black rounded-md form-select form-select-lg"
+            <select class="ml-2 py-2 px-2 border rounded-md form-select form-select-lg"
                 aria-label=".form-select-lg example" (change)="onBuildingFilterChange($event)"
                 [(ngModel)]="buildingFilter">
                 <option value='' selected>Todos</option>
@@ -58,7 +58,7 @@
     <div *ngSwitchCase="'1'">
         <div *ngIf="openFilters" class="flex flex-row my-2 items-center">
             <h3>Filtrar por persona de mantenimiento: </h3>
-            <select class="ml-2 py-2 px-2 border border-black rounded-md form-select form-select-lg"
+            <select class="ml-2 py-2 px-2 border rounded-md form-select form-select-lg"
                 aria-label=".form-select-lg example" (change)="onMaintainerFilterChange($event)"
                 [(ngModel)]="maintainerFilter">
                 <option value='' selected>Todos</option>
