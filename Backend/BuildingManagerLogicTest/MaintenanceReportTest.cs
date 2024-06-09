@@ -105,7 +105,24 @@ namespace BuildingManagerLogicTest
                         Id = new Guid("11111111-1111-1111-1111-111111111111"),
                         Name = "name"
                     },
-                }
+                },
+                new Request()
+                {
+                    Id = new Guid(),
+                    Description = "description",
+                    CategoryId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    BuildingId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    ApartmentFloor = 1,
+                    ApartmentNumber = 1,
+                    State = RequestState.OPEN,
+                    MaintainerStaffId = null,
+                    MaintenanceStaff = null,
+                    Category = new Category()
+                    {
+                        Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                        Name = "name"
+                    },
+                },
             ];
             int time = (1714672340 - 1714665140) / 3600;
             List<ReportData> data = [new ReportData(1, 1, 1, time, "name", new Guid("11111111-1111-1111-1111-111111111111"), "name", 1, 1, "name lastName", building.Name)];
