@@ -33,7 +33,8 @@
                 aria-label=".form-select-lg example" (change)="onBuildingFilterChange($event)"
                 [(ngModel)]="buildingFilter">
                 <option value='' selected>Todos</option>
-                <option *ngFor="let building of buildings?.buildings" [value]="building?.id">{{building.name}}</option>
+                <option *ngFor="let building of buildings?.buildings" [value]="building?.id">{{building.name}}
+                </option>
             </select>
         </div>
         <table class="table mt-2">

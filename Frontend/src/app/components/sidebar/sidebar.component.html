@@ -14,7 +14,7 @@
           <span>Invitaciones</span>
         </a>
       </li>
-      
+
       <li>
         <a routerLink="/manager/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
           class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
@@ -30,7 +30,14 @@
       </li>
 
       <li *ngIf="user.role == 2">
-        <a routerLink="/manager/reports" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        <a routerLink="/manager/reports/manager" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
+          <span>Reportes</span>
+        </a>
+      </li>
+
+      <li *ngIf="user.role == 0">
+        <a routerLink="/manager/reports/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
           class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
           <span>Reportes</span>
         </a>
@@ -57,10 +64,18 @@
         </a>
       </li>
 
-      <li  *ngIf="user.role == 3">
-        <a routerLink="/manager/constructioncomany" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-           class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
+      <li *ngIf="user.role == 3">
+        <a routerLink="/manager/constructioncomany" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
           <span>Empresa constructora</span>
+        </a>
+      </li>
+
+      <li *ngIf="user.role == 0">
+        <a routerLink="/manager/categories" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer no-underline">
+          <span>Categorias</span>
         </a>
       </li>
 

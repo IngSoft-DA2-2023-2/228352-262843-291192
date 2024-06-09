@@ -15,14 +15,14 @@ import { Maintainers } from '../../models/Maintainers';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-reports',
-  templateUrl: './reports.component.html',
-  styleUrl: './reports.component.css',
+  selector: 'app-manager-reports',
+  templateUrl: './manager-reports.component.html',
+  styleUrl: './manager-reports.component.css',
   imports: [FormsModule, HttpClientModule, NgFor, NgSwitchCase, NgSwitch, NgIf],
   standalone: true,
   providers: [ReportService, BuildingService, UserService]
 })
-export class ReportsComponent implements OnInit {
+export class ManagerReportsComponent implements OnInit {
   buildingsReport: BuildingsReport | undefined;
   maintenancesReport: MaintenancesReport | undefined;
   apartmentsReport: ApartmentsReport | undefined;
@@ -36,7 +36,8 @@ export class ReportsComponent implements OnInit {
   maintainers: Maintainers | undefined;
   errors: string = "";
 
-  constructor(public reportService: ReportService, public routerServices: Router, public buildingsService: BuildingService, public userService: UserService) { }
+  constructor(public reportService: ReportService, public routerServices: Router, public buildingsService: BuildingService,
+    public userService: UserService) { }
 
   ngOnInit(): void {
     var buildingsObservable: Observable<ManagerBuildings> | null = this.buildingsService.getManagerBuildings();
