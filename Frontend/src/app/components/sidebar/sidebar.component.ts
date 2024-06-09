@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { UserRole } from '../../enums/UserRole';
-import { User } from '../../models/User';
 import { NgIf } from '@angular/common';
 import { User } from '../../models/User';
-import { UserRole } from '../../models/UserRole';
 import { CommonModule } from '@angular/common';
+import { UserRole } from '../../enums/UserRole';
 
 @Component({
   selector: 'app-sidebar',
