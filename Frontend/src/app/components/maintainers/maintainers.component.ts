@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Maintainer, Maintainers } from '../../models/Maintainers';
@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
   providers: [UserService]
 
 })
-export class MaintainersComponent {
+export class MaintainersComponent implements OnInit {
 
   maintainers: Maintainers | undefined;
   newMaintainerForm: FormGroup;

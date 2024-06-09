@@ -35,7 +35,7 @@ namespace BuildingManagerDataAccess.Repositories
             try
             {
                 Request request = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == id);
-                if(request.MaintenanceStaff.Id != maintainerStaffId)
+                if (request.MaintainerStaffId != maintainerStaffId)
                 {
                     throw new InvalidOperationException("Request not assigned to this staff.");
                 }

@@ -27,9 +27,7 @@ namespace BuildingManagerModels.Outer
             {
                 foreach (var otherCategory in other.Categories)
                 {
-                    if (category.Id != otherCategory.Id ||
-                    category.Name != otherCategory.Name)
-                        return false;
+                    return category.Equals(otherCategory);
                 }
             }
             return true;

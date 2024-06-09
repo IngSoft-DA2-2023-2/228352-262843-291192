@@ -34,5 +34,14 @@ namespace BuildingManagerApi.Controllers
             ListCategoriesResponse categoriesResponse = new(_categoryLogic.ListCategories());
             return Ok(categoriesResponse);
         }
+
+        [HttpPut("{id}")]
+        [AuthenticationFilter(RoleType.ADMIN)]
+        public IActionResult AssignParent([FromRoute] Guid id, [FromBody] Guid parentId)
+        {
+            CategoryResponse assignParentResponse = new(_categoryLogic.AssignParent(id, parentId));
+            return Ok(assignParentResponse);
+        }
+
     }
 }

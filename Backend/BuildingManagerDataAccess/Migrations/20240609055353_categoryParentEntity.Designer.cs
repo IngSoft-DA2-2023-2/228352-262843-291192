@@ -4,6 +4,7 @@ using BuildingManagerDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuildingManagerDataAccess.Migrations
 {
     [DbContext(typeof(BuildingManagerContext))]
-    partial class BuildingManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240609055353_categoryParentEntity")]
+    partial class categoryParentEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,6 +236,7 @@ namespace BuildingManagerDataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lastname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -331,8 +334,7 @@ namespace BuildingManagerDataAccess.Migrations
 
                     b.HasOne("BuildingManagerDomain.Entities.User", null)
                         .WithMany()
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("ManagerId");
                 });
 
             modelBuilder.Entity("BuildingManagerDomain.Entities.Category", b =>
