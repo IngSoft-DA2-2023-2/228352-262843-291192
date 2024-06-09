@@ -13,10 +13,10 @@ import { UserService } from '../../services/user.service';
 import { ListRequests } from '../../models/ListRequests';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/Category';
-import { Building } from '../../models/Building';
 import { ManagerBuilding, ManagerBuildings } from '../../models/ManagerBuilding';
 import { BuildingService } from '../../services/building.service';
 import { CreateRequest } from '../../models/CreateRequest';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-requests',
@@ -67,28 +67,56 @@ export class RequestsComponent {
             this.closeRequests.push(request);
           } else this.pendingRequests.push(request);
         }
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar las solicitudes'
+          });
+        });
     }
 
     var usersObservable: Observable<Maintainers> | null = this.userService.getMaintenanceStaff();
     if (usersObservable != null) {
       usersObservable.subscribe(maintainers => {
         this.maintainers = maintainers;
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar las solicitudes'
+          });
+        });
     }
 
     var categoriesObservable: Observable<Category[]> | null = this.categoryService.getCategories();
     if (categoriesObservable != null) {
       categoriesObservable.subscribe(categories => {
         this.categories = categories;
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar las solicitudes'
+          });
+        });
     }
 
     var buildingsObservable: Observable<ManagerBuildings> | null = this.buildingsService.getManagerBuildings();
     if (buildingsObservable != null) {
       buildingsObservable.subscribe(buildings => {
         this.buildings = buildings;
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar las solicitudes'
+          });
+        });
     }
   }
 
@@ -133,7 +161,14 @@ export class RequestsComponent {
             this.modal?.hide();
             this.onCloseAssignOpenRequestModal();
           }
-        });
+        },
+          (error: any) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: error.error.errorMessage || 'Ocurrió un error al asignar la solicitud'
+            });
+          });
       }
     } else {
       this.error = "Seleccione una persona de mantenimiento";
@@ -163,7 +198,14 @@ export class RequestsComponent {
             this.closeRequests.push(request);
           } else this.pendingRequests.push(request);
         }
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al filtrar las solicitudes'
+          });
+        });
     }
   }
 
@@ -207,6 +249,9 @@ export class RequestsComponent {
                 const modal = bootstrap.Modal.getInstance(modalElement);
                 modal?.hide();
               }
+            },
+            (error: any) => {
+              this.error = error.error.errorMessage;
             }
           );
         }
@@ -215,7 +260,7 @@ export class RequestsComponent {
       }
     }
     else {
-      this.error = "Error al crear la solicitud";
+      this.error = "Por favor llene todos los campos";
     }
   }
 

@@ -12,6 +12,7 @@ import { BuildingService } from '../../services/building.service';
 import { ManagerBuildings } from '../../models/ManagerBuilding';
 import { UserService } from '../../services/user.service';
 import { Maintainers } from '../../models/Maintainers';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reports',
@@ -42,14 +43,28 @@ export class ReportsComponent implements OnInit {
     if (buildingsObservable != null) {
       buildingsObservable.subscribe(buildings => {
         this.buildings = buildings;
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar los reportes'
+          });
+        });
     }
 
     var usersObservable: Observable<Maintainers> | null = this.userService.getMaintenanceStaff();
     if (usersObservable != null) {
       usersObservable.subscribe(maintainers => {
         this.maintainers = maintainers;
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar los reportes'
+          });
+        });
     }
   }
 
@@ -63,7 +78,14 @@ export class ReportsComponent implements OnInit {
         if (buildingsReportsObservable != null) {
           buildingsReportsObservable.subscribe(report => {
             this.buildingsReport = report;
-          });
+          },
+            (error: any) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.error.errorMessage || 'Ocurrió un error al cargar el reporte'
+              });
+            });
         }
         break;
       case "1":
@@ -74,7 +96,14 @@ export class ReportsComponent implements OnInit {
           if (maintenancesReportsObservable != null) {
             maintenancesReportsObservable.subscribe(report => {
               this.maintenancesReport = report;
-            });
+            },
+              (error: any) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: error.error.errorMessage || 'Ocurrió un error al cargar el reporte'
+                });
+              });
           }
         } else {
           this.errors = "Por favor seleccione un edificio";
@@ -88,7 +117,15 @@ export class ReportsComponent implements OnInit {
           if (apartmentsReportsObservable != null) {
             apartmentsReportsObservable.subscribe(report => {
               this.apartmentsReport = report;
-            });
+            },
+              (error: any) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: error.error.errorMessage || 'Ocurrió un error al cargar el reporte'
+                });
+              }
+            );
           }
         } else {
           this.errors = "Por favor seleccione un edificio";

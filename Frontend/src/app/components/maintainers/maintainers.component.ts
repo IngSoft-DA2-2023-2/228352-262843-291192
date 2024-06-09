@@ -8,6 +8,7 @@ import * as bootstrap from 'bootstrap';
 import { FormGroup, FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CreateMaintainer } from '../../models/CreateMaintainer';
 import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-maintainers',
@@ -38,7 +39,14 @@ export class MaintainersComponent {
     if (usersObservable != null) {
       usersObservable.subscribe(maintainers => {
         this.maintainers = maintainers;
-      });
+      },
+        (error: any) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error.errorMessage || 'Ocurrió un error al cargar los datos de los usuarios de mantenimiento'
+          });
+        });
     }
   }
 
@@ -72,7 +80,7 @@ export class MaintainersComponent {
         );
       }
     } else {
-      this.error = "Error al crear la persona de mantenimiento";
+      this.error = "Por favor llene todos los campos";
     }
   }
 
