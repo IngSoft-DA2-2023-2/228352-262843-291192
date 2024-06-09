@@ -21,7 +21,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpPost]
-        [AuthenticationFilter(RoleType.ADMIN)]
+        [AuthenticationFilter(RoleType.MANAGER)]
         public IActionResult CreateMaintenanceStaff([FromBody] CreateMaintenanceStaffRequest maintenanceStaffRequest)
         {
             CreateMaintenanceStaffResponse createMaintenanceStaffResponse = new CreateMaintenanceStaffResponse(_userLogic.CreateUser(maintenanceStaffRequest.ToEntity()));
