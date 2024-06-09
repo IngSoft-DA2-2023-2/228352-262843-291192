@@ -39,7 +39,7 @@ export const routes: Routes = [
       { path: 'constructioncomany', component: ConstructionCompanyComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' },
       { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
       { path: 'categories', component: CategoriesComponent, canActivate: [adminRoleGuard], pathMatch: 'full' },
-    ]
+    ],
   },
   { path: '**', redirectTo: '/login' }
 ];
