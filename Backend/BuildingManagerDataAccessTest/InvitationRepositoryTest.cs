@@ -469,6 +469,47 @@ namespace BuildingManagerDataAccessTest
             Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
         }
 
+        [TestMethod]
+        public void GetInvitationByEmail_ReturnsInvitation_Success()
+        {
+            var context = CreateDbContext("GetInvitationByEmail_ReturnsInvitation_Success");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "john@abc.com",
+                Deadline = DateTimeOffset.UtcNow.AddYears(3).ToUnixTimeSeconds(),
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
+            };
+            context.Set<Invitation>().Add(invitation);
+            context.SaveChanges();
+
+            var result = repository.GetInvitationByEmail("john@abc.com");
+
+            Assert.AreEqual(invitation.Email, result.Email);
+        }
+
+        [TestMethod]
+        public void GetInvitationByEmail_ThrowsValueNotFoundException_Failure()
+        {
+            var context = CreateDbContext("GetInvitationByEmail_ThrowsValueNotFoundException_Failure");
+            var repository = new InvitationRepository(context);
+
+            Exception exception = null;
+            try
+            {
+                repository.GetInvitationByEmail("notfound@abc.com");
+            }
+            catch(Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
+
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()

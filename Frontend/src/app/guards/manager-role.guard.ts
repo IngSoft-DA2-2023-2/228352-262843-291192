@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
-import { UserRole } from '../models/UserRole';
+import { UserRole } from '../enums/UserRole';
 
 export const managerRoleGuard: CanActivateFn = (route, state) => {
   const connectedUser = JSON.parse(localStorage.getItem('connectedUser') || '{}');
