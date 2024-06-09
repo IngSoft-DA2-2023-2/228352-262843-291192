@@ -64,18 +64,23 @@ namespace BuildingManagerApiTest.Controllers
             var category1 = new Category
             {
                 Id = Guid.NewGuid(),
-                Name = "Test1",
-                ParentId = Guid.NewGuid()
+                Name = "Test1"
             };
             var category2 = new Category
             {
                 Id = Guid.NewGuid(),
                 Name = "Test2",
-                ParentId = null,
             };
-            var assignParentResponse = new CategoryResponse(category1);
+            var categoryWithParent = new Category
+            {
+                Id = category1.Id,
+                Name = category1.Name,
+                ParentId = category2.Id,
+                Parent = category2
+            };
+            var assignParentResponse = new CategoryResponse(categoryWithParent);
             var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mockCategoryLogic.Setup(x => x.AssignParent(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(category1);
+            mockCategoryLogic.Setup(x => x.AssignParent(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(categoryWithParent);
             var controller = new CategoryController(mockCategoryLogic.Object);
 
             var result = controller.AssignParent(category1.Id, category2.Id);
