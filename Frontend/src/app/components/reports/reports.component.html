@@ -6,23 +6,22 @@
                 d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
         </svg>
     </button>
-
+    <h1 class="h3 mr-5">Reportes</h1>
+    <select class="py-2 border rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
+        (change)="onReportTypeChange($event)">
+        <option value='0' selected>Agrupados por edificio</option>
+        <option value='1'>Agrupados por mantenimiento</option>
+        <option value='2'>Agrupados por apartamento</option>
+    </select>
     <div class="px-2">
-        <select class="py-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
-            (change)="onReportTypeChange($event)">
-            <option value='0' selected>Agrupados por edificio</option>
-            <option value='1'>Agrupados por mantenimiento</option>
-            <option value='2'>Agrupados por apartamento</option>
-        </select>
-    </div>
-    <div class="px-2">
-        <select *ngIf="reportType === '1' || reportType === '2' " class="py-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
+        <select *ngIf="reportType === '1' || reportType === '2' "
+            class="py-2 border rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
             (change)="onBuildingIdChange($event)">
             <option value='' selected>Seleccione una opcion</option>
             <option *ngFor="let building of buildings?.buildings" [value]="building?.id">{{building.name}}</option>
         </select>
     </div>
-    <button type="button" class="mx-3 btn btn-outline-dark" (click)="getReport()">Generar</button>
+    <button type="button" class="mx-2 btn btn-outline-dark" (click)="getReport()">Generar</button>
     <p class="text-red-700">{{errors}}</p>
 </div>
 
@@ -30,8 +29,9 @@
     <div *ngSwitchCase="'0'">
         <div *ngIf="openFilters" class="flex flex-row my-2 items-center">
             <h3>Filtrar por edificio: </h3>
-            <select class="ml-2 py-2 px-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
-                (change)="onFilterChange($event)">
+            <select class="ml-2 py-2 px-2 border rounded-md form-select form-select-lg"
+                aria-label=".form-select-lg example" (change)="onBuildingFilterChange($event)"
+                [(ngModel)]="buildingFilter">
                 <option value='' selected>Todos</option>
                 <option *ngFor="let building of buildings?.buildings" [value]="building?.id">{{building.name}}</option>
             </select>
@@ -58,8 +58,9 @@
     <div *ngSwitchCase="'1'">
         <div *ngIf="openFilters" class="flex flex-row my-2 items-center">
             <h3>Filtrar por persona de mantenimiento: </h3>
-            <select class="ml-2 py-2 px-2 rounded-md form-select form-select-lg" aria-label=".form-select-lg example"
-                (change)="onFilterChange($event)">
+            <select class="ml-2 py-2 px-2 border rounded-md form-select form-select-lg"
+                aria-label=".form-select-lg example" (change)="onMaintainerFilterChange($event)"
+                [(ngModel)]="maintainerFilter">
                 <option value='' selected>Todos</option>
                 <option *ngFor="let maintainer of maintainers?.maintainers" [value]="maintainer?.name">
                     {{maintainer.name}}

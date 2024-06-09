@@ -81,13 +81,14 @@ namespace BuildingManagerDataAccess.Repositories
                 request.ManagerId = manager.Id;
                 _context.Set<Request>().Add(request);
                 _context.SaveChanges();
+                Request newRequest = _context.Set<Request>().Include(r => r.MaintenanceStaff).Include(r => r.Category).Include(r => r.Building).First(r => r.Id == request.Id);
+                return newRequest;
             }
             catch (Exception)
             {
                 throw new ValueNotFoundException("CategoryId or ApartmentNumber with ApartmentFloor in BuildingId not found.");
             }
 
-            return request;
         }
 
         public List<Request> GetAssignedRequests(Guid sessionToken)

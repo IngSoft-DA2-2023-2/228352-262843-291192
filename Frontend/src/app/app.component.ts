@@ -9,12 +9,13 @@ import { ManagerComponent } from './components/manager/manager.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportsComponent } from './components/reports/reports.component';
 import { RequestsComponent } from './components/requests/requests.component';
+import { MaintainersComponent } from './components/maintainers/maintainers.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, LoginComponent, ManagerComponent, HomeComponent, 
-    SidebarComponent, HttpClientModule, ReportsComponent, RequestsComponent],
+  imports: [RouterOutlet, CommonModule, LoginComponent, ManagerComponent, HomeComponent,
+    SidebarComponent, HttpClientModule, ReportsComponent, RequestsComponent, MaintainersComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
