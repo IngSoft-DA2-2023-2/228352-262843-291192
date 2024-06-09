@@ -36,7 +36,8 @@ export class InvitationResponseComponent {
       
       this.invitationService.getInvitationByEmail(email).subscribe(
         (invitationResponse) => {
-          const id = invitationResponse.id;
+          const invitation = invitationResponse.invitations[0];
+          const id = invitation.id;
 
           this.invitationService.respondToInvitation(id??"", email, password, 0).subscribe(
             response => {
@@ -96,8 +97,10 @@ export class InvitationResponseComponent {
 
       this.invitationService.getInvitationByEmail(email).subscribe(
         (invitationResponse) => {
-          const id = invitationResponse.id;
-
+          const invitation = invitationResponse.invitations[0];
+          const id = invitation.id;
+          console.log('Invitation:', invitationResponse);
+          
           this.invitationService.respondToInvitation(id??"", email, '', 1).subscribe(
             response => {
               Swal.fire({
@@ -128,6 +131,8 @@ export class InvitationResponseComponent {
               text: 'No se encontró una invitación para este correo electrónico.',
             });
           } else if (error.status === 400) { 
+            console.log('Error:', error);
+            
             Swal.fire({
               icon: 'error',
               title: 'Invitación expirada',

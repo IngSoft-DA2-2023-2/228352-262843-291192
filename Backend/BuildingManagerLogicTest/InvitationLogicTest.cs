@@ -7,6 +7,7 @@ using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerDomain.Enums;
+using BuildingManagerILogic;
 
 namespace BuildingManagerLogicTest
 {
@@ -420,32 +421,47 @@ namespace BuildingManagerLogicTest
         {
             var email = "john@abc.com";
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.GetInvitationByEmail(email)).Returns(_invitation);
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(email)).Returns(new List<Invitation> { _invitation});
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            var result = invitationLogic.InvitationByEmail(email);
+            var result = invitationLogic.GetAllInvitations(email);
+            var expected = new List<Invitation> { _invitation };
 
             invitationRepositoryMock.VerifyAll();
-            Assert.AreEqual(_invitation, result);
+            Assert.AreEqual(expected[0], result[0]);
         }
 
         [TestMethod]
-        public void InvitationByEmail_ThrowsNotFoundException_Failure()
+        public void GetAllInvitations_Ok()
         {
-            var email = "notfound@abc.com";
+            Invitation invitation1 = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            Invitation invitation2 = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc2.com",
+                Name = "John2",
+                Deadline = 1755039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            var invitations = new List<Invitation> { invitation1, invitation2 };
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.GetInvitationByEmail(email)).Throws(new ValueNotFoundException("Invitation not found."));
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(null)).Returns(invitations);
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            Exception exception = null;
-            try
-            {
-                invitationLogic.InvitationByEmail(email);
-            }
-            catch (Exception ex) { exception = ex; }
+            var result = invitationLogic.GetAllInvitations(null);
 
             invitationRepositoryMock.VerifyAll();
-            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+            Assert.AreEqual(invitations, result);
+
         }
     }
 }

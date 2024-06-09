@@ -55,21 +55,9 @@ namespace BuildingManagerLogic
             }
         }
 
-        public List<Invitation> GetAllInvitations()
+        public List<Invitation> GetAllInvitations(string email)
         {
-            throw new NotImplementedException();
-        }
-
-        public Invitation InvitationByEmail(string email)
-        {
-            try
-            {
-                return _invitationRepository.GetInvitationByEmail(email);
-            }
-            catch (ValueNotFoundException e)
-            {
-                throw new NotFoundException(e, e.Message);
-            }
+            return _invitationRepository.GetAllInvitations(email);
         }
 
         public Invitation ModifyInvitation(Guid id, long newDeadline)
