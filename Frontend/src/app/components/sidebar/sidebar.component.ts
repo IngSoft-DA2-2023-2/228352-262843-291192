@@ -3,8 +3,6 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } fr
 import { UserRole } from '../../enums/UserRole';
 import { User } from '../../models/User';
 import { NgIf } from '@angular/common';
-import { User } from '../../models/User';
-import { UserRole } from '../../models/UserRole';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -32,25 +30,5 @@ export class SidebarComponent {
     localStorage.removeItem('sessionToken');
     localStorage.removeItem('connectedUser');
     this.router.navigate(['/login']);
-  }
-
-  isAdmin() {
-    const connectedUser = JSON.parse(localStorage.getItem('connectedUser') as string) as User;
-    return connectedUser.role === UserRole.ADMIN;
-  }
-
-  isManager() {
-    const connectedUser = JSON.parse(localStorage.getItem('connectedUser') as string) as User;
-    return connectedUser.role === UserRole.MANAGER;
-  }
-
-  isMaintenance() {
-    const connectedUser = JSON.parse(localStorage.getItem('connectedUser') as string) as User;
-    return connectedUser.role === UserRole.MAINTENANCE;
-  }
-
-  isCompanyAdmin() {
-    const connectedUser = JSON.parse(localStorage.getItem('connectedUser') as string) as User;
-    return connectedUser.role === UserRole.CONSTRUCTIONCOMPANYADMIN;
   }
 }
