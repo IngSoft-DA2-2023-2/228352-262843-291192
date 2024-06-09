@@ -16,7 +16,7 @@ namespace BuildingManagerApiTest.Controllers
         {
             var importers = new ListImportersResponse( new List<string> { "JSON", "XML"});
             var mockImporterLogic = new Mock<IImporterLogic>(MockBehavior.Strict);
-            mockImporterLogic.Setup(r => r.ListImporters()).Returns(new List<string> { "JSON", "XML" });
+            mockImporterLogic.Setup(r => r.ListImportersNames()).Returns(new List<string> { "JSON", "XML" });
             var importerController = new ImporterController(mockImporterLogic.Object);
 
             var result = importerController.GetImporters() as OkObjectResult;
