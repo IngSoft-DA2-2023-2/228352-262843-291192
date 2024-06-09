@@ -44,6 +44,7 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpGet]
+        [AuthenticationFilter(RoleType.ADMIN)]
         public IActionResult ListBuildings()
         {
             ListBuildingsResponse listBuildingsResponse = new(_buildingLogic.ListBuildings());
