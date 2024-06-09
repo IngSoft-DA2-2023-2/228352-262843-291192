@@ -7,24 +7,31 @@ import Swal from 'sweetalert2';
 import * as bootstrap from 'bootstrap';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateCategory } from '../../models/CreateCategory';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NgFor, HttpClientModule, CommonModule, FormsModule, NgIf],
+  imports: [NgFor, HttpClientModule, CommonModule, FormsModule, NgIf, ReactiveFormsModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
   providers: [CategoryService]
 })
 export class CategoriesComponent implements OnInit {
-  constructor(public routerServices: Router, public categoryService: CategoryService) { }
+  constructor(public routerServices: Router, public categoryService: CategoryService, private fb: FormBuilder) {
+    this.newCategoryForm = this.fb.group({
+      name: [''],
+
+    });
+  }
 
   categories: Category[] = [];
   chosenCategory: Category | undefined;
   error: string = "";
   parentCategory: string = "";
   modal: bootstrap.Modal | undefined;
+  newCategoryForm: FormGroup;
 
   ngOnInit(): void {
     var categoriesObservable: Observable<Category[]> | null = this.categoryService.getCategories();
@@ -88,6 +95,59 @@ export class CategoriesComponent implements OnInit {
   onParentCategoryChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.parentCategory = selectElement.value;
+  }
+
+  getParentCandidates() {
+    var categories: Category[] = []
+    if (this.chosenCategory != null) {
+      for (let category of this.categories) {
+        if (category.id != this.chosenCategory?.id && category.parentId != this.chosenCategory?.id) {
+          categories.push(category);
+        }
+      }
+    }
+    return categories
+  }
+
+  openNewCategoryModal(): void {
+    const modalElement = document.getElementById('newCategoryModal');
+    if (modalElement) {
+      this.modal = new bootstrap.Modal(modalElement);
+      this.modal.show();
+    }
+  }
+
+  onSubmit(): void {
+    this.error = "";
+    if (this.newCategoryForm.value.name != "") {
+      const newRequest: CreateCategory = this.newCategoryForm.value;
+      var categoriesObservable: Observable<Category> | null = this.categoryService.createCategory(newRequest);
+      if (categoriesObservable != null) {
+        categoriesObservable.subscribe(
+          response => {
+            this.categories.push(response);
+            this.modal?.hide();
+            this.closeNewCategoryModal();
+          },
+          (error: any) => {
+            this.error = error.error.errorMessage;
+          }
+        );
+
+      } else {
+        this.error = "Error al crear la categoria";
+      }
+    }
+    else {
+      this.error = "Por favor llene todos los campos";
+    }
+  }
+
+  closeNewCategoryModal() {
+    this.newCategoryForm = this.fb.group({
+      name: ['']
+    });
+    this.error = "";
   }
 
 }

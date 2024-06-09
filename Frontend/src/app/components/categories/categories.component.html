@@ -1,12 +1,12 @@
 <div class="flex flex-row items-center justify-between">
     <h1 class="h3 mr-5">Categorias</h1>
-    <!-- <button (click)="openNewMaintainerModal()">
+    <button (click)="openNewCategoryModal()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="size-8">
             <path stroke-linecap="round" stroke-linejoin="round"
                 d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
-    </button> -->
+    </button>
 </div>
 <table class="table mt-2">
     <thead class="thead-light">
@@ -19,7 +19,7 @@
     <tbody>
         <tr *ngFor="let category of categories">
             <th scope="row">{{ category.name }}</th>
-            <td>{{ category.parentId }}</td>
+            <td>{{ category.parentName || "-" }}</td>
             <td>
                 <button type="button" (click)="openAssignParentModal(category.id)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -56,8 +56,8 @@
                 <select id="parentCategory" class="ml-2 py-2 px-3 border rounded-md form-select form-select-lg"
                     aria-label=".form-select-lg example" [(ngModel)]="parentCategory"
                     (change)="onParentCategoryChange($event)">
-                    <ng-container *ngFor="let category of categories">
-                        <option [value]="category?.id" *ngIf="category?.id !== chosenCategory?.id">
+                    <ng-container *ngFor="let category of getParentCandidates()">
+                        <option [value]="category?.id">
                             {{category.name}}
                         </option>
                     </ng-container>
@@ -66,6 +66,37 @@
                     <h1 class="text-red-700">{{error}}</h1>
                     <button type="button" class="btn btn-primary" (click)="assignParent()">Vincular</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newCategoryModal" tabindex="-1" aria-labelledby="newCategoryModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl" style="max-width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newCategoryModalLabel">Crear categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="closeNewCategoryModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="newCategoryForm" (ngSubmit)="onSubmit()">
+
+                    <div class="mb-3">
+                        <label for="name" class="font-semibold form-label">Nombre</label>
+                        <input type="text" id="name" class="form-control" formControlName="name">
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                        <h1 class="text-red-700">{{error}}</h1>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
