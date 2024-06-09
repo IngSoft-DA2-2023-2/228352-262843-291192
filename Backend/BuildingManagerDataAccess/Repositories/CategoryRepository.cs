@@ -23,11 +23,29 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("ParentId");
             }
+            var isDescendant = IsDescendant(parentId, id);
+            if (isDescendant)
+            {
+                throw new InvalidOperationException("Cannot assign a descendant category as the parent.");
+            }
             Category category = _context.Set<Category>().First(c => c.Id == id);
             category.ParentId = parentId;
             _context.SaveChanges();
             category = _context.Set<Category>().Include(c => c.Parent).First(c => c.Id == id);
             return category;
+        }
+
+        private bool IsDescendant(Guid parentId, Guid id)
+        {
+            var children = _context.Set<Category>().Where(c => c.ParentId == id).ToList();
+            foreach (var child in children)
+            {
+                if (child.Id == parentId || IsDescendant(parentId, child.Id))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public Category CreateCategory(Category category)
