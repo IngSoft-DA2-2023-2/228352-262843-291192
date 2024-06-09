@@ -12,6 +12,7 @@ import { CreateBuildingComponent } from './components/create-building/create-bui
 import { constructionCompanyAdminRoleGuard } from './guards/construction-company-admin-role.guard';
 import { managerRoleGuard } from './guards/manager-role.guard';
 import { RequestsComponent } from './components/requests/requests.component';
+import { MaintainersComponent } from './components/maintainers/maintainers.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authRedirectGuard], pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
       { path: 'buildings/:id', component: BuildingDetailComponent, canActivate: [constructionCompanyAdminRoleGuard] },
       { path: 'reports', component: ReportsComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
       { path: 'requests', component: RequestsComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
+      { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
     ]
   },
   { path: '**', redirectTo: '/login' }

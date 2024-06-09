@@ -183,6 +183,7 @@ export class RequestsComponent {
       apartmentNumber: [''],
       apartmentFloor: ['']
     });
+    this.error = "";
   }
 
   onSubmit(): void {
