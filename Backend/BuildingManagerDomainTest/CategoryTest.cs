@@ -27,7 +27,13 @@ namespace BuildingManagerDomainTest
             Category category = new Category { Name = name };
             Assert.AreEqual(name, category.Name);
         }
+
+        [TestMethod]
+        public void CategoryParentTest()
+        {
+            Guid parentId = Guid.NewGuid();
+            Category category = new Category { ParentId = parentId };
+            Assert.AreEqual(parentId, category.ParentId);
+        }
     }
-
-
 }

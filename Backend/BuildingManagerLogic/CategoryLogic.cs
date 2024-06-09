@@ -13,6 +13,12 @@ namespace BuildingManagerLogic
         {
             _categoryRepository = categoryRepository;
         }
+
+        public Category AssignParent(Guid id, Guid parentId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Category CreateCategory(Category category)
         {
             try

@@ -59,6 +59,34 @@ namespace BuildingManagerApiTest.Controllers
         }
 
         [TestMethod]
+        public void AssignParent_Ok()
+        {
+            var category1 = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Test1",
+                ParentId = Guid.NewGuid()
+            };
+            var category2 = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Test2",
+                ParentId = null,
+            };
+            var assignParentResponse = new CategoryResponse(category1);
+            var mockCategoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            mockCategoryLogic.Setup(x => x.AssignParent(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns(category1);
+            var controller = new CategoryController(mockCategoryLogic.Object);
+
+            var result = controller.AssignParent(category1.Id, category2.Id);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as CategoryResponse;
+
+            mockCategoryLogic.VerifyAll();
+            Assert.AreEqual(assignParentResponse, content);
+        }
+
+        [TestMethod]
         public void Equals_NullObject_ReturnsFalse()
         {
             var response = new CreateCategoryResponse(new Category { Id = Guid.NewGuid(), Name = "Test" });
