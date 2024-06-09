@@ -97,6 +97,7 @@ namespace BuildingManagerDataAccess.Context
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(b => b.ManagerId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .IsRequired(false);
         }
     }
