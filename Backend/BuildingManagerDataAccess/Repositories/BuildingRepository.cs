@@ -276,5 +276,10 @@ namespace BuildingManagerDataAccess.Repositories
             }
             return _context.Set<Building>().Where(b => b.ManagerId == managerId).ToList();
         }
+
+        public bool CheckIfBuildingExists(Building building)
+        {
+            return _context.Set<Building>().Any(b => b.Name == building.Name || b.Address == building.Address || b.Location == building.Location);
+        }
     }
 }

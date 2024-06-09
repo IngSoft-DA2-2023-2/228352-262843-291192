@@ -1445,7 +1445,7 @@ namespace BuildingManagerDataAccessTest
             Assert.AreEqual("John", result.Manager);
             Assert.AreEqual("Company 1", result.ConstructionCompany);
         }
-        
+
         [TestMethod]
         public void GetManagerBuildingsTest()
         {
@@ -1523,6 +1523,47 @@ namespace BuildingManagerDataAccessTest
             Guid managerId = Guid.NewGuid();
 
             Assert.ThrowsException<ValueNotFoundException>(() => repository.GetManagerBuildings(managerId));
+        }
+
+        [TestMethod]
+        public void CheckIdBuildingExistsTest()
+        {
+            var context = CreateDbContext("CheckIdBuildingExistsTest");
+            var repository = new BuildingRepository(context);
+            Guid buildingId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Guid constructionCompanyId = Guid.NewGuid();
+            Building building = new Building
+            {
+                Id = buildingId,
+                ManagerId = managerId,
+                Name = "Building 1",
+                Address = "Address 1",
+                Location = "Location 1",
+                ConstructionCompanyId = constructionCompanyId,
+                CommonExpenses = 1000
+            };
+            Manager manager = new Manager
+            {
+                Id = managerId,
+                Name = "John",
+                Lastname = "Doe",
+                Email = "",
+                Password = "",
+            };
+            ConstructionCompany company = new ConstructionCompany
+            {
+                Id = constructionCompanyId,
+                Name = "Company 1"
+            };
+            context.Set<Building>().Add(building);
+            context.Set<User>().Add(manager);
+            context.Set<ConstructionCompany>().Add(company);
+            context.SaveChanges();
+
+            bool result = repository.CheckIfBuildingExists(building);
+
+            Assert.IsTrue(result);
         }
     }
 }
