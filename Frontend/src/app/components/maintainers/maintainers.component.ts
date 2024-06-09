@@ -67,8 +67,7 @@ export class MaintainersComponent {
             }
           },
           (error: any) => {
-            const errorMessage: string = JSON.parse(error).errorMessage;
-            this.error = errorMessage;
+            this.error = error.error.errorMessage;
           }
         );
       }
