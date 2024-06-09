@@ -25,11 +25,13 @@ namespace BuildingManagerApiTest.Controllers
                 Id = new Guid(),
                 Name = "John",
                 Email = "john@abc.com",
+                Lastname = "Doe",
                 Password = "pass123"
             };
             _createConstructionCompanyAdminRequest = new CreateConstructionCompanyAdminRequest
             {
                 Name = "John",
+                LastName = "Doe",
                 Email = "john@abc.com",
                 Password = "pass123"
             };

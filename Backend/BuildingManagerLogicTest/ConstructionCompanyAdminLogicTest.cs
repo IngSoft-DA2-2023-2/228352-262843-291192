@@ -19,6 +19,7 @@ namespace BuildingManagerLogicTest
             {
                 Id = Guid.NewGuid(),
                 Name = "John",
+                Lastname = "Doe",
                 Email = "abc@example.com",
                 Password = "pass123"
             };
