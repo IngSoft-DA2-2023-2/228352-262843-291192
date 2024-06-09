@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } fr
 import { NgIf } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { UserRole } from '../../enums/UserRole';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-sidebar',
