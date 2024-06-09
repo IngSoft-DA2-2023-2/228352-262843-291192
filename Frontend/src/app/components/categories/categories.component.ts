@@ -21,8 +21,7 @@ import { CreateCategory } from '../../models/CreateCategory';
 export class CategoriesComponent implements OnInit {
   constructor(public routerServices: Router, public categoryService: CategoryService, private fb: FormBuilder) {
     this.newCategoryForm = this.fb.group({
-      name: [''],
-
+      name: ['']
     });
   }
 
@@ -53,6 +52,7 @@ export class CategoriesComponent implements OnInit {
     const modalElement = document.getElementById('assignParentModal');
     if (modalElement) {
       this.chosenCategory = this.categories.find(category => category.id == id);
+      this.parentCategory = this.chosenCategory?.parentId !== '00000000-0000-0000-0000-000000000000' && this.chosenCategory?.parentId != null ? this.chosenCategory?.parentId : "";
       this.modal = new bootstrap.Modal(modalElement);
       this.modal.show();
     }
@@ -89,6 +89,7 @@ export class CategoriesComponent implements OnInit {
 
   closeAssignParentModal() {
     this.modal?.hide();
+    this.parentCategory = "";
     this.chosenCategory = undefined;
     this.error = "";
   }
