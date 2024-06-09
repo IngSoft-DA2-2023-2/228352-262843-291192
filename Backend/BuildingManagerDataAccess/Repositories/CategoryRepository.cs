@@ -19,6 +19,10 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Id");
             }
+            if (!_context.Set<Category>().Any(a => a.Id == parentId))
+            {
+                throw new ValueNotFoundException("ParentId");
+            }
             Category category = _context.Set<Category>().First(c => c.Id == id);
             category.ParentId = parentId;
             _context.SaveChanges();

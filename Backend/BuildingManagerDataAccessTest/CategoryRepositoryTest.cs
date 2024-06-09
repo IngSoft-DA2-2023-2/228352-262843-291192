@@ -125,6 +125,31 @@ namespace BuildingManagerDataAccessTest
 
             Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
         }
+
+        [TestMethod]
+        public void AssignParentWithInvalidParentIdTest()
+        {
+            var context = CreateDbContext("AssignParentWithInvalidParentIdTest");
+            var repository = new CategoryRepository(context);
+            var category = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Category 1"
+            };
+            repository.CreateCategory(category);
+
+            Exception exception = null;
+            try
+            {
+                repository.AssignParent(category.Id, Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(ValueNotFoundException));
+        }
         private DbContext CreateDbContext(string name)
         {
             var options = new DbContextOptionsBuilder<BuildingManagerContext>()
