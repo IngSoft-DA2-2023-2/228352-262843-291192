@@ -84,7 +84,7 @@ namespace BuildingManagerDataAccess.Context
             .HasKey(c => new { c.ConstructionCompanyAdminId, c.ConstructionCompanyId });
 
             modelBuilder.Entity<Category>()
-                .HasOne<Category>()
+                .HasOne<Category>(c => c.Parent)
                 .WithMany()
                 .HasForeignKey(c => c.ParentId)
                 .IsRequired(false);
