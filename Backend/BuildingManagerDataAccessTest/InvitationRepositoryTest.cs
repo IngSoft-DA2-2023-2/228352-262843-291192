@@ -433,6 +433,80 @@ namespace BuildingManagerDataAccessTest
         }
 
         [TestMethod]
+        public void RespondInvitationWithAcceptedInvitationTest()
+        {
+            var context = CreateDbContext("RespondInvitationWithAcceptedInvitationTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "jhon@gmail.com",
+                Deadline = DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds(),
+                Status = InvitationStatus.ACCEPTED,
+                Role = RoleType.MANAGER
+            };
+            repository.CreateInvitation(invitation);
+
+            var invitationAnswer = new InvitationAnswer
+            {
+                InvitationId = invitation.Id,
+                Email = invitation.Email,
+                Status = InvitationStatus.ACCEPTED,
+                Password = "123456"
+            };
+
+            Exception exception = null;
+            try
+            {
+                repository.RespondInvitation(invitationAnswer);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
+        public void RespondInvitationWithRejectedInvitationTest()
+        {
+            var context = CreateDbContext("RespondInvitationWithRejectedInvitationTest");
+            var repository = new InvitationRepository(context);
+            var invitation = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "jhon@gmail.com",
+                Deadline = DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds(),
+                Status = InvitationStatus.DECLINED,
+                Role = RoleType.MANAGER
+            };
+            repository.CreateInvitation(invitation);
+
+            var invitationAnswer = new InvitationAnswer
+            {
+                InvitationId = invitation.Id,
+                Email = invitation.Email,
+                Status = InvitationStatus.ACCEPTED,
+                Password = "123456"
+            };
+
+            Exception exception = null;
+            try
+            {
+                repository.RespondInvitation(invitationAnswer);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
+        }
+
+        [TestMethod]
         public void RespondInvitationWithExpiredInvitationTest()
         {
             var context = CreateDbContext("RespondInvitationWithExpiredInvitationTest");

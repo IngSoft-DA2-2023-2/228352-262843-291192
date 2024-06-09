@@ -82,6 +82,14 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new InvalidOperationException("Invitation expired.");
             }
+            if(invitation.Status == InvitationStatus.ACCEPTED)
+            {
+                throw new InvalidOperationException("Invitation was accepted.");
+            }
+            if(invitation.Status == InvitationStatus.DECLINED)
+            {
+                throw new InvalidOperationException("Invitation was rejected.");
+            }
             invitation.Status = invitationAnswer.Status;
             _context.SaveChanges();
             return invitation;

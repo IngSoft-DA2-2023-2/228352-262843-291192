@@ -52,7 +52,7 @@ export class InvitationResponseComponent {
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'El usuario ya esta en el sistema.',
+                text: error.error.errorMessage || 'Ocurrió un error al aceptar la invitación.',
               });
               this.acceptForm.reset();
             }
@@ -113,7 +113,7 @@ export class InvitationResponseComponent {
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'La invitación ya ha sido respondida.',
+                text: error.error.errorMessage || 'Ocurrió un error al rechazar la invitación.',
               });
               this.declineForm.reset();
             }
