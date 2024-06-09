@@ -2,10 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using BuildingManagerDomain.Entities;
-using BuildingManagerIDataAccess;
 using BuildingManagerLogic;
 using BuildingManagerDomain.Enums;
-using System.Diagnostics.CodeAnalysis;
 using BuildingManagerILogic;
 
 namespace BuildingManagerLogicTest
@@ -21,6 +19,7 @@ namespace BuildingManagerLogicTest
             {
                 Id = Guid.NewGuid(),
                 Name = "John",
+                Lastname = "Doe",
                 Email = "abc@example.com",
                 Password = "pass123"
             };
@@ -41,6 +40,25 @@ namespace BuildingManagerLogicTest
             constructionCompanyLogicMock.VerifyAll();
             Assert.AreEqual(user, result);
             Assert.AreEqual(RoleType.CONSTRUCTIONCOMPANYADMIN, result.Role);
+        }
+
+        [TestMethod]
+        public void GetConstructionCompanySuccessfully()
+        {
+            var sessionToken = Guid.NewGuid();
+            var companyId = Guid.NewGuid();
+            var userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+            var constructionCompanyLogicMock = new Mock<IConstructionCompanyLogic>(MockBehavior.Strict);
+            userLogicMock.Setup(x => x.GetUserIdFromSessionToken(It.IsAny<Guid>())).Returns(Guid.NewGuid());
+            constructionCompanyLogicMock.Setup(x => x.GetCompanyIdFromUserId(It.IsAny<Guid>())).Returns(companyId);
+            constructionCompanyLogicMock.Setup(x => x.GetConstructionCompany(It.IsAny<Guid>())).Returns(new ConstructionCompany());
+            var constructionCompanyAdminLogic = new ConstructionCompanyAdminLogic(constructionCompanyLogicMock.Object, userLogicMock.Object);
+
+            var result = constructionCompanyAdminLogic.GetConstructionCompany(sessionToken);
+
+            userLogicMock.VerifyAll();
+            constructionCompanyLogicMock.VerifyAll();
+            Assert.IsNotNull(result);
         }
     }
 }

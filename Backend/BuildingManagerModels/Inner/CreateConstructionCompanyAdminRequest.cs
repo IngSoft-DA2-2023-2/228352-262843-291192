@@ -6,6 +6,7 @@ namespace BuildingManagerModels.Inner
     public class CreateConstructionCompanyAdminRequest
     {
         public string Name { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
@@ -15,6 +16,7 @@ namespace BuildingManagerModels.Inner
             return new ConstructionCompanyAdmin()
             {
                 Name = this.Name,
+                Lastname = this.LastName,
                 Email = this.Email,
                 Password = this.Password
             };

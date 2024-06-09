@@ -284,7 +284,7 @@ namespace BuildingManagerDataAccessTest
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "name"
             };
-            var staff = new User
+            var staff = new MaintenanceStaff
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
@@ -507,7 +507,7 @@ namespace BuildingManagerDataAccessTest
                 Id = new Guid("11111111-1111-1111-1111-111111111111"),
                 Name = "name"
             };
-            var staff = new User
+            var staff = new MaintenanceStaff
             {
                 Id = Guid.NewGuid(),
                 Name = "name",
