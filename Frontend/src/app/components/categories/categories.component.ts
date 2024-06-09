@@ -69,6 +69,7 @@ export class CategoriesComponent implements OnInit {
             this.error = "Error al vincular categorias";
           } else {
             oldCategory.parentId = category.parentId;
+            oldCategory.parentName = category.parentName;
             this.modal?.hide();
             this.closeAssignParentModal();
           }
