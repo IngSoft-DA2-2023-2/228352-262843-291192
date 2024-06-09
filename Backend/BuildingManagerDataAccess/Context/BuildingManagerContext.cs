@@ -83,6 +83,12 @@ namespace BuildingManagerDataAccess.Context
             modelBuilder.Entity<CompanyAdminAssociation>()
             .HasKey(c => new { c.ConstructionCompanyAdminId, c.ConstructionCompanyId });
 
+            modelBuilder.Entity<Category>()
+                .HasOne<Category>()
+                .WithMany()
+                .HasForeignKey(c => c.ParentId)
+                .IsRequired(false);
+
             modelBuilder.Entity<CompanyAdminAssociation>()
                 .HasOne<User>()
                 .WithMany()
