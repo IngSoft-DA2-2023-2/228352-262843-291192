@@ -16,7 +16,14 @@ namespace BuildingManagerLogic
 
         public Category AssignParent(Guid id, Guid parentId)
         {
-            return _categoryRepository.AssignParent(id, parentId);
+            try
+            {
+                return _categoryRepository.AssignParent(id, parentId);
+            }
+            catch (ValueNotFoundException e)
+            {
+                throw new NotFoundException(e, e.Message);
+            }
         }
 
         public Category CreateCategory(Category category)

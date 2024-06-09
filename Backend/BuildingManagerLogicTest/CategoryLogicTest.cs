@@ -92,5 +92,26 @@ namespace BuildingManagerLogicTest
 
             Assert.AreEqual(category1, result);
         }
+
+        [TestMethod]
+        public void AssingParentWithInvalidId()
+        {
+            var categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            categoryRepositoryMock.Setup(x => x.AssignParent(It.IsAny<Guid>(), It.IsAny<Guid>())).Throws(new ValueNotFoundException(""));
+            var categoryLogic = new CategoryLogic(categoryRepositoryMock.Object);
+
+            Exception exception = null;
+            try
+            {
+                categoryLogic.AssignParent(Guid.NewGuid(), Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            categoryRepositoryMock.VerifyAll();
+            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+        }
     }
 }
