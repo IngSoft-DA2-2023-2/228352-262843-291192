@@ -55,6 +55,11 @@ namespace BuildingManagerLogic
             }
         }
 
+        public List<Invitation> GetAllInvitations()
+        {
+            throw new NotImplementedException();
+        }
+
         public Invitation InvitationByEmail(string email)
         {
             try

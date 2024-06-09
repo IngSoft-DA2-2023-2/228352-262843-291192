@@ -312,5 +312,40 @@ namespace BuildingManagerApiTest.Controllers
             mockInvitationLogic.VerifyAll();
             Assert.AreEqual(content, new InvitationResponse(_invitation));
         }
+
+        [TestMethod]
+        public void GetAllInvitations_Ok()
+        {
+            Invitation invitation1 = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            Invitation invitation2 = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc2.com",
+                Name = "John2",
+                Deadline = 1755039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            var  invitations = new List<Invitation> { invitation1, invitation2 };
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.GetAllInvitations()).Returns(invitations);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+
+            var result = invitationController.GetAllInvitations();
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as ListInvitationsResponse;
+            
+            mockInvitationLogic.VerifyAll();
+            Assert.AreEqual(new ListInvitationsResponse(invitations), content);
+        }
+
        }
 }

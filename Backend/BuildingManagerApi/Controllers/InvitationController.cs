@@ -42,6 +42,14 @@ namespace BuildingManagerApi.Controllers
             return Ok(modifyInvitationResponse);
         }
 
+        [HttpGet]
+        [AuthenticationFilter(RoleType.ADMIN)]
+        public IActionResult GetAllInvitations()
+        {
+            ListInvitationsResponse modifyInvitationResponse = new (_invitationLogic.GetAllInvitations());
+            return Ok(modifyInvitationResponse);
+        }
+
         [HttpPost("{id}/response")]
         public IActionResult RespondInvitation([FromRoute] Guid id, [FromBody] RespondInvitationRequest respondInvitationRequest)
         {

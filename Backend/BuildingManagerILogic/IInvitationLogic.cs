@@ -10,5 +10,6 @@ namespace BuildingManagerILogic
         public Invitation ModifyInvitation(Guid id, long newDeadline);
         public InvitationAnswer RespondInvitation(InvitationAnswer invitationAnswer);
         public Invitation InvitationByEmail(string email);
+        public List<Invitation> GetAllInvitations();
     }
 }
