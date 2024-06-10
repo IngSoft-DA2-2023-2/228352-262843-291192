@@ -71,7 +71,7 @@ export class InvitationResponseComponent {
           );
         },
         error => {
-          const errorMessage = this.errorMessages[error.error.errorMessage] || 'Ocurrió un error al crear la invitación.';
+          const errorMessage = this.errorMessages[error.error.errorMessage];
             Swal.fire({
               icon: 'error',
               title: 'Error',

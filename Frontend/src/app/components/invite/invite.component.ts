@@ -17,10 +17,15 @@ import { InvitationsListComponent } from '../invitations-list/invitations-list.c
 export class InviteComponent {
   invitationForm: FormGroup;
 
+  private errorMessages: { [key: string]: string } = {
+    "Email already exists": "El correo ya esta en uso.",
+    "Invalid email format": "Email con formato incorrecto"
+  };
+
   constructor(private fb: FormBuilder, private invitationService: InvitationService) {
     this.invitationForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       rol: ['', Validators.required],
       deadline: ['', Validators.required]
     });
@@ -55,10 +60,12 @@ export class InviteComponent {
           this.invitationForm.reset()
         },
         error => {
+          const errorMessage = this.errorMessages[error.error.errorMessage];
+
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: error.error.errorMessage || 'Ocurrió un error al crear la invitación.',
+            text: errorMessage|| 'Ocurrió un error al crear la invitación.',
             confirmButtonText: 'Aceptar'
           });
         }
