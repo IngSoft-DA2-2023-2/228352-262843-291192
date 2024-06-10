@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import Swal from 'sweetalert2';
 import { InvitationService } from '../../services/invitation.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { Invitation } from '../../models/Invitation';
 
+export interface InvitationResponse {
+  invitations: Invitation[];
+}
 @Component({
   selector: 'app-invitation-response',
   standalone: true,
@@ -14,7 +18,13 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class InvitationResponseComponent {
   acceptForm: FormGroup;
   declineForm: FormGroup;
-  
+
+  private errorMessages: { [key: string]: string } = {
+    "Invitation not found.": "Invitación no encontrada.",
+    "Invitation expired.": "La invitación ha expirado.",
+    "Invitation was accepted.": "La invitación ya fue aceptada.",
+    "Invitation was rejected.": "La invitación ya fue rechazada."
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +46,9 @@ export class InvitationResponseComponent {
       
       this.invitationService.getInvitationByEmail(email).subscribe(
         (invitationResponse) => {
-          const id = invitationResponse.id;
+          const response = invitationResponse as unknown as InvitationResponse;
+          const invitation = response.invitations[0];
+          const id = invitation.id;
 
           this.invitationService.respondToInvitation(id??"", email, password, 0).subscribe(
             response => {
@@ -59,26 +71,12 @@ export class InvitationResponseComponent {
           );
         },
         error => {
-          console.error('Error fetching invitation:', error);
-          if (error.status === 404) {
+          const errorMessage = this.errorMessages[error.error.errorMessage] || 'Ocurrió un error al crear la invitación.';
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: 'No se encontró una invitación para este correo electrónico.',
+              text: errorMessage || 'Ocurrió un error al rechazar la invitación.',
             });
-          } else if (error.status === 410) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Invitación expirada',
-              text: 'La invitación ha expirado y ya no es válida.',
-            });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Ocurrió un error al buscar la invitación.',
-            });
-          }
         }
       );
     } else {
@@ -96,8 +94,11 @@ export class InvitationResponseComponent {
 
       this.invitationService.getInvitationByEmail(email).subscribe(
         (invitationResponse) => {
-          const id = invitationResponse.id;
-
+          const response = invitationResponse as unknown as InvitationResponse;
+          const invitation = response.invitations[0];
+          const id = invitation.id;
+          console.log('Invitation:', invitationResponse);
+          
           this.invitationService.respondToInvitation(id??"", email, '', 1).subscribe(
             response => {
               Swal.fire({
@@ -109,11 +110,11 @@ export class InvitationResponseComponent {
               
             },
             error => {
-              console.error('Error:', error);
+              const errorMessage = this.errorMessages[error.error.errorMessage] || 'Ocurrió un error al crear la invitación.';
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: error.error.errorMessage || 'Ocurrió un error al rechazar la invitación.',
+                text: errorMessage || 'Ocurrió un error al rechazar la invitación.',
               });
               this.declineForm.reset();
             }
@@ -128,6 +129,8 @@ export class InvitationResponseComponent {
               text: 'No se encontró una invitación para este correo electrónico.',
             });
           } else if (error.status === 400) { 
+            console.log('Error:', error);
+            
             Swal.fire({
               icon: 'error',
               title: 'Invitación expirada',

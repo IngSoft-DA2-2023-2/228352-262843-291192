@@ -7,6 +7,7 @@ using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
 using BuildingManagerModels.Inner;
 using BuildingManagerDomain.Enums;
+using BuildingManagerILogic;
 
 namespace BuildingManagerLogicTest
 {
@@ -420,32 +421,131 @@ namespace BuildingManagerLogicTest
         {
             var email = "john@abc.com";
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.GetInvitationByEmail(email)).Returns(_invitation);
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(email, null, null)).Returns(new List<Invitation> { _invitation});
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            var result = invitationLogic.InvitationByEmail(email);
+            var result = invitationLogic.GetAllInvitations(email, null, null);
+            var expected = new List<Invitation> { _invitation };
 
             invitationRepositoryMock.VerifyAll();
-            Assert.AreEqual(_invitation, result);
+            Assert.AreEqual(expected[0], result[0]);
         }
 
         [TestMethod]
-        public void InvitationByEmail_ThrowsNotFoundException_Failure()
+        public void GetAllInvitations_Ok()
         {
-            var email = "notfound@abc.com";
+            Invitation invitation1 = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = 1745039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            Invitation invitation2 = new Invitation
+            {
+                Id = new Guid(),
+                Email = "john@abc2.com",
+                Name = "John2",
+                Deadline = 1755039332,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            var invitations = new List<Invitation> { invitation1, invitation2 };
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.GetInvitationByEmail(email)).Throws(new ValueNotFoundException("Invitation not found."));
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(null, null, null)).Returns(invitations);
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            Exception exception = null;
-            try
-            {
-                invitationLogic.InvitationByEmail(email);
-            }
-            catch (Exception ex) { exception = ex; }
+            var result = invitationLogic.GetAllInvitations(null, null, null);
 
             invitationRepositoryMock.VerifyAll();
-            Assert.IsInstanceOfType(exception, typeof(NotFoundException));
+            Assert.AreEqual(invitations, result);
+
         }
+
+        [TestMethod]
+        public void GetAllInvitations_WithExpiredOrNearFilter_ReturnsCorrectlyFilteredInvitations()
+        {
+            var expiredOrNear = true;
+            var unixTimestampNow = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
+            var unixTimestamp24HoursAhead = unixTimestampNow + 86400;
+            var invitation1 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = unixTimestampNow - 1000,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            var invitation2 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Email = "john@abc2.com",
+                Name = "John2",
+                Deadline = unixTimestampNow + 1000,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            var invitation3 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Email = "jane@abc.com",
+                Name = "Jane",
+                Deadline = unixTimestamp24HoursAhead + 1000,
+                Status = InvitationStatus.ACCEPTED,
+                Role = RoleType.MANAGER
+            };
+            var allInvitations = new List<Invitation> { invitation1, invitation2, invitation3 };
+            var expectedFilteredInvitations = new List<Invitation> { invitation1, invitation2 };
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(null, expiredOrNear, null)).Returns(expectedFilteredInvitations);
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
+
+            var result = invitationLogic.GetAllInvitations(null, expiredOrNear, null);
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedFilteredInvitations.Count, result.Count);
+            Assert.IsTrue(result.All(i => i.Deadline <= unixTimestampNow || (i.Deadline > unixTimestampNow && i.Deadline <= unixTimestamp24HoursAhead)));
+        }
+
+        [TestMethod]
+        public void GetAllInvitations_WithStatusFilter_ReturnsCorrectlyFilteredInvitations()
+        {
+            var statusFilter = InvitationStatus.PENDING;
+            var invitations = new List<Invitation>
+            {
+                new Invitation
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "john@abc.com",
+                    Name = "John",
+                    Deadline = 1745039332,
+                    Status = InvitationStatus.PENDING,
+                    Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+                },
+                new Invitation
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "jane@abc.com",
+                    Name = "Jane",
+                    Deadline = 1755039332,
+                    Status = InvitationStatus.ACCEPTED,
+                    Role = RoleType.MANAGER
+                }
+            };
+
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(null, null, (int)statusFilter)).Returns(invitations.Where(i => i.Status == statusFilter).ToList());
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
+
+            var result = invitationLogic.GetAllInvitations(null, null, (int)statusFilter);
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.IsTrue(result.All(i => i.Status == statusFilter));
+        }
+
     }
 }
