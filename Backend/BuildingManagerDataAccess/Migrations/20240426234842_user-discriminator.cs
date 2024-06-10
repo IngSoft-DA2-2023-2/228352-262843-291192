@@ -12,6 +12,11 @@ namespace BuildingManagerDataAccess.Migrations
                 name: "Discriminator",
                 table: "Users",
                 newName: "user_type");
+
+            migrationBuilder.InsertData(
+                               table: "Users",
+                               columns: new[] { "Id", "Email", "Name", "Lastname", "Password", "Role", "user_type" },
+                               values: new object[] { Guid.NewGuid(), "admin@admin.com", "Homero", "Simpson", "password", 0, "admin_user" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

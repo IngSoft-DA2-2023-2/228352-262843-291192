@@ -20,17 +20,20 @@ namespace BuildingManagerLogic
             }
             foreach (var request in Requests.Where(r => r.BuildingId == identifier))
             {
-                if (SortedRequests.ContainsKey(request.MaintainerStaffId.ToString()))
+                if (request.MaintainerStaffId != Guid.Empty && request.MaintainerStaffId != null)
                 {
-                    SortedRequests[request.MaintainerStaffId.ToString()].Add(request);
-                }
-                else
-                {
-                    List<Request> newList = new List<Request>
+                    if (SortedRequests.ContainsKey(request.MaintainerStaffId.ToString()))
+                    {
+                        SortedRequests[request.MaintainerStaffId.ToString()].Add(request);
+                    }
+                    else
+                    {
+                        List<Request> newList = new List<Request>
                     {
                         request
                     };
-                    SortedRequests[request.MaintainerStaffId.ToString()] = newList;
+                        SortedRequests[request.MaintainerStaffId.ToString()] = newList;
+                    }
                 }
             }
         }
