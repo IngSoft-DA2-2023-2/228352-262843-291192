@@ -1,0 +1,12 @@
+input[type="file"] {
+  display: none;
+}
+
+.drad-and-drop{
+  background-color: white;
+}
+
+.drad-and-drop-on-file{
+  background-color: #ebf8ff;
+  border: 2px dashed #3182ce;
+}
