@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Invitation } from '../models/Invitation';
-import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +47,3 @@ export class InvitationService {
   }
 
 }
-  
