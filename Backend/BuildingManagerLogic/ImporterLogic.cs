@@ -59,7 +59,12 @@ namespace BuildingManagerLogic
                     };
                     apartments.Add(a);
                 }
-                Guid managerId = _userLogic.GetManagerIdFromEmail(building.Manager);
+
+                Guid? managerId = null;
+                if (building.Manager != null && building.Manager != "" && building.Manager != "null")
+                {
+                    _userLogic.GetManagerIdFromEmail(building.Manager);
+                }
                 Building b = new Building()
                 {
                     Id = buildingId,
