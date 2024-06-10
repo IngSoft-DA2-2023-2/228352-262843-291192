@@ -90,10 +90,6 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
-            if (invitation.Deadline < DateTimeOffset.UtcNow.ToUnixTimeSeconds())
-            {
-                throw new InvalidOperationException("Invitation expired.");
-            }
             if(invitation.Status == InvitationStatus.ACCEPTED)
             {
                 throw new InvalidOperationException("Invitation was accepted.");
@@ -101,6 +97,10 @@ namespace BuildingManagerDataAccess.Repositories
             if(invitation.Status == InvitationStatus.DECLINED)
             {
                 throw new InvalidOperationException("Invitation was rejected.");
+            }
+            if (invitation.Deadline < DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+            {
+                throw new InvalidOperationException("Invitation expired.");
             }
             invitation.Status = invitationAnswer.Status;
             _context.SaveChanges();
