@@ -110,6 +110,7 @@ namespace BuildingManagerDataAccess.Repositories
         public List<Invitation> GetAllInvitations(string email, bool? expiredOrNear, int? status)
         {
             IQueryable<Invitation> query = _context.Set<Invitation>();
+
             if (email != null)
             {
                 query = query.Where(invitation => invitation.Email == email);
@@ -125,11 +126,14 @@ namespace BuildingManagerDataAccess.Repositories
                     (invitation.Deadline > unixTimestampNow && invitation.Deadline <= unixTimestamp24HoursAhead)
                 );
             }
+
+            if (status.HasValue)
+            {
+                query = query.Where(invitation => (int)invitation.Status == status.Value);
+            }
+
             return query.ToList();
         }
-
-
-
 
         private static void ThrowExceptionIfIsAccepted(Invitation invitation)
         {
