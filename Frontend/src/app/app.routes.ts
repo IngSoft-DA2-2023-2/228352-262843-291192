@@ -22,6 +22,7 @@ import { AdministrationComponent } from './components/administration/administrat
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
 import { adminRoleGuard } from './guards/admin-role.guard';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { ImporterComponent } from './components/importer/importer.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authRedirectGuard], pathMatch: 'full'},
@@ -39,8 +40,9 @@ export const routes: Routes = [
       { path: 'constructioncomany', component: ConstructionCompanyComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' },
       { path: 'maintainers', component: MaintainersComponent, canActivate: [managerRoleGuard], pathMatch: 'full' },
       { path: 'invite', component: InviteComponent, canActivate: [adminRoleGuard], pathMatch: 'full'},
-      { path: 'administration', component: AdministrationComponent, pathMatch: 'full'},
+      { path: 'administration', component: AdministrationComponent, canActivate: [adminRoleGuard], pathMatch: 'full'},
       { path: 'categories', component: CategoriesComponent, canActivate: [adminRoleGuard], pathMatch: 'full' },
+      { path: 'importer', component: ImporterComponent, canActivate: [constructionCompanyAdminRoleGuard], pathMatch: 'full' }
     ],
   },
   { path: '**', redirectTo: '/login' }

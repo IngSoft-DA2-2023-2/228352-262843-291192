@@ -80,10 +80,17 @@
         </a>
       </li>
 
-      <li  *ngIf="user.role == userRole.CONSTRUCTIONCOMPANYADMIN">
+      <li *ngIf="user.role == userRole.CONSTRUCTIONCOMPANYADMIN">
         <a routerLink="/manager/constructioncomany" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
            class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
           <span>Empresa constructora</span>
+        </a>
+      </li>
+
+      <li *ngIf="user.role == userRole.CONSTRUCTIONCOMPANYADMIN">
+        <a routerLink="/manager/importer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center px-4 py-2 hover:bg-customBlue hover:text-white hover:font-semibold cursor-pointer no-underline">
+          <span>Importador</span>
         </a>
       </li>
 
