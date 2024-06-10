@@ -57,7 +57,7 @@ namespace BuildingManagerLogic
 
         public List<Invitation> GetAllInvitations(string email, bool? expiredOrNear, int? status)
         {
-            return _invitationRepository.GetAllInvitations(email, expiredOrNear);
+            return _invitationRepository.GetAllInvitations(email, expiredOrNear, status);
         }
 
         public Invitation ModifyInvitation(Guid id, long newDeadline)

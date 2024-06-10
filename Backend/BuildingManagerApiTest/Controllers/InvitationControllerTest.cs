@@ -370,9 +370,8 @@ namespace BuildingManagerApiTest.Controllers
                   Deadline = 1745039332,
                     Status = InvitationStatus.ACCEPTED,
                    Role = RoleType.MANAGER
-             }
+                }
          };
-
             var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
             mockInvitationLogic.Setup(x => x.GetAllInvitations(null, expiredOrNear, null)).Returns(invitations);
             var invitationController = new InvitationController(mockInvitationLogic.Object);
@@ -392,26 +391,26 @@ namespace BuildingManagerApiTest.Controllers
         {
             var status = (int)InvitationStatus.PENDING;
             var invitations = new List<Invitation>
-    {
-        new Invitation
-        {
-            Id = Guid.NewGuid(),
-            Email = "john@abc.com",
-            Name = "John",
-            Deadline = 1745039332,
-            Status = InvitationStatus.PENDING,
-            Role = RoleType.MANAGER
-        },
-        new Invitation
-        {
-            Id = Guid.NewGuid(),
-            Email = "jane@abc.com",
-            Name = "Jane",
-            Deadline = 1745039332,
-            Status = InvitationStatus.ACCEPTED,
-            Role = RoleType.MANAGER
-        }
-    };
+            {
+                new Invitation
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "john@abc.com",
+                    Name = "John",
+                    Deadline = 1745039332,
+                    Status = InvitationStatus.PENDING,
+                    Role = RoleType.MANAGER
+                },
+                new Invitation
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "jane@abc.com",
+                    Name = "Jane",
+                    Deadline = 1745039332,
+                    Status = InvitationStatus.ACCEPTED,
+                    Role = RoleType.MANAGER
+                }
+            };
 
             var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
             mockInvitationLogic.Setup(x => x.GetAllInvitations(null, null, status)).Returns(invitations.Where(i => i.Status == (InvitationStatus)status).ToList());

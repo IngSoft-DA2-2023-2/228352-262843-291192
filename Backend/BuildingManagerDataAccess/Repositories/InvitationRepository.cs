@@ -107,7 +107,7 @@ namespace BuildingManagerDataAccess.Repositories
             return invitation;
         }
 
-        public List<Invitation> GetAllInvitations(string email, bool? expiredOrNear)
+        public List<Invitation> GetAllInvitations(string email, bool? expiredOrNear, int? status)
         {
             IQueryable<Invitation> query = _context.Set<Invitation>();
             if (email != null)

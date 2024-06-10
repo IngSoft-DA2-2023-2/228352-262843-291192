@@ -595,7 +595,7 @@ namespace BuildingManagerDataAccessTest
             context.Set<Invitation>().Add(invitation);
             context.SaveChanges();
 
-            var result = repository.GetAllInvitations("john@abc.com", null);
+            var result = repository.GetAllInvitations("john@abc.com", null, null);
 
             Assert.AreEqual(invitation.Email, result[0].Email);
         }
@@ -607,7 +607,7 @@ namespace BuildingManagerDataAccessTest
             var repository = new InvitationRepository(context);
 
 
-            var invitations = repository.GetAllInvitations(null, null);
+            var invitations = repository.GetAllInvitations(null, null, null);
 
             Assert.AreEqual(context.Set<Invitation>().Count(), invitations.Count);
         }
@@ -621,7 +621,7 @@ namespace BuildingManagerDataAccessTest
 
             string testEmail = "test@test.com";
             var expectedInvitations = context.Set<Invitation>().Where(i => i.Email == testEmail).ToList();
-            var invitations = repository.GetAllInvitations(testEmail, null);
+            var invitations = repository.GetAllInvitations(testEmail, null, null);
 
             Assert.AreEqual(expectedInvitations.Count, invitations.Count);
             CollectionAssert.AreEquivalent(expectedInvitations, invitations);
@@ -635,7 +635,7 @@ namespace BuildingManagerDataAccessTest
 
 
             string nonexistentEmail = "no-reply@unknown.com";
-            var invitations = repository.GetAllInvitations(nonexistentEmail, null);
+            var invitations = repository.GetAllInvitations(nonexistentEmail, null, null);
 
             Assert.AreEqual(0, invitations.Count);
         }
@@ -679,7 +679,7 @@ namespace BuildingManagerDataAccessTest
             context.Set<Invitation>().AddRange(new[] { invitation1, invitation2, invitation3 });
             context.SaveChanges();
 
-            var result = repository.GetAllInvitations(null, true);
+            var result = repository.GetAllInvitations(null, true, null);
 
             Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result.Any(i => i.Email == "john@abc.com")); 
