@@ -6,4 +6,13 @@ export interface Invitation {
     name: string;
     deadline: number;
     role: UserRole;
-  }
+}
+
+export interface InvitationItem {
+    id?: string;
+    email: string;
+    name: string;
+    deadline: number;
+    role: UserRole;
+    editable: boolean;
+}

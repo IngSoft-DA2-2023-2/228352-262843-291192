@@ -90,10 +90,6 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueNotFoundException("Invitation not found.");
             }
-            if (invitation.Deadline < DateTimeOffset.UtcNow.ToUnixTimeSeconds())
-            {
-                throw new InvalidOperationException("Invitation expired.");
-            }
             if(invitation.Status == InvitationStatus.ACCEPTED)
             {
                 throw new InvalidOperationException("Invitation was accepted.");
@@ -102,19 +98,43 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new InvalidOperationException("Invitation was rejected.");
             }
+            if (invitation.Deadline < DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+            {
+                throw new InvalidOperationException("Invitation expired.");
+            }
             invitation.Status = invitationAnswer.Status;
             _context.SaveChanges();
             return invitation;
         }
-        public Invitation GetInvitationByEmail(string email)
+
+        public List<Invitation> GetAllInvitations(string email, bool? expiredOrNear, int? status)
         {
-            Invitation invitation = _context.Set<Invitation>().FirstOrDefault(i => i.Email == email);
-            if (invitation == null)
+            IQueryable<Invitation> query = _context.Set<Invitation>();
+
+            if (email != null)
             {
-                throw new ValueNotFoundException("Invitation not found.");
+                query = query.Where(invitation => invitation.Email == email);
             }
-            return invitation;
+
+            if (expiredOrNear.HasValue && expiredOrNear.Value)
+            {
+                long unixTimestampNow = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
+                long unixTimestamp24HoursAhead = unixTimestampNow + 86400;
+
+                query = query.Where(invitation =>
+                    invitation.Deadline <= unixTimestampNow ||
+                    (invitation.Deadline > unixTimestampNow && invitation.Deadline <= unixTimestamp24HoursAhead)
+                );
+            }
+
+            if (status.HasValue)
+            {
+                query = query.Where(invitation => (int)invitation.Status == status.Value);
+            }
+
+            return query.ToList();
         }
+
         private static void ThrowExceptionIfIsAccepted(Invitation invitation)
         {
             if (invitation.Status == InvitationStatus.ACCEPTED)

@@ -42,18 +42,18 @@ namespace BuildingManagerApi.Controllers
             return Ok(modifyInvitationResponse);
         }
 
+        [HttpGet]
+        public IActionResult GetAllInvitations([FromQuery] string? email, [FromQuery] bool? expiredOrNear, [FromQuery] int? status)
+        {
+            ListInvitationsResponse listInvitationsResponse = new(_invitationLogic.GetAllInvitations(email, expiredOrNear, status));
+            return Ok(listInvitationsResponse);
+        }
+
         [HttpPost("{id}/response")]
         public IActionResult RespondInvitation([FromRoute] Guid id, [FromBody] RespondInvitationRequest respondInvitationRequest)
         {
             RespondInvitationResponse acceptInvitationResponse = new RespondInvitationResponse(_invitationLogic.RespondInvitation(respondInvitationRequest.ToEntity(id)));
             return Ok(acceptInvitationResponse);
-        }
-
-        [HttpGet]
-        public IActionResult InvitationByEmail([FromQuery] string email)
-        {
-            InvitationResponse invitation = new InvitationResponse(_invitationLogic.InvitationByEmail(email));
-            return Ok(invitation);
         }
     }
 }
