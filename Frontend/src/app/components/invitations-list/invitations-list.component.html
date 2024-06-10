@@ -1,0 +1,29 @@
+<div class="px-4 sm:px-6 lg:px-8">
+    <div class="mt-8 flow-root">
+      <div class="p-4 sm:px-0">
+        <h2 class="text-base font-semibold leading-7 text-gray-900">
+          Invitaciones sin responder
+        </h2>
+        <p class="mt-1 text-sm leading-6 text-gray-600">
+          Aqui puedes ver las invitaciones que has enviado y que aún no han sido respondidas. Las que estan cerca de vencer, podras ampliar su fecha de vencimiento.
+        </p>
+      </div>
+      <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
+        <div class="flex bg-white rounded-lg divide-x divide-gray-200 items-center">
+          <div class="py-3.5 text-center text-sm font-semibold text-gray-900 w-[20%]">Nombre</div>
+          <div class="py-3.5 text-center text-sm font-semibold text-gray-900 w-[30%]">Email</div>
+          <div class="py-3.5 text-center text-sm font-semibold text-gray-900 w-[15%]">Rol</div>
+          <div class="py-3.5 text-center text-sm font-semibold text-gray-900 flex-1">Vencimiento</div>
+        </div>
+        
+          <app-invitation-item
+                  *ngFor="let row of rows" 
+              [rowData]="row" 
+              [editable]="isEditable(row.id??'')"
+              (save)="onSave($event)" 
+              (delete)="onDelete($event)">
+                </app-invitation-item>
+      </div>
+    </div>
+  </div>
+  

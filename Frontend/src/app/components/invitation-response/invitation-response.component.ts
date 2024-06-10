@@ -42,7 +42,7 @@ export class InvitationResponseComponent {
       
       this.invitationService.getInvitationByEmail(email).subscribe(
         (invitationResponse) => {
-          const invitation = invitationResponse.invitations[0];
+          const invitation = invitationResponse[0];
           const id = invitation.id;
 
           this.invitationService.respondToInvitation(id??"", email, password, 0).subscribe(
@@ -89,7 +89,7 @@ export class InvitationResponseComponent {
 
       this.invitationService.getInvitationByEmail(email).subscribe(
         (invitationResponse) => {
-          const invitation = invitationResponse.invitations[0];
+          const invitation = invitationResponse[0];
           const id = invitation.id;
           console.log('Invitation:', invitationResponse);
           

@@ -39,8 +39,9 @@ namespace BuildingManagerModels.Inner
             {
                 throw new InvalidArgumentException("deadline");
             }
-            long today = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            if (today >= Deadline)
+            DateTimeOffset startOfDay = DateTimeOffset.Now.Date;
+            long today = startOfDay.ToUnixTimeSeconds();
+            if (today > Deadline)
             {
                 throw new InvalidArgumentException("deadline");
             }

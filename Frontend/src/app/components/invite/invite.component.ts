@@ -5,11 +5,12 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import Swal from 'sweetalert2';
 import { InvitationService } from '../../services/invitation.service';
 import { Invitation } from '../../models/Invitation';
+import { InvitationsListComponent } from '../invitations-list/invitations-list.component';
 
 @Component({
   selector: 'app-invite',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, ReactiveFormsModule],
+  imports: [RouterOutlet, SidebarComponent, ReactiveFormsModule, InvitationsListComponent],
   templateUrl: './invite.component.html',
   styleUrls: ['./invite.component.css']
 })
