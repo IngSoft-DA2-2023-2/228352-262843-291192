@@ -32,6 +32,10 @@ export class CategoriesComponent implements OnInit {
   modal: bootstrap.Modal | undefined;
   newCategoryForm: FormGroup;
 
+  private errorMessages: { [key: string]: string } = {
+    "Name already exists": "Categoria existente.",
+  };
+
   ngOnInit(): void {
     var categoriesObservable: Observable<Category[]> | null = this.categoryService.getCategories();
     if (categoriesObservable != null) {
@@ -132,7 +136,8 @@ export class CategoriesComponent implements OnInit {
             this.closeNewCategoryModal();
           },
           (error: any) => {
-            this.error = error.error.errorMessage;
+            const errorMessage = this.errorMessages[error.error.errorMessage];
+            this.error = errorMessage;
           }
         );
 

@@ -19,12 +19,13 @@ export class InviteComponent {
 
   private errorMessages: { [key: string]: string } = {
     "Email already exists": "El correo ya esta en uso.",
+    "Invalid email format": "Email con formato incorrecto"
   };
 
   constructor(private fb: FormBuilder, private invitationService: InvitationService) {
     this.invitationForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       rol: ['', Validators.required],
       deadline: ['', Validators.required]
     });
