@@ -14,7 +14,13 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class InvitationResponseComponent {
   acceptForm: FormGroup;
   declineForm: FormGroup;
-  
+
+  private errorMessages: { [key: string]: string } = {
+    "Invitation not found.": "Invitación no encontrada.",
+    "Invitation expired.": "La invitación ha expirado.",
+    "Invitation was accepted.": "La invitación ya fue aceptada.",
+    "Invitation was rejected.": "La invitación ya fue rechazada."
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -60,26 +66,12 @@ export class InvitationResponseComponent {
           );
         },
         error => {
-          console.error('Error fetching invitation:', error);
-          if (error.status === 404) {
+          const errorMessage = this.errorMessages[error.error.errorMessage] || 'Ocurrió un error al crear la invitación.';
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: 'No se encontró una invitación para este correo electrónico.',
+              text: errorMessage || 'Ocurrió un error al rechazar la invitación.',
             });
-          } else if (error.status === 410) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Invitación expirada',
-              text: 'La invitación ha expirado y ya no es válida.',
-            });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Ocurrió un error al buscar la invitación.',
-            });
-          }
         }
       );
     } else {
@@ -112,11 +104,11 @@ export class InvitationResponseComponent {
               
             },
             error => {
-              console.error('Error:', error);
+              const errorMessage = this.errorMessages[error.error.errorMessage] || 'Ocurrió un error al crear la invitación.';
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: error.error.errorMessage || 'Ocurrió un error al rechazar la invitación.',
+                text: errorMessage || 'Ocurrió un error al rechazar la invitación.',
               });
               this.declineForm.reset();
             }
