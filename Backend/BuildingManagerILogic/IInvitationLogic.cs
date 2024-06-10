@@ -9,6 +9,6 @@ namespace BuildingManagerILogic
         public Invitation DeleteInvitation(Guid id);
         public Invitation ModifyInvitation(Guid id, long newDeadline);
         public InvitationAnswer RespondInvitation(InvitationAnswer invitationAnswer);
-        public List<Invitation> GetAllInvitations(string? email = null);
+        public List<Invitation> GetAllInvitations(string? email = null, bool? expiredOrNear = null);
     }
 }

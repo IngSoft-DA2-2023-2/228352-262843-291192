@@ -302,10 +302,10 @@ namespace BuildingManagerApiTest.Controllers
         {
             var email = "john@abc.com";
             var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
-            mockInvitationLogic.Setup(x => x.GetAllInvitations(email)).Returns(new List<Invitation> { _invitation });
+            mockInvitationLogic.Setup(x => x.GetAllInvitations(email,null)).Returns(new List<Invitation> { _invitation });
             var invitationController = new InvitationController(mockInvitationLogic.Object);
 
-            var result = invitationController.GetAllInvitations(email);
+            var result = invitationController.GetAllInvitations(email,null);
             var okObjectResult = result as OkObjectResult;
             var content = okObjectResult.Value as ListInvitationsResponse;
 
@@ -336,10 +336,10 @@ namespace BuildingManagerApiTest.Controllers
             };
             var  invitations = new List<Invitation> { invitation1, invitation2 };
             var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
-            mockInvitationLogic.Setup(x => x.GetAllInvitations(null)).Returns(invitations);
+            mockInvitationLogic.Setup(x => x.GetAllInvitations(null,null)).Returns(invitations);
             var invitationController = new InvitationController(mockInvitationLogic.Object);
 
-            var result = invitationController.GetAllInvitations(null);
+            var result = invitationController.GetAllInvitations(null,null);
             var okObjectResult = result as OkObjectResult;
             var content = okObjectResult.Value as ListInvitationsResponse;
             
@@ -347,5 +347,45 @@ namespace BuildingManagerApiTest.Controllers
             Assert.AreEqual(new ListInvitationsResponse(invitations), content);
         }
 
-       }
+        [TestMethod]
+        public void GetAllInvitations_WithExpiredOrNearFilter_Ok()
+        {
+            var expiredOrNear = true;
+            var invitations = new List<Invitation>
+            {
+                new Invitation
+                {
+                    Id = Guid.NewGuid(),
+                            Email = "john@abc.com",
+                    Name = "John",
+                    Deadline = 1745039332,
+                    Status = InvitationStatus.PENDING,
+                    Role = RoleType.MANAGER
+               },
+                new Invitation
+                {
+                   Id = Guid.NewGuid(),
+                    Email = "jane@abc.com",
+                 Name = "Jane",
+                  Deadline = 1745039332,
+                    Status = InvitationStatus.ACCEPTED,
+                   Role = RoleType.MANAGER
+             }
+         };
+
+            var mockInvitationLogic = new Mock<IInvitationLogic>(MockBehavior.Strict);
+            mockInvitationLogic.Setup(x => x.GetAllInvitations(null, expiredOrNear)).Returns(invitations);
+            var invitationController = new InvitationController(mockInvitationLogic.Object);
+
+            var result = invitationController.GetAllInvitations(null, expiredOrNear);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as ListInvitationsResponse;
+
+            mockInvitationLogic.VerifyAll();
+            Assert.IsNotNull(content);
+            Assert.AreEqual(invitations.Count, content.Invitations.Count);
+            Assert.IsTrue(content.Invitations.All(i => i.Status == InvitationStatus.PENDING || i.Deadline <= DateTime.UtcNow.AddMinutes(5).Ticks));
+        }
+
+    }
 }
