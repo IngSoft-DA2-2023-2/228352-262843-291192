@@ -43,4 +43,9 @@ export class BuildingService {
       return this.http.get<ManagerBuildings>(`${environment.apiUrl}/managers/${managerConnectedJson.userId}/buildings`, { headers: headers });
     } else return null
   }
+
+  public updateBuildingManager(buildingId: string, managerId: string): Observable<any> {
+    const url = `${environment.apiUrl}/buildings/${buildingId}/managers`;
+    return this.http.put(url, { managerId: managerId });
+  }
 }

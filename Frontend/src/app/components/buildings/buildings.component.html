@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1 class="font-bold text-2xl	text-center border-y-4">Edificios</h1>
+      <h1 class="font-bold text-2xl text-center border-y-4">Edificios</h1>
       <div class="grid justify-items-end">
         <a [routerLink]="['/manager/buildings/create']" class="btn btn-primary">Crear edificio</a>
       </div>
@@ -21,10 +21,37 @@
             <td>{{ building.manager }}</td>
             <td class="flex space-x-4">
               <a onclick="buildingName=building.name" [routerLink]="['/manager/buildings', building.id]" class="btn btn-primary">Modificar</a>
-              <a><button (click)="openDeleteBuildingModal(building.id)" class="btn btn-danger">Eliminar</button></a>
+              <button (click)="openDeleteBuildingModal(building.id)" class="btn btn-danger">Eliminar</button>
+              <button (click)="openAddManagerModal(building.id)" class="btn btn-secondary">Modificar Manager</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+  
+  <div class="modal" [ngClass]="{'show': isAddManagerModalOpen}" tabindex="-1" role="dialog" style="display: block;" *ngIf="isAddManagerModalOpen">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Manager</h5>
+          <button type="button" class="close" (click)="closeAddManagerModal()">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="managerSelect">Selecciona un Manager</label>
+            <select id="managerSelect" [(ngModel)]="selectedManagerId" class="form-control">
+              <option *ngFor="let manager of managers" [value]="manager.id">{{ manager.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeAddManagerModal()">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="assignManager()">Asignar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
