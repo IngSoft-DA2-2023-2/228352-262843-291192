@@ -3,7 +3,6 @@ using BuildingManagerIDataAccess;
 using BuildingManagerILogic;
 using BuildingManagerILogic.Exceptions;
 using BuildingManagerIDataAccess.Exceptions;
-using System;
 using BuildingManagerLogic.Helpers;
 using BuildingManagerDomain.Enums;
 
@@ -84,7 +83,7 @@ namespace BuildingManagerLogic
                 User manager = null;
                 if (invitation.Status == InvitationStatus.ACCEPTED)
                 {
-                    manager = _userRepository.CreateUser(UserFromInvitation.Create(invitationAnswer, invitation.Name));
+                    manager = _userRepository.CreateUser(UserFromInvitation.Create(invitationAnswer, invitation));
 
                 } 
                 return InvitationResponder.CreateAnswer(manager, invitation);

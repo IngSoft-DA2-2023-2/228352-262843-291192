@@ -337,6 +337,15 @@ namespace BuildingManagerLogicTest
         [TestMethod]
         public void RespondInvitationSuccessfully()
         {
+            Invitation invitation = new Invitation()
+            {
+                Id = new Guid(),
+                Name = "John",
+                Email = "john@abc.com",
+                Deadline = 1745039332,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+
             var answer = new InvitationAnswer()
             {
                 InvitationId = _invitation.Id,
@@ -346,6 +355,31 @@ namespace BuildingManagerLogicTest
             };
 
             var user = new User { Id = new Guid(), Name = "John", Email = "john@abc.com", Role = RoleType.MANAGER, Password = "123456" };
+
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+            usersRepositoryMock.Setup(x => x.CreateUser(It.IsAny<User>())).Returns(user);
+            invitationRepositoryMock.Setup(x => x.RespondInvitation(It.IsAny<InvitationAnswer>())).Returns(invitation);
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, usersRepositoryMock.Object);
+
+            var result = invitationLogic.RespondInvitation(answer);
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.AreEqual(answer, result);
+        }
+
+        [TestMethod]
+        public void RespondCCAdminInvitationSuccessfully()
+        {
+            var answer = new InvitationAnswer()
+            {
+                InvitationId = _invitation.Id,
+                Status = InvitationStatus.ACCEPTED,
+                Email = "john@abc.com",
+                Password = "123456"
+            };
+
+            var user = new User { Id = new Guid(), Name = "John", Email = "john@abc.com", Role = RoleType.CONSTRUCTIONCOMPANYADMIN, Password = "123456" };
 
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
             var usersRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);

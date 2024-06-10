@@ -47,7 +47,7 @@ export class ImporterComponent {
         (response: Owner) => {
           Swal.fire({
             title: 'Propietario agregado',
-            text: 'El propietario '+response.name+' se ha agregado correctamente.',
+            text: 'El propietario ' + response.name + ' se ha agregado correctamente.',
             icon: 'success',
             confirmButtonText: 'OK'
           });
@@ -84,6 +84,7 @@ export class ImporterComponent {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     this.uploadFile(file);
+    event.target.value = '';
   }
 
   uploadFile(file: File) {
