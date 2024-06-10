@@ -421,10 +421,10 @@ namespace BuildingManagerLogicTest
         {
             var email = "john@abc.com";
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.GetAllInvitations(email)).Returns(new List<Invitation> { _invitation});
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(email, null)).Returns(new List<Invitation> { _invitation});
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            var result = invitationLogic.GetAllInvitations(email);
+            var result = invitationLogic.GetAllInvitations(email, null);
             var expected = new List<Invitation> { _invitation };
 
             invitationRepositoryMock.VerifyAll();
@@ -454,14 +454,63 @@ namespace BuildingManagerLogicTest
             };
             var invitations = new List<Invitation> { invitation1, invitation2 };
             var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
-            invitationRepositoryMock.Setup(x => x.GetAllInvitations(null)).Returns(invitations);
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(null, null)).Returns(invitations);
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            var result = invitationLogic.GetAllInvitations(null);
+            var result = invitationLogic.GetAllInvitations(null, null);
 
             invitationRepositoryMock.VerifyAll();
             Assert.AreEqual(invitations, result);
 
         }
+
+        [TestMethod]
+        public void GetAllInvitations_WithExpiredOrNearFilter_ReturnsCorrectlyFilteredInvitations()
+        {
+            var expiredOrNear = true;
+            var unixTimestampNow = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
+            var unixTimestamp24HoursAhead = unixTimestampNow + 86400;
+            var invitation1 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Email = "john@abc.com",
+                Name = "John",
+                Deadline = unixTimestampNow - 1000,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            var invitation2 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Email = "john@abc2.com",
+                Name = "John2",
+                Deadline = unixTimestampNow + 1000,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.CONSTRUCTIONCOMPANYADMIN
+            };
+            var invitation3 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Email = "jane@abc.com",
+                Name = "Jane",
+                Deadline = unixTimestamp24HoursAhead + 1000,
+                Status = InvitationStatus.ACCEPTED,
+                Role = RoleType.MANAGER
+            };
+            var allInvitations = new List<Invitation> { invitation1, invitation2, invitation3 };
+            var expectedFilteredInvitations = new List<Invitation> { invitation1, invitation2 };
+            var invitationRepositoryMock = new Mock<IInvitationRepository>(MockBehavior.Strict);
+            invitationRepositoryMock.Setup(x => x.GetAllInvitations(null, expiredOrNear)).Returns(expectedFilteredInvitations);
+            var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
+
+            var result = invitationLogic.GetAllInvitations(null, expiredOrNear);
+
+            invitationRepositoryMock.VerifyAll();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedFilteredInvitations.Count, result.Count);
+            Assert.IsTrue(result.All(i => i.Deadline <= unixTimestampNow || (i.Deadline > unixTimestampNow && i.Deadline <= unixTimestamp24HoursAhead)));
+        }
+
+
     }
 }
