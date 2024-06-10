@@ -7,7 +7,7 @@ namespace BuildingManagerDataAccess.Repositories
 {
     public class ConstructionCompanyRepository : IConstructionCompanyRepository
     {
-        private DbContext _context;
+        private readonly DbContext _context;
         public ConstructionCompanyRepository(DbContext context)
         {
             _context = context;
@@ -19,10 +19,12 @@ namespace BuildingManagerDataAccess.Repositories
             {
                 throw new ValueDuplicatedException("Company User Association");
             }
-            if (!_context.Set<ConstructionCompany>().Any(a => a.Id == companyId)){
+            if (!_context.Set<ConstructionCompany>().Any(a => a.Id == companyId))
+            {
                 throw new ValueNotFoundException("Construction Company");
             }
-            if (!_context.Set<User>().Any(a => a.Id == userId)){
+            if (!_context.Set<User>().Any(a => a.Id == userId))
+            {
                 throw new ValueNotFoundException("User");
             }
             var companyAdminAssociation = new CompanyAdminAssociation
@@ -115,7 +117,7 @@ namespace BuildingManagerDataAccess.Repositories
             foreach (var building in buildings)
             {
                 string managerName = "";
-                if(_context.Set<User>().Any(a => a.Id == building.ManagerId))
+                if (_context.Set<User>().Any(a => a.Id == building.ManagerId))
                 {
                     managerName = _context.Set<User>().First(i => i.Id == building.ManagerId).Name;
                 }

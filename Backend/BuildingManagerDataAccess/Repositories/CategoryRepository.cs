@@ -7,7 +7,7 @@ namespace BuildingManagerDataAccess.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private DbContext _context;
+        private readonly DbContext _context;
         public CategoryRepository(DbContext context)
         {
             _context = context;
