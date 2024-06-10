@@ -7,17 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerApi", "Build
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerApiTest", "BuildingManagerApiTest\BuildingManagerApiTest.csproj", "{09471835-DA6A-4119-974B-CC1C2EE6A505}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerILogic", "BuildingManagerILogic\BuildingManagerILogic.csproj", "{6BB93EB8-4315-4575-BBA0-069B6C6531D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerILogic", "BuildingManagerILogic\BuildingManagerILogic.csproj", "{6BB93EB8-4315-4575-BBA0-069B6C6531D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerDomain", "BuildingManagerDomain\BuildingManagerDomain.csproj", "{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerDomain", "BuildingManagerDomain\BuildingManagerDomain.csproj", "{72C40B2B-1AA9-4260-BF0A-2636CB4921B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerModels", "BuildingManagerModels\BuildingManagerModels.csproj", "{3654A562-BE01-4AB7-BC5E-A669DD1518AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerModels", "BuildingManagerModels\BuildingManagerModels.csproj", "{3654A562-BE01-4AB7-BC5E-A669DD1518AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerDomainTest", "BuildingManagerDomainTest\BuildingManagerDomainTest.csproj", "{593A3950-F867-4146-96F1-F36D100077EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerLogic", "BuildingManagerLogic\BuildingManagerLogic.csproj", "{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerLogic", "BuildingManagerLogic\BuildingManagerLogic.csproj", "{EA8DFFC8-28CE-44C1-9360-3946EC8F0530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerIDataAccess", "BuildingManagerIDataAccess\BuildingManagerIDataAccess.csproj", "{8E60E332-954E-4573-9DF9-C169CE3C3D5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerIDataAccess", "BuildingManagerIDataAccess\BuildingManagerIDataAccess.csproj", "{8E60E332-954E-4573-9DF9-C169CE3C3D5E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerLogicTest", "BuildingManagerLogicTest\BuildingManagerLogicTest.csproj", "{5B2E724B-B1FB-4294-9D6A-87EF153DD90C}"
 EndProject
@@ -27,15 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerDataAccess",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerServiceFactory", "BuildingManagerServiceFactory\BuildingManagerServiceFactory.csproj", "{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonImporterTest", "JsonImporterTest\JsonImporterTest.csproj", "{FB52D785-76F8-4F8E-B755-CB6A137694C0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonImporter", "JsonImporter\JsonImporter.csproj", "{CC283D17-741A-4E8C-B8D5-F5B65C94D808}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerIImporter", "BuildingManagerIImporter\BuildingManagerIImporter.csproj", "{DCD5ED88-0856-4BCE-B630-53A0E4BC00E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingManagerIImporterTest", "BuildingManagerIImporterTest\BuildingManagerIImporterTest.csproj", "{D5BCCFD6-CCAD-43E4-9877-2A25D559D87D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingManagerIImporterTest", "BuildingManagerIImporterTest\BuildingManagerIImporterTest.csproj", "{D5BCCFD6-CCAD-43E4-9877-2A25D559D87D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlImporter", "XmlImporter\XmlImporter.csproj", "{90EA64F3-63A7-44AB-A348-DA1732228733}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XmlImporter", "XmlImporter\XmlImporter.csproj", "{90EA64F3-63A7-44AB-A348-DA1732228733}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,10 +89,6 @@ Global
 		{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{864D5423-F0FC-4BE6-BBAB-C3C4CA42E5EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB52D785-76F8-4F8E-B755-CB6A137694C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB52D785-76F8-4F8E-B755-CB6A137694C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB52D785-76F8-4F8E-B755-CB6A137694C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB52D785-76F8-4F8E-B755-CB6A137694C0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC283D17-741A-4E8C-B8D5-F5B65C94D808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC283D17-741A-4E8C-B8D5-F5B65C94D808}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC283D17-741A-4E8C-B8D5-F5B65C94D808}.Release|Any CPU.ActiveCfg = Release|Any CPU
