@@ -63,7 +63,7 @@ namespace BuildingManagerLogic
                 Guid? managerId = null;
                 if (building.Manager != null && building.Manager != "" && building.Manager != "null")
                 {
-                    _userLogic.GetManagerIdFromEmail(building.Manager);
+                    managerId = _userLogic.GetManagerIdFromEmail(building.Manager);
                 }
                 Building b = new Building()
                 {
