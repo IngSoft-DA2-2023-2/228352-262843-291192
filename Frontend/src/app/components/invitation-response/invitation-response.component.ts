@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import Swal from 'sweetalert2';
 import { InvitationService } from '../../services/invitation.service';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { Invitation } from '../../models/Invitation';
 
+export interface InvitationResponse {
+  invitations: Invitation[];
+}
 @Component({
   selector: 'app-invitation-response',
   standalone: true,
@@ -42,7 +46,8 @@ export class InvitationResponseComponent {
       
       this.invitationService.getInvitationByEmail(email).subscribe(
         (invitationResponse) => {
-          const invitation = invitationResponse[0];
+          const response = invitationResponse as unknown as InvitationResponse;
+          const invitation = response.invitations[0];
           const id = invitation.id;
 
           this.invitationService.respondToInvitation(id??"", email, password, 0).subscribe(
@@ -89,7 +94,8 @@ export class InvitationResponseComponent {
 
       this.invitationService.getInvitationByEmail(email).subscribe(
         (invitationResponse) => {
-          const invitation = invitationResponse[0];
+          const response = invitationResponse as unknown as InvitationResponse;
+          const invitation = response.invitations[0];
           const id = invitation.id;
           console.log('Invitation:', invitationResponse);
           
