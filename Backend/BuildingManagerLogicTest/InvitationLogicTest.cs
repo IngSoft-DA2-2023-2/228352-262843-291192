@@ -424,7 +424,7 @@ namespace BuildingManagerLogicTest
             invitationRepositoryMock.Setup(x => x.GetAllInvitations(email, null)).Returns(new List<Invitation> { _invitation});
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            var result = invitationLogic.GetAllInvitations(email, null);
+            var result = invitationLogic.GetAllInvitations(email, null, null);
             var expected = new List<Invitation> { _invitation };
 
             invitationRepositoryMock.VerifyAll();
@@ -457,7 +457,7 @@ namespace BuildingManagerLogicTest
             invitationRepositoryMock.Setup(x => x.GetAllInvitations(null, null)).Returns(invitations);
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            var result = invitationLogic.GetAllInvitations(null, null);
+            var result = invitationLogic.GetAllInvitations(null, null, null);
 
             invitationRepositoryMock.VerifyAll();
             Assert.AreEqual(invitations, result);
@@ -503,7 +503,7 @@ namespace BuildingManagerLogicTest
             invitationRepositoryMock.Setup(x => x.GetAllInvitations(null, expiredOrNear)).Returns(expectedFilteredInvitations);
             var invitationLogic = new InvitationLogic(invitationRepositoryMock.Object, null);
 
-            var result = invitationLogic.GetAllInvitations(null, expiredOrNear);
+            var result = invitationLogic.GetAllInvitations(null, expiredOrNear, null);
 
             invitationRepositoryMock.VerifyAll();
             Assert.IsNotNull(result);

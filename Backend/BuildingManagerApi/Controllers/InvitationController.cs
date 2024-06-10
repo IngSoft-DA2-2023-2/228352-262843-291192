@@ -43,9 +43,9 @@ namespace BuildingManagerApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllInvitations([FromQuery] string? email, [FromQuery] bool? expiredOrNear)
+        public IActionResult GetAllInvitations([FromQuery] string? email, [FromQuery] bool? expiredOrNear, [FromQuery] int? status)
         {
-            ListInvitationsResponse listInvitationsResponse = new(_invitationLogic.GetAllInvitations(email, expiredOrNear));
+            ListInvitationsResponse listInvitationsResponse = new(_invitationLogic.GetAllInvitations(email, expiredOrNear, status));
             return Ok(listInvitationsResponse);
         }
 
