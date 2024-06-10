@@ -16,6 +16,10 @@ export class AdministrationComponent {
   adminForm: FormGroup;
   managers: Manager[] = [];
 
+  private errorMessages: { [key: string]: string } = {
+    "Email already exists": "El correo ya esta en uso.",
+  };
+
   constructor(private fb: FormBuilder, private managerService: ManagerService) {
     this.adminForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -56,7 +60,14 @@ export class AdministrationComponent {
         this.adminForm.reset();
       },
       error => {
-        Swal.fire('Error', 'No se pudo crear el administrador.', 'error');
+        const errorMessage = this.errorMessages[error.error.errorMessage];
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: errorMessage|| 'Ocurrió un error al crear la invitación.',
+          confirmButtonText: 'Aceptar'
+        });
       }
     );
   }
