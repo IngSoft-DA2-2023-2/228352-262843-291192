@@ -595,7 +595,7 @@ namespace BuildingManagerDataAccessTest
             context.Set<Invitation>().Add(invitation);
             context.SaveChanges();
 
-            var result = repository.GetAllInvitations("john@abc.com");
+            var result = repository.GetAllInvitations("john@abc.com", null);
 
             Assert.AreEqual(invitation.Email, result[0].Email);
         }
@@ -607,7 +607,7 @@ namespace BuildingManagerDataAccessTest
             var repository = new InvitationRepository(context);
 
 
-            var invitations = repository.GetAllInvitations(null);
+            var invitations = repository.GetAllInvitations(null, null);
 
             Assert.AreEqual(context.Set<Invitation>().Count(), invitations.Count);
         }
@@ -621,7 +621,7 @@ namespace BuildingManagerDataAccessTest
 
             string testEmail = "test@test.com";
             var expectedInvitations = context.Set<Invitation>().Where(i => i.Email == testEmail).ToList();
-            var invitations = repository.GetAllInvitations(testEmail);
+            var invitations = repository.GetAllInvitations(testEmail, null);
 
             Assert.AreEqual(expectedInvitations.Count, invitations.Count);
             CollectionAssert.AreEquivalent(expectedInvitations, invitations);
@@ -635,10 +635,58 @@ namespace BuildingManagerDataAccessTest
 
 
             string nonexistentEmail = "no-reply@unknown.com";
-            var invitations = repository.GetAllInvitations(nonexistentEmail);
+            var invitations = repository.GetAllInvitations(nonexistentEmail, null);
 
             Assert.AreEqual(0, invitations.Count);
         }
+
+        [TestMethod]
+        public void GetAllInvitations_WithExpiredOrNearFilter_ReturnsCorrectlyFilteredInvitations()
+        {
+            var context = CreateDbContext("GetAllInvitations_WithExpiredOrNearFilter_ReturnsCorrectlyFilteredInvitations");
+            var repository = new InvitationRepository(context);
+            var unixTimestampNow = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
+            var unixTimestamp24HoursAhead = unixTimestampNow + 86400;
+
+            var invitation1 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "John",
+                Email = "john@abc.com",
+                Deadline = unixTimestampNow - 100,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
+            };
+            var invitation2 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "Jane",
+                Email = "jane@abc.com",
+                Deadline = unixTimestamp24HoursAhead - 100,
+                Status = InvitationStatus.PENDING,
+                Role = RoleType.MANAGER
+            };
+            var invitation3 = new Invitation
+            {
+                Id = Guid.NewGuid(),
+                Name = "Doe",
+                Email = "doe@abc.com",
+                Deadline = unixTimestamp24HoursAhead + 10000,
+                Status = InvitationStatus.ACCEPTED,
+                Role = RoleType.MANAGER
+            };
+
+            context.Set<Invitation>().AddRange(new[] { invitation1, invitation2, invitation3 });
+            context.SaveChanges();
+
+            var result = repository.GetAllInvitations(null, true);
+
+            Assert.AreEqual(2, result.Count);
+            Assert.IsTrue(result.Any(i => i.Email == "john@abc.com")); 
+            Assert.IsTrue(result.Any(i => i.Email == "jane@abc.com"));
+            Assert.IsFalse(result.Any(i => i.Email == "doe@abc.com"));
+        }
+
 
         private DbContext CreateDbContext(string name)
         {

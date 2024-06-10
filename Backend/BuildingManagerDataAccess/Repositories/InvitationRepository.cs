@@ -107,15 +107,27 @@ namespace BuildingManagerDataAccess.Repositories
             return invitation;
         }
 
-        public List<Invitation> GetAllInvitations(string email)
+        public List<Invitation> GetAllInvitations(string email, bool? expiredOrNear)
         {
             IQueryable<Invitation> query = _context.Set<Invitation>();
             if (email != null)
             {
                 query = query.Where(invitation => invitation.Email == email);
             }
+
+            if (expiredOrNear.HasValue && expiredOrNear.Value)
+            {
+                long unixTimestampNow = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
+                long unixTimestamp24HoursAhead = unixTimestampNow + 86400;
+
+                query = query.Where(invitation =>
+                    invitation.Deadline <= unixTimestampNow ||
+                    (invitation.Deadline > unixTimestampNow && invitation.Deadline <= unixTimestamp24HoursAhead)
+                );
+            }
             return query.ToList();
         }
+
 
 
 
